@@ -1,0 +1,27 @@
+<!-- BEGIN_INCLUDE(boxnet:getTicket) -->
+    <boxnet:getTicket />
+<!-- END_INCLUDE(boxnet:getTicket) -->
+<!-- BEGIN_INCLUDE(boxnet:getAuthToken) -->
+    <boxnet:getAuthToken ticket="#[map-payload:ticket]" />
+<!-- END_INCLUDE(boxnet:getAuthToken) -->
+<!-- BEGIN_INCLUDE(boxnet:registerNewUser) -->
+    <boxnet:registerNewUser email="#[map-payload:email]" password="#[map-payload:password]"/>
+<!-- END_INCLUDE(boxnet:registerNewUser) -->
+<!-- BEGIN_INCLUDE(boxnet:createFolder) -->
+    <boxnet:createFolder authToken=="#[map-payload:authToken]" parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]"share="#[map-payload:share]" />
+<!-- END_INCLUDE(boxnet:createFolder) -->
+<!-- BEGIN_INCLUDE(boxnet:uploadFiles) -->
+    <boxnet:uploadFiles authToken=="#[map-payload:authToken]" csvPaths="#[map-payload:csvPaths]" folderId="#[map-payload:folderId]" />
+<!-- END_INCLUDE(boxnet:uploadFiles) -->
+<!-- BEGIN_INCLUDE(boxnet:uploadStream) -->
+    <boxnet:uploadStream authToken=="#[map-payload:authToken]" folderId="#[map-payload:folderId]" folderName="#[map-payload:filename]" input="#[map-payload:input]" />
+<!-- END_INCLUDE(boxnet:uploadStream) -->
+<!-- BEGIN_INCLUDE(boxnet:shareFolder) -->
+    <boxnet:shareFolder authToken=="#[map-payload:authToken]" target="#[map-payload:target]" targetId="#[map-payload:targetId]" password="#[map-payload:password]" password="#[map-payload:message]" />
+<!-- END_INCLUDE(boxnet:shareFolder) -->
+<!-- BEGIN_INCLUDE(boxnet:getTreeStructure) -->
+    <boxnet:getTreeStructure authToken=="#[map-payload:authToken]" folderId="#[map-payload:folderId]" csvParams="nozip" />
+<!-- END_INCLUDE(boxnet:getTreeStructure) -->
+<!-- BEGIN_INCLUDE(boxnet:download) -->
+    <boxnet:download authToken=="#[map-payload:authToken]" fileId="#[map-payload:fileId]"/>
+<!-- END_INCLUDE(boxnet:download) -->
