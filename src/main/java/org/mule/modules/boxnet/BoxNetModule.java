@@ -42,6 +42,8 @@ import cn.com.believer.songyuanframework.openapi.storage.box.factories.BoxReques
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.BoxResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeRequest;
@@ -50,6 +52,8 @@ import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAuthTo
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAuthTokenResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetTicketRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetTicketResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserRequest;
@@ -60,9 +64,10 @@ import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.SimpleB
 import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxException;
 
 /**
- * Generic module
+ * Box.net Cloud Connector Module
  *
  * @author MuleSoft, Inc.
+ * @author mariano.gonzalez@mulesoft.com
  */
 @Module(name="boxnet", schemaVersion="1.0")
 public class BoxNetModule {
@@ -70,6 +75,8 @@ public class BoxNetModule {
 private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 	
 	private final BoxExternalAPI client = new SimpleBoxImpl();
+	private static final String TARGET_FILE = "file";
+	private static final String TARGET_FOLDER = "folder";
 	
     /**
      * The API key obtained when registering a project with the Box platform.
@@ -318,25 +325,28 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     }
     
     /**
-     * Shares the folder
+     * Shares a file or folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:shareFolder}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:share}
      *
      * @param authToken the authentication token obtained with the ticket
-     * @param target the target
-     * @param targetId target id
-     * @param password the share password
-     * @param message the share message
+     * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
+     * @param targetId The id of the item you wish to share.  If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.
+     * @param password The password to protect the folder or file.
+     * @param message An message to be included in a notification email.
      * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareResponse} with
      * 			data about the operation status and info about the shared folder (if successful)
+     * @throws {@link IllegalArgumentException} is target is invalid
      */
     @Processor
-    public PublicShareResponse shareFolder(
-    										final String authToken,
-    										final String target,
-    										final String targetId,
-    										final String password,
-    										final String message) {
+    public PublicShareResponse share(
+									final String authToken,
+									final String target,
+									final String targetId,
+									final String password,
+									final String message) {
+    	this.validateTarget(target);
+    	
     	if (logger.isDebugEnabled()) {
     		logger.debug("about to share folder with params:\nauthToken: " + authToken +
     					"\ntarget: " + target +
@@ -352,7 +362,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     					apiKey,	authToken, target, targetId, password, message, null);
     			return client.publicShare(publicShareRequest);
     		}
-		}, "shareFolder");
+		}, "share");
     }
     
     /**
@@ -418,7 +428,70 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	return response.getRawData();
     }
     
+    /**
+     * Deletes a file or folder
+     *
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:delete}
+     *
+     * @param authToken the authentication token obtained with the ticket
+     * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
+     * @param targetId The id of the item you wish to delete. If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.
+     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse} with data about the operation status
+     * @throws {@link IllegalArgumentException} is target is invalid
+     */
+    @Processor
+    public DeleteResponse delete(final String authToken, final String target, final String targetId) {
+    	this.validateTarget(target);
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("about to delete with params:\ntarget: " + target +
+    					"\ntargetId: " + targetId);
+    	}
+    	
+    	return this.execute(new BoxClosure<DeleteResponse>() {
+    		
+    		@Override
+    		public DeleteResponse execute() throws IOException, BoxException {
+    			DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target, targetId);
+    			return client.delete(deleteRequest);
+    		}
+		}, "delete");
+    }
+    
+    
+    /**
+     * Logs out the user associated with the authorization token
+     *
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:logout}
+     *
+     * @param authToken the authentication token obtained with the ticket
+     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse} with data about the operation status
+     */
+    @Processor
+    public LogoutResponse logout(final String authToken) {
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("logging off authToken: " + authToken);
+    	}
+    	
+    	return this.execute(new BoxClosure<LogoutResponse>() {
+    		
+    		@Override
+    		public LogoutResponse execute() throws IOException, BoxException {
+    			LogoutRequest logoutRequest = BoxRequestFactory.createLogoutRequest(apiKey, authToken);
+    			return client.logout(logoutRequest);
+    		}
+		}, "logout");
+    }
+    	
+    
     // internals
+    
+    private void validateTarget(String target) {
+    	if (!(TARGET_FILE.equals(target) || TARGET_FOLDER.equals(target))) {
+    		throw new IllegalArgumentException("invalid target argument was provided. Valid values are " + TARGET_FILE + " and " + TARGET_FOLDER);
+    	}
+    }
     
     private interface BoxClosure<T extends BoxResponse> {
     	

@@ -16,12 +16,18 @@
 <!-- BEGIN_INCLUDE(boxnet:uploadStream) -->
     <boxnet:uploadStream authToken=="#[map-payload:authToken]" folderId="#[map-payload:folderId]" folderName="#[map-payload:filename]" input="#[map-payload:input]" />
 <!-- END_INCLUDE(boxnet:uploadStream) -->
-<!-- BEGIN_INCLUDE(boxnet:shareFolder) -->
-    <boxnet:shareFolder authToken=="#[map-payload:authToken]" target="#[map-payload:target]" targetId="#[map-payload:targetId]" password="#[map-payload:password]" password="#[map-payload:message]" />
-<!-- END_INCLUDE(boxnet:shareFolder) -->
+<!-- BEGIN_INCLUDE(boxnet:share) -->
+    <boxnet:share authToken=="#[map-payload:authToken]" target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" password="#[map-payload:message]" />
+<!-- END_INCLUDE(boxnet:share) -->
 <!-- BEGIN_INCLUDE(boxnet:getTreeStructure) -->
     <boxnet:getTreeStructure authToken=="#[map-payload:authToken]" folderId="#[map-payload:folderId]" csvParams="nozip" />
 <!-- END_INCLUDE(boxnet:getTreeStructure) -->
 <!-- BEGIN_INCLUDE(boxnet:download) -->
     <boxnet:download authToken=="#[map-payload:authToken]" fileId="#[map-payload:fileId]"/>
 <!-- END_INCLUDE(boxnet:download) -->
+<!-- BEGIN_INCLUDE(boxnet:delete) -->
+    <boxnet:delete authToken=="#[map-payload:authToken]" targetId="#[map-payload:folderId]" target="folder"/>
+<!-- END_INCLUDE(boxnet:delete) -->
+<!-- BEGIN_INCLUDE(boxnet:logout) -->
+    <boxnet:logout authToken=="#[map-payload:authToken]"/>
+<!-- END_INCLUDE(boxnet:logout) -->

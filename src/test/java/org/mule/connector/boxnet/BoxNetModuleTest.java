@@ -35,12 +35,25 @@ public class BoxNetModuleTest extends FunctionalTestCase
         return "mule-config.xml";
     }
 
-    @Test
-    public void testFlow() throws Exception
-    {
-        runFlowAndExpect("testFlow", "Another string");
-    }
+//    @Test
+//    public void testGetTicket() throws Exception
+//    {
+//        runFlow("getTicketFlow");
+//    }
 
+    @Test
+    public void testAuthToken() throws Exception {
+        this.runFlow("testFlow");
+    }
+    
+    protected MuleEvent runFlow(String flowName) throws Exception {
+    	Flow flow = lookupFlowConstruct(flowName);
+    	MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
+    	MuleEvent responseEvent = flow.process(event);
+    	
+    	return responseEvent;
+    }
+    
     /**
     * Run the flow specified by name and assert equality on the expected output
     *
@@ -49,10 +62,7 @@ public class BoxNetModuleTest extends FunctionalTestCase
     */
     protected <T> void runFlowAndExpect(String flowName, T expect) throws Exception
     {
-        Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
-        MuleEvent responseEvent = flow.process(event);
-
+    	MuleEvent responseEvent = this.runFlow(flowName);
         assertEquals(expect, responseEvent.getMessage().getPayload());
     }
 

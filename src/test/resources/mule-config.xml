@@ -24,13 +24,28 @@
       xmlns:boxnet="http://www.mulesoft.org/schema/mule/boxnet"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd
         http://www.mulesoft.org/schema/mule/boxnet http://www.mulesoft.org/schema/mule/boxnet/1.0/mule-boxnet.xsd">
 
-    <boxnet:config myProperty="Some string"/>
+    <boxnet:config apiKey="8zy64pplxx1mp3fn9v1h3qbokyh25n98"/>
 
-    <flow name="testFlow">
-        <boxnet:my-processor content="Another string"/>
+    <flow name="getTicketFlow">
+        <boxnet:get-ticket />
+        <logger level="ERROR" message="Got Ticket: #[payload]" />
     </flow>
+
+    <flow name="getAuthTokenFlow">
+        <boxnet:get-auth-token ticket="3odya9btj0urvihx0sdvo5yxp0bl1xdq" />
+        <logger level="ERROR" message="Got Auth Token: #[payload]" />
+    </flow>
+    
+    <flow name="testFlow">
+    	<boxnet:create-folder authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" parentFolderId="0" folderName="cloudconnector-test" />
+    	<custom-transformer class="org.mule.connector.boxnet.PreUploadTransformer" />
+     	<boxnet:upload-stream authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" folderId="#[header:CREATED_FOLDER_ID]" filename="test.txt" input-ref="#[payload]" />
+        <boxnet:download authToken="" fileId=""
+
+    </flow>
+
 
 </mule>
