@@ -35,10 +35,14 @@ import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.transformer.TransformerException;
+import org.mule.transformer.codec.Base64Decoder;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.BoxExternalAPI;
 import cn.com.believer.songyuanframework.openapi.storage.box.constant.BoxConstant;
 import cn.com.believer.songyuanframework.openapi.storage.box.factories.BoxRequestFactory;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.AddToTagRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.AddToTagResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.BoxResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse;
@@ -46,20 +50,36 @@ import cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteReq
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.DownloadResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.ExportTagsRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.ExportTagsResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAuthTokenRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAuthTokenResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetFileInfoRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetFileInfoResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetTicketRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.GetTicketResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.MoveRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.MoveResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.PrivateShareRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.PrivateShareResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicUnshareRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicUnshareResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.RenameRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.RenameResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.SetDescriptionRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.SetDescriptionResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadRequest;
 import cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.VerifyRegistrationEmailRequest;
+import cn.com.believer.songyuanframework.openapi.storage.box.functions.VerifyRegistrationEmailResponse;
 import cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.SimpleBoxImpl;
 import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxException;
 
@@ -90,7 +110,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * Get and access ticket using the configured apiKey.
      * With this ticket, the user needs to manually go to {@link https://www.box.net/api/1.0/auth/<ticket>}
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:getTicket}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-ticket}
      *
      * @return the ticket key
      */
@@ -134,19 +154,19 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 	 *  </li>
 	 *	</ol>
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:getAuthToken}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-auth-token}
      *
      * @param ticket the authentication ticket obtained with {@link org.mule.connector.boxnet.BoxNetModule.getTicket()}
      * @return the authentication token
      * @throws IllegalArgumentException if the ticket does not match a logged user
      */
     @Processor
-    public String getAuthToken(final String ticket) {
+    public String getAuthToken(String ticket) {
+    	final GetAuthTokenRequest getAuthTokenRequest = BoxRequestFactory.createGetAuthTokenRequest(apiKey, ticket);
     	GetAuthTokenResponse getAuthTokenResponse = this.execute(new BoxClosure<GetAuthTokenResponse>() {
     		
     		@Override
     		public GetAuthTokenResponse execute() throws IOException, BoxException {
-    			GetAuthTokenRequest getAuthTokenRequest = BoxRequestFactory.createGetAuthTokenRequest(apiKey, ticket);
     			return client.getAuthToken(getAuthTokenRequest);
     		}
 		}, "getAuthToken");
@@ -173,24 +193,24 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Create a new user in box.net
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:registerNewUser}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:register-new-user}
      *
      * @param email the user's email
      * @param password the user's password
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserResponse} with
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserResponse} with
      * 			data about the operation status and info about the newly created user (if successful)
      */
     @Processor
-    public RegisterNewUserResponse registerNewUser(final String email, final String password) {
+    public RegisterNewUserResponse registerNewUser(String email, String password) {
     	if (logger.isDebugEnabled()) {
     		logger.debug("about to create user with email: " + email + " and pass: " + password);
     	}
     	
+    	final RegisterNewUserRequest registerNewUserRequest = BoxRequestFactory.createRegisterNewUserRequest(apiKey, email, password);
     	return this.execute(new BoxClosure<RegisterNewUserResponse>() {
     		
     		@Override
     		public RegisterNewUserResponse execute() throws IOException, BoxException {
-    			RegisterNewUserRequest registerNewUserRequest = BoxRequestFactory.createRegisterNewUserRequest(apiKey, email, password);
     			return client.registerNewUser(registerNewUserRequest);
     		}
 		}, "registerNewUser");
@@ -199,35 +219,35 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Create a new folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:createFolder}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:create-folder}
      *
      * @param authToken the authentication token obtained with the ticket
      * @param parentFolderId the id of the parent folder
      * @param folderName the name of the folder you want to create
      * @param share specifies if the folder is shared. This parameter is optional and defaults to false
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse} with
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse} with
      * 			data about the operation status and info about the newly created folder (if successful)
      */
     @Processor
-    public CreateFolderResponse createFolder(final String authToken,
-    										final String parentFolderId,
-    										final String folderName,
-    										@Optional @Default("false") final Boolean share) {
+    public CreateFolderResponse createFolder(String authToken,
+    										String parentFolderId,
+    										String folderName,
+    										@Optional @Default("false") Boolean share) {
 
     	if (logger.isDebugEnabled()) {
-    		logger.debug("About to create folder: \n" +
-    				"authToken: " + authToken +
+    		logger.debug("About to create folder:" +
     				"\nparentFolderId: " + parentFolderId +
     				"\nfolderName: " + folderName +
     				"\nshare: " + share);
     	}
     	
+    	final CreateFolderRequest createFolderRequest =
+    			BoxRequestFactory.createCreateFolderRequest(apiKey, authToken, parentFolderId, folderName, share);
+    	
     	return this.execute(new BoxClosure<CreateFolderResponse>() {
     		
     		@Override
     		public CreateFolderResponse execute() throws IOException, BoxException {
-    			CreateFolderRequest createFolderRequest =
-    	    			BoxRequestFactory.createCreateFolderRequest(apiKey, authToken, parentFolderId, folderName, share);
     			
     			return client.createFolder(createFolderRequest);
     		}
@@ -238,16 +258,16 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * Receives a comma separated list of paths and uploads the corresponding
      * files.
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:uploadFiles}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-files}
      *
      * @param authToken the authentication token obtained with the ticket
      * @param folderId the id of the parent folder
      * @param csvPaths comma separated list of paths where the files are. Cannot be null or empty. Can we just want single comma-less file.
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded files (if successful)
      */
     @Processor
-    public UploadResponse uploadFiles(final String authToken, String csvPaths, final String folderId) {
+    public UploadResponse uploadFiles(String authToken, String csvPaths, String folderId) {
     	if (StringUtils.isEmpty(csvPaths)) {
     		throw new IllegalArgumentException("you need to provide a path");
     	}
@@ -265,17 +285,18 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	}
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("about to uploadFiles with parameters:\nauthToken: " + authToken +
+    		logger.debug("about to uploadFiles with parameters:" +
     				"\ncsvPaths: " + csvPaths +
     				"\nfolderId: " + folderId
     				);
     	}
     	
+    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, folderId, files);
+    	
     	return this.execute(new BoxClosure<UploadResponse>() {
     		
     		@Override
     		public UploadResponse execute() throws IOException, BoxException {
-    			UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, folderId, files);
     			return client.upload(uploadRequest);
     		}
 		}, "uploadFiles");
@@ -284,17 +305,17 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Receives an input stream and uploads its content as a file
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:uploadStream}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-stream}
      *
      * @param authToken the authentication token obtained with the ticket
      * @param folderId the id of the parent folder
      * @param filename the name we want the file to have on box.net
      * @param input InputStream with the contents of the file.
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded file (if successful)
      */
     @Processor
-    public UploadResponse uploadStream(final String authToken, final String folderId, final String filename, InputStream input) {
+    public UploadResponse uploadStream(String authToken, String folderId, String filename, InputStream input) {
     	byte[] data = null;
     	
     	try {
@@ -307,16 +328,14 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	uploadData.put(filename, data);
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("about to uploadFile using stream with parameters:\nauthToken: " + authToken +
-    				"\nfolderId: " + folderId
-    				);
+    		logger.debug("about to uploadFile using stream to folder " + folderId);
     	}
     	
+    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, false, folderId, uploadData);
     	return this.execute(new BoxClosure<UploadResponse>() {
     		
     		@Override
     		public UploadResponse execute() throws IOException, BoxException {
-    			UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, false, folderId, uploadData);
     			return client.upload(uploadRequest);
     		}
 		}, "uploadStream");
@@ -325,75 +344,172 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     }
     
     /**
-     * Shares a file or folder
+     * Makes a public share of a file or folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:share}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:public-share}
      *
      * @param authToken the authentication token obtained with the ticket
      * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
      * @param targetId The id of the item you wish to share.  If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.
      * @param password The password to protect the folder or file.
      * @param message An message to be included in a notification email.
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareResponse} with
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.PublicShareResponse} with
      * 			data about the operation status and info about the shared folder (if successful)
-     * @throws {@link IllegalArgumentException} is target is invalid
+     * @throws {@link IllegalArgumentException} if target is invalid
      */
     @Processor
-    public PublicShareResponse share(
-									final String authToken,
-									final String target,
-									final String targetId,
-									final String password,
-									final String message) {
-    	this.validateTarget(target);
+    public PublicShareResponse publicShare(
+									String authToken,
+									String target,
+									String targetId,
+									String password,
+									String message) {
+    	validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("about to share folder with params:\nauthToken: " + authToken +
+    		logger.debug("about to share folder with params:" +
     					"\ntarget: " + target +
     					"\ntargetId: " + targetId + 
     					"\npassword: " + password + 
     					"\nmessage: " + message);
     	}
+    	
+    	final PublicShareRequest publicShareRequest = BoxRequestFactory.createPublicShareRequest(
+    			apiKey,	authToken, target, targetId, password, message, null);
+    	
     	return this.execute(new BoxClosure<PublicShareResponse>() {
     		
     		@Override
     		public PublicShareResponse execute() throws IOException, BoxException {
-    			PublicShareRequest publicShareRequest = BoxRequestFactory.createPublicShareRequest(
-    					apiKey,	authToken, target, targetId, password, message, null);
     			return client.publicShare(publicShareRequest);
     		}
-		}, "share");
+		}, "publicShare");
     }
     
     /**
-     * gets a folder's tree structure
+     * This processor unshares a public shared file or folder
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:public-unshare}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param target shoud be either 'file' or 'folder'
+     * @param targetId is id of a file or folder to be unshared
+     * @return  On a successful result, the status will be 'unshare_ok'. If the result wasn't successful, the status field can be: 'unshare_error', 'wrong_node', 'not_logged_in', 'application_restricted'.
+     * @throws {@link IllegalArgumentException} if target is invalid
+     */
+    @Processor
+    public String publicUnshare(String authToken, String target, String targetId) {
+    	validateTarget(target);
+    	final PublicUnshareRequest request = BoxRequestFactory.createPublicUnshareRequest(apiKey, authToken, target, targetId);
+    	
+    	PublicUnshareResponse response = this.execute(new BoxClosure<PublicUnshareResponse>() {
+    		
+    		@Override
+    		public PublicUnshareResponse execute() throws IOException, BoxException {
+    			return client.publicUnshare(request);
+    		}
+		}, "publicUnshare");
+    	
+    	return response.getStatus();
+    }
+    
+    /**
+     * This processor privately shares a file or folder with another user(s).
+     * 'target' param, 'target_id' is . 'emails' params is an array of emails
+     * of users' to share files with. if 'notify' param is , 'message' param .
+     * 
+     * Note: currently only files can be shared privately.
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:private-share}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param target should be either 'file' or 'folder'
+     * @param targetId the id of the file or folder to be shared
+     * @param csvMails comma separated list of email addresses of the users that will receive the share
+     * @param notify if true, then a notification email will be sent to users. Optional parameter, defaults to true
+     * @param message is a message to be included in the notification email. Optional parameter, defaults to an empty string
+     * @return if successful will be 'private_share_ok'. Otherwise can be: 'private_share_error', 'wrong_node', 'not_logged_in', 'application_restricted'.
+     * @throws {@link IllegalArgumentException} if target is invalid or csvMails is null or empty
+     */
+    @Processor
+    public String privateShare(String authToken,
+    							String target,
+    							String targetId,
+    							String csvMails,
+    							@Optional @Default("true") Boolean notify,
+    							@Optional @Default("") String message )	{
+    	
+    	validateTarget(target);
+    	
+    	if (StringUtils.isEmpty(csvMails)) {
+    		throw new IllegalArgumentException("csvMails cannot be empty");
+    	}
+    	
+    	final PrivateShareRequest request = BoxRequestFactory.createPrivateShareRequest(
+    					apiKey, authToken, target, targetId, csvMails.split(","), message, notify);
+    	
+    	PrivateShareResponse response = this.execute(new BoxClosure<PrivateShareResponse>() {
+    		
+    		@Override
+    		public PrivateShareResponse execute() throws IOException, BoxException {
+    			return client.privateShare(request);
+    		}
+		}, "privateShare");
+    	
+    	return response.getStatus();
+    }
+    
+    /**
+     * This processor is used to get a user's files and folders tree.
+     * 
+     * 'folderId' param defines root folder from which the tree begins.
+     * 'csvParams' is comma separated list where you can set additional parameters,
+     * which are: onelevel - make a tree of one level depth, so you will get
+     * only files and folders stored in folder which folder_id you have
+     * provided. nofiles - include folders only in result tree, no files. nozip
+     * - do not zip tree xml.
+     * 
+     * On successful result you will receive 'listing_ok' as status and the tree xml.
+     * if you haven't set 'nozip' as a parameter (it's set by default), then you have to unzip it. Then you will get xml like
+     * this: (note that updatedand createdare UNIX timestamps in PST).
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:getTreeStructure}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-tree-structure}
      *
      * @param authToken the authentication token obtained with the ticket
      * @param folderId The ID of the root folder from which the tree begins.  If this value is "0", the user's full account tree is returned.
-     * @param csvParams comma separated list of params. This is optional
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse} with
+     * @param csvParams comma separated list of params. This is optional and defaults to 'nozip'
+     * @param encoding optional parameter to specify the encoding to use when decoding BASE64. Defaults to UTF-8
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse} with
      * 			data about the operation status and info about the inspected folder (if successful)
      */
     @Processor
-    public GetAccountTreeResponse getTreeStructure(final String authToken, final String folderId, @Optional final String csvParams) {
+    public GetAccountTreeResponse getTreeStructure(
+    		String authToken,
+			String folderId,
+			@Optional @Default("nozip") String csvParams,
+			final @Optional @Default("UTF-8") String encoding) {
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("fetching tree structure with params:\nauthToken: " + authToken +
+    		logger.debug("fetching tree structure with params:\n" +
     					"\nfolderId: " + folderId + 
     					"\ncsvParams: " + csvParams);
     	}
     	
-    	final String[] params = StringUtils.isEmpty(csvParams) ? null : csvParams.split(",");
+    	String[] params = StringUtils.isEmpty(csvParams) ? null : csvParams.split(",");
+    	final GetAccountTreeRequest getAccountTreeRequest = BoxRequestFactory.createGetAccountTreeRequest(
+    			apiKey, authToken, folderId, params);
     	
     	return this.execute(new BoxClosure<GetAccountTreeResponse>() {
     		
     		@Override
     		public GetAccountTreeResponse execute() throws IOException,	BoxException {
-    			GetAccountTreeRequest getAccountTreeRequest = BoxRequestFactory.createGetAccountTreeRequest(
-    					apiKey, authToken, folderId, params);
-    			return client.getAccountTree(getAccountTreeRequest);
+    			GetAccountTreeResponse response = client.getAccountTree(getAccountTreeRequest);
+    			
+    			if (response.getEncodedTree() != null) {
+    				response.setEncodedTree(decodeBase64(response.getEncodedTree(), encoding));
+    			}
+    			
+    			return response;
     		}
 		}, "getTreeStructure");
     }
@@ -409,17 +525,17 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @return the file's contents as a byte array
      */
     @Processor
-    public byte[] download(final String authToken, final String fileId) {
+    public byte[] download(String authToken, String fileId) {
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("About to download file with id: " + fileId);
     	}
     	
+    	final DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, fileId, false, null);
     	DownloadResponse response = this.execute(new BoxClosure<DownloadResponse>() {
     		
     		@Override
     		public DownloadResponse execute() throws IOException, BoxException {
-    			DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, fileId, false, null);
     			return client.download(downloadRequest);
     		}
     		
@@ -436,23 +552,22 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @param authToken the authentication token obtained with the ticket
      * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
      * @param targetId The id of the item you wish to delete. If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse} with data about the operation status
-     * @throws {@link IllegalArgumentException} is target is invalid
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse} with data about the operation status
+     * @throws {@link IllegalArgumentException} if target is invalid
      */
     @Processor
     public DeleteResponse delete(final String authToken, final String target, final String targetId) {
-    	this.validateTarget(target);
+    	validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("about to delete with params:\ntarget: " + target +
-    					"\ntargetId: " + targetId);
+    		logger.debug("about to delete " + target + " " + targetId);
     	}
     	
+    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target, targetId);
     	return this.execute(new BoxClosure<DeleteResponse>() {
     		
     		@Override
     		public DeleteResponse execute() throws IOException, BoxException {
-    			DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target, targetId);
     			return client.delete(deleteRequest);
     		}
 		}, "delete");
@@ -465,31 +580,278 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:logout}
      *
      * @param authToken the authentication token obtained with the ticket
-     * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse} with data about the operation status
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse} with data about the operation status
      */
     @Processor
-    public LogoutResponse logout(final String authToken) {
+    public LogoutResponse logout(String authToken) {
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("logging off authToken: " + authToken);
     	}
     	
+    	final LogoutRequest logoutRequest = BoxRequestFactory.createLogoutRequest(apiKey, authToken);
+    	
     	return this.execute(new BoxClosure<LogoutResponse>() {
     		
     		@Override
     		public LogoutResponse execute() throws IOException, BoxException {
-    			LogoutRequest logoutRequest = BoxRequestFactory.createLogoutRequest(apiKey, authToken);
     			return client.logout(logoutRequest);
     		}
 		}, "logout");
     }
+    
+    /**
+    * This method is used to verify user registration email
+    * 
+    * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:verify-registration-email}
+    * 
+    * @param loginName The login username of the user for which you would like to verify registration.
+    * @return Upon a successful registration, the return value will be 'email_ok'.
+	*		If registration was not successful, it can be:
+	*		'email_invalid' - The login provided is not a valid email address.
+	*		'email_already_registered' - The login provided is already registered by another user.
+	*		'application_restricted'- You provided an invalid api_key, or the api_key is restricted from calling this function. 
+    */ 
+    @Processor
+    public String verifyRegistrationEmail(String loginName) {
+
+        if (logger.isDebugEnabled()) {
+        	logger.debug("checking registration email for loginName: " + loginName);
+        }
+        
+        final VerifyRegistrationEmailRequest request = BoxRequestFactory.createVerifyRegistrationEmailRequest();
+        request.setLoginName(loginName);
+        request.setApiKey(apiKey);
+        
+        return this.execute(new BoxClosure<VerifyRegistrationEmailResponse>() {
+        	
+        	@Override
+        	public VerifyRegistrationEmailResponse execute() throws IOException, BoxException {
+        		return client.verifyRegistrationEmail(request);
+        	}
+		}, "verifyRegistrationEmail").getStatus();
+    }
+    
+    /**
+     * This processor returns all the user's tags.
+     * 
+     * On successful you will get an xml representing the tags that looks like this:
+     * 
+     * <?xml version="1.0"?> <tags> <tag id="37"> music </tag> <tag id="38"> mp3
+     * </tag> </tags> If the result wasn't successful, status field can be:
+     * not_logged_id, application_restricted.
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:export-tags}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param encoding encoding to use when decoding from BASE64. Optional, defaults to UTF-8
+     * @return a String xml representing the tags
+     */
+    @Processor
+    public String exportTags(String authToken, @Optional @Default("UTF-8") String encoding) {
+    	final ExportTagsRequest request = BoxRequestFactory.createExportTagsRequest(apiKey, authToken);
     	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("getting tags");
+    	}
+    	
+    	ExportTagsResponse response = this.execute(new BoxClosure<ExportTagsResponse>() {
+    		
+    		@Override
+    		public ExportTagsResponse execute() throws IOException, BoxException {
+    			 return client.exportTags(request);
+    			
+    		}
+    		
+		}, "exportTags");
+    	
+    	if (response.getStatus().equals("export_tags_ok")) {
+    		return decodeBase64(response.getEncodedTags(), encoding);
+    	}
+    	
+    	throw new RuntimeException("Error retrieving tags. Box.net replied " + response.getStatus());
+    }
+    
+    /**
+     * This processor moves a file or folder to another folder.
+     * 
+     * 
+     * On a successful result, status will be 's_move_node'. If the result
+     * wasn't successful, status field can be: 'e_move_node', 'not_logged_in',
+     * 'application_restricted'.
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:move}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param target can be either 'file' or 'folder' depending on what do you
+     * @param targetId is the id of a file or folder to be moved
+     * @param destinationId is the destination folder id.
+     * @return if successful 's_move_node'. Otherwise it can be 'e_move_node', 'not_logged_in',
+     * 'application_restricted'.
+     */
+    @Processor
+    public String move(String authToken, String target, String targetId, String destinationId) {
+    	validateTarget(target);
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("moving " + target + " " + targetId + " to " + destinationId);
+    	}
+    	
+    	final MoveRequest request = BoxRequestFactory.createMoveRequest(apiKey, authToken, target, targetId, destinationId);
+    	
+    	MoveResponse response = this.execute(new BoxClosure<MoveResponse>() {
+    		
+    		@Override
+    		public MoveResponse execute() throws IOException, BoxException {
+    			return client.move(request);
+    		}
+		}, "move");
+    	
+    	return response.getStatus();
+    }
+    
+    /**
+     * This processor renames a file or folder.
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:move} 
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param target can be either 'file' or 'folder' depending on what you want to rename
+     * @param targetId is the id of a file or folder to be renamed
+     * @param newName is the new name for a file or folder
+     * @return if successful will be 's_rename_node'. Otherwise it can be: 'e_rename_node', 'not_logged_in', 'application_restricted'
+     */
+    @Processor
+    public String rename(String authToken, String target, String targetId, String newName) {
+    	validateTarget(target);
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("renaming " + target + " " + targetId + " to " + newName);
+    	}
+    	
+    	final RenameRequest request = BoxRequestFactory.createRenameRequest(apiKey, authToken, target, targetId, newName);
+    	
+    	RenameResponse response = this.execute(new BoxClosure<RenameResponse>() {
+    		
+    		@Override
+    		public RenameResponse execute() throws IOException, BoxException {
+    			return client.rename(request);
+    		}
+		}, "rename");
+    	
+    	return response.getStatus();
+    }
+    
+    /**
+     * Gets information about a file
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-file-info}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param fileId the id of the file you want info about
+     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetFileInfoResponse}
+     */
+    @Processor
+    public GetFileInfoResponse getFileInfo(String authToken, String fileId) {
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("getting information about file: " + fileId);
+    	}
+    	
+    	final GetFileInfoRequest request = BoxRequestFactory.createGetFileInfoRequest(apiKey, authToken, fileId);
+    	return this.execute(new BoxClosure<GetFileInfoResponse>() {
+    		
+    		@Override
+    		public GetFileInfoResponse execute() throws IOException, BoxException {
+    			return client.getFileInfo(request);
+    		}
+		}, "getFileInfo");
+    }
+    
+    /**
+     * This processor adds file or folder to tags list. 
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:add-to-tag}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param csvTags comma separated list of tags
+     * @param target can be either 'file' or 'folder' depending on what do you want to add
+     * @param targetId the id of a file or folder to be added
+     * @return 'addtotag_ok' if successful. Otherwise addtotag_error.
+     * @throws {@link IllegalArgumentException} if target is invalid or csvTags is empty
+     */
+    @Processor
+    public String addToTag(String authToken, String csvTags, String target, String targetId) {
+    	validateTarget(target);
+    	
+    	if (StringUtils.isEmpty(csvTags)) {
+    		throw new IllegalArgumentException("csvTags cannot be empty");
+    	}
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("adding tags to " + target + " " + targetId + ": " + csvTags);
+    	}
+    	
+    	final AddToTagRequest request = BoxRequestFactory.createAddToTagRequest(apiKey, authToken, csvTags.split(","), target, targetId);
+    	AddToTagResponse response = this.execute(new BoxClosure<AddToTagResponse>() {
+    		
+    		@Override
+    		public AddToTagResponse execute() throws IOException, BoxException {
+    			return client.addToTag(request);
+    		}
+		}, "addToTag");
+    	
+    	return response.getStatus();
+    }
+    
+    /**
+     * 
+     * This processor sets a description to a file or folder.
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:set-description}
+     * 
+     * @param authToken the authentication token obtained with the ticket
+     * @param target can be either 'file' or 'folder'
+     * @param targetId the id of the folder/file you want to modify
+     * @param description the description you want to set
+     * @return 's_set_description' if successful. 'e_set_description' otherwise.
+     */
+    @Processor
+    public String setDescription(String authToken, String target, String targetId, String description) {
+    	validateTarget(target);
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("setting description of " + target + " " + targetId + " to:" + description);
+    	}
+    	
+    	final SetDescriptionRequest request = BoxRequestFactory.createSetDescriptionRequest(apiKey, authToken, target, targetId, description);
+    	SetDescriptionResponse response = this.execute(new BoxClosure<SetDescriptionResponse>() {
+    		
+    		@Override
+    		public SetDescriptionResponse execute() throws IOException, BoxException {
+    			return client.setDescription(request);
+    		}
+		}, "setDescription");
+    	
+    	return response.getStatus();
+    }
+    
+    
+    
+    
     
     // internals
     
-    private void validateTarget(String target) {
+    public static void validateTarget(String target) {
     	if (!(TARGET_FILE.equals(target) || TARGET_FOLDER.equals(target))) {
     		throw new IllegalArgumentException("invalid target argument was provided. Valid values are " + TARGET_FILE + " and " + TARGET_FOLDER);
+    	}
+    }
+    
+    public static String decodeBase64(String encoded, String encoding) {
+    	try {
+    		return new String((byte[]) new Base64Decoder().doTransform(encoded, encoding));
+    	} catch (TransformerException e) {
+    		throw new RuntimeException("Error decoding Base64 value");
     	}
     }
     

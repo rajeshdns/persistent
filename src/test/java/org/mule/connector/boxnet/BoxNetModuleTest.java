@@ -20,76 +20,37 @@
  */
 package org.mule.connector.boxnet;
 
-import org.mule.api.MuleEvent;
-import org.mule.construct.Flow;
-import org.mule.tck.FunctionalTestCase;
-import org.mule.tck.AbstractMuleTestCase;
-
 import org.junit.Test;
+import org.mule.modules.boxnet.BoxNetModule;
+import org.mule.transformer.codec.Base64Encoder;
 
-public class BoxNetModuleTest extends FunctionalTestCase
-{
-    @Override
-    protected String getConfigResources()
-    {
-        return "mule-config.xml";
-    }
 
-//    @Test
-//    public void testGetTicket() throws Exception
-//    {
-//        runFlow("getTicketFlow");
-//    }
+/**
+ * TODO: actually test the methods. This is bocked until the MUnit module is released
+ * @author mariano.gonzalez@mulesoft.com
+ *
+ */
+public class BoxNetModuleTest {
 
-    @Test
-    public void testAuthToken() throws Exception {
-        this.runFlow("testFlow");
-    }
-    
-    protected MuleEvent runFlow(String flowName) throws Exception {
-    	Flow flow = lookupFlowConstruct(flowName);
-    	MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
-    	MuleEvent responseEvent = flow.process(event);
-    	
-    	return responseEvent;
-    }
-    
-    /**
-    * Run the flow specified by name and assert equality on the expected output
-    *
-    * @param flowName The name of the flow to run
-    * @param expect The expected output
-    */
-    protected <T> void runFlowAndExpect(String flowName, T expect) throws Exception
-    {
-    	MuleEvent responseEvent = this.runFlow(flowName);
-        assertEquals(expect, responseEvent.getMessage().getPayload());
-    }
-
-    /**
-    * Run the flow specified by name using the specified payload and assert
-    * equality on the expected output
-    *
-    * @param flowName The name of the flow to run
-    * @param expect The expected output
-    * @param payload The payload of the input event
-    */
-    protected <T, U> void runFlowWithPayloadAndExpect(String flowName, T expect, U payload) throws Exception
-    {
-        Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
-        MuleEvent responseEvent = flow.process(event);
-
-        assertEquals(expect, responseEvent.getMessage().getPayload());
-    }
-
-    /**
-     * Retrieve a flow by name from the registry
-     *
-     * @param name Name of the flow to retrieve
-     */
-    protected Flow lookupFlowConstruct(String name)
-    {
-        return (Flow) AbstractMuleTestCase.muleContext.getRegistry().lookupFlowConstruct(name);
-    }
+	@Test
+	public void base64() throws Exception {
+		String hello = "hello world!";
+		String encoded = (String) new Base64Encoder().doTransform(hello, "UTF-8");
+		String decoded = BoxNetModule.decodeBase64(encoded, "UTF-8");
+		
+		assert hello.equals(decoded) : "post encoding strings do not match. Obtained: " + decoded;
+	}
+	
+	public void validateFolder() {
+		 BoxNetModule.validateTarget("folder");
+		 BoxNetModule.validateTarget("file");
+		
+		try {
+			BoxNetModule.validateTarget("something else");
+			assert false : "failure expected";
+		} catch (IllegalArgumentException e) {
+			assert true;
+		}
+	}
+	
 }
