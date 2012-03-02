@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b1bbff2-ccdb-48ef-ade9-33517eac0f4b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/examples/Tutorial.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTransformer.java" afterPath="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTestTransformer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/BoxNet-connector.xml.sample" afterPath="$PROJECT_DIR$/doc/BoxNet-connector.xml.sample" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java" afterPath="$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/BoxNetModuleTest.java" afterPath="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/BoxNetModuleTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/mule-config.xml" afterPath="$PROJECT_DIR$/src/test/resources/mule-config.xml" />
     </list>
     <ignored path="boxnet-cloud-connector.iws" />
@@ -64,19 +64,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="mule-config.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="mule-config.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/mule-config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="36" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.6440678">
+            <state line="48" column="124" selection-start="2550" selection-end="2550" vertical-scroll-proportion="-10.833333">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PreUploadTransformer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTransformer.java">
+      <file leaf-file-name="AbstractMessageTransformer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/mule/mule-core/3.2.1/mule-core-3.2.1-sources.jar!/org/mule/transformer/AbstractMessageTransformer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="54" selection-start="666" selection-end="683" vertical-scroll-proportion="0.0">
+            <state line="157" column="61" selection-start="5859" selection-end="5859" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testFile.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/testFile.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="19" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostUploadTestTransformer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PostUploadTestTransformer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="12" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -84,10 +102,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoxNetModuleTest.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="BoxNetModuleTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/BoxNetModuleTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="13" selection-start="976" selection-end="976" vertical-scroll-proportion="0.0">
+            <state line="42" column="9" selection-start="1240" selection-end="1240" vertical-scroll-proportion="0.58441556">
               <folding />
             </state>
           </provider>
@@ -96,7 +114,34 @@
       <file leaf-file-name="BoxNetModule.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="296" column="126" selection-start="12951" selection-end="12951" vertical-scroll-proportion="0.0">
+            <state line="427" column="0" selection-start="18243" selection-end="18243" vertical-scroll-proportion="-5.423077">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DownloadResponse.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/functions/DownloadResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="79" selection-start="255" selection-end="255" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BoxNet-connector.xml.sample" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/BoxNet-connector.xml.sample">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="79" selection-start="1615" selection-end="1615" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UploadResult.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/objects/UploadResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="17" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -121,6 +166,12 @@
         <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/ExtractFolderIdTransformer.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/testFile.txt" />
         <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTransformer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PostUploadTransformer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/FolderTreeTestTransformer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java" />
+        <option value="$PROJECT_DIR$/doc/BoxNet-connector.xml.sample" />
+        <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/DownloadTestTransformer.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PostUploadTestTransformer.java" />
         <option value="$PROJECT_DIR$/src/test/resources/mule-config.xml" />
       </list>
     </option>
@@ -135,8 +186,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1920" />
-    <option name="height" value="1001" />
+    <option name="width" value="1440" />
+    <option name="height" value="821" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -184,6 +235,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -264,9 +316,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boxnet-cloud-connector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="boxnet-cloud-connector" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -284,9 +349,9 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RunManager" selected="JUnit.BoxNetModuleTest">
     <configuration default="false" name="BoxNetModuleTest" type="JUnit" factoryName="JUnit" temporary="true">
@@ -364,6 +429,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -389,24 +472,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -495,22 +560,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1001" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="821" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27324262" sideWeight="0.97065103" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27207977" sideWeight="0.97065103" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17502668" sideWeight="0.19727892" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1743185" sideWeight="0.34472933" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17502668" sideWeight="0.52154195" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1743185" sideWeight="0.37321937" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -575,44 +640,84 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/BoxNetModuleTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="13" selection-start="976" selection-end="976" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="296" column="126" selection-start="12951" selection-end="12951" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema.xsd">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1292" column="2" selection-start="43598" selection-end="43598" vertical-scroll-proportion="0.19466667">
-          <folding />
-        </state>
+        <state line="1292" column="2" selection-start="43598" selection-end="43598" vertical-scroll-proportion="0.19466667" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/target/generated-sources/mule/META-INF/mule-boxnet.xsd">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="40" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.31486145">
+        <state line="21" column="40" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.31486145" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTestTransformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="300" selection-end="348" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/functions/UploadResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="279" selection-end="279" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/objects/UploadResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="17" selection-start="409" selection-end="409" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/BoxNet-connector.xml.sample">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="79" selection-start="1615" selection-end="1615" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/testFile.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="19" selection-start="0" selection-end="19" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="19" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PreUploadTransformer.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/com/believer/songyuanframework/openapi/storage/box/functions/DownloadResponse.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="54" selection-start="666" selection-end="683" vertical-scroll-proportion="0.0">
+        <state line="15" column="79" selection-start="255" selection-end="255" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/mule/modules/boxnet/BoxNetModule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="427" column="0" selection-start="18243" selection-end="18243" vertical-scroll-proportion="-5.423077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/PostUploadTestTransformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="12" selection-start="1215" selection-end="1215" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mule/mule-core/3.2.1/mule-core-3.2.1-sources.jar!/org/mule/transformer/AbstractMessageTransformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="61" selection-start="5859" selection-end="5859" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/DownloadTestTransformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="0" selection-start="594" selection-end="594" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -621,7 +726,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/mule-config.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="36" selection-start="1798" selection-end="1798" vertical-scroll-proportion="0.6440678">
+        <state line="48" column="124" selection-start="2550" selection-end="2550" vertical-scroll-proportion="-10.833333">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/mule/connector/boxnet/BoxNetModuleTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="9" selection-start="1240" selection-end="1240" vertical-scroll-proportion="0.58441556">
           <folding />
         </state>
       </provider>

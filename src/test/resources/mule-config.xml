@@ -41,9 +41,12 @@
     
     <flow name="testFlow">
     	<boxnet:create-folder authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" parentFolderId="0" folderName="cloudconnector-test" />
-    	<custom-transformer class="org.mule.connector.boxnet.PreUploadTransformer" />
+    	<custom-transformer class="org.mule.connector.boxnet.PreUploadTestTransformer" />
      	<boxnet:upload-stream authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" folderId="#[header:CREATED_FOLDER_ID]" filename="test.txt" input-ref="#[payload]" />
-        <boxnet:download authToken="" fileId=""
+        <custom-transformer class="org.mule.connector.boxnet.PostUploadTestTransformer" />
+        <boxnet:download authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" fileId="#[header:UPLOADED_FILE_ID]" />
+        <custom-transformer class="org.mule.connector.boxnet.DownloadTestTransformer" />
+        <boxnet:delete authToken="5vgke7867zqi17g535q09i7xa5bzlp6t" target="folder" targetId="#[header:CREATED_FOLDER_ID]" />
 
     </flow>
 

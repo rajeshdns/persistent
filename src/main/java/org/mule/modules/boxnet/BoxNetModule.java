@@ -371,7 +371,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:getTreeStructure}
      *
      * @param authToken the authentication token obtained with the ticket
-     * @param folderId the id of the folder we want to inspect
+     * @param folderId The ID of the root folder from which the tree begins.  If this value is "0", the user's full account tree is returned.
      * @param csvParams comma separated list of params. This is optional
      * @return and instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse} with
      * 			data about the operation status and info about the inspected folder (if successful)

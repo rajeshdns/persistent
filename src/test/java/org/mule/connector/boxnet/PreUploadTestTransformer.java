@@ -8,7 +8,7 @@ import java.io.InputStream;
 /**
  * @author mariano.gonzalez@mulesoft.com
  */
-public class PreUploadTransformer extends AbstractMessageTransformer {
+public class PreUploadTestTransformer extends AbstractMessageTransformer {
 
     @Override
     public Object transformMessage(MuleMessage message, String outputEncoding) throws TransformerException {

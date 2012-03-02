@@ -20,7 +20,7 @@
     <boxnet:share authToken=="#[map-payload:authToken]" target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" password="#[map-payload:message]" />
 <!-- END_INCLUDE(boxnet:share) -->
 <!-- BEGIN_INCLUDE(boxnet:getTreeStructure) -->
-    <boxnet:getTreeStructure authToken=="#[map-payload:authToken]" folderId="#[map-payload:folderId]" csvParams="nozip" />
+    <boxnet:getTreeStructure authToken=="#[map-payload:authToken]" folderId="0" csvParams="nozip" />
 <!-- END_INCLUDE(boxnet:getTreeStructure) -->
 <!-- BEGIN_INCLUDE(boxnet:download) -->
     <boxnet:download authToken=="#[map-payload:authToken]" fileId="#[map-payload:fileId]"/>
