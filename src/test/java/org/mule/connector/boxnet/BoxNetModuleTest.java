@@ -14,7 +14,7 @@
 package org.mule.connector.boxnet;
 
 import org.junit.Test;
-import org.mule.modules.boxnet.BoxNetModule;
+import org.mule.modules.boxnet.BoxUtils;
 import org.mule.transformer.codec.Base64Encoder;
 
 
@@ -29,17 +29,17 @@ public class BoxNetModuleTest {
 	public void base64() throws Exception {
 		String hello = "hello world!";
 		String encoded = (String) new Base64Encoder().doTransform(hello, "UTF-8");
-		String decoded = BoxNetModule.decodeBase64(encoded, "UTF-8");
+		String decoded = BoxUtils.decodeBase64(encoded, "UTF-8");
 		
 		assert hello.equals(decoded) : "post encoding strings do not match. Obtained: " + decoded;
 	}
 	
 	public void validateFolder() {
-		 BoxNetModule.validateTarget("folder");
-		 BoxNetModule.validateTarget("file");
+		BoxUtils.validateTarget("folder");
+		BoxUtils.validateTarget("file");
 		
 		try {
-			BoxNetModule.validateTarget("something else");
+			BoxUtils.validateTarget("something else");
 			assert false : "failure expected";
 		} catch (IllegalArgumentException e) {
 			assert true;

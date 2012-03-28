@@ -146,7 +146,7 @@ public final class BoxHTTPManager {
             LOGGER
                     .warn("box4j-config.properties not found in classpath, use box4j-config-default.properties.");
             InputStream in = this.getClass().getResourceAsStream(
-                    BoxConstant.CONFIG_FILE_DEFAULT_NAME);
+                    "/" + BoxConstant.CONFIG_FILE_DEFAULT_NAME);
             try {
                 this.config.load(in);
             } catch (IOException e1) {
