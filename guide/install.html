@@ -182,15 +182,15 @@ information about how the Mule Plugin System works see <a href="http://www.mules
 <pre>
 &lt;repositories&gt;
     &lt;repository&gt;
-        &lt;id&gt;mulesoft-releases&lt;/id&gt;
-        &lt;name&gt;MuleSoft Repository&lt;/name&gt;
-        &lt;url&gt;https://repository.mulesoft.org/releases/&lt;/url&gt;
+        &lt;id&gt;muleforge-releases&lt;/id&gt;
+        &lt;name&gt;MuleForge Snapshot Repository&lt;/name&gt;
+        &lt;url&gt;http://repository.mulesoft.org/releases/&lt;/url&gt;
         &lt;layout&gt;default&lt;/layout&gt;
     &lt;/repository&gt;
     &lt;repository&gt;
-        &lt;id&gt;mulesoft-snapshots&lt;/id&gt;
-        &lt;name&gt;MuleSoft Snapshot Repository&lt;/name&gt;
-        &lt;url&gt;https://repository.mulesoft.org/snapshots/&lt;/url&gt;
+        &lt;id&gt;muleforge-snapshots&lt;/id&gt;
+        &lt;name&gt;MuleForge Repository&lt;/name&gt;
+        &lt;url&gt;http://repository.mulesoft.org/snapshots/&lt;/url&gt;
         &lt;layout&gt;default&lt;/layout&gt;
     &lt;/repository&gt;
 &lt;/repositories&gt;
@@ -201,9 +201,9 @@ element your POM:
 
 <pre>
 &lt;dependency&gt;
-    &lt;groupId&gt;org.mule&lt;/groupId&gt;
+    &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
     &lt;artifactId&gt;boxnet-cloud-connector&lt;/artifactId&gt;
-    &lt;version&gt;1.0&lt;/version&gt;
+    &lt;version&gt;1.1&lt;/version&gt;
 &lt;/dependency&gt;
 </pre>
 
@@ -221,7 +221,7 @@ Add an special inclusion to the configuration of the Mule Maven plugin for this 
         &lt;excludeMuleDependencies&gt;false&lt;/excludeMuleDependencies&gt;
         &lt;inclusions&gt;
             &lt;inclusion&gt;
-                &lt;groupId&gt;org.mule&lt;/groupId&gt;
+                &lt;groupId&gt;org.mule.modules&lt;/groupId&gt;
                 &lt;artifactId&gt;boxnet-cloud-connector&lt;/artifactId&gt;
             &lt;/inclusion&gt;
         &lt;/inclusions&gt;

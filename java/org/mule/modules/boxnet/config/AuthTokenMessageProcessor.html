@@ -72,7 +72,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  GetAuthTokenMessageProcessor
+  AuthTokenMessageProcessor
 
 
 | Mule Box.net Cloud Connector
@@ -202,6 +202,8 @@
   <a href="../../../../../../java/cn/com/believer/songyuanframework/openapi/storage/box/objects/package-summary.html">cn.com.believer.songyuanframework.openapi.storage.box.objects</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/package-summary.html">org.mule.modules.boxnet</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/boxnet/callback/package-summary.html">org.mule.modules.boxnet.callback</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/config/package-summary.html">org.mule.modules.boxnet.config</a></li>
     <li class="api apilevel-">
@@ -216,13 +218,13 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AddToTagMessageProcessor.html">AddToTagMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html">AuthTokenMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleCapabilitiesAdapter.html">BoxNetModuleCapabilitiesAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleLifecycleAdapter.html">BoxNetModuleLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DownloadMessageProcessor.html">DownloadMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/ExportTagsMessageProcessor.html">ExportTagsMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html">GetAuthTokenMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetFileInfoMessageProcessor.html">GetFileInfoMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTicketMessageProcessor.html">GetTicketMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTreeStructureMessageProcessor.html">GetTreeStructureMessageProcessor</a></li>
@@ -398,7 +400,7 @@ Summary:
      
     
     class
-<h1>GetAuthTokenMessageProcessor</h1>
+<h1>AuthTokenMessageProcessor</h1>
 
 
 
@@ -448,7 +450,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.config.GetAuthTokenMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.config.AuthTokenMessageProcessor</td>
     </tr>
     
 
@@ -464,7 +466,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>GetAuthTokenMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxNetModule.html#getAuthToken(java.lang.String)">getAuthToken(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>AuthTokenMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxNetModule.html#authToken()">authToken()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -661,120 +663,98 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#_ticketType">_ticketType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           ExpressionManager</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#expressionManager">expressionManager</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#expressionManager">expressionManager</a></td>
           <td class="jd-descrcol" width="100%">Mule Expression Manager
  
 </td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           FlowConstruct</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#flowConstruct">flowConstruct</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#flowConstruct">flowConstruct</a></td>
           <td class="jd-descrcol" width="100%">Flow construct
  
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           static
           
           Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#logger">logger</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#logger">logger</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#moduleObject">moduleObject</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#moduleObject">moduleObject</a></td>
           <td class="jd-descrcol" width="100%">Module object
  
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           MuleContext</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#muleContext">muleContext</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#muleContext">muleContext</a></td>
           <td class="jd-descrcol" width="100%">Mule Context
  
 </td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#patternInfo">patternInfo</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#patternInfo">patternInfo</a></td>
           <td class="jd-descrcol" width="100%">Mule Pattern Info
  
 </td>
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
           AtomicInteger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#retryCount">retryCount</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#retryCount">retryCount</a></td>
           <td class="jd-descrcol" width="100%">Variable used to track how many retries we have attempted on this message processor
  
 </td>
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          int</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#retryMax">retryMax</a></td>
-          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
-      </tr>
-      
-    
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#ticket">ticket</a></td>
-          <td class="jd-descrcol" width="100%"></td>
+          int</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#retryMax">retryMax</a></td>
+          <td class="jd-descrcol" width="100%">Maximum number of retries that can be attempted.</td>
       </tr>
       
     
@@ -803,7 +783,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#GetAuthTokenMessageProcessor()">GetAuthTokenMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#AuthTokenMessageProcessor()">AuthTokenMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -832,7 +812,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -848,7 +828,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -866,7 +846,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -884,7 +864,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -902,7 +882,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#setModuleObject(java.lang.Object)">setModuleObject</a></span>(Object moduleObject)</nobr>
         
         <div class="jd-descrdiv">Sets the instance of the object under which the processor will execute</div>
   
@@ -920,7 +900,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -938,7 +918,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#setRetryMax(int)">setRetryMax</a></span>(int value)</nobr>
         
         <div class="jd-descrdiv">Sets retryMax</div>
   
@@ -956,10 +936,8 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#setTicket(java.lang.Object)">setTicket</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#start()">start</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Sets ticket</div>
-  
   </td></tr>
 
 
@@ -974,23 +952,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#start()">start</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/GetAuthTokenMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -1537,36 +1499,6 @@ From interface
 
 
 
-<A NAME="_ticketType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _ticketType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="expressionManager"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1821,36 +1753,6 @@ From interface
 
 
 
-<A NAME="ticket"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        ticket
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 
 <!-- Public ctors -->
 
@@ -1860,7 +1762,7 @@ From interface
 
 
 
-<A NAME="GetAuthTokenMessageProcessor()"></A>
+<A NAME="AuthTokenMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1872,7 +1774,7 @@ From interface
          
         
       </span>
-      <span class="sympad">GetAuthTokenMessageProcessor</span>
+      <span class="sympad">AuthTokenMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2175,47 +2077,6 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets retryMax</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setTicket(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setTicket</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets ticket</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
