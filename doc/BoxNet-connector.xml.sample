@@ -11,10 +11,10 @@
     <boxnet:create-folder parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]"share="#[map-payload:share]" />
 <!-- END_INCLUDE(boxnet:create-folder) -->
 <!-- BEGIN_INCLUDE(boxnet:upload-files) -->
-    <boxnet:upload-files csvPaths="#[map-payload:csvPaths]" folderId="#[map-payload:folderId]" />
+    <boxnet:upload-files />
 <!-- END_INCLUDE(boxnet:upload-files) -->
 <!-- BEGIN_INCLUDE(boxnet:upload-stream) -->
-    <boxnet:upload-stream folderId="#[map-payload:folderId]" folderName="#[map-payload:filename]" input="#[map-payload:input]" />
+    <boxnet:upload-stream filename="#[map-payload:fileName] />
 <!-- END_INCLUDE(boxnet:upload-stream) -->
 <!-- BEGIN_INCLUDE(boxnet:public-share) -->
     <boxnet:public-share target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" message="#[map-payload:message]" />

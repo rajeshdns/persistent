@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -320,21 +321,20 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      *
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-files}
      *
-     * @param folderId the id of the parent folder
-     * @param csvPaths comma separated list of paths where the files are. Cannot be null or empty. Can we just want single comma-less file.
+     * @param folderId the id of the parent folder. Defaults to 0 (the root folder)
+     * @param paths a List of Strings with the paths where the files are. Defaults to payload
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded files (if successful)
      */
     @Processor
-    public UploadResponse uploadFiles(String csvPaths, String folderId) {
+    public UploadResponse uploadFiles(
+    		@Default("#[payload]") List<String> paths,
+    		@Optional @Default("0") String folderId) {
     	String authToken = this.getAuthToken();
-    	if (StringUtils.isEmpty(csvPaths)) {
-    		throw new IllegalArgumentException("you need to provide a path");
-    	}
     	
     	final Map<String, File> files = new HashMap<String, File>();
     	
-    	for (String path : csvPaths.split(",")) {
+    	for (String path : paths) {
     		File file = new File(path);
     		
     		if (!file.exists()) {
@@ -346,7 +346,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("about to uploadFiles with parameters:" +
-    				"\ncsvPaths: " + csvPaths +
+    				"\ncsvPaths: " + paths +
     				"\nfolderId: " + folderId
     				);
     	}
@@ -367,14 +367,17 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      *
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-stream}
      *
-     * @param folderId the id of the parent folder
+     * @param folderId the id of the parent folder. Defaults to 0 which is the root folder
      * @param filename the name we want the file to have on box.net
-     * @param input InputStream with the contents of the file.
+     * @param input InputStream with the contents of the file. Defaults to the message payload.
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded file (if successful)
      */
     @Processor
-    public UploadResponse uploadStream(String folderId, String filename, InputStream input) {
+    public UploadResponse uploadStream(
+    		@Optional @Default("0") String folderId,
+    		String filename,
+    		@Default("#[payload]") InputStream input) {
     	String authToken = this.getAuthToken();
     	byte[] data = null;
     	
