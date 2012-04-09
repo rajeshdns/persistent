@@ -1129,7 +1129,7 @@ Summary:
             <a href="../../../../../java/cn/com/believer/songyuanframework/openapi/storage/box/functions/UploadResponse.html">UploadResponse</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/boxnet/BoxNetModule.html#uploadFiles(java.lang.String, java.lang.String)">uploadFiles</a></span>(String csvPaths, String folderId)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/boxnet/BoxNetModule.html#uploadFiles(java.util.List<java.lang.String>, java.lang.String)">uploadFiles</a></span>(List&lt;String&gt; paths, String folderId)</nobr>
         
         <div class="jd-descrdiv">Receives a comma separated list of paths and uploads the corresponding
  files.</div>
@@ -3119,7 +3119,7 @@ From interface
 </div>
 
 
-<A NAME="uploadFiles(java.lang.String, java.lang.String)"></A>
+<A NAME="uploadFiles(java.util.List<java.lang.String>, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3132,7 +3132,7 @@ From interface
         <a href="../../../../../java/cn/com/believer/songyuanframework/openapi/storage/box/functions/UploadResponse.html">UploadResponse</a>
       </span>
       <span class="sympad">uploadFiles</span>
-      <span class="normal">(String csvPaths, String folderId)</span>
+      <span class="normal">(List&lt;String&gt; paths, String folderId)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3152,12 +3152,12 @@ From interface
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>csvPaths</td>
-          <td>Comma separated list of paths where the files are. Cannot be null or empty. Can we just want single comma-less file.</td>
+          <th>paths</td>
+          <td>A List of Strings with the paths where the files are. Defaults to payload</td>
         </tr>
         <tr>
           <th>folderId</td>
-          <td>The id of the parent folder</td>
+          <td>The id of the parent folder. Defaults to 0 (the root folder)</td>
         </tr>
       </table>
   </div>
@@ -3205,7 +3205,7 @@ From interface
       <table class="jd-tagtable">
         <tr>
           <th>folderId</td>
-          <td>The id of the parent folder</td>
+          <td>The id of the parent folder. Defaults to 0 which is the root folder</td>
         </tr>
         <tr>
           <th>filename</td>
@@ -3213,7 +3213,7 @@ From interface
         </tr>
         <tr>
           <th>input</td>
-          <td>InputStream with the contents of the file.</td>
+          <td>InputStream with the contents of the file. Defaults to the message payload.</td>
         </tr>
       </table>
   </div>

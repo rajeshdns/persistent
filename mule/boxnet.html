@@ -196,7 +196,7 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>boxnet-cloud-connector</h1>
-    1.1
+    1.2
 
 </div><!-- end header -->
 
@@ -1985,7 +1985,7 @@ specify which configuration to use.</p>
   <div class="jd-tagdata jd-tagdescr"><p>Receives a comma separated list of paths and uploads the corresponding
  files.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:upload-files csvPaths="#[map-payload:csvPaths]" folderId="#[map-payload:folderId]" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:upload-files /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -1998,19 +1998,12 @@ specify which configuration to use.</p>
           
           
                 
-                <tr class=" api apilevel-" >
-                    <td class="jd-linkcol"><nobr>csvPaths</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">Comma separated list of paths where the files are. Cannot be null or empty. Can we just want single comma-less file.</td>
-                </tr>
-                
-                
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The id of the parent folder</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 (the root folder)</td>
                 </tr>
                 
                 
@@ -2024,6 +2017,9 @@ specify which configuration to use.</p>
         <table id="lconfig" class="jd-sumtable">
           
           
+            
+            <tr><th colspan="12"><nobr>&lt;boxnet:paths&gt;</nobr></br><span style="font-weight: normal;">A List of Strings with the paths where the files are. Defaults to payload</span></th></tr>
+            
             
           
             
@@ -2059,7 +2055,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Receives an input stream and uploads its content as a file
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:upload-stream folderId="#[map-payload:folderId]" folderName="#[map-payload:filename]" input="#[map-payload:input]" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:upload-stream filename="#[map-payload:fileName] /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -2075,7 +2071,7 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">The id of the parent folder</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 which is the root folder</td>
                 </tr>
                 
                 
@@ -2092,8 +2088,8 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>input</nobr></td>
-                    <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">InputStream with the contents of the file.</td>
+                    <td class="jd-descrcol">#[payload]</td>
+                    <td class="jd-descrcol" width="100%">InputStream with the contents of the file. Defaults to the message payload.</td>
                 </tr>
                 
                 
