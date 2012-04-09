@@ -33,6 +33,7 @@ import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.Payload;
 import org.mule.api.context.MuleContextAware;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
 
@@ -369,7 +370,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      *
      * @param folderId the id of the parent folder. Defaults to 0 which is the root folder
      * @param filename the name we want the file to have on box.net
-     * @param input InputStream with the contents of the file. Defaults to the message payload.
+     * @param input InputStream with the contents of the file. It's taken from the message payload.
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded file (if successful)
      */
@@ -377,7 +378,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     public UploadResponse uploadStream(
     		@Optional @Default("0") String folderId,
     		String filename,
-    		@Default("#[payload]") InputStream input) {
+    		@Payload InputStream input) {
     	String authToken = this.getAuthToken();
     	byte[] data = null;
     	
