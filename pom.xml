@@ -3,8 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
   	<groupId>org.mule.modules</groupId>
     <artifactId>boxnet-cloud-connector</artifactId>
-    <version>1.6
-</version>
+    <version>1.6-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule Box.net Cloud Connector</name>
     
@@ -18,7 +17,7 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3-SNAPSHOT</version>
+        <version>3.3.0-EA</version>
     </parent>
 
     <dependencies>
