@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -103,6 +106,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Box.net Cloud Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 
@@ -203,11 +227,15 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/boxnet/package-summary.html">org.mule.modules.boxnet</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/boxnet/adapters/package-summary.html">org.mule.modules.boxnet.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/boxnet/callback/package-summary.html">org.mule.modules.boxnet.callback</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/boxnet/config/package-summary.html">org.mule.modules.boxnet.config</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/boxnet/config/spring/package-summary.html">org.mule.modules.boxnet.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/boxnet/processors/package-summary.html">org.mule.modules.boxnet.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -308,13 +336,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/AddToTagDefinitionParser.html">AddToTagDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/AddToTagDefinitionParser.html">AddToTagDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/AddToTagDefinitionParser.html">AddToTagDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/AddToTagMessageProcessor.html">AddToTagMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AddToTagMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#addToTag(java.lang.String, java.lang.String, java.lang.String)">addToTag(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/AddToTagMessageProcessor.html">AddToTagMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">AddToTagMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#addToTag(java.lang.String, java.lang.String, java.lang.String)">addToTag(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -356,13 +396,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/AuthTokenDefinitionParser.html">AuthTokenDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/AuthTokenDefinitionParser.html">AuthTokenDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/AuthTokenDefinitionParser.html">AuthTokenDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html">AuthTokenMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">AuthTokenMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#authToken()">authToken()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/AuthTokenMessageProcessor.html">AuthTokenMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">AuthTokenMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#authToken()">authToken()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -477,8 +529,20 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/adapters/BoxNetModuleCapabilitiesAdapter.html">BoxNetModuleCapabilitiesAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>BoxNetModuleCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/BoxNetModuleCapabilitiesAdapter.html">BoxNetModuleCapabilitiesAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>BoxNetModuleCapabilitiesAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code> that implements org.mule.api.Capabilities interface.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/BoxNetModuleConfigDefinitionParser.html">BoxNetModuleConfigDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
@@ -489,8 +553,20 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/adapters/BoxNetModuleLifecycleAdapter.html">BoxNetModuleLifecycleAdapter</a></td>
+            <td class="jd-descrcol" width="100%">A <code>BoxNetModuleLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/BoxNetModuleLifecycleAdapter.html">BoxNetModuleLifecycleAdapter</a></td>
             <td class="jd-descrcol" width="100%">A <code>BoxNetModuleLifecycleAdapter</code> is a wrapper around <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html">BoxNetModuleNamespaceHandler</a></td>
+            <td class="jd-descrcol" width="100%">Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/boxnet</code>.&nbsp;</td>
         </tr>
     
     
@@ -599,13 +675,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/CreateFolderDefinitionParser.html">CreateFolderDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/CreateFolderDefinitionParser.html">CreateFolderDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/CreateFolderDefinitionParser.html">CreateFolderDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">CreateFolderMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#createFolder(java.lang.String, java.lang.String, java.lang.Boolean)">createFolder(java.lang.String, java.lang.String, java.lang.Boolean)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CreateFolderMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#createFolder(java.lang.String, java.lang.String, java.lang.Boolean)">createFolder(java.lang.String, java.lang.String, java.lang.Boolean)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -660,13 +748,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/DeleteDefinitionParser.html">DeleteDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/DeleteDefinitionParser.html">DeleteDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/DeleteDefinitionParser.html">DeleteDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/DeleteMessageProcessor.html">DeleteMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#delete(java.lang.String, java.lang.String)">delete(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">DeleteMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#delete(java.lang.String, java.lang.String)">delete(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -702,13 +802,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/DownloadDefinitionParser.html">DownloadDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/DownloadDefinitionParser.html">DownloadDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/DownloadDefinitionParser.html">DownloadDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/DownloadMessageProcessor.html">DownloadMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">DownloadMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#download(java.lang.String)">download(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/DownloadMessageProcessor.html">DownloadMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">DownloadMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#download(java.lang.String)">download(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -751,13 +863,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/ExportTagsDefinitionParser.html">ExportTagsDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/ExportTagsDefinitionParser.html">ExportTagsDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/ExportTagsDefinitionParser.html">ExportTagsDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/ExportTagsMessageProcessor.html">ExportTagsMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">ExportTagsMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#exportTags(java.lang.String)">exportTags(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/ExportTagsMessageProcessor.html">ExportTagsMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">ExportTagsMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#exportTags(java.lang.String)">exportTags(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -860,13 +984,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetFileInfoDefinitionParser.html">GetFileInfoDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetFileInfoDefinitionParser.html">GetFileInfoDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetFileInfoDefinitionParser.html">GetFileInfoDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetFileInfoMessageProcessor.html">GetFileInfoMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetFileInfoMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getFileInfo(java.lang.String)">getFileInfo(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/GetFileInfoMessageProcessor.html">GetFileInfoMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetFileInfoMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getFileInfo(java.lang.String)">getFileInfo(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -932,13 +1068,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetTicketDefinitionParser.html">GetTicketDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetTicketDefinitionParser.html">GetTicketDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetTicketDefinitionParser.html">GetTicketDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetTicketMessageProcessor.html">GetTicketMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetTicketMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getTicket()">getTicket()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/GetTicketMessageProcessor.html">GetTicketMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetTicketMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getTicket()">getTicket()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -974,13 +1122,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetTreeStructureDefinitionParser.html">GetTreeStructureDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetTreeStructureDefinitionParser.html">GetTreeStructureDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/GetTreeStructureDefinitionParser.html">GetTreeStructureDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/GetTreeStructureMessageProcessor.html">GetTreeStructureMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">GetTreeStructureMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getTreeStructure(java.lang.String, java.lang.String, java.lang.String)">getTreeStructure(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/GetTreeStructureMessageProcessor.html">GetTreeStructureMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">GetTreeStructureMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#getTreeStructure(java.lang.String, java.lang.String, java.lang.String)">getTreeStructure(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1013,13 +1173,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/LogoutDefinitionParser.html">LogoutDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/LogoutDefinitionParser.html">LogoutDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/LogoutDefinitionParser.html">LogoutDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">LogoutMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#logout()">logout()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/LogoutMessageProcessor.html">LogoutMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">LogoutMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#logout()">logout()</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1062,13 +1234,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/MoveDefinitionParser.html">MoveDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/MoveDefinitionParser.html">MoveDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/MoveDefinitionParser.html">MoveDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/MoveMessageProcessor.html">MoveMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">MoveMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#move(java.lang.String, java.lang.String, java.lang.String)">move(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/MoveMessageProcessor.html">MoveMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">MoveMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#move(java.lang.String, java.lang.String, java.lang.String)">move(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1111,13 +1295,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PrivateShareDefinitionParser.html">PrivateShareDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PrivateShareDefinitionParser.html">PrivateShareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PrivateShareDefinitionParser.html">PrivateShareDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">PrivateShareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#privateShare(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)">privateShare(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PrivateShareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#privateShare(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)">privateShare(java.lang.String, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1153,13 +1349,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PublicShareDefinitionParser.html">PublicShareDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicShareDefinitionParser.html">PublicShareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PublicShareDefinitionParser.html">PublicShareDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicShareMessageProcessor.html">PublicShareMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">PublicShareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#publicShare(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">publicShare(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PublicShareMessageProcessor.html">PublicShareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PublicShareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#publicShare(java.lang.String, java.lang.String, java.lang.String, java.lang.String)">publicShare(java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1195,13 +1403,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PublicUnshareDefinitionParser.html">PublicUnshareDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicUnshareDefinitionParser.html">PublicUnshareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/PublicUnshareDefinitionParser.html">PublicUnshareDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicUnshareMessageProcessor.html">PublicUnshareMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">PublicUnshareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#publicUnshare(java.lang.String, java.lang.String)">publicUnshare(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PublicUnshareMessageProcessor.html">PublicUnshareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PublicUnshareMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#publicUnshare(java.lang.String, java.lang.String)">publicUnshare(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1244,13 +1464,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/RegisterNewUserDefinitionParser.html">RegisterNewUserDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/RegisterNewUserDefinitionParser.html">RegisterNewUserDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/RegisterNewUserDefinitionParser.html">RegisterNewUserDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/RegisterNewUserMessageProcessor.html">RegisterNewUserMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">RegisterNewUserMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#registerNewUser(java.lang.String, java.lang.String)">registerNewUser(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/RegisterNewUserMessageProcessor.html">RegisterNewUserMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">RegisterNewUserMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#registerNewUser(java.lang.String, java.lang.String)">registerNewUser(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1286,13 +1518,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/RenameDefinitionParser.html">RenameDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/RenameDefinitionParser.html">RenameDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/RenameDefinitionParser.html">RenameDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/RenameMessageProcessor.html">RenameMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">RenameMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#rename(java.lang.String, java.lang.String, java.lang.String)">rename(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/RenameMessageProcessor.html">RenameMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">RenameMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#rename(java.lang.String, java.lang.String, java.lang.String)">rename(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1365,13 +1609,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/SetDescriptionMessageProcessor.html">SetDescriptionMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">SetDescriptionMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#setDescription(java.lang.String, java.lang.String, java.lang.String)">setDescription(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/SetDescriptionMessageProcessor.html">SetDescriptionMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">SetDescriptionMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#setDescription(java.lang.String, java.lang.String, java.lang.String)">setDescription(java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1420,13 +1676,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/UploadFilesMessageProcessor.html">UploadFilesMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">UploadFilesMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#uploadFiles(java.util.List<java.lang.String>, java.lang.String)">uploadFiles(java.util.List, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/UploadFilesMessageProcessor.html">UploadFilesMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">UploadFilesMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#uploadFiles(java.util.List<java.lang.String>, java.lang.String)">uploadFiles(java.util.List, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1474,13 +1742,25 @@
     
     
         <tr class=" api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/UploadStreamDefinitionParser.html">UploadStreamDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/UploadStreamDefinitionParser.html">UploadStreamDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/UploadStreamDefinitionParser.html">UploadStreamDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/UploadStreamMessageProcessor.html">UploadStreamMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">UploadStreamMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#uploadStream(java.lang.String, java.lang.String, java.io.InputStream)">uploadStream(java.lang.String, java.lang.String, java.io.InputStream)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/UploadStreamMessageProcessor.html">UploadStreamMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">UploadStreamMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#uploadStream(java.lang.String, java.lang.String, java.io.InputStream)">uploadStream(java.lang.String, java.lang.String, java.io.InputStream)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     
@@ -1499,13 +1779,25 @@
     
     
         <tr class="alt-color api apilevel-" >
-            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/VerifyRegistrationEmailDefinitionParser.html">VerifyRegistrationEmailDefinitionParser</a></td>
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/VerifyRegistrationEmailDefinitionParser.html">VerifyRegistrationEmailDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/spring/VerifyRegistrationEmailDefinitionParser.html">VerifyRegistrationEmailDefinitionParser</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/VerifyRegistrationEmailMessageProcessor.html">VerifyRegistrationEmailMessageProcessor</a></td>
+            <td class="jd-descrcol" width="100%">VerifyRegistrationEmailMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#verifyRegistrationEmail(java.lang.String)">verifyRegistrationEmail(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/VerifyRegistrationEmailMessageProcessor.html">VerifyRegistrationEmailMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">VerifyRegistrationEmailMessageProcessor invokes the <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html#verifyRegistrationEmail(java.lang.String)">verifyRegistrationEmail(java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/boxnet/BoxNetModule.html">BoxNetModule</a></code>.&nbsp;</td>
         </tr>
     

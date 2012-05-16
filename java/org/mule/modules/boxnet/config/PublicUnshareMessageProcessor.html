@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Box.net Cloud Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -203,11 +227,15 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/package-summary.html">org.mule.modules.boxnet</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/boxnet/adapters/package-summary.html">org.mule.modules.boxnet.adapters</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/callback/package-summary.html">org.mule.modules.boxnet.callback</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/config/package-summary.html">org.mule.modules.boxnet.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/boxnet/config/spring/package-summary.html">org.mule.modules.boxnet.config.spring</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/boxnet/processors/package-summary.html">org.mule.modules.boxnet.processors</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -217,27 +245,49 @@
               
     <li><h2>Classes</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AddToTagDefinitionParser.html">AddToTagDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AddToTagMessageProcessor.html">AddToTagMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AuthTokenDefinitionParser.html">AuthTokenDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/AuthTokenMessageProcessor.html">AuthTokenMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleCapabilitiesAdapter.html">BoxNetModuleCapabilitiesAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleConfigDefinitionParser.html">BoxNetModuleConfigDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleLifecycleAdapter.html">BoxNetModuleLifecycleAdapter</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html">BoxNetModuleNamespaceHandler</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/CreateFolderDefinitionParser.html">CreateFolderDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DeleteDefinitionParser.html">DeleteDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DownloadDefinitionParser.html">DownloadDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DownloadMessageProcessor.html">DownloadMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/ExportTagsDefinitionParser.html">ExportTagsDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/ExportTagsMessageProcessor.html">ExportTagsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetFileInfoDefinitionParser.html">GetFileInfoDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetFileInfoMessageProcessor.html">GetFileInfoMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTicketDefinitionParser.html">GetTicketDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTicketMessageProcessor.html">GetTicketMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTreeStructureDefinitionParser.html">GetTreeStructureDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/GetTreeStructureMessageProcessor.html">GetTreeStructureMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/LogoutDefinitionParser.html">LogoutDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/MoveDefinitionParser.html">MoveDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/MoveMessageProcessor.html">MoveMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PrivateShareDefinitionParser.html">PrivateShareDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PublicShareDefinitionParser.html">PublicShareDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PublicShareMessageProcessor.html">PublicShareMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PublicUnshareDefinitionParser.html">PublicUnshareDefinitionParser</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/PublicUnshareMessageProcessor.html">PublicUnshareMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RegisterNewUserDefinitionParser.html">RegisterNewUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RegisterNewUserMessageProcessor.html">RegisterNewUserMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RenameDefinitionParser.html">RenameDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RenameMessageProcessor.html">RenameMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/SetDescriptionMessageProcessor.html">SetDescriptionMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadFilesMessageProcessor.html">UploadFilesMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadStreamDefinitionParser.html">UploadStreamDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadStreamMessageProcessor.html">UploadStreamMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/VerifyRegistrationEmailDefinitionParser.html">VerifyRegistrationEmailDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/VerifyRegistrationEmailMessageProcessor.html">VerifyRegistrationEmailMessageProcessor</a></li>
       </ul>
     </li>

@@ -64,6 +64,8 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -85,6 +87,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -101,6 +104,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule Box.net Cloud Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -196,7 +220,6 @@ Summary:
 <div id="jd-header">
     org.mule.modules
 <h1>boxnet-cloud-connector</h1>
-    1.4
 
 </div><!-- end header -->
 
@@ -205,15 +228,17 @@ Summary:
 <div id="jd-content" class="api apilevel-">
 
 
+<br/>
+
 <div class="jd-tagdata">
       <table class="jd-tagtable">
         <tbody><tr>
           <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/boxnet</td>
         </tr><tr>
-          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/boxnet/1.0/mule-boxnet.xsd</td>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/boxnet/current/mule-boxnet.xsd&nbsp;&nbsp;(<a href="boxnet-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Version</th><td>1.0</td>
+          <th>Schema Version</th><td>1.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -271,7 +296,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#add-to-tag">&lt;boxnet:add-to-tag&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor adds file or folder to tags list.<br/></div>
+        <div class="jd-descrdiv">This processor adds file or folder to tags list.</div>
         
   </td></tr>
 
@@ -290,7 +315,7 @@ Summary:
  		usesCallback and callbackPath config attributes accordingly 
 	</li>
 	<li>
-		You can use this processor to obtain the authentication token explicitly.<br/></div>
+		You can use this processor to obtain the authentication token explicitly.</div>
         
   </td></tr>
 
@@ -302,7 +327,7 @@ Summary:
         
         <div class="jd-descrdiv">Create a new folder
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -314,7 +339,7 @@ Summary:
         
         <div class="jd-descrdiv">Deletes a file or folder
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -326,7 +351,7 @@ Summary:
         
         <div class="jd-descrdiv">Downloads a file an returns its contents as a byte[] 
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -336,7 +361,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#export-tags">&lt;boxnet:export-tags&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor returns all the user's tags.<br/></div>
+        <div class="jd-descrdiv">This processor returns all the user's tags.</div>
         
   </td></tr>
 
@@ -348,7 +373,7 @@ Summary:
         
         <div class="jd-descrdiv">Gets information about a file
  
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -358,7 +383,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#get-ticket">&lt;boxnet:get-ticket&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Get and access ticket using the configured apiKey.<br/></div>
+        <div class="jd-descrdiv">Get and access ticket using the configured apiKey.</div>
         
   </td></tr>
 
@@ -368,7 +393,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#get-tree-structure">&lt;boxnet:get-tree-structure&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor is used to get a user's files and folders tree.<br/></div>
+        <div class="jd-descrdiv">This processor is used to get a user's files and folders tree.</div>
         
   </td></tr>
 
@@ -380,7 +405,7 @@ Summary:
         
         <div class="jd-descrdiv">Logs out the user associated with the authorization token
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -390,7 +415,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#move">&lt;boxnet:move&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor moves a file or folder to another folder.<br/></div>
+        <div class="jd-descrdiv">This processor moves a file or folder to another folder.</div>
         
   </td></tr>
 
@@ -400,7 +425,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#private-share">&lt;boxnet:private-share&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor privately shares a file or folder with another user(s).<br/></div>
+        <div class="jd-descrdiv">This processor privately shares a file or folder with another user(s).</div>
         
   </td></tr>
 
@@ -412,7 +437,7 @@ Summary:
         
         <div class="jd-descrdiv">Makes a public share of a file or folder
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -424,7 +449,7 @@ Summary:
         
         <div class="jd-descrdiv">This processor unshares a public shared file or folder
  
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -436,7 +461,7 @@ Summary:
         
         <div class="jd-descrdiv">Create a new user in box.net
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -446,7 +471,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#rename">&lt;boxnet:rename&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor renames a file or folder.<br/></div>
+        <div class="jd-descrdiv">This processor renames a file or folder.</div>
         
   </td></tr>
 
@@ -456,7 +481,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/boxnet.html#set-description">&lt;boxnet:set-description&gt;</a></nobr>
         
-        <div class="jd-descrdiv">This processor sets a description to a file or folder.<br/></div>
+        <div class="jd-descrdiv">This processor sets a description to a file or folder.</div>
         
   </td></tr>
 
@@ -467,7 +492,7 @@ Summary:
         <span class="sympad"><a href="../mule/boxnet.html#upload-files">&lt;boxnet:upload-files&gt;</a></nobr>
         
         <div class="jd-descrdiv">Receives a comma separated list of paths and uploads the corresponding
- files.<br/></div>
+ files.</div>
         
   </td></tr>
 
@@ -479,7 +504,7 @@ Summary:
         
         <div class="jd-descrdiv">Receives an input stream and uploads its content as a file
 
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -491,7 +516,7 @@ Summary:
         
         <div class="jd-descrdiv">This method is used to verify user registration email
  
- <br/></div>
+ </div>
         
   </td></tr>
 
@@ -509,7 +534,6 @@ Summary:
 </div><!-- jd-descr (summary) -->
 
 
-
 <!-- ========= CONFIGURATION DETAIL ======== -->
 <A NAME="config"></A>
 <h2>Configuration</h2>
@@ -523,14 +547,15 @@ similar to the following:</p>
                http://www.mulesoft.org/schema/mule/core
                http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/boxnet
-               http://www.mulesoft.org/schema/mule/boxnet/1.0/mule-boxnet.xsd"&gt;
+               http://www.mulesoft.org/schema/mule/boxnet/current/mule-boxnet.xsd"&gt;
 
       &lt;!-- here goes your flows and configuration elements --&gt;
 
 &lt;/mule&gt;
 </pre>
+
 <p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
-the root of your Mule application. You can create as many configurations as you deem necesary as long as each carries
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
 its own name.</p>
 <p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
 specify which configuration to use.</p>
@@ -583,6 +608,7 @@ specify which configuration to use.</p>
       
     
 </table>
+
 
 
 
@@ -678,10 +704,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IllegalArgumentException} if target is invalid or csvTags is empty
 </td>
         </tr>
@@ -753,14 +781,16 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th>IllegalArgumentException</td>
+            <td>IllegalArgumentException</td>
             <td>if the ticket does not match a logged user</td>
         </tr>
         <tr>
-            <th>IllegalStateException</td>
+            <td>IllegalStateException</td>
             <td>if you use this processor before getting a ticket
 </td>
         </tr>
@@ -819,7 +849,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>share</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies if the folder is shared. This parameter is optional and defaults to false</td>
                 </tr>
                 
@@ -924,10 +954,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IllegalArgumentException} if target is invalid
 </td>
         </tr>
@@ -1036,7 +1068,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>encoding</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">UTF-8</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Encoding to use when decoding from BASE64. Optional, defaults to UTF-8</td>
                 </tr>
                 
@@ -1225,7 +1257,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The ID of the root folder from which the tree begins.  If this value is "0", the user's full account tree is returned. Defaults to zero</td>
                 </tr>
                 
@@ -1234,7 +1266,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>csvParams</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">nozip</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma separated list of params. This is optional and defaults to 'nozip'</td>
                 </tr>
                 
@@ -1243,7 +1275,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>encoding</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">UTF-8</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Optional parameter to specify the encoding to use when decoding BASE64. Defaults to UTF-8</td>
                 </tr>
                 
@@ -1482,7 +1514,7 @@ specify which configuration to use.</p>
                 
                 <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>notify</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If true, then a notification email will be sent to users. Optional parameter, defaults to true</td>
                 </tr>
                 
@@ -1526,10 +1558,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IllegalArgumentException} if target is invalid or csvMails is null or empty
 </td>
         </tr>
@@ -1631,10 +1665,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IllegalArgumentException} if target is invalid
 </td>
         </tr>
@@ -1713,10 +1749,12 @@ specify which configuration to use.</p>
     
   
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Exception Payload</h5>
-      <table class="jd-tagtable">
+      <h5 class="jd-tagtitle">Exception Payloads</h5>
+      <table class="jd-sumtable">
+        <tr><th>Payload Class</th><th>Description</th></tr>
+        
         <tr>
-            <th></td>
+            <td></td>
             <td>IllegalArgumentException} if target is invalid
 </td>
         </tr>
@@ -2002,7 +2040,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 (the root folder)</td>
                 </tr>
                 
@@ -2070,7 +2108,7 @@ specify which configuration to use.</p>
                 
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
-                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 which is the root folder</td>
                 </tr>
                 
