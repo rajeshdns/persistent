@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
   	<groupId>org.mule.modules</groupId>
     <artifactId>boxnet-cloud-connector</artifactId>
-    <version>1.6</version>
+    <version>1.4-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule Box.net Cloud Connector</name>
     
     <properties>
 		<mule.version>3.2.1</mule.version>
-		<mule.devkit.version>3.3.0-EA</mule.devkit.version>
 		<junit.version>4.8.2</junit.version>
 		<mockito.version>1.8.2</mockito.version>
+		<category>Standard</category>
 	</properties>
     
     <parent>
@@ -46,14 +46,6 @@
             <layout>default</layout>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>nexus-test</id>
-            <name>MuleSoft Repository</name>
-            <url>http://localhost:8081/nexus/content/repositories/connectors/</url>
-        </repository>
-    </distributionManagement>
 
    <scm>
         <connection>scm:git:git://github.com:mulesoft/box.net-connector.git</connection>
