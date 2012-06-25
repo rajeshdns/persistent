@@ -12,7 +12,7 @@
 	<mule.version>3.2.1</mule.version>
 	<junit.version>4.8.2</junit.version>
 	<mockito.version>1.8.2</mockito.version>
-	<category>Community</category>
+    <mule.devkit.version>3.3.0-EA</mule.devkit.version>
 	</properties>
     
     <parent>
@@ -47,7 +47,15 @@
             <layout>default</layout>
         </repository>
     </repositories>
-
+<!--
+   <distributionManagement>
+        <repository>
+            <id>nexus-test</id>
+            <name>connectors</name>
+            <url>http://localhost:8081/nexus/content/repositories/cc/</url>
+        </repository>
+    </distributionManagement>
+-->
    <scm>
         <connection>scm:git:git://github.com:mulesoft/box.net-connector.git</connection>
         <developerConnection>scm:git:git@github.com:mulesoft/box.net-connector.git</developerConnection>

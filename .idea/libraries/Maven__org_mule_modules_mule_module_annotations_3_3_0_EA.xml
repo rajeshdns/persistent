@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mule.modules:mule-module-annotations:3.3.0-EA">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/modules/mule-module-annotations/3.3.0-EA/mule-module-annotations-3.3.0-EA.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/modules/mule-module-annotations/3.3.0-EA/mule-module-annotations-3.3.0-EA-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mule/modules/mule-module-annotations/3.3.0-EA/mule-module-annotations-3.3.0-EA-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
