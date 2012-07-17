@@ -12,8 +12,11 @@
 	<mule.version>3.2.1</mule.version>
 	<junit.version>4.8.2</junit.version>
 	<mockito.version>1.8.2</mockito.version>
-    <mule.devkit.version>3.3.0-EA</mule.devkit.version>
-	</properties>
+    	<mule.devkit.version>3.3.0</mule.devkit.version>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
+    </properties>
     
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
