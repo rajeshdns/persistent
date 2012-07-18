@@ -13,6 +13,5 @@ org.mule.modules.boxnet
 org.mule.modules.boxnet.adapters
 org.mule.modules.boxnet.callback
 org.mule.modules.boxnet.config
-org.mule.modules.boxnet.config.spring
 org.mule.modules.boxnet.processors
 
