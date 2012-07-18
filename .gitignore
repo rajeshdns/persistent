@@ -12,3 +12,4 @@ bin/*
 .project
 .settings/*
 .metadata
+.idea/*
