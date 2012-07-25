@@ -225,7 +225,7 @@
           <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/boxnet/current/mule-boxnet.xsd&nbsp;&nbsp;(<a href="boxnet-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Schema Version</th><td>1.0</td>
+          <th>Schema Version</th><td>1.1.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -420,6 +420,49 @@ Defaults to box_auth_callback&lt;/xs:documentation&gt;
 Defaults to 8080&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
+          &lt;xs:attribute name=&quot;restoreAuthTokenFlow&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;The name of a flow to be executed each time the authentication token
+needs to be used. If this attribute is specified, then a flow with this named
+will be fetch on the registry and invoked every time the auth token is needed.
+This flow will receive a copy of the current mule message and must set the payload
+to a valid auth token. If the flow fails to accomplish that, an exception will be thrown
+
+For example:
+
+&amp;amp;lt;boxnet:config apiKey=&quot;ud5g57tp51xyr1iz53nlksovdf4b2a2j&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
+
+&amp;amp;lt;flow name=&quot;restoreTokenFlow&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:retrieve key=&quot;flowVars['currentUserId']&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+&amp;amp;lt;flow name=&quot;save&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[payload]&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+If this attribute is not specified, then the token will be fetched from memory. Notice that this means the token won't survive
+an application restart and that the connector would be incapable of handling two different concurrent accounts&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute name=&quot;saveAuthTokenFlow&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;The name of a flow to be executed each time an authentication token
+is received. If this attribute is specified, then a flow with this named
+will be fetch on the registry and invoked every time the auth token is obtained.
+This flow will receive a copy of the current mule message carrying the received token in its payload
+
+For example:
+
+&amp;amp;lt;boxnet:config apiKey=&quot;ud5g57tp51xyr1iz53nlksovdf4b2a2j&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
+
+&amp;amp;lt;flow name=&quot;restoreTokenFlow&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:retrieve key=&quot;flowVars['currentUserId']&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+&amp;amp;lt;flow name=&quot;save&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[payload]&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+If this attribute is not specified, then the token will be stored in memory. Notice that this means the token won't survive
+an application restart and that the connector would be incapable of handling two different concurrent accounts&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
         &lt;/xs:extension&gt;
       &lt;/xs:complexContent&gt;
     &lt;/xs:complexType&gt;
@@ -468,6 +511,11 @@ For more info look at http://developers.box.net/w/page/12923915/ApiAuthenticatio
         &lt;xs:attribute name=&quot;config-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute name=&quot;ticket&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the ticket to authenticate against. If not provided then the last obtained one is used. If none obtained yet, then IllegalStateException is thrown&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -540,7 +588,7 @@ files.&lt;/xs:documentation&gt;
     &lt;xs:complexContent&gt;
       &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
         &lt;xs:sequence&gt;
-          &lt;xs:element name=&quot;paths&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;1&quot;&gt;
+          &lt;xs:element name=&quot;paths&quot; maxOccurs=&quot;1&quot; minOccurs=&quot;0&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;a List of Strings with the paths where the files are. Defaults to payload&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;

@@ -238,7 +238,7 @@ Summary:
           <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/boxnet/current/mule-boxnet.xsd&nbsp;&nbsp;(<a href="boxnet-schema.html">View Schema</a>)</td>
         </tr>
 <tr>
-          <th>Schema Version</th><td>1.0</td>
+          <th>Schema Version</th><td>1.1.0</td>
         </tr>
 <tr>
           <th>Minimum Mule Version</th><td>3.2</td>
@@ -599,6 +599,26 @@ specify which configuration to use.</p>
     
       <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>restoreAuthTokenFlow</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of a flow to be executed each time the authentication token
+ needs to be used.</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>saveAuthTokenFlow</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The name of a flow to be executed each time an authentication token
+ is received.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
           xs:boolean</nobr></td>
           <td class="jd-linkcol"><nobr>usesCallback</nobr></td>
           <td class="jd-descrcol">false</td>
@@ -654,6 +674,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>csvTags</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Comma separated list of tags</td>
@@ -662,7 +691,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Can be either 'file' or 'folder' depending on what do you want to add</td>
@@ -671,7 +700,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of a file or folder to be added</td>
@@ -687,6 +716,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -750,7 +781,7 @@ specify which configuration to use.</p>
   
   For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:auth-token /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:auth-token ticket="flowVars['ticket']" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -762,6 +793,25 @@ specify which configuration to use.</p>
           <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>ticket</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The ticket to authenticate against. If not provided then the last obtained one is used.
+ 			If none obtained yet, then IllegalStateException is thrown</td>
+                </tr>
+                
+                
+          
           
           
         </table>
@@ -771,13 +821,13 @@ specify which configuration to use.</p>
         <table id="lconfig" class="jd-sumtable">
           
           
+            
+          
+            
+          
       </table>
   </div>
   
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the authentication token</li></ul>
-  </div>
     
   
   <div class="jd-tagdata">
@@ -830,6 +880,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>parentFolderId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the parent folder</td>
@@ -838,7 +897,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderName</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The name of the folder you want to create</td>
@@ -847,7 +906,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>share</nobr></td>
                     <td class="jd-descrcol">false</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specifies if the folder is shared. This parameter is optional and defaults to false</td>
@@ -863,6 +922,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -915,6 +976,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a IllegalArgumentException</td>
@@ -923,7 +993,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the item you wish to delete. If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.</td>
@@ -939,6 +1009,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -999,6 +1071,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>fileId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the file we want to download</td>
@@ -1014,6 +1095,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1067,6 +1150,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>encoding</nobr></td>
                     <td class="jd-descrcol">UTF-8</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Encoding to use when decoding from BASE64. Optional, defaults to UTF-8</td>
@@ -1082,6 +1174,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1129,6 +1223,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>fileId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the file you want info about</td>
@@ -1144,6 +1247,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1206,7 +1311,7 @@ specify which configuration to use.</p>
   
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Return Payload</h5>
-      <ul class="nolist"><li>the ticket key
+      <ul class="nolist"><li>the obtained ticket
 </li></ul>
   </div>
     
@@ -1256,6 +1361,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The ID of the root folder from which the tree begins.  If this value is "0", the user's full account tree is returned. Defaults to zero</td>
@@ -1264,7 +1378,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>csvParams</nobr></td>
                     <td class="jd-descrcol">nozip</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Comma separated list of params. This is optional and defaults to 'nozip'</td>
@@ -1273,7 +1387,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>encoding</nobr></td>
                     <td class="jd-descrcol">UTF-8</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Optional parameter to specify the encoding to use when decoding BASE64. Defaults to UTF-8</td>
@@ -1289,6 +1403,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1339,6 +1455,15 @@ specify which configuration to use.</p>
           <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td></tr>
           
           
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
           
           
         </table>
@@ -1347,6 +1472,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
       </table>
   </div>
@@ -1397,6 +1524,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Can be either 'file' or 'folder' depending on what do you</td>
@@ -1405,7 +1541,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Is the id of a file or folder to be moved</td>
@@ -1414,7 +1550,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>destinationId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Is the destination folder id.</td>
@@ -1430,6 +1566,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1486,6 +1624,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>muleMessage</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Should be either 'file' or 'folder'</td>
@@ -1494,7 +1641,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the file or folder to be shared</td>
@@ -1503,7 +1650,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>csvMails</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Comma separated list of email addresses of the users that will receive the share</td>
@@ -1512,7 +1659,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>notify</nobr></td>
                     <td class="jd-descrcol">true</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If true, then a notification email will be sent to users. Optional parameter, defaults to true</td>
@@ -1521,7 +1668,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>message</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Is a message to be included in the notification email. Optional parameter, defaults to an empty string</td>
@@ -1537,6 +1684,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1603,6 +1752,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>muleMessage</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a IllegalArgumentException</td>
@@ -1611,7 +1769,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the item you wish to share.  If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.</td>
@@ -1620,7 +1778,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>password</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The password to protect the folder or file.</td>
@@ -1629,7 +1787,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>message</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">An message to be included in a notification email.</td>
@@ -1645,6 +1803,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1710,6 +1870,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Shoud be either 'file' or 'folder'</td>
@@ -1718,7 +1887,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Is id of a file or folder to be unshared</td>
@@ -1734,6 +1903,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1868,6 +2039,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Can be either 'file' or 'folder' depending on what you want to rename</td>
@@ -1876,7 +2056,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Is the id of a file or folder to be renamed</td>
@@ -1885,7 +2065,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>newName</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Is the new name for a file or folder</td>
@@ -1901,6 +2081,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -1952,6 +2134,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>target</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">Can be either 'file' or 'folder'</td>
@@ -1960,7 +2151,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>targetId</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The id of the folder/file you want to modify</td>
@@ -1969,7 +2160,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>description</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The description you want to set</td>
@@ -1985,6 +2176,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -2036,9 +2229,18 @@ specify which configuration to use.</p>
           
           
                 
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
           
                 
-                <tr class=" api apilevel-" >
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 (the root folder)</td>
@@ -2056,7 +2258,9 @@ specify which configuration to use.</p>
           
           
             
-            <tr><th colspan="12"><nobr>&lt;boxnet:paths&gt;</nobr></br><span style="font-weight: normal;">A List of Strings with the paths where the files are. Defaults to payload</span></th></tr>
+          
+            
+            <tr><th colspan="12"><nobr>&lt;boxnet:paths&gt;</nobr></br><span style="font-weight: normal;"><i>Optional.&nbsp;</i>A List of Strings with the paths where the files are. Defaults to payload</span></th></tr>
             
             
           
@@ -2107,6 +2311,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>folderId</nobr></td>
                     <td class="jd-descrcol">0</td>
                     <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The id of the parent folder. Defaults to 0 which is the root folder</td>
@@ -2115,7 +2328,7 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class="alt-color api apilevel-" >
+                <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>filename</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The name we want the file to have on box.net</td>
@@ -2124,10 +2337,10 @@ specify which configuration to use.</p>
                 
           
                 
-                <tr class=" api apilevel-" >
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>input</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%">InputStream with the contents of the file. It's taken from the message payload.</td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>InputStream with the contents of the file. Defaults to the message payload.</td>
                 </tr>
                 
                 
@@ -2140,6 +2353,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
@@ -2192,6 +2407,15 @@ specify which configuration to use.</p>
           
                 
                 <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>message</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The current mule message</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
                     <td class="jd-linkcol"><nobr>loginName</nobr></td>
                     <td class="jd-descrcol"></td>
                     <td class="jd-descrcol" width="100%">The login username of the user for which you would like to verify registration.</td>
@@ -2207,6 +2431,8 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
           
             
           
