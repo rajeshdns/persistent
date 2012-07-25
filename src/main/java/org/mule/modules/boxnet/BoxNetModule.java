@@ -145,20 +145,73 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     
     /**
      * The name of a flow to be executed each time the authentication token
-     * needs to be used.  
+     * needs to be used. If this attribute is specified, then a flow with this named
+     * will be fetch on the registry and invoked every time the auth token is needed.
+     * This flow will receive a copy of the current mule message and must set the payload
+     * to a valid auth token. If the flow fails to accomplish that, an exception will be thrown
+     * 
+     * For example:
+     * 
+     * &lt;boxnet:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * 
+     *  &lt;flow name="restoreTokenFlow"&gt;
+     *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
+     *	&lt;/flow&gt;
+     *
+     *	&lt;flow name="save"&gt;
+     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/&gt;
+     *	&lt;/flow&gt;
+     *
+     *	If this attribute is not specified, then the token will be fetched from memory. Notice that this means the token won't survive
+     * an application restart and that the connector would be incapable of handling two different concurrent accounts
      */
     @Configurable
     @Optional
     private String restoreAuthTokenFlow;
     
+    /**
+     * The name of a flow to be executed each time an authentication token
+     * is received. If this attribute is specified, then a flow with this named
+     * will be fetch on the registry and invoked every time the auth token is obtained.
+     * This flow will receive a copy of the current mule message carrying the received token in its payload
+     * 
+     * For example:
+     * 
+     * &lt;boxnet:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * 
+     *  &lt;flow name="restoreTokenFlow"&gt;
+     *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
+     *	&lt;/flow&gt;
+     *
+     *	&lt;flow name="save"&gt;
+     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/&gt;
+     *	&lt;/flow&gt;
+     *
+     * If this attribute is not specified, then the token will be stored in memory. Notice that this means the token won't survive
+     * an application restart and that the connector would be incapable of handling two different concurrent accounts
+     */
     @Configurable
     @Optional
     private String saveAuthTokenFlow;
     
+    /**
+     * Actual restore token flow egarly fetched
+     */
     private Flow restoreTokenFlow;
     
+    /**
+     * Actual save token flow egarly fetched
+     */
     private Flow saveTokenFlow;
     
+    /**
+     * This method initiaes the box client and the auth callback.
+     * Also, it fetches the save/restore flows (if specified). If those are specified
+     * but don't exist in the registry, then IllegalArgumentException is thrown
+     * 
+     * @throws MuleException
+     * @throws IllegalArgumentException if restore/save token flows are specified but don't exist
+     */
     @Start
     public void start() throws MuleException {
     	this.client = new SimpleBoxImpl();
@@ -201,10 +254,11 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
      * 
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-ticket}
-     *
+     * 
+     * @return the obtained ticket
      */
     @Processor
-    public void getTicket() {
+    public String getTicket() {
     	
     	GetTicketResponse response = this.execute(new BoxClosure<GetTicketResponse>() {
     		
@@ -221,14 +275,10 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     		logger.debug("Fetched ticket with apiKey " + this.apiKey + " and obtained: " + ticket);
     	}
     	
-    	this.forceTicket(ticket);
-    }
-    
-    @Processor
-    public void forceTicket(String ticket) {
     	this.authCallback.setTicket(ticket);
+    	return ticket;
     }
-    
+
     /**
      * After the user authenticates the ticket obtained with the get-ticket processor,
      * there're two ways to get the required auth token:
@@ -250,14 +300,18 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:auth-token}
      *
      * @param message the current mule message
+     * @param ticket the ticket to authenticate against. If not provided then the last obtained one is used.
+     * 			If none obtained yet, then IllegalStateException is thrown
      * @throws IllegalArgumentException if the ticket does not match a logged user
      * @throws IllegalStateException if you use this processor before getting a ticket
      */
     @Processor
-    public void authToken(MuleMessage message) {
-    	String ticket = this.authCallback.getTicket();
+    public void authToken(MuleMessage message, @Optional String ticket) {
+    	if (StringUtils.isBlank(ticket)) {
+    		ticket = this.authCallback.getTicket();
+    	}
     	
-    	if (ticket == null) {
+    	if (StringUtils.isBlank(ticket)) {
     		throw new IllegalStateException("you must get a ticket first");
     	}
     	

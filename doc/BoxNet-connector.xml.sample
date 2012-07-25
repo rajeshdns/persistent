@@ -2,7 +2,7 @@
     <boxnet:get-ticket />
 <!-- END_INCLUDE(boxnet:get-ticket) -->
 <!-- BEGIN_INCLUDE(boxnet:auth-token) -->
-    <boxnet:auth-token />
+    <boxnet:auth-token ticket="flowVars['ticket']" />
 <!-- END_INCLUDE(boxnet:auth-token) -->
 <!-- BEGIN_INCLUDE(boxnet:register-new-user) -->
     <boxnet:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
