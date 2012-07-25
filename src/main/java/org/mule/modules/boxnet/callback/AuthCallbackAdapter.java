@@ -37,11 +37,10 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
     
     private class GetAuthCodeCallback implements MessageProcessor {
 
-        public MuleEvent process(MuleEvent event) throws MuleException
-        {
+        public MuleEvent process(MuleEvent event) throws MuleException {
             try {
             	Map<String, String> values = HttpParamsExtractor.toMap(event.getMessage());
-            	authToken = values.get("auth_token");
+            	module.saveAuthToken(event.getMessage(), values.get("auth_token"));
             } catch (Exception e) {
                 throw new MessagingException(MessageFactory.createStaticMessage("Could not extract auth token"), event, e);
             }
@@ -70,8 +69,7 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
         callback.start();
     }
 
-    public void stop() throws MuleException
-    {
+    public void stop() throws MuleException {
         callback.stop();
     }
 

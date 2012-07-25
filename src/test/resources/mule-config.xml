@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+    xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns:boxnet="http://www.mulesoft.org/schema/mule/boxnet"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+    xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+        http://www.mulesoft.org/schema/mule/boxnet http://www.mulesoft.org/schema/mule/boxnet/current/mule-boxnet.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<boxnet:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" usesCallback="false" restoreAuthTokenFlow="restore" saveAuthTokenFlow="save"/>
+	
+    <flow name="testPOC">
+    	<boxnet:force-ticket ticket="naa68fvf7t6j1t0f7ss2o9hpbrz08fcy" />
+    	<boxnet:auth-token />
+    	
+    	<boxnet:get-tree-structure />
+    	<logger level="ERROR" message="#[payload]" />
+    </flow>    
+    
+    <flow name="restore">
+    	<set-payload value="parutqii89q006zhygdb3dtgsvkaolx9" />
+    </flow>
+    
+    <flow name="save">
+    	<logger level="ERROR" message="Just got token #[payload]" />
+    	<set-variable variableName="token" value="#[payload]" />
+    </flow>
+    
+    
+    
+    
+</mule>

@@ -1,67 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-  	<groupId>org.mule.modules</groupId>
-    <artifactId>mule-module-boxnet</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-    <packaging>mule-module</packaging>
-    <name>Mule Box.net Cloud Connector</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mule.modules</groupId>
+	<artifactId>mule-module-boxnet</artifactId>
+	<version>1.1.0-SNAPSHOT</version>
+	<packaging>mule-module</packaging>
+	<name>Mule Box.net Cloud Connector</name>
 
 
-    <properties>
-	<mule.version>3.2.1</mule.version>
-	<junit.version>4.8.2</junit.version>
-	<mockito.version>1.8.2</mockito.version>
-    	<mule.devkit.version>3.3.0</mule.devkit.version>
-        <category>Community</category>
-        <licensePath>LICENSE.md</licensePath>
-        <devkit.studio.package.skip>false</devkit.studio.package.skip>
-    </properties>
-    
-    <parent>
-        <groupId>org.mule.tools.devkit</groupId>
-        <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3.0-EA</version>
-    </parent>
+	<parent>
+		<groupId>org.mule.tools.devkit</groupId>
+		<artifactId>mule-devkit-parent</artifactId>
+		<version>3.3.0</version>
+	</parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
-        </dependency>
-        <dependency>
+	<properties>
+		<mule.version>3.3.0</mule.version>
+		<mule.devkit.version>3.3.0</mule.devkit.version>
+		<junit.version>4.9</junit.version>
+		<mockito.version>1.8.2</mockito.version>
+		<jdk.version>1.6</jdk.version>
+		<category>Community</category>
+		<licensePath>LICENSE.md</licensePath>
+		<devkit.studio.package.skip>false</devkit.studio.package.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mule.tools.devkit</groupId>
 			<artifactId>mule-devkit-annotations</artifactId>
 			<version>${mule.devkit.version}</version>
 		</dependency>
-    </dependencies>
+	</dependencies>
 
-    <repositories>
-        <repository>
-            <id>mulesoft-releases</id>
-            <name>MuleSoft Releases Repository</name>
-            <url>http://repository.mulesoft.org/releases/</url>
-            <layout>default</layout>
-        </repository>
-    </repositories>
-<!--
-   <distributionManagement>
-        <repository>
-            <id>nexus-test</id>
-            <name>connectors</name>
-            <url>http://localhost:8081/nexus/content/repositories/cc/</url>
-        </repository>
-    </distributionManagement>
--->
-   <scm>
-        <connection>scm:git:git://github.com:mulesoft/box.net-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/box.net-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/box.net-connector</url>
-    </scm>
+	<repositories>
+		<repository>
+			<id>mulesoft-releases</id>
+			<name>MuleSoft Releases Repository</name>
+			<url>http://repository.mulesoft.org/releases/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<!-- <distributionManagement> <repository> <id>nexus-test</id> <name>connectors</name> 
+		<url>http://localhost:8081/nexus/content/repositories/cc/</url> </repository> 
+		</distributionManagement> -->
+	<scm>
+		<connection>scm:git:git://github.com:mulesoft/box.net-connector.git</connection>
+		<developerConnection>scm:git:git@github.com:mulesoft/box.net-connector.git</developerConnection>
+		<url>http://github.com/mulesoft/box.net-connector</url>
+	</scm>
 </project>
