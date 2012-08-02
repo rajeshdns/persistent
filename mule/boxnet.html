@@ -781,7 +781,21 @@ specify which configuration to use.</p>
   
   For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;boxnet:auth-token ticket="flowVars['ticket']" /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;!-- to manually get the auth token for a given ticket you could do this --&gt;
+&lt;boxnet:auth-token ticket="flowVars['ticket']" /&gt;
+
+
+&lt;!-- Following is a more intersting example in which the auth token is persisted to an object store --&gt;
+
+&lt;boxnet:config name="Boxnet" apiKey="${box.apiKey}" restoreAuthTokenFlow="restoreAuthToken" saveAuthTokenFlow="saveAuthToken" /&gt;
+
+&lt;flow name="restoreAuthToken" doc:name="restoreAuthToken"&gt;
+		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt; 
+&lt;/flow&gt;
+
+&lt;flow name="saveAuthToken" doc:name="saveAuthToken"&gt;
+	&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/&gt;
+&lt;/flow&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
