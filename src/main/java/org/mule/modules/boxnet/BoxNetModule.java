@@ -33,7 +33,6 @@ import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.api.annotations.param.Payload;
 import org.mule.api.context.MuleContextAware;
 import org.mule.construct.Flow;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
@@ -472,7 +471,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     public UploadResponse uploadStream(MuleMessage message,
 							    		@Optional @Default("0") String folderId,
 							    		String filename,
-							    		@Optional @Payload InputStream input) {
+							    		@Optional @Default("#[payload]") InputStream input) {
     	
     	String authToken = this.getAuthToken(message);
     	byte[] data = null;
