@@ -4,21 +4,20 @@
 
 <!-- BEGIN_INCLUDE(boxnet:auth-token) -->
     
-    <!-- to manually get the auth token for a given ticket you could do this -->
-    <boxnet:auth-token ticket="flowVars['ticket']" />
-    
-    
-    <!-- Following is a more intersting example in which the auth token is persisted to an object store -->
-    
-    <boxnet:config name="Boxnet" apiKey="${box.apiKey}" restoreAuthTokenFlow="restoreAuthToken" saveAuthTokenFlow="saveAuthToken" />
-    
-    <flow name="restoreAuthToken" doc:name="restoreAuthToken">
-		<objectstore:retrieve key="flowVars['currentUserId']"/> 
-    </flow>
-    
-    <flow name="saveAuthToken" doc:name="saveAuthToken">
-    	<objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/>
-    </flow>
+<!-- to manually get the auth token for a given ticket you could do this -->
+<boxnet:auth-token ticket="flowVars['ticket']" />
+
+<!-- Following is a more intersting example in which the auth token is persisted to an object store -->
+
+<boxnet:config name="Boxnet" apiKey="${box.apiKey}" restoreAuthTokenFlow="restoreAuthToken" saveAuthTokenFlow="saveAuthToken" />
+
+<flow name="restoreAuthToken" doc:name="restoreAuthToken">
+	<objectstore:retrieve key="flowVars['currentUserId']"/> 
+</flow>
+
+<flow name="saveAuthToken" doc:name="saveAuthToken">
+	<objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/>
+</flow>
     
 <!-- END_INCLUDE(boxnet:auth-token) -->
 
