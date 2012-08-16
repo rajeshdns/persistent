@@ -1,81 +1,66 @@
-<!-- BEGIN_INCLUDE(boxnet:get-ticket) -->
-    <boxnet:get-ticket />
-<!-- END_INCLUDE(boxnet:get-ticket) -->
+<!-- BEGIN_INCLUDE(box:get-ticket) -->
+    <box:get-ticket />
+<!-- END_INCLUDE(box:get-ticket) -->
 
-<!-- BEGIN_INCLUDE(boxnet:auth-token) -->
-    
-<!-- to manually get the auth token for a given ticket you could do this -->
-<boxnet:auth-token ticket="flowVars['ticket']" />
-
-<!-- Following is a more intersting example in which the auth token is persisted to an object store -->
-
-<boxnet:config name="Boxnet" apiKey="${box.apiKey}" restoreAuthTokenFlow="restoreAuthToken" saveAuthTokenFlow="saveAuthToken" />
-
-<flow name="restoreAuthToken" doc:name="restoreAuthToken">
-	<objectstore:retrieve key="flowVars['currentUserId']"/> 
-</flow>
-
-<flow name="saveAuthToken" doc:name="saveAuthToken">
-	<objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/>
-</flow>
-    
-<!-- END_INCLUDE(boxnet:auth-token) -->
+<!-- BEGIN_INCLUDE(box:auth-token) -->
+<box:auth-token ticket="flowVars['ticket']" />
+<!-- END_INCLUDE(box:auth-token) -->
 
 
-<!-- BEGIN_INCLUDE(boxnet:register-new-user) -->
-    <boxnet:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
-<!-- END_INCLUDE(boxnet:register-new-user) -->
-<!-- BEGIN_INCLUDE(boxnet:create-folder) -->
-    <boxnet:create-folder parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]"share="#[map-payload:share]" />
-<!-- END_INCLUDE(boxnet:create-folder) -->
-<!-- BEGIN_INCLUDE(boxnet:upload-files) -->
-    <boxnet:upload-files />
-<!-- END_INCLUDE(boxnet:upload-files) -->
-<!-- BEGIN_INCLUDE(boxnet:upload-stream) -->
-    <boxnet:upload-stream filename="#[map-payload:fileName] />
-<!-- END_INCLUDE(boxnet:upload-stream) -->
-<!-- BEGIN_INCLUDE(boxnet:public-share) -->
-    <boxnet:public-share target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" message="#[map-payload:message]" />
-<!-- END_INCLUDE(boxnet:public-share) -->
-<!-- BEGIN_INCLUDE(boxnet:get-tree-structure) -->
-    <boxnet:get-tree-structure folderId="0" csvParams="nozip" />
-<!-- END_INCLUDE(boxnet:get-tree-structure) -->
-<!-- BEGIN_INCLUDE(boxnet:download) -->
-    <boxnet:download fileId="#[map-payload:fileId]"/>
-<!-- END_INCLUDE(boxnet:download) -->
-<!-- BEGIN_INCLUDE(boxnet:delete) -->
-    <boxnet:delete targetId="#[map-payload:folderId]" target="folder"/>
-<!-- END_INCLUDE(boxnet:delete) -->
-<!-- BEGIN_INCLUDE(boxnet:logout) -->
-    <boxnet:logout />
-<!-- END_INCLUDE(boxnet:logout) -->
-<!-- BEGIN_INCLUDE(boxnet:verify-registration-email) -->
-    <boxnet:verify-registration-email loginName="#[map-payload:loginName]"/>
-<!-- END_INCLUDE(boxnet:verify-registration-email) -->
-<!-- BEGIN_INCLUDE(boxnet:export-tags) -->
-    <boxnet:export-tags />
-<!-- END_INCLUDE(boxnet:export-tags) -->
-<!-- BEGIN_INCLUDE(boxnet:move) -->
-    <boxnet:move target="file" targetId="#[map-payload:fileId]" destinationId="#[map-payload:destinationId]" />
-<!-- END_INCLUDE(boxnet:move) -->
-<!-- BEGIN_INCLUDE(boxnet:move) -->
-    <boxnet:move target="file" targetId="#[map-payload:fileId]" destinationId="#[map-payload:destinationId]" />
-<!-- END_INCLUDE(boxnet:move) -->
-<!-- BEGIN_INCLUDE(boxnet:rename) -->
-    <boxnet:move target="file" targetId="#[map-payload:fileId]" newName="#[map-payload:newName]" />
-<!-- END_INCLUDE(boxnet:rename) -->
-<!-- BEGIN_INCLUDE(boxnet:public-unshare) -->
-    <boxnet:share target="file" targetId="#[map-payload:fileId]" />
-<!-- END_INCLUDE(boxnet:public-unshare) -->
-<!-- BEGIN_INCLUDE(boxnet:private-share) -->
-    <boxnet:private-share target="file" targetId="#[map-payload:fileId]" csvMail="bruce@wayne.com, alfred@wayne.com" message="bat cave blueprints"/>
-<!-- END_INCLUDE(boxnet:private-share) -->
-<!-- BEGIN_INCLUDE(boxnet:get-file-info) -->
-    <boxnet:get-file-info fileId="#[map-payload:fileId]" />
-<!-- END_INCLUDE(boxnet:get-file-info) -->
-<!-- BEGIN_INCLUDE(boxnet:add-to-tag) -->
-    <boxnet:add-to-tag target="file" targetId="#[map-payload:fileId]" csvTags="tag1, tag2" />
-<!-- END_INCLUDE(boxnet:add-to-tag) -->
-<!-- BEGIN_INCLUDE(boxnet:set-description) -->
-    <boxnet:set-description target="file" targetId="#[map-payload:fileId]" description="my file" />
-<!-- END_INCLUDE(boxnet:set-description) -->
+<!-- BEGIN_INCLUDE(box:register-new-user) -->
+    <box:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
+<!-- END_INCLUDE(box:register-new-user) -->
+<!-- BEGIN_INCLUDE(box:create-folder) -->
+    <box:create-folder parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]" share="true" />
+<!-- END_INCLUDE(box:create-folder) -->
+<!-- BEGIN_INCLUDE(box:upload-files) -->
+    <box:upload-files />
+<!-- END_INCLUDE(box:upload-files) -->
+<!-- BEGIN_INCLUDE(box:upload-stream) -->
+    <box:upload-stream filename="#[map-payload:fileName]" />
+<!-- END_INCLUDE(box:upload-stream) -->
+<!-- BEGIN_INCLUDE(box:public-share) -->
+    <box:public-share target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" message="#[map-payload:message]" />
+<!-- END_INCLUDE(box:public-share) -->
+<!-- BEGIN_INCLUDE(box:get-tree-structure) -->
+    <box:get-tree-structure folderId="0" csvParams="nozip" />
+<!-- END_INCLUDE(box:get-tree-structure) -->
+<!-- BEGIN_INCLUDE(box:download) -->
+    <box:download fileId="#[map-payload:fileId]"/>
+<!-- END_INCLUDE(box:download) -->
+<!-- BEGIN_INCLUDE(box:delete) -->
+    <box:delete targetId="#[map-payload:folderId]" target="folder"/>
+<!-- END_INCLUDE(box:delete) -->
+<!-- BEGIN_INCLUDE(box:logout) -->
+    <box:logout />
+<!-- END_INCLUDE(box:logout) -->
+<!-- BEGIN_INCLUDE(box:verify-registration-email) -->
+    <box:verify-registration-email loginName="#[map-payload:loginName]"/>
+<!-- END_INCLUDE(box:verify-registration-email) -->
+<!-- BEGIN_INCLUDE(box:export-tags) -->
+    <box:export-tags />
+<!-- END_INCLUDE(box:export-tags) -->
+<!-- BEGIN_INCLUDE(box:move) -->
+    <box:move target="file" targetId="#[map-payload:fileId]" destinationId="#[map-payload:destinationId]" />
+<!-- END_INCLUDE(box:move) -->
+<!-- BEGIN_INCLUDE(box:move) -->
+    <box:move target="file" targetId="#[map-payload:fileId]" destinationId="#[map-payload:destinationId]" />
+<!-- END_INCLUDE(box:move) -->
+<!-- BEGIN_INCLUDE(box:rename) -->
+    <box:move target="file" targetId="#[map-payload:fileId]" newName="#[map-payload:newName]" />
+<!-- END_INCLUDE(box:rename) -->
+<!-- BEGIN_INCLUDE(box:public-unshare) -->
+    <box:public-unshare target="file" targetId="#[map-payload:fileId]" />
+<!-- END_INCLUDE(box:public-unshare) -->
+<!-- BEGIN_INCLUDE(box:private-share) -->
+    <box:private-share target="file" targetId="#[map-payload:fileId]" csvMails="bruce@wayne.com, alfred@wayne.com" message="bat cave blueprints"/>
+<!-- END_INCLUDE(box:private-share) -->
+<!-- BEGIN_INCLUDE(box:get-file-info) -->
+    <box:get-file-info fileId="#[map-payload:fileId]" />
+<!-- END_INCLUDE(box:get-file-info) -->
+<!-- BEGIN_INCLUDE(box:add-to-tag) -->
+    <box:add-to-tag target="file" targetId="#[map-payload:fileId]" csvTags="tag1, tag2" />
+<!-- END_INCLUDE(box:add-to-tag) -->
+<!-- BEGIN_INCLUDE(box:set-description) -->
+    <box:set-description target="file" targetId="#[map-payload:fileId]" description="my file" />
+<!-- END_INCLUDE(box:set-description) -->

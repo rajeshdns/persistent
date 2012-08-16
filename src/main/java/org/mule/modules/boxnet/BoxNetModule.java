@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -27,15 +29,17 @@ import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Module;
+import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.context.MuleContextAware;
+import org.mule.api.transformer.TransformerException;
 import org.mule.construct.Flow;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
+import org.mule.transformer.codec.Base64Decoder;
 
 import cn.com.believer.songyuanframework.openapi.storage.box.BoxExternalAPI;
 import cn.com.believer.songyuanframework.openapi.storage.box.constant.BoxConstant;
@@ -88,10 +92,11 @@ import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxExceptio
  * @author MuleSoft, Inc.
  * @author mariano.gonzalez@mulesoft.com
  */
-@Module(name="boxnet", schemaVersion="1.1.0")
+@Connector(name="box", schemaVersion="1.1.0", friendlyName="Box", minMuleVersion="3.3")
 public class BoxNetModule implements MuleContextAware {
     
-private static final Logger logger = Logger.getLogger(BoxNetModule.class);
+	private static final Logger logger = Logger.getLogger(BoxNetModule.class);
+	private static final Base64Decoder decoder = new Base64Decoder();
 	
 	private BoxExternalAPI client;
 	
@@ -151,7 +156,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 
      * For example:
      * 
-     * &lt;boxnet:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * &lt;box:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
      * 
      *  &lt;flow name="restoreTokenFlow"&gt;
      *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
@@ -176,7 +181,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 
      * For example:
      * 
-     * &lt;boxnet:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * &lt;box:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
      * 
      *  &lt;flow name="restoreTokenFlow"&gt;
      *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
@@ -212,7 +217,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws IllegalArgumentException if restore/save token flows are specified but don't exist
      */
     @Start
-    public void start() throws MuleException {
+    public void init() throws MuleException {
     	this.client = new SimpleBoxImpl();
     	this.authCallback = new AuthCallbackAdapter(this.muleContext, this);
 		this.authCallback.setLocalPort(this.getCallbackPort());
@@ -240,7 +245,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     }
     
     @Stop
-    public void stop() throws MuleException {
+    public void onStop() throws MuleException {
     	if (this.usesCallback) {
     		this.authCallback.stop();
     	}
@@ -252,7 +257,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * With this ticket, the user needs to manually go to {@link https://www.box.net/api/1.0/auth/<ticket>}
      * For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-ticket}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:get-ticket}
      * 
      * @return the obtained ticket
      */
@@ -296,7 +301,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 	 *  
 	 *  For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:auth-token}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:auth-token}
      *
      * @param message the current mule message
      * @param ticket the ticket to authenticate against. If not provided then the last obtained one is used.
@@ -305,6 +310,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws IllegalStateException if you use this processor before getting a ticket
      */
     @Processor
+    @Inject
     public void authToken(MuleMessage message, @Optional String ticket) {
     	if (StringUtils.isBlank(ticket)) {
     		ticket = this.authCallback.getTicket();
@@ -342,7 +348,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Create a new user in box.net
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:register-new-user}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:register-new-user}
      *
      * @param email the user's email
      * @param password the user's password
@@ -368,7 +374,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Create a new folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:create-folder}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:create-folder}
      *
      * @param message the current mule message
      * @param parentFolderId the id of the parent folder
@@ -378,6 +384,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 			data about the operation status and info about the newly created folder (if successful)
      */
     @Processor
+    @Inject
     public CreateFolderResponse createFolder(MuleMessage message,
     										String parentFolderId,
     										String folderName,
@@ -409,7 +416,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * Receives a comma separated list of paths and uploads the corresponding
      * files.
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-files}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:upload-files}
      *
      * @param message the current mule message
      * @param folderId the id of the parent folder. Defaults to 0 (the root folder)
@@ -418,6 +425,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 			data about the operation status and info about the newly uploaded files (if successful)
      */
     @Processor
+    @Inject
     public UploadResponse uploadFiles(
     						MuleMessage message,
     						@Optional @Default("#[payload]") List<String> paths,
@@ -458,7 +466,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Receives an input stream and uploads its content as a file
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:upload-stream}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:upload-stream}
      *
      * @param message the current mule message
      * @param folderId the id of the parent folder. Defaults to 0 which is the root folder
@@ -468,6 +476,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 			data about the operation status and info about the newly uploaded file (if successful)
      */
     @Processor
+    @Inject
     public UploadResponse uploadStream(MuleMessage message,
 							    		@Optional @Default("0") String folderId,
 							    		String filename,
@@ -504,7 +513,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Makes a public share of a file or folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:public-share}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:public-share}
      *
      * @param muleMessage the current mule message
      * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
@@ -516,15 +525,15 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws {@link IllegalArgumentException} if target is invalid
      */
     @Processor
+    @Inject
     public PublicShareResponse publicShare(
 									MuleMessage muleMessage,
-    								String target,
+    								Target target,
 									String targetId,
 									String password,
 									String message) {
     	
     	String authToken = this.getAuthToken(muleMessage);
-    	BoxUtils.validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("about to share folder with params:" +
@@ -535,7 +544,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	}
     	
     	final PublicShareRequest publicShareRequest = BoxRequestFactory.createPublicShareRequest(
-    			apiKey,	authToken, target, targetId, password, message, null);
+    			apiKey,	authToken, target.name(), targetId, password, message, null);
     	
     	return this.execute(new BoxClosure<PublicShareResponse>() {
     		
@@ -549,7 +558,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * This processor unshares a public shared file or folder
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:public-unshare}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:public-unshare}
      * 
      * @param message the current mule message
      * @param target shoud be either 'file' or 'folder'
@@ -558,10 +567,10 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws {@link IllegalArgumentException} if target is invalid
      */
     @Processor
-    public String publicUnshare(MuleMessage message, String target, String targetId) {
+    @Inject
+    public String publicUnshare(MuleMessage message, Target target, String targetId) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
-    	final PublicUnshareRequest request = BoxRequestFactory.createPublicUnshareRequest(apiKey, authToken, target, targetId);
+    	final PublicUnshareRequest request = BoxRequestFactory.createPublicUnshareRequest(apiKey, authToken, target.name(), targetId);
     	
     	PublicUnshareResponse response = this.execute(new BoxClosure<PublicUnshareResponse>() {
     		
@@ -581,7 +590,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 
      * Note: currently only files can be shared privately.
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:private-share}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:private-share}
      * 
      * @param muleMessage the current mule message
      * @param target should be either 'file' or 'folder'
@@ -593,22 +602,22 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws {@link IllegalArgumentException} if target is invalid or csvMails is null or empty
      */
     @Processor
+    @Inject
     public String privateShare( MuleMessage muleMessage,
-    							String target,
+    							Target target,
     							String targetId,
     							String csvMails,
     							@Optional @Default("true") Boolean notify,
     							@Optional @Default("") String message )	{
     	
     	String authToken = this.getAuthToken(muleMessage);
-    	BoxUtils.validateTarget(target);
     	
     	if (StringUtils.isEmpty(csvMails)) {
     		throw new IllegalArgumentException("csvMails cannot be empty");
     	}
     	
     	final PrivateShareRequest request = BoxRequestFactory.createPrivateShareRequest(
-    					apiKey, authToken, target, targetId, csvMails.split(","), message, notify);
+    					apiKey, authToken, target.name(), targetId, csvMails.split(","), message, notify);
     	
     	PrivateShareResponse response = this.execute(new BoxClosure<PrivateShareResponse>() {
     		
@@ -635,7 +644,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * if you haven't set 'nozip' as a parameter (it's set by default), then you have to unzip it. Then you will get xml like
      * this: (note that updatedand createdare UNIX timestamps in PST).
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-tree-structure}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:get-tree-structure}
      *
      * @param message the current mule message
      * @param folderId The ID of the root folder from which the tree begins.  If this value is "0", the user's full account tree is returned. Defaults to zero
@@ -645,6 +654,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 			data about the operation status and info about the inspected folder (if successful)
      */
     @Processor
+    @Inject
     public GetAccountTreeResponse getTreeStructure(
     		MuleMessage message,
     		@Optional @Default("0") String folderId,
@@ -669,7 +679,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     			GetAccountTreeResponse response = client.getAccountTree(getAccountTreeRequest);
     			
     			if (response.getEncodedTree() != null) {
-    				response.setEncodedTree(BoxUtils.decodeBase64(response.getEncodedTree(), encoding));
+    				response.setEncodedTree(decode(response.getEncodedTree(), encoding));
     			}
     			
     			return response;
@@ -681,13 +691,14 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Downloads a file an returns its contents as a byte[] 
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:download}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:download}
      *
      * @param message the current mule message
      * @param fileId the id of the file we want to download
      * @return the file's contents as a byte array
      */
     @Processor
+    @Inject
     public byte[] download(MuleMessage message, String fileId) {
     	
     	String authToken = this.getAuthToken(message);
@@ -711,7 +722,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Deletes a file or folder
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:delete}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:delete}
      *
      * @param message the current mule message
      * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
@@ -720,15 +731,15 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws {@link IllegalArgumentException} if target is invalid
      */
     @Processor
-    public DeleteResponse delete(MuleMessage message, final String target, final String targetId) {
+    @Inject
+    public DeleteResponse delete(MuleMessage message, final Target target, final String targetId) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("about to delete " + target + " " + targetId);
     	}
     	
-    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target, targetId);
+    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target.name(), targetId);
     	return this.execute(new BoxClosure<DeleteResponse>() {
     		
     		@Override
@@ -742,12 +753,13 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Logs out the user associated with the authorization token
      *
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:logout}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:logout}
      *
      * @param message the current mule message
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse} with data about the operation status
      */
     @Processor
+    @Inject
     public LogoutResponse logout(MuleMessage message) {
     	String authToken = this.getAuthToken(message);  	
     	if (logger.isDebugEnabled()) {
@@ -768,7 +780,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
     * This method is used to verify user registration email
     * 
-    * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:verify-registration-email}
+    * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:verify-registration-email}
     * 
     * @param message the current mule message
     * @param loginName The login username of the user for which you would like to verify registration.
@@ -779,6 +791,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 	*		'application_restricted'- You provided an invalid api_key, or the api_key is restricted from calling this function. 
     */ 
     @Processor
+    @Inject
     public String verifyRegistrationEmail(MuleMessage message, String loginName) {
 
         if (logger.isDebugEnabled()) {
@@ -807,13 +820,14 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * </tag> </tags> If the result wasn't successful, status field can be:
      * not_logged_id, application_restricted.
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:export-tags}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:export-tags}
      * 
      * @param message the current mule message
      * @param encoding encoding to use when decoding from BASE64. Optional, defaults to UTF-8
      * @return a String xml representing the tags
      */
     @Processor
+    @Inject
     public String exportTags(MuleMessage message, @Optional @Default("UTF-8") String encoding) {
     	String authToken = this.getAuthToken(message);
     	final ExportTagsRequest request = BoxRequestFactory.createExportTagsRequest(apiKey, authToken);
@@ -833,7 +847,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 		}, "exportTags");
     	
     	if (response.getStatus().equals("export_tags_ok")) {
-    		return BoxUtils.decodeBase64(response.getEncodedTags(), encoding);
+    		return this.decode(response.getEncodedTags(), encoding);
     	}
     	
     	throw new RuntimeException("Error retrieving tags. Box.net replied " + response.getStatus());
@@ -847,7 +861,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * wasn't successful, status field can be: 'e_move_node', 'not_logged_in',
      * 'application_restricted'.
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:move}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:move}
      * 
      * @param message the current mule message
      * @param target can be either 'file' or 'folder' depending on what do you
@@ -857,15 +871,15 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 'application_restricted'.
      */
     @Processor
-    public String move(MuleMessage message, String target, String targetId, String destinationId) {
+    @Inject
+    public String move(MuleMessage message, Target target, String targetId, String destinationId) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("moving " + target + " " + targetId + " to " + destinationId);
     	}
     	
-    	final MoveRequest request = BoxRequestFactory.createMoveRequest(apiKey, authToken, target, targetId, destinationId);
+    	final MoveRequest request = BoxRequestFactory.createMoveRequest(apiKey, authToken, target.name(), targetId, destinationId);
     	
     	MoveResponse response = this.execute(new BoxClosure<MoveResponse>() {
     		
@@ -881,7 +895,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * This processor renames a file or folder.
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:move} 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:move} 
      * 
      * @param message the current mule message
      * @param target can be either 'file' or 'folder' depending on what you want to rename
@@ -890,15 +904,15 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @return if successful will be 's_rename_node'. Otherwise it can be: 'e_rename_node', 'not_logged_in', 'application_restricted'
      */
     @Processor
-    public String rename(MuleMessage message, String target, String targetId, String newName) {
+    @Inject
+    public String rename(MuleMessage message, Target target, String targetId, String newName) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("renaming " + target + " " + targetId + " to " + newName);
     	}
     	
-    	final RenameRequest request = BoxRequestFactory.createRenameRequest(apiKey, authToken, target, targetId, newName);
+    	final RenameRequest request = BoxRequestFactory.createRenameRequest(apiKey, authToken, target.name(), targetId, newName);
     	
     	RenameResponse response = this.execute(new BoxClosure<RenameResponse>() {
     		
@@ -914,13 +928,14 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * Gets information about a file
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:get-file-info}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:get-file-info}
      * 
      * @param message the current mule message
      * @param fileId the id of the file you want info about
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetFileInfoResponse}
      */
     @Processor
+    @Inject
     public GetFileInfoResponse getFileInfo(MuleMessage message, String fileId) {
     	String authToken = this.getAuthToken(message);
     	if (logger.isDebugEnabled()) {
@@ -940,7 +955,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     /**
      * This processor adds file or folder to tags list. 
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:add-to-tag}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:add-to-tag}
      * 
      * @param message the current mule message
      * @param csvTags comma separated list of tags
@@ -950,9 +965,9 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @throws {@link IllegalArgumentException} if target is invalid or csvTags is empty
      */
     @Processor
-    public String addToTag(MuleMessage message, String csvTags, String target, String targetId) {
+    @Inject
+    public String addToTag(MuleMessage message, String csvTags, Target target, String targetId) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
     	
     	if (StringUtils.isEmpty(csvTags)) {
     		throw new IllegalArgumentException("csvTags cannot be empty");
@@ -962,7 +977,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     		logger.debug("adding tags to " + target + " " + targetId + ": " + csvTags);
     	}
     	
-    	final AddToTagRequest request = BoxRequestFactory.createAddToTagRequest(apiKey, authToken, csvTags.split(","), target, targetId);
+    	final AddToTagRequest request = BoxRequestFactory.createAddToTagRequest(apiKey, authToken, csvTags.split(","), target.name(), targetId);
     	AddToTagResponse response = this.execute(new BoxClosure<AddToTagResponse>() {
     		
     		@Override
@@ -978,7 +993,7 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * 
      * This processor sets a description to a file or folder.
      * 
-     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample boxnet:set-description}
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:set-description}
      * 
      * @param message the current mule message
      * @param target can be either 'file' or 'folder'
@@ -987,15 +1002,15 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
      * @return 's_set_description' if successful. 'e_set_description' otherwise.
      */
     @Processor
-    public String setDescription(MuleMessage message,String target, String targetId, String description) {
+    @Inject
+    public String setDescription(MuleMessage message, Target target, String targetId, String description) {
     	String authToken = this.getAuthToken(message);
-    	BoxUtils.validateTarget(target);
     	
     	if (logger.isDebugEnabled()) {
     		logger.debug("setting description of " + target + " " + targetId + " to:" + description);
     	}
     	
-    	final SetDescriptionRequest request = BoxRequestFactory.createSetDescriptionRequest(apiKey, authToken, target, targetId, description);
+    	final SetDescriptionRequest request = BoxRequestFactory.createSetDescriptionRequest(apiKey, authToken, target.name(), targetId, description);
     	SetDescriptionResponse response = this.execute(new BoxClosure<SetDescriptionResponse>() {
     		
     		@Override
@@ -1075,6 +1090,14 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
     	return response;
     }
     
+    private String decode(String encoded, String encoding) {
+    	try {
+    		return new String((byte[]) decoder.doTransform(encoded, encoding));
+    	} catch (TransformerException e) {
+    		throw new RuntimeException("Error decoding Base64 value");
+    	}
+    }
+    
     private void logAndThrow(Exception e) {
     	final String msg = "exception caught on Box.net Cloud Connector";
     	if (logger.isDebugEnabled()) {
@@ -1132,5 +1155,10 @@ private static final Logger logger = Logger.getLogger(BoxNetModule.class);
 	public void setSaveAuthTokenFlow(String saveAuthTokenFlow) {
 		this.saveAuthTokenFlow = saveAuthTokenFlow;
 	}
+
+	public String getApiKey() {
+		return apiKey;
+	}
+	
 	
 }
