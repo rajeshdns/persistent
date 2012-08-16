@@ -11,7 +11,10 @@ cn.com.believer.songyuanframework.openapi.storage.box.impl.simple.utils
 cn.com.believer.songyuanframework.openapi.storage.box.objects
 org.mule.modules.boxnet
 org.mule.modules.boxnet.adapters
+org.mule.modules.boxnet.agents
 org.mule.modules.boxnet.callback
 org.mule.modules.boxnet.config
+org.mule.modules.boxnet.process
 org.mule.modules.boxnet.processors
+org.mule.modules.boxnet.transformers
 
