@@ -18,7 +18,7 @@ import org.mule.api.MuleException;
 import org.mule.api.callback.HttpCallback;
 import org.mule.api.processor.MessageProcessor;
 import org.mule.config.i18n.MessageFactory;
-import org.mule.modules.boxnet.BoxNetModule;
+import org.mule.modules.boxnet.BoxConnector;
 
 
 /**
@@ -29,7 +29,7 @@ import org.mule.modules.boxnet.BoxNetModule;
 public class AuthCallbackAdapter extends HttpCallbackAdapter {
 
 	private MuleContext muleContext;
-	private BoxNetModule module;
+	private BoxConnector module;
 	private HttpCallback callback;
 
 	private String ticket;
@@ -48,7 +48,7 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
         }
     }
     
-    public AuthCallbackAdapter(MuleContext muleContext, BoxNetModule module) {
+    public AuthCallbackAdapter(MuleContext muleContext, BoxConnector module) {
 		assert muleContext != null : "Mule context cannot be null";
 		
     	this.muleContext = muleContext;

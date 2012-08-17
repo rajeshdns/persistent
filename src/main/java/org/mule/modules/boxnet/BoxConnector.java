@@ -93,9 +93,9 @@ import cn.com.believer.songyuanframework.openapi.storage.box.objects.BoxExceptio
  * @author mariano.gonzalez@mulesoft.com
  */
 @Connector(name="box", schemaVersion="1.1.0", friendlyName="Box", minMuleVersion="3.3")
-public class BoxNetModule implements MuleContextAware {
+public class BoxConnector implements MuleContextAware {
     
-	private static final Logger logger = Logger.getLogger(BoxNetModule.class);
+	private static final Logger logger = Logger.getLogger(BoxConnector.class);
 	private static final Base64Decoder decoder = new Base64Decoder();
 	
 	private BoxExternalAPI client;
