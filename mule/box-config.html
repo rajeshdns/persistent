@@ -844,8 +844,7 @@ specify which configuration to use.</p>
                     <tr class="alt-color api apilevel-" >
                         <td class="jd-linkcol"><nobr>ticket</nobr></td>
                         <td class="jd-descrcol"></td>
-                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The ticket to authenticate against. If not provided then the last obtained one is used.
- 			If none obtained yet, then IllegalStateException is thrown</td>
+                        <td class="jd-descrcol">The ticket to authenticate against.</td>
                         <td class="jd-descrcol">String</td>
                         <td class="jd-descrcol">*/*</td>
                         <td class="jd-descrcol">UTF-8</td>
@@ -868,11 +867,7 @@ specify which configuration to use.</p>
         
         <tr>
             <td>IllegalArgumentException</td>
-            <td>if the ticket does not match a logged user</td>
-        </tr>
-        <tr>
-            <td>IllegalStateException</td>
-            <td>if you use this processor before getting a ticket
+            <td>if the ticket does not match a logged user
 </td>
         </tr>
       </table>
@@ -1347,9 +1342,13 @@ specify which configuration to use.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Get and access ticket using the configured apiKey.
+  <div class="jd-tagdata jd-tagdescr"><p>Get and access ticket using the configured apiKey. Optionally, you can ask the connector to automatically
+ redirect the browser to box authorization page so that the user can enter his credentials
  
- With this ticket, the user needs to manually go to https://www.box.net/api/1.0/auth/<ticket>
+ Otherwise, the user needs to manually go to https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;
+ 
+ Either way, the connector <b>WILL NOT</b> be responsible for storing this ticket.
+ 
  For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
  
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-ticket /&gt;</pre></div></p></div>
@@ -1367,6 +1366,30 @@ specify which configuration to use.</p>
           <td class="jd-descrcol"></td>
         </tr>
           
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>message</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The current mule message</td>
+                        <td class="jd-descrcol">MuleMessage</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>redirect</nobr></td>
+                        <td class="jd-descrcol">true</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>If true, then the browser will be automatically redirected to https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;</td>
+                        <td class="jd-descrcol">Boolean</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
           
           
           

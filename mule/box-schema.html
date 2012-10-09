@@ -296,13 +296,13 @@ to a valid auth token. If the flow fails to accomplish that, an exception will b
 
 For example:
 
-&amp;amp;lt;box:config apiKey=&quot;ud5g57tp51xyr1iz53nlksovdf4b2a2j&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
+&amp;amp;lt;box:config apiKey=&quot;${apiKey&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
 
 &amp;amp;lt;flow name=&quot;restoreTokenFlow&quot;&amp;amp;gt;
 &amp;amp;lt;objectstore:retrieve key=&quot;flowVars['currentUserId']&quot;/&amp;amp;gt;
 &amp;amp;lt;/flow&amp;amp;gt;
 &amp;amp;lt;flow name=&quot;save&quot;&amp;amp;gt;
-&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[payload]&quot;/&amp;amp;gt;
+&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[flowVars['boxAuthToken']]&quot;/&amp;amp;gt;
 &amp;amp;lt;/flow&amp;amp;gt;
 If this attribute is not specified, then the token will be fetched from memory. Notice that this means the token won't survive
 an application restart and that the connector would be incapable of handling two different concurrent accounts&lt;/xs:documentation&gt;
@@ -311,19 +311,24 @@ an application restart and that the connector would be incapable of handling two
           &lt;xs:attribute name=&quot;saveAuthTokenFlow&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;The name of a flow to be executed each time an authentication token
-is received. If this attribute is specified, then a flow with this named
+is received. If this attribute is specified, then a flow with this name
 will be fetch on the registry and invoked every time the auth token is obtained.
-This flow will receive a copy of the current mule message carrying the received token in its payload
+This flow will receive a copy of the current mule message carrying two additional invocation variables:
+
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;boxAuthTicket: The ticket for which the authorization token was generated&amp;lt;/li&amp;gt;
+&amp;lt;li&amp;gt;boxAuthToken: The obtained authorization token
+&amp;lt;/ul&amp;gt;
 
 For example:
 
-&amp;amp;lt;box:config apiKey=&quot;ud5g57tp51xyr1iz53nlksovdf4b2a2j&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
+&amp;amp;lt;box:config apiKey=&quot;${apiKey&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
 
 &amp;amp;lt;flow name=&quot;restoreTokenFlow&quot;&amp;amp;gt;
 &amp;amp;lt;objectstore:retrieve key=&quot;flowVars['currentUserId']&quot;/&amp;amp;gt;
 &amp;amp;lt;/flow&amp;amp;gt;
 &amp;amp;lt;flow name=&quot;save&quot;&amp;amp;gt;
-&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[payload]&quot;/&amp;amp;gt;
+&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[flowVars['boxAuthToken']]&quot;/&amp;amp;gt;
 &amp;amp;lt;/flow&amp;amp;gt;
 If this attribute is not specified, then the token will be stored in memory. Notice that this means the token won't survive
 an application restart and that the connector would be incapable of handling two different concurrent accounts&lt;/xs:documentation&gt;
@@ -335,10 +340,14 @@ an application restart and that the connector would be incapable of handling two
   &lt;/xs:element&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-ticket&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetTicketType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Get and access ticket using the configured apiKey.
+      &lt;xs:documentation&gt;Get and access ticket using the configured apiKey. Optionally, you can ask the connector to automatically
+redirect the browser to box authorization page so that the user can enter his credentials
 
-With this ticket, the user needs to manually go to 
-For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication&lt;/xs:documentation&gt;
+Otherwise, the user needs to manually go to 
+
+Either way, the connector &amp;lt;b&amp;gt;WILL NOT&amp;lt;/b&amp;gt; be responsible for storing this ticket.
+
+For more info look at&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetTicketType&quot;&gt;
@@ -347,6 +356,11 @@ For more info look at http://developers.box.net/w/page/12923915/ApiAuthenticatio
         &lt;xs:attribute name=&quot;config-ref&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; name=&quot;redirect&quot; default=&quot;true&quot; use=&quot;optional&quot; type=&quot;booleanType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;if true, then the browser will be automatically redirected to https://www.box.net/api/1.0/auth/&amp;amp;lt;&amp;amp;lt;ticket&amp;amp;gt;&amp;amp;gt;&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
@@ -379,9 +393,9 @@ For more info look at http://developers.box.net/w/page/12923915/ApiAuthenticatio
             &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
-        &lt;xs:attribute name=&quot;ticket&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
+        &lt;xs:attribute name=&quot;ticket&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the ticket to authenticate against. If not provided then the last obtained one is used. If none obtained yet, then IllegalStateException is thrown&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;the ticket to authenticate against.&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
       &lt;/xs:extension&gt;
