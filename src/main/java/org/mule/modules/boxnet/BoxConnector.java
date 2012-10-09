@@ -98,6 +98,14 @@ public class BoxConnector implements MuleContextAware {
 	private static final Logger logger = Logger.getLogger(BoxConnector.class);
 	private static final Base64Decoder decoder = new Base64Decoder();
 	
+	private static final String BOX_AUTH_TICKET = "boxAuthTicket";
+	private static final String BOX_AUTH_TOKEN = "boxAuthToken";
+	
+	/**
+	 * The url where the user needs to enter his credentials
+	 */
+	private static final String AUTH_URL = "https://www.box.net/api/1.0/auth/"; 
+	
 	private BoxExternalAPI client;
 	
 	private MuleContext muleContext;
@@ -156,14 +164,14 @@ public class BoxConnector implements MuleContextAware {
      * 
      * For example:
      * 
-     * &lt;box:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * &lt;box:config apiKey="${apiKey}" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
      * 
      *  &lt;flow name="restoreTokenFlow"&gt;
      *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
      *	&lt;/flow&gt;
      *
      *	&lt;flow name="save"&gt;
-     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/&gt;
+     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[flowVars['boxAuthToken']]"/&gt;
      *	&lt;/flow&gt;
      *
      *	If this attribute is not specified, then the token will be fetched from memory. Notice that this means the token won't survive
@@ -175,20 +183,25 @@ public class BoxConnector implements MuleContextAware {
     
     /**
      * The name of a flow to be executed each time an authentication token
-     * is received. If this attribute is specified, then a flow with this named
+     * is received. If this attribute is specified, then a flow with this name
      * will be fetch on the registry and invoked every time the auth token is obtained.
-     * This flow will receive a copy of the current mule message carrying the received token in its payload
+     * This flow will receive a copy of the current mule message carrying two additional invocation variables:
+     * 
+     * <ul>
+     * 	<li>boxAuthTicket: The ticket for which the authorization token was generated</li>
+     * 	<li>boxAuthToken: The obtained authorization token
+     * </ul>
      * 
      * For example:
      * 
-     * &lt;box:config apiKey="ud5g57tp51xyr1iz53nlksovdf4b2a2j" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * &lt;box:config apiKey="${apiKey}" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
      * 
      *  &lt;flow name="restoreTokenFlow"&gt;
      *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
      *	&lt;/flow&gt;
      *
      *	&lt;flow name="save"&gt;
-     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[payload]"/&gt;
+     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[flowVars['boxAuthToken']]"/&gt;
      *	&lt;/flow&gt;
      *
      * If this attribute is not specified, then the token will be stored in memory. Notice that this means the token won't survive
@@ -207,6 +220,8 @@ public class BoxConnector implements MuleContextAware {
      * Actual save token flow egarly fetched
      */
     private Flow saveTokenFlow;
+    
+    private String authToken;
     
     /**
      * This method initiaes the box client and the auth callback.
@@ -252,17 +267,25 @@ public class BoxConnector implements MuleContextAware {
     }
     
     /**
-     * Get and access ticket using the configured apiKey.
+     * Get and access ticket using the configured apiKey. Optionally, you can ask the connector to automatically
+     * redirect the browser to box authorization page so that the user can enter his credentials
      * 
-     * With this ticket, the user needs to manually go to {@link https://www.box.net/api/1.0/auth/<ticket>}
-     * For more info look at http://developers.box.net/w/page/12923915/ApiAuthentication
+     * Otherwise, the user needs to manually go to {@link https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;}
+     * 
+     * Either way, the connector <b>WILL NOT</b> be responsible for storing this ticket.
+     * 
+     * For more info look at {@link http://developers.box.net/w/page/12923915/ApiAuthentication}
      * 
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:get-ticket}
      * 
+     * @param message the current mule message
+     * @param redirect if true, then the browser will be automatically redirected to https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;
+     *  
      * @return the obtained ticket
      */
     @Processor
-    public String getTicket() {
+    @Inject
+    public String getTicket(MuleMessage message, @Optional @Default("true") Boolean redirect) {
     	
     	GetTicketResponse response = this.execute(new BoxClosure<GetTicketResponse>() {
     		
@@ -276,10 +299,22 @@ public class BoxConnector implements MuleContextAware {
     	String ticket = response.getTicket();
     	
     	if (logger.isDebugEnabled()) {
-    		logger.debug("Fetched ticket with apiKey " + this.apiKey + " and obtained: " + ticket);
+    		logger.debug(String.format("Fetched ticket with apiKey %s and obtained %s", this.apiKey, ticket));
     	}
     	
-    	this.authCallback.setTicket(ticket);
+    	
+    	if (redirect) {
+    		
+    		String redirectUrl = AUTH_URL + ticket;
+    		
+    		if (logger.isDebugEnabled()) {
+    			logger.debug(String.format("redirecting to %s for authorizing ticket %s", redirectUrl, ticket));
+    		}
+    		
+    		message.setOutboundProperty("http.status", "302");
+    		message.setOutboundProperty("Location", redirectUrl);
+    	}
+    	
     	return ticket;
     }
 
@@ -304,22 +339,12 @@ public class BoxConnector implements MuleContextAware {
      * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:auth-token}
      *
      * @param message the current mule message
-     * @param ticket the ticket to authenticate against. If not provided then the last obtained one is used.
-     * 			If none obtained yet, then IllegalStateException is thrown
+     * @param ticket the ticket to authenticate against.
      * @throws IllegalArgumentException if the ticket does not match a logged user
-     * @throws IllegalStateException if you use this processor before getting a ticket
      */
     @Processor
     @Inject
-    public void authToken(MuleMessage message, @Optional String ticket) {
-    	if (StringUtils.isBlank(ticket)) {
-    		ticket = this.authCallback.getTicket();
-    	}
-    	
-    	if (StringUtils.isBlank(ticket)) {
-    		throw new IllegalStateException("you must get a ticket first");
-    	}
-    	
+    public void authToken(MuleMessage message, String ticket) {
     	final GetAuthTokenRequest getAuthTokenRequest = BoxRequestFactory.createGetAuthTokenRequest(this.apiKey, ticket);
     	GetAuthTokenResponse getAuthTokenResponse = this.execute(new BoxClosure<GetAuthTokenResponse>() {
     		
@@ -329,19 +354,19 @@ public class BoxConnector implements MuleContextAware {
     		}
 		}, "getAuthToken");
     	
-         if (BoxConstant.STATUS_NOT_LOGGED_IN.equals(getAuthTokenResponse.getStatus())) {
+        if (BoxConstant.STATUS_NOT_LOGGED_IN.equals(getAuthTokenResponse.getStatus())) {
         	 String msg = "Failed to obtain authToken using ticket " + ticket + ". Not logged in";
         	 logger.error(msg);
         	 throw new IllegalArgumentException(msg);
-         }
+        }
          
-         String authToken = getAuthTokenResponse.getAuthToken();
+        String authToken = getAuthTokenResponse.getAuthToken();
          
-         if (logger.isDebugEnabled()) {
-        	 logger.debug("ticket " + ticket + "mapped to authToken: " + authToken);
-         }
+        if (logger.isDebugEnabled()) {
+        	logger.debug("ticket " + ticket + "mapped to authToken: " + authToken);
+        }
          
-         this.saveAuthToken(message, authToken);
+        this.saveAuthToken(message, ticket, authToken);
     }
     
 
@@ -1031,19 +1056,21 @@ public class BoxConnector implements MuleContextAware {
     	return token;
     }
     
-    public void saveAuthToken(MuleMessage message, String authToken) {
-    	if (this.saveTokenFlow == null) {
-    		this.authCallback.setAuthToken(authToken);
-    	} else {
-    		MuleMessage saveMessage = new DefaultMuleMessage(message);
-    		saveMessage.setPayload(authToken);
-    		FlowUtils.callFlow(this.saveTokenFlow, saveMessage);
-    	}
+   public void saveAuthToken(MuleMessage message, String ticket, String authToken) {
+	   if (this.saveTokenFlow == null) {
+			this.authToken = authToken;
+		} else {
+			MuleMessage copy = new DefaultMuleMessage(message);
+			copy.setInvocationProperty(BOX_AUTH_TICKET, ticket);
+			copy.setInvocationProperty(BOX_AUTH_TOKEN, authToken);
+			
+			FlowUtils.callFlow(this.saveTokenFlow, copy);
+		}
     }
     
     public String restoreAuthToken(MuleMessage message) {
     	if (this.restoreTokenFlow == null) {
-    		return this.authCallback.getAuthToken();
+    		return this.authToken;
     	} else {
     		MuleMessage restoreMessage = FlowUtils.callFlow(this.restoreTokenFlow, new DefaultMuleMessage(message)); 
     		Object payload = restoreMessage.getPayload();

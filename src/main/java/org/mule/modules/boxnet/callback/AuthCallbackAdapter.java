@@ -33,14 +33,14 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
 	private HttpCallback callback;
 
 	private String ticket;
-	private String authToken;
+	
     
     private class GetAuthCodeCallback implements MessageProcessor {
 
         public MuleEvent process(MuleEvent event) throws MuleException {
             try {
             	Map<String, String> values = HttpParamsExtractor.toMap(event.getMessage());
-            	module.saveAuthToken(event.getMessage(), values.get("auth_token"));
+            	module.saveAuthToken(event.getMessage(), values.get("ticket"), values.get("auth_token"));
             } catch (Exception e) {
                 throw new MessagingException(MessageFactory.createStaticMessage("Could not extract auth token"), event, e);
             }
@@ -55,14 +55,6 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
 		this.module = module;
 	}
 
-	/**
-     * Retrieves redirectUrl
-     * 
-     */
-    public String getRedirectUrl() {
-        return "https://www.box.net/api/1.0/auth/" + this.ticket;
-    }
-
     public void start() throws MuleException {
     	this.init();
     	callback = new DefaultHttpCallback(new AuthCallbackAdapter.GetAuthCodeCallback(), muleContext, getDomain(), getLocalPort(), getRemotePort(), this.module.getCallbackPath(), getAsync());
@@ -75,18 +67,6 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
 
 	public String getTicket() {
 		return ticket;
-	}
-	
-	public void setTicket(String ticket) {
-		this.ticket = ticket;
-	}
-
-	public String getAuthToken() {
-		return authToken;
-	}
-	
-	public void setAuthToken(String token) {
-		this.authToken = token;
 	}
     
 }
