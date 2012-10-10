@@ -11,13 +11,12 @@ package org.mule.modules.boxnet.callback;
 
 import java.util.Map;
 
-import org.mule.api.MessagingException;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
 import org.mule.api.callback.HttpCallback;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.config.i18n.MessageFactory;
 import org.mule.modules.boxnet.BoxConnector;
 
 
@@ -29,7 +28,7 @@ import org.mule.modules.boxnet.BoxConnector;
 public class AuthCallbackAdapter extends HttpCallbackAdapter {
 
 	private MuleContext muleContext;
-	private BoxConnector module;
+	private BoxConnector connector;
 	private HttpCallback callback;
 
 	private String ticket;
@@ -37,13 +36,13 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
     
     private class GetAuthCodeCallback implements MessageProcessor {
 
-        public MuleEvent process(MuleEvent event) throws MuleException {
-            try {
-            	Map<String, String> values = HttpParamsExtractor.toMap(event.getMessage());
-            	module.saveAuthToken(event.getMessage(), values.get("ticket"), values.get("auth_token"));
-            } catch (Exception e) {
-                throw new MessagingException(MessageFactory.createStaticMessage("Could not extract auth token"), event, e);
-            }
+    	public MuleEvent process(MuleEvent event) throws MuleException {
+        	MuleMessage message = event.getMessage();
+    		Map<String, String> values = HttpParamsExtractor.toMap(message);
+    		
+    		connector.saveAuthToken(message, values.get("ticket"), values.get("auth_token"));
+    		connector.postAuth(message);
+
             return event;
         }
     }
@@ -52,12 +51,12 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
 		assert muleContext != null : "Mule context cannot be null";
 		
     	this.muleContext = muleContext;
-		this.module = module;
+		this.connector = module;
 	}
 
     public void start() throws MuleException {
     	this.init();
-    	callback = new DefaultHttpCallback(new AuthCallbackAdapter.GetAuthCodeCallback(), muleContext, getDomain(), getLocalPort(), getRemotePort(), this.module.getCallbackPath(), getAsync());
+    	callback = new DefaultHttpCallback(new AuthCallbackAdapter.GetAuthCodeCallback(), muleContext, getDomain(), getLocalPort(), getRemotePort(), this.connector.getCallbackPath(), getAsync(), this.connector.getHttpConnector());
         callback.start();
     }
 

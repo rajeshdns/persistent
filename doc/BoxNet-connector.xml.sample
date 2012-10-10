@@ -1,12 +1,12 @@
 <!-- BEGIN_INCLUDE(box:get-ticket) -->
     <box:get-ticket />
 <!-- END_INCLUDE(box:get-ticket) -->
-
+<!-- BEGIN_INCLUDE(box:authorize-ticket) -->
+    <box:authorize-ticket ticket="#[flowVars['ticket']]" />
+<!-- END_INCLUDE(box:authorize-ticket) -->
 <!-- BEGIN_INCLUDE(box:auth-token) -->
-<box:auth-token ticket="flowVars['ticket']" />
+	<box:auth-token ticket="flowVars['ticket']" />
 <!-- END_INCLUDE(box:auth-token) -->
-
-
 <!-- BEGIN_INCLUDE(box:register-new-user) -->
     <box:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
 <!-- END_INCLUDE(box:register-new-user) -->

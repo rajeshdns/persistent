@@ -107,7 +107,6 @@ public class BoxConnector implements MuleContextAware {
 	private static final String AUTH_URL = "https://www.box.net/api/1.0/auth/"; 
 	
 	private BoxExternalAPI client;
-	
 	private MuleContext muleContext;
 	private AuthCallbackAdapter authCallback;
 	
@@ -212,6 +211,27 @@ public class BoxConnector implements MuleContextAware {
     private String saveAuthTokenFlow;
     
     /**
+     * The name of a flow to be invoked after an authorization callback is received.
+     * If {@link usesCallback} is false then this flow will never be invoked.
+     * This flow will receive the same mule message the auth callback receives
+     */
+    @Configurable
+    @Optional
+    private String postAuthFlow;
+    
+    /**
+     * The http connector to be used when serving the authorization callback.
+     * If {@link usesCallback} is false then this connector is not used.
+     * 
+     * If not provided, the default http connector will be used. However, specifying an https
+     * connector instead is adviced. 
+     */
+    @Configurable
+    @Default("connector.http.mule.default")
+    @Optional
+    private org.mule.api.transport.Connector httpConnector;
+    
+    /**
      * Actual restore token flow egarly fetched
      */
     private Flow restoreTokenFlow;
@@ -220,6 +240,8 @@ public class BoxConnector implements MuleContextAware {
      * Actual save token flow egarly fetched
      */
     private Flow saveTokenFlow;
+    
+    private Flow postAuthorizationFlow;
     
     private String authToken;
     
@@ -239,24 +261,12 @@ public class BoxConnector implements MuleContextAware {
 		this.authCallback.setAsync(false);
 
 		if (this.usesCallback) {
-    		this.authCallback.start();
+			this.postAuthorizationFlow = this.fetchFlow(this.postAuthFlow);
+			this.authCallback.start();
     	}
 		
-		if (!StringUtils.isBlank(this.restoreAuthTokenFlow)) {
-			this.restoreTokenFlow = FlowUtils.getFlow(this.restoreAuthTokenFlow, muleContext);
-			
-			if (this.restoreTokenFlow == null) {
-				throw new IllegalArgumentException(String.format("%s was specified as restoreAuthTokenFlow but it doesn't exists", this.restoreAuthTokenFlow));
-			}
-		}
-		
-		if (!StringUtils.isBlank(this.saveAuthTokenFlow)) {
-			this.saveTokenFlow = FlowUtils.getFlow(this.saveAuthTokenFlow, muleContext);
-			
-			if (this.saveTokenFlow == null) {
-				throw new IllegalArgumentException(String.format("%s was specified as saveAuthTokenFlow but it doesn't exists", this.saveAuthTokenFlow));
-			}
-		}
+		this.restoreTokenFlow = this.fetchFlow(this.restoreAuthTokenFlow);
+		this.saveTokenFlow = this.fetchFlow(this.saveAuthTokenFlow);
     }
     
     @Stop
@@ -268,7 +278,8 @@ public class BoxConnector implements MuleContextAware {
     
     /**
      * Get and access ticket using the configured apiKey. Optionally, you can ask the connector to automatically
-     * redirect the browser to box authorization page so that the user can enter his credentials
+     * redirect the browser to box authorization page so that the user can enter his credentials. This is done
+     * by invoking {@link org.mule.modules.boxnet.BoxConnector.authorizeTicket(MuleMessage, String)}
      * 
      * Otherwise, the user needs to manually go to {@link https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;}
      * 
@@ -304,18 +315,32 @@ public class BoxConnector implements MuleContextAware {
     	
     	
     	if (redirect) {
-    		
-    		String redirectUrl = AUTH_URL + ticket;
-    		
-    		if (logger.isDebugEnabled()) {
-    			logger.debug(String.format("redirecting to %s for authorizing ticket %s", redirectUrl, ticket));
-    		}
-    		
-    		message.setOutboundProperty("http.status", "302");
-    		message.setOutboundProperty("Location", redirectUrl);
+    		this.authorizeTicket(message, ticket);
     	}
     	
     	return ticket;
+    }
+    
+    /**
+     * Redirects the browser to box authorization page so that the user can enter his credentials.
+     * The new location will be {@link https://www.box.net/api/1.0/auth/&lt;&lt;ticket&gt;&gt;}
+     * 
+     * {@sample.xml ../../../doc/BoxNet-connector.xml.sample box:authorize-ticket}
+     * 
+     * @param message the current mule message
+     * @param ticket the ticket to be authorized
+     */
+    @Processor
+    @Inject
+    public void authorizeTicket(MuleMessage message, String ticket) {
+    	String redirectUrl = AUTH_URL + ticket;
+    	
+    	if (logger.isDebugEnabled()) {
+    		logger.debug(String.format("redirecting to %s for authorizing ticket %s", redirectUrl, ticket));
+    	}
+    	
+    	message.setOutboundProperty("http.status", "302");
+    	message.setOutboundProperty("Location", redirectUrl);
     }
 
     /**
@@ -1048,15 +1073,60 @@ public class BoxConnector implements MuleContextAware {
     }
     
     private String getAuthToken(MuleMessage message) {
-    	String token = this.restoreAuthToken(message);
-    	if (token == null) {
+    	String token = null;
+    	
+    	if (this.restoreTokenFlow == null) {
+    	
+    		token = this.authToken;
+    	
+    	} else {
+    		MuleMessage restoreMessage = FlowUtils.callFlow(this.restoreTokenFlow, new DefaultMuleMessage(message)); 
+    		Object payload = restoreMessage.getPayload();
+    		
+    		if (payload instanceof String) {
+    			token = (String) payload;
+    			return token;
+    		} else {
+    			throw new IllegalArgumentException(
+    					String.format("A String payload was expected after invoking restore token flow '%s', but %s was found instead",
+    							this.restoreAuthTokenFlow,
+    							payload == null ? "null" : payload.getClass().getCanonicalName()
+    							)
+    					);
+    		}
+    	}
+    	
+    	if (StringUtils.isBlank(token)) {
     		throw new IllegalStateException("Auth token not obtained yet");
     	}
     	
     	return token;
     }
     
+    private Flow fetchFlow(String flowname) {
+    	if (StringUtils.isBlank(flowname)) {
+    		return null;
+    	}
+    	
+    	Flow flow = FlowUtils.getFlow(flowname, muleContext);
+    	
+    	if (flow == null) {
+    		throw new IllegalArgumentException(String.format("flow %s doesn't exists", flowname));
+    	}
+    	
+    	return flow;
+    }
+    
    public void saveAuthToken(MuleMessage message, String ticket, String authToken) {
+	   
+	   if (StringUtils.isBlank(ticket)) {
+		   throw new IllegalArgumentException("auth process did not return a ticket");
+	   }
+	   
+	   if (StringUtils.isBlank(authToken)) {
+		   throw new IllegalArgumentException("auth process did not return an auth token");
+	   }
+	   
 	   if (this.saveTokenFlow == null) {
 			this.authToken = authToken;
 		} else {
@@ -1067,31 +1137,12 @@ public class BoxConnector implements MuleContextAware {
 			FlowUtils.callFlow(this.saveTokenFlow, copy);
 		}
     }
-    
-    public String restoreAuthToken(MuleMessage message) {
-    	if (this.restoreTokenFlow == null) {
-    		return this.authToken;
-    	} else {
-    		MuleMessage restoreMessage = FlowUtils.callFlow(this.restoreTokenFlow, new DefaultMuleMessage(message)); 
-    		Object payload = restoreMessage.getPayload();
-    		
-    		if (payload instanceof String) {
-    			String token = (String) payload;
-    			if (StringUtils.isBlank(token)) {
-    				throw new IllegalArgumentException("Restore token flow returned an empty string. It seems like you don't have an auth token yet");
-    			}
-    			
-    			return token;
-    		}
-    		
-    		throw new IllegalArgumentException(
-    						String.format("A String payload was expected after invoking restore token flow '%s', but %s was found instead",
-	    									this.restoreAuthTokenFlow,
-	    									payload == null ? "null" : payload.getClass().getCanonicalName()
-    									)
-    						);
-    	}
-    }
+   
+   public void postAuth(MuleMessage message) {
+	   if (this.postAuthorizationFlow != null) {
+		   FlowUtils.callFlow(this.postAuthorizationFlow, message);
+	   }
+   }
     
     private interface BoxClosure<T extends BoxResponse> {
     	
@@ -1186,6 +1237,21 @@ public class BoxConnector implements MuleContextAware {
 	public String getApiKey() {
 		return apiKey;
 	}
-	
+
+	public org.mule.api.transport.Connector getHttpConnector() {
+		return httpConnector;
+	}
+
+	public void setHttpConnector(org.mule.api.transport.Connector httpConnector) {
+		this.httpConnector = httpConnector;
+	}
+
+	public String getPostAuthFlow() {
+		return postAuthFlow;
+	}
+
+	public void setPostAuthFlow(String postAuthFlow) {
+		this.postAuthFlow = postAuthFlow;
+	}
 	
 }
