@@ -74,7 +74,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  PrivateShareMessageProcessor
+  AuthorizeTicketMessageProcessor
 
 
 | Mule Box.net Cloud Connector
@@ -253,7 +253,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AddToTagMessageProcessor.html">AddToTagMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html">AuthorizeTicketMessageProcessor</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html">AuthorizeTicketMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/AuthTokenMessageProcessor.html">AuthTokenMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/CreateFolderMessageProcessor.html">CreateFolderMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/DeleteMessageProcessor.html">DeleteMessageProcessor</a></li>
@@ -264,7 +264,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/GetTreeStructureMessageProcessor.html">GetTreeStructureMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/LogoutMessageProcessor.html">LogoutMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/MoveMessageProcessor.html">MoveMessageProcessor</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/PublicShareMessageProcessor.html">PublicShareMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/PublicUnshareMessageProcessor.html">PublicUnshareMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/processors/RegisterNewUserMessageProcessor.html">RegisterNewUserMessageProcessor</a></li>
@@ -453,7 +453,7 @@ Summary:
      
     
     class
-<h1>PrivateShareMessageProcessor</h1>
+<h1>AuthorizeTicketMessageProcessor</h1>
 
 
 
@@ -529,7 +529,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.processors.PrivateShareMessageProcessor</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.processors.AuthorizeTicketMessageProcessor</td>
     </tr>
     
 
@@ -545,7 +545,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>PrivateShareMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxConnector.html#privateShare(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)">privateShare(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxConnector.html">BoxConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
+<p>AuthorizeTicketMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxConnector.html#authorizeTicket(org.mule.api.MuleMessage, java.lang.String)">authorizeTicket(org.mule.api.MuleMessage, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/boxnet/BoxConnector.html">BoxConnector</a></code>. For each argument there is a field in this processor to match it.  Before invoking the actual method the processor will evaluate and transform where possible to the expected argument type.
  
 </p>
 
@@ -746,63 +746,19 @@ org.mule.api.lifecycle.Stoppable
           protected
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_csvMailsType">_csvMailsType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_messageType">_messageType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
           MuleMessage</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_muleMessageType">_muleMessageType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#_messageType">_messageType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Boolean</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_notifyType">_notifyType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           protected
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_targetIdType">_targetIdType</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          <a href="../../../../../../java/org/mule/modules/boxnet/Target.html">Target</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#_targetType">_targetType</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#_ticketType">_ticketType</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -813,7 +769,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#csvMails">csvMails</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#message">message</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -824,51 +780,7 @@ org.mule.api.lifecycle.Stoppable
           
           
           Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#message">message</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#muleMessage">muleMessage</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#notify">notify</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#target">target</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          protected
-          
-          
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#targetId">targetId</a></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#ticket">ticket</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -987,7 +899,7 @@ org.mule.api.lifecycle.Stoppable
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#PrivateShareMessageProcessor()">PrivateShareMessageProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#AuthorizeTicketMessageProcessor()">AuthorizeTicketMessageProcessor</a></span>()</nobr>
         
   </td></tr>
 
@@ -1016,7 +928,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#dispose()">dispose</a></span>()</nobr>
         
   </td></tr>
 
@@ -1032,7 +944,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#initialise()">initialise</a></span>()</nobr>
         
         <div class="jd-descrdiv">Obtains the expression manager from the Mule context and initialises the connector.</div>
   
@@ -1050,7 +962,7 @@ org.mule.api.lifecycle.Stoppable
             MuleEvent</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#process(org.mule.api.MuleEvent)">process</a></span>(MuleEvent event)</nobr>
         
         <div class="jd-descrdiv">Invokes the MessageProcessor.</div>
   
@@ -1068,25 +980,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setCsvMails(java.lang.Object)">setCsvMails</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets csvMails</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#setFlowConstruct(org.mule.api.construct.FlowConstruct)">setFlowConstruct</a></span>(FlowConstruct flowConstruct)</nobr>
         
         <div class="jd-descrdiv">Sets flow construct</div>
   
@@ -1094,7 +988,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1104,7 +998,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setMessage(java.lang.Object)">setMessage</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#setMessage(java.lang.Object)">setMessage</a></span>(Object value)</nobr>
         
         <div class="jd-descrdiv">Sets message</div>
   
@@ -1112,7 +1006,7 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1122,7 +1016,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#setMuleContext(org.mule.api.MuleContext)">setMuleContext</a></span>(MuleContext context)</nobr>
         
         <div class="jd-descrdiv">Set the Mule context</div>
   
@@ -1130,24 +1024,6 @@ org.mule.api.lifecycle.Stoppable
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setMuleMessage(java.lang.Object)">setMuleMessage</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets muleMessage</div>
-  
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1158,9 +1034,9 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setNotify(java.lang.Object)">setNotify</a></span>(Object value)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#setTicket(java.lang.Object)">setTicket</a></span>(Object value)</nobr>
         
-        <div class="jd-descrdiv">Sets notify</div>
+        <div class="jd-descrdiv">Sets ticket</div>
   
   </td></tr>
 
@@ -1176,43 +1052,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setTarget(java.lang.Object)">setTarget</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets target</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#setTargetId(java.lang.Object)">setTargetId</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets targetId</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#start()">start</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#start()">start</a></span>()</nobr>
         
   </td></tr>
 
@@ -1228,7 +1068,7 @@ org.mule.api.lifecycle.Stoppable
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html#stop()">stop</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/processors/AuthorizeTicketMessageProcessor.html#stop()">stop</a></span>()</nobr>
         
   </td></tr>
 
@@ -2145,36 +1985,6 @@ From interface
 
 
 
-<A NAME="_csvMailsType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        String
-      </span>
-        _csvMailsType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="_messageType"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2183,7 +1993,7 @@ From interface
         protected 
          
          
-        String
+        MuleMessage
       </span>
         _messageType
     </h4>
@@ -2205,67 +2015,7 @@ From interface
 
 
 
-<A NAME="_muleMessageType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        MuleMessage
-      </span>
-        _muleMessageType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_notifyType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Boolean
-      </span>
-        _notifyType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_targetIdType"></A>
+<A NAME="_ticketType"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2275,67 +2025,7 @@ From interface
          
         String
       </span>
-        _targetIdType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="_targetType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/boxnet/Target.html">Target</a>
-      </span>
-        _targetType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="csvMails"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        csvMails
+        _ticketType
     </h4>
       <div class="api-level">
         
@@ -2385,7 +2075,7 @@ From interface
 
 
 
-<A NAME="muleMessage"></A>
+<A NAME="ticket"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2395,97 +2085,7 @@ From interface
          
         Object
       </span>
-        muleMessage
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="notify"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        notify
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="target"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        target
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="targetId"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        protected 
-         
-         
-        Object
-      </span>
-        targetId
+        ticket
     </h4>
       <div class="api-level">
         
@@ -2514,7 +2114,7 @@ From interface
 
 
 
-<A NAME="PrivateShareMessageProcessor()"></A>
+<A NAME="AuthorizeTicketMessageProcessor()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2526,7 +2126,7 @@ From interface
          
         
       </span>
-      <span class="sympad">PrivateShareMessageProcessor</span>
+      <span class="sympad">AuthorizeTicketMessageProcessor</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -2680,47 +2280,6 @@ From interface
 </div>
 
 
-<A NAME="setCsvMails(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setCsvMails</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets csvMails</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <A NAME="setFlowConstruct(org.mule.api.construct.FlowConstruct)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -2844,7 +2403,7 @@ From interface
 </div>
 
 
-<A NAME="setMuleMessage(java.lang.Object)"></A>
+<A NAME="setTicket(java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2856,7 +2415,7 @@ From interface
          
         void
       </span>
-      <span class="sympad">setMuleMessage</span>
+      <span class="sympad">setTicket</span>
       <span class="normal">(Object value)</span>
     </h4>
       <div class="api-level">
@@ -2869,130 +2428,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Sets muleMessage</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setNotify(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setNotify</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets notify</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setTarget(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setTarget</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets target</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setTargetId(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setTargetId</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets targetId</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Sets ticket</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
