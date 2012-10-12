@@ -74,7 +74,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  UploadFilesDefinitionParser
+  BoxNetModuleNamespaceHandler
 
 
 | Mule Box.net Cloud Connector
@@ -261,7 +261,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxConnectorConfigDefinitionParser.html">BoxConnectorConfigDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNamespaceHandler.html">BoxNamespaceHandler</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleConfigDefinitionParser.html">BoxNetModuleConfigDefinitionParser</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html">BoxNetModuleNamespaceHandler</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html">BoxNetModuleNamespaceHandler</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/CreateFolderDefinitionParser.html">CreateFolderDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DeleteDefinitionParser.html">DeleteDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/DownloadDefinitionParser.html">DownloadDefinitionParser</a></li>
@@ -277,7 +277,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RegisterNewUserDefinitionParser.html">RegisterNewUserDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/RenameDefinitionParser.html">RenameDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></li>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html">UploadFilesDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/UploadStreamDefinitionParser.html">UploadStreamDefinitionParser</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/boxnet/config/VerifyRegistrationEmailDefinitionParser.html">VerifyRegistrationEmailDefinitionParser</a></li>
       </ul>
@@ -397,7 +397,7 @@ Summary:
      
     
     class
-<h1>UploadFilesDefinitionParser</h1>
+<h1>BoxNetModuleNamespaceHandler</h1>
 
 
 
@@ -406,7 +406,7 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.html">AbstractDefinitionParser</a><br/>
+    extends NamespaceHandlerSupport<br/>
   
   
   
@@ -434,7 +434,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.html">org.mule.modules.boxnet.config.AbstractDefinitionParser</a></td>
+        <td colspan="2" class="jd-inheritance-class-cell">org.springframework.beans.factory.xml.NamespaceHandlerSupport</td>
     </tr>
     
 
@@ -444,7 +444,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.config.UploadFilesDefinitionParser</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.boxnet.config.BoxNetModuleNamespaceHandler</td>
     </tr>
     
 
@@ -458,6 +458,11 @@ Summary:
 
 <div class="jd-descr">
 
+
+<h2>Class Overview</h2>
+<p>Registers bean definitions parsers for handling elements in <code>http://www.mulesoft.org/schema/mule/boxnet</code>.
+ 
+</p>
 
 
 
@@ -514,16 +519,16 @@ Summary:
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.boxnet.config.AbstractDefinitionParser" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.modules.boxnet.config.AbstractDefinitionParser-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.springframework.beans.factory.xml.NamespaceHandlerSupport" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.springframework.beans.factory.xml.NamespaceHandlerSupport-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>From class
-<a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html">org.mule.modules.boxnet.config.AbstractDefinitionParser</a>
-<div id="inherited-fields-org.mule.modules.boxnet.config.AbstractDefinitionParser">
-  <div id="inherited-fields-org.mule.modules.boxnet.config.AbstractDefinitionParser-list"
+org.springframework.beans.factory.xml.NamespaceHandlerSupport
+<div id="inherited-fields-org.springframework.beans.factory.xml.NamespaceHandlerSupport">
+  <div id="inherited-fields-org.springframework.beans.factory.xml.NamespaceHandlerSupport-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-fields-org.mule.modules.boxnet.config.AbstractDefinitionParser-summary" style="display: none;">
+  <div id="inherited-fields-org.springframework.beans.factory.xml.NamespaceHandlerSupport-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -532,12 +537,32 @@ Summary:
           <td class="jd-typecol"><nobr>
           private
           
+          final
+          Map&lt;String,&nbsp;BeanDefinitionDecorator&gt;</nobr></td>
+          <td class="jd-linkcol">attributeDecorators</td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
           
-          TemplateParser.PatternInfo</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#patternInfo">patternInfo</a></td>
-          <td class="jd-descrcol" width="100%">Mule Pattern Info
- 
-</td>
+          final
+          Map&lt;String,&nbsp;BeanDefinitionDecorator&gt;</nobr></td>
+          <td class="jd-linkcol">decorators</td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          final
+          Map&lt;String,&nbsp;BeanDefinitionParser&gt;</nobr></td>
+          <td class="jd-linkcol">parsers</td>
+          <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
@@ -572,7 +597,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html#UploadFilesDefinitionParser()">UploadFilesDefinitionParser</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html#BoxNetModuleNamespaceHandler()">BoxNetModuleNamespaceHandler</a></span>()</nobr>
         
   </td></tr>
 
@@ -598,11 +623,13 @@ Summary:
             
             
             
-            BeanDefinition</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/UploadFilesDefinitionParser.html#parse(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext)">parse</a></span>(Element element, ParserContext parserContext)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/BoxNetModuleNamespaceHandler.html#init()">init</a></span>()</nobr>
         
+        <div class="jd-descrdiv">Invoked by the DefaultBeanDefinitionDocumentReader after construction but before any custom elements are parsed.</div>
+  
   </td></tr>
 
 
@@ -623,19 +650,19 @@ Summary:
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.boxnet.config.AbstractDefinitionParser" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.boxnet.config.AbstractDefinitionParser-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandlerSupport" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandlerSupport-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html">org.mule.modules.boxnet.config.AbstractDefinitionParser</a>
+  org.springframework.beans.factory.xml.NamespaceHandlerSupport
 
-<div id="inherited-methods-org.mule.modules.boxnet.config.AbstractDefinitionParser">
-  <div id="inherited-methods-org.mule.modules.boxnet.config.AbstractDefinitionParser-list"
+<div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandlerSupport">
+  <div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandlerSupport-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.modules.boxnet.config.AbstractDefinitionParser-summary" style="display: none;">
+  <div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandlerSupport-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -648,224 +675,16 @@ From class
             
             
             
-            void</nobr>
+            BeanDefinitionHolder</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#attachProcessorDefinition(org.springframework.beans.factory.xml.ParserContext, org.springframework.beans.factory.config.BeanDefinition)">attachProcessorDefinition</a></span>(ParserContext parserContext, BeanDefinition definition)</nobr>
+        <span class="sympad">decorate</span>(Node arg0, BeanDefinitionHolder arg1, ParserContext arg2)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#attachSourceDefinition(org.springframework.beans.factory.xml.ParserContext, org.springframework.beans.factory.config.BeanDefinition)">attachSourceDefinition</a></span>(ParserContext parserContext, BeanDefinition definition)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#generateChildBeanName(org.w3c.dom.Element)">generateChildBeanName</a></span>(Element element)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#getAttributeValue(org.w3c.dom.Element, java.lang.String)">getAttributeValue</a></span>(Element element, String attributeName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#hasAttribute(org.w3c.dom.Element, java.lang.String)">hasAttribute</a></span>(Element element, String attributeName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#isMuleExpression(java.lang.String)">isMuleExpression</a></span>(String value)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseConfigName(org.w3c.dom.Element)">parseConfigName</a></span>(Element element)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseConfigRef(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder)">parseConfigRef</a></span>(Element element, BeanDefinitionBuilder builder)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            ManagedList</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseList(org.w3c.dom.Element, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseList</a></span>(Element element, String childElementName, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseListAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseListAndSetProperty</a></span>(Element element, BeanDefinitionBuilder builder, String fieldName, String parentElementName, String childElementName, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseListWithDefaultAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseListWithDefaultAndSetProperty</a></span>(Element element, BeanDefinitionBuilder builder, String fieldName, String parentElementName, String childElementName, String defaultValue, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            ManagedMap</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseMap(org.w3c.dom.Element, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseMap</a></span>(Element element, String childElementName, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseMapAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseMapAndSetProperty</a></span>(Element element, BeanDefinitionBuilder builder, String fieldName, String parentElementName, String childElementName, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseMapWithDefaultAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.mule.modules.boxnet.config.AbstractDefinitionParser.ParseDelegate)">parseMapWithDefaultAndSetProperty</a></span>(Element element, BeanDefinitionBuilder builder, String fieldName, String parentElementName, String childElementName, String defaultValue, <a href="../../../../../../java/org/mule/modules/boxnet/config/AbstractDefinitionParser.ParseDelegate.html">ParseDelegate</a> parserDelegate)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -875,23 +694,7 @@ From class
             BeanDefinition</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessor(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext, java.lang.Class)">parseNestedProcessor</a></span>(Element element, ParserContext parserContext, Class factory)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessorAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext, java.lang.Class, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String)">parseNestedProcessorAndSetProperty</a></span>(Element element, ParserContext parserContext, Class factory, BeanDefinitionBuilder builder, String propertyName)</nobr>
+        <span class="sympad">parse</span>(Element arg0, ParserContext arg1)</nobr>
         
   </td></tr>
 
@@ -901,13 +704,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            
+            final
             
             
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessorAndSetProperty(org.w3c.dom.Element, java.lang.String, org.springframework.beans.factory.xml.ParserContext, java.lang.Class, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String)">parseNestedProcessorAndSetProperty</a></span>(Element element, String childElementName, ParserContext parserContext, Class factory, BeanDefinitionBuilder builder, String propertyName)</nobr>
+        <span class="sympad">registerBeanDefinitionDecorator</span>(String arg0, BeanDefinitionDecorator arg1)</nobr>
         
   </td></tr>
 
@@ -917,13 +720,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
+            final
             
             
-            
-            List</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessorAsList(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext, java.lang.Class)">parseNestedProcessorAsList</a></span>(Element element, ParserContext parserContext, Class factory)</nobr>
+        <span class="sympad">registerBeanDefinitionDecoratorForAttribute</span>(String arg0, BeanDefinitionDecorator arg1)</nobr>
         
   </td></tr>
 
@@ -933,221 +736,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessorAsListAndSetProperty(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext, java.lang.Class, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String)">parseNestedProcessorAsListAndSetProperty</a></span>(Element element, ParserContext parserContext, Class factory, BeanDefinitionBuilder builder, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
+            final
             
             
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseNestedProcessorAsListAndSetProperty(org.w3c.dom.Element, java.lang.String, org.springframework.beans.factory.xml.ParserContext, java.lang.Class, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String)">parseNestedProcessorAsListAndSetProperty</a></span>(Element element, String childElementName, ParserContext parserContext, Class factory, BeanDefinitionBuilder builder, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseObjectRef(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String)">parseObjectRef</a></span>(Element element, BeanDefinitionBuilder builder, String elementName, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseObjectRefWithDefault(org.w3c.dom.Element, org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String, java.lang.String)">parseObjectRefWithDefault</a></span>(Element element, BeanDefinitionBuilder builder, String elementName, String propertyName, String defaultValue)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseProperty(org.springframework.beans.factory.support.BeanDefinitionBuilder, org.w3c.dom.Element, java.lang.String)">parseProperty</a></span>(BeanDefinitionBuilder builder, Element element, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseProperty(org.springframework.beans.factory.support.BeanDefinitionBuilder, org.w3c.dom.Element, java.lang.String, java.lang.String)">parseProperty</a></span>(BeanDefinitionBuilder builder, Element element, String attributeName, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parsePropertyRef(org.springframework.beans.factory.support.BeanDefinitionBuilder, org.w3c.dom.Element, java.lang.String)">parsePropertyRef</a></span>(BeanDefinitionBuilder builder, Element element, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parsePropertyRef(org.springframework.beans.factory.support.BeanDefinitionBuilder, org.w3c.dom.Element, java.lang.String, java.lang.String)">parsePropertyRef</a></span>(BeanDefinitionBuilder builder, Element element, String attributeName, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseRetryPolicyTemplate(java.lang.String, org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext, org.springframework.beans.factory.support.BeanDefinitionBuilder, org.springframework.beans.factory.config.BeanDefinition)">parseRetryPolicyTemplate</a></span>(String elementName, Element element, ParserContext parserContext, BeanDefinitionBuilder builder, BeanDefinition definition)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#parseTextProperty(org.springframework.beans.factory.support.BeanDefinitionBuilder, org.w3c.dom.Element, java.lang.String, java.lang.String)">parseTextProperty</a></span>(BeanDefinitionBuilder builder, Element element, String elementName, String propertyName)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#setDestroyMethodIfNeeded(org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.Class)">setDestroyMethodIfNeeded</a></span>(BeanDefinitionBuilder builder, Class clazz)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#setInitMethodIfNeeded(org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.Class)">setInitMethodIfNeeded</a></span>(BeanDefinitionBuilder builder, Class clazz)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#setNoRecurseOnDefinition(org.springframework.beans.factory.config.BeanDefinition)">setNoRecurseOnDefinition</a></span>(BeanDefinition definition)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/boxnet/config/AbstractDefinitionParser.html#setRef(org.springframework.beans.factory.support.BeanDefinitionBuilder, java.lang.String, java.lang.String)">setRef</a></span>(BeanDefinitionBuilder builder, String propertyName, String ref)</nobr>
+        <span class="sympad">registerBeanDefinitionParser</span>(String arg0, BeanDefinitionParser arg1)</nobr>
         
   </td></tr>
 
@@ -1363,21 +958,53 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.springframework.beans.factory.xml.BeanDefinitionParser" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.springframework.beans.factory.xml.BeanDefinitionParser-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandler" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandler-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.springframework.beans.factory.xml.BeanDefinitionParser
+  org.springframework.beans.factory.xml.NamespaceHandler
 
-<div id="inherited-methods-org.springframework.beans.factory.xml.BeanDefinitionParser">
-  <div id="inherited-methods-org.springframework.beans.factory.xml.BeanDefinitionParser-list"
+<div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandler">
+  <div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandler-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.springframework.beans.factory.xml.BeanDefinitionParser-summary" style="display: none;">
+  <div id="inherited-methods-org.springframework.beans.factory.xml.NamespaceHandler-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            BeanDefinitionHolder</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">decorate</span>(Node arg0, BeanDefinitionHolder arg1, ParserContext arg2)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">init</span>()</nobr>
+        
+  </td></tr>
 
 
 	 
@@ -1436,7 +1063,7 @@ From interface
 
 
 
-<A NAME="UploadFilesDefinitionParser()"></A>
+<A NAME="BoxNetModuleNamespaceHandler()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1448,7 +1075,7 @@ From interface
          
         
       </span>
-      <span class="sympad">UploadFilesDefinitionParser</span>
+      <span class="sympad">BoxNetModuleNamespaceHandler</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -1482,7 +1109,7 @@ From interface
 
 
 
-<A NAME="parse(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext)"></A>
+<A NAME="init()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1492,10 +1119,10 @@ From interface
          
          
          
-        BeanDefinition
+        void
       </span>
-      <span class="sympad">parse</span>
-      <span class="normal">(Element element, ParserContext parserContext)</span>
+      <span class="sympad">init</span>
+      <span class="normal">()</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1507,19 +1134,11 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Invoked by the DefaultBeanDefinitionDocumentReader after construction but before any custom elements are parsed. </p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>element</td>
-          <td></td>
-        </tr>
-        <tr>
-          <th>parserContext</td>
-          <td></td>
-        </tr>
-      </table>
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../../../../null#registerBeanDefinitionParser(java.lang.String, org.springframework.beans.factory.xml.BeanDefinitionParser)">registerBeanDefinitionParser(String, BeanDefinitionParser)</a></code></li>
+      </ul>
   </div>
 
     </div>
