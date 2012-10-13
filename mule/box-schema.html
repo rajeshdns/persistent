@@ -338,7 +338,27 @@ an application restart and that the connector would be incapable of handling two
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;The name of a flow to be invoked after an authorization callback is received.
 If  is false then this flow will never be invoked.
-This flow will receive the same mule message the auth callback receives&lt;/xs:documentation&gt;
+
+This flow will receive a copy of the current mule message carrying two additional invocation variables:
+
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;boxAuthTicket: The ticket for which the authorization token was generated&amp;lt;/li&amp;gt;
+&amp;lt;li&amp;gt;boxAuthToken: The obtained authorization token
+&amp;lt;/ul&amp;gt;
+
+For example:
+
+&amp;amp;lt;box:config apiKey=&quot;${apiKey&quot; restoreAuthTokenFlow=&quot;restoreTokenFlow&quot; saveAuthTokenFlow=&quot;saveTokenFlow&quot;/&amp;amp;gt;
+
+&amp;amp;lt;flow name=&quot;restoreTokenFlow&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:retrieve key=&quot;flowVars['currentUserId']&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+&amp;amp;lt;flow name=&quot;save&quot;&amp;amp;gt;
+&amp;amp;lt;objectstore:store key=&quot;flowVars['currentUserId']&quot; value-ref=&quot;#[flowVars['boxAuthToken']]&quot;/&amp;amp;gt;
+&amp;amp;lt;/flow&amp;amp;gt;
+
+This flow will receive the same mule message the auth callback receives. If additionaly you also
+provided a saveAuthTokenFlow, then any mutations done to the message there are also available in this flow&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:attribute&gt;
           &lt;xs:attribute name=&quot;httpConnector-ref&quot; default=&quot;connector.http.mule.default&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
