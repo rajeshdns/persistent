@@ -213,7 +213,28 @@ public class BoxConnector implements MuleContextAware {
     /**
      * The name of a flow to be invoked after an authorization callback is received.
      * If {@link usesCallback} is false then this flow will never be invoked.
-     * This flow will receive the same mule message the auth callback receives
+     * 
+     * This flow will receive a copy of the current mule message carrying two additional invocation variables:
+     * 
+     * <ul>
+     * 	<li>boxAuthTicket: The ticket for which the authorization token was generated</li>
+     * 	<li>boxAuthToken: The obtained authorization token
+     * </ul>
+     * 
+     * For example:
+     * 
+     * &lt;box:config apiKey="${apiKey}" restoreAuthTokenFlow="restoreTokenFlow" saveAuthTokenFlow="saveTokenFlow"/&gt;
+     * 
+     *  &lt;flow name="restoreTokenFlow"&gt;
+     *		&lt;objectstore:retrieve key="flowVars['currentUserId']"/&gt;
+     *	&lt;/flow&gt;
+     *
+     *	&lt;flow name="save"&gt;
+     *		&lt;objectstore:store key="flowVars['currentUserId']" value-ref="#[flowVars['boxAuthToken']]"/&gt;
+     *	&lt;/flow&gt;
+     * 
+     * This flow will receive the same mule message the auth callback receives. If additionaly you also
+     * provided a saveAuthTokenFlow, then any mutations done to the message there are also available in this flow
      */
     @Configurable
     @Optional
@@ -1117,7 +1138,7 @@ public class BoxConnector implements MuleContextAware {
     	return flow;
     }
     
-   public void saveAuthToken(MuleMessage message, String ticket, String authToken) {
+   public MuleMessage saveAuthToken(MuleMessage message, String ticket, String authToken) {
 	   
 	   if (StringUtils.isBlank(ticket)) {
 		   throw new IllegalArgumentException("auth process did not return a ticket");
@@ -1127,20 +1148,31 @@ public class BoxConnector implements MuleContextAware {
 		   throw new IllegalArgumentException("auth process did not return an auth token");
 	   }
 	   
+	   MuleMessage copy = new DefaultMuleMessage(message);
+	   copy.setInvocationProperty(BOX_AUTH_TICKET, ticket);
+	   copy.setInvocationProperty(BOX_AUTH_TOKEN, authToken);
+	   
 	   if (this.saveTokenFlow == null) {
 			this.authToken = authToken;
-		} else {
-			MuleMessage copy = new DefaultMuleMessage(message);
-			copy.setInvocationProperty(BOX_AUTH_TICKET, ticket);
-			copy.setInvocationProperty(BOX_AUTH_TOKEN, authToken);
-			
+	   } else {
 			FlowUtils.callFlow(this.saveTokenFlow, copy);
-		}
+	   }
+	   
+	   this.postAuth(copy);
+	   
+	   return copy;
     }
    
-   public void postAuth(MuleMessage message) {
+   private void postAuth(MuleMessage message) {
 	   if (this.postAuthorizationFlow != null) {
+		   if (logger.isDebugEnabled()) {
+			   logger.debug(String.format("invoking post authorization flow %s with message %s", this.postAuthFlow, message.toString()));
+		   }
 		   FlowUtils.callFlow(this.postAuthorizationFlow, message);
+	   } else {
+		   if (logger.isDebugEnabled()) {
+			   logger.debug("No post auth flow specified");
+		   }
 	   }
    }
     

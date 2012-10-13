@@ -11,6 +11,7 @@ package org.mule.modules.boxnet.callback;
 
 import java.util.Map;
 
+import org.mule.DefaultMuleEvent;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
@@ -40,10 +41,9 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
         	MuleMessage message = event.getMessage();
     		Map<String, String> values = HttpParamsExtractor.toMap(message);
     		
-    		connector.saveAuthToken(message, values.get("ticket"), values.get("auth_token"));
-    		connector.postAuth(message);
+    		MuleMessage response = connector.saveAuthToken(message, values.get("ticket"), values.get("auth_token"));
 
-            return event;
+            return new DefaultMuleEvent(response, event);
         }
     }
     
