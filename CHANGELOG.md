@@ -13,3 +13,8 @@
 - Enhanced documentation
 - Input customizable in upload stream
 - Bug fixing
+
+1.1.1
+=====
+
+- Rebranding from box.net to box
