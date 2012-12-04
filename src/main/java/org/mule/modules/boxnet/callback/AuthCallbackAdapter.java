@@ -18,7 +18,7 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.callback.HttpCallback;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.modules.boxnet.BoxConnector;
+import org.mule.modules.box.BoxConnector;
 
 
 /**
