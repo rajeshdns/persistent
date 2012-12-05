@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.md file.
+ */
+
 package org.mule.modules.box.model;
 
 import java.io.Serializable;
@@ -15,19 +23,10 @@ public class User implements Serializable {
 
 	private String login;
 	private String email;
-	
-	@XmlElement(name="access_id")
 	private String accessId;
-	
-	@XmlElement(name="user_id")
 	private String userId;
-	
 	private Long spaceAmount;
-	
-	@XmlElement(name="space_used")
 	private Long spaceUsed;
-	
-	@XmlElement(name="max_upload_size")
 	private Long maxUploadSize;
 
 	public String getLogin() {
@@ -46,6 +45,7 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
+	@XmlElement(name="access_id")
 	public String getAccessId() {
 		return accessId;
 	}
@@ -54,6 +54,7 @@ public class User implements Serializable {
 		this.accessId = accessId;
 	}
 
+	@XmlElement(name="user_id")
 	public String getUserId() {
 		return userId;
 	}
@@ -70,6 +71,7 @@ public class User implements Serializable {
 		this.spaceAmount = spaceAmount;
 	}
 
+	@XmlElement(name="space_used")
 	public Long getSpaceUsed() {
 		return spaceUsed;
 	}
@@ -78,6 +80,7 @@ public class User implements Serializable {
 		this.spaceUsed = spaceUsed;
 	}
 
+	@XmlElement(name="max_upload_size")
 	public Long getMaxUploadSize() {
 		return maxUploadSize;
 	}

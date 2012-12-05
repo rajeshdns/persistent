@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+xmlns:http="http://www.mulesoft.org/schema/mule/http"
+xmlns="http://www.mulesoft.org/schema/mule/core"
+xmlns:box="http://www.mulesoft.org/schema/mule/box"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/box http://www.mulesoft.org/schema/mule/box/current/mule-box.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+    <box:config name="box"
+				apiKey="57o3npisyie8x686ijy9ribvbfs2kou4"
+				callbackPath="box_callback"
+				callbackPort="8080"
+				usesCallback="false"
+				restoreAuthTokenFlow="getBoxToken"
+				httpConnector-ref="connector.http.mule.default"/>
+				
+    
+    <http:connector name="connector.http.mule.default" />
+    
+    <flow name="testGetTicket">
+    	<box:get-ticket redirect="false" />
+    </flow>
+    
+    <flow name="testAuthToken">
+    	<box:auth-token ticket="#[payload]" />
+    </flow>
+    
+    <flow name="getBoxToken">
+    	<set-payload value="" />
+    </flow>
+    
+</mule>

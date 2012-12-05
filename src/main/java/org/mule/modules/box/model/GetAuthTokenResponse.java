@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.md file.
+ */
+
 package org.mule.modules.box.model;
 
 import java.io.Serializable;
@@ -10,74 +18,47 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-@XmlRootElement
+@XmlRootElement(name="response")
 public class GetAuthTokenResponse implements Serializable {
 	
 	private static final long serialVersionUID = -2702752413755354540L;
 	
-	private ResponseElement response;
+	private String status;
 	
-	public String getStatus() {
-		return this.response != null ? this.response.status : null;
-	}
+	private String authToken;
 	
-	public String getAuthToken() {
-		if (this.response != null) {
-			return this.response.authToken;
-		}
-		
-		throw new IllegalStateException("Auth token response is null");
-	}
-
-	public ResponseElement getResponse() {
-		return response;
-	}
-
-	public void setResponse(ResponseElement response) {
-		this.response = response;
-	}
+	private User user;
 	
+	public boolean isNotLoggedIn() {
+		return "not_logged_in".equals(this.status);
+	}
 	
 	public boolean isValid() {
-		return "get_auth_token_ok".equals(this.response.status);
+		return "get_auth_token_ok".equals(this.status);
 	}
 
-	public static class ResponseElement implements Serializable {
-		
-		private static final long serialVersionUID = 5773198039708564030L;
-		
-		
-		private String status;
-		
-		@XmlElement(name="auth_token")
-		private String authToken;
-		
-		private User user;
-
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
-
-		public String getStatus() {
-			return status;
-		}
-
-		public void setStatus(String status) {
-			this.status = status;
-		}
-
-		public String getAuthToken() {
-			return authToken;
-		}
-
-		public void setAuthToken(String authToken) {
-			this.authToken = authToken;
-		}
-		
+	public User getUser() {
+		return user;
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	@XmlElement(name="auth_token")
+	public String getAuthToken() {
+		return authToken;
+	}
+
+	public void setAuthToken(String authToken) {
+		this.authToken = authToken;
+	}
 }

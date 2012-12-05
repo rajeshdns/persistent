@@ -11,20 +11,10 @@
  */
 package org.mule.modules.box;
 
-import java.io.Closeable;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.mule.DefaultMuleMessage;
 import org.mule.api.MuleContext;
@@ -42,12 +32,11 @@ import org.mule.api.transformer.TransformerException;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.GetAuthTokenResponse;
 import org.mule.modules.box.model.GetTicketResponse;
+import org.mule.modules.box.model.User;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
 import org.mule.transformer.codec.Base64Decoder;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
@@ -70,7 +59,7 @@ public class BoxConnector implements MuleContextAware {
 	/**
 	 * The url where the user needs to enter his credentials
 	 */
-	private static final String AUTH_URL = "https://www.box.net/api/1.0/rest/"; 
+	private static final String AUTH_URL = "https://www.box.com/api/1.0/rest"; 
 	
 	
 	private Client client;
@@ -268,34 +257,6 @@ public class BoxConnector implements MuleContextAware {
     	}
     }
     
-    private <T> T get(WebResource.Builder resource, Class<T> entityClass) {
-    	ClientResponse response = null;
-    	T entity = null;
-    	
-    	try {
-    	
-    		response = resource.get(ClientResponse.class); 
-    		int status = response.getStatus();
-    		 
-    		if (status == 200) {
-    			 entity = response.getEntity(entityClass);
-    			 return entity; 
-    		 } else {
-    			 throw new RuntimeException(String.format("got status %d for resource at %s", status, resource.toString()));
-    		 }
-
-    	} finally {
-    		if (entity instanceof Closeable) {
-    			Closeable c = (Closeable) entity;
-    			try {
-    				c.close();
-    			} catch (IOException e) {
-    				throw new RuntimeException("Error closing entity for resource " + resource.toString(), e);
-    			}
-    		}
-    	}
-    }
-    
     
     /**
      * Get and access ticket using the configured apiKey. Optionally, you can ask the connector to automatically
@@ -319,13 +280,11 @@ public class BoxConnector implements MuleContextAware {
     @Inject
     public String getTicket(MuleMessage message, @Optional @Default("true") Boolean redirect) {
     	
-    	GetTicketResponse response = this.get(this.client.resource(AUTH_URL)
+    	GetTicketResponse response = JerseyUtils.get(this.client.resource(AUTH_URL)
 								    			.queryParam("action", "get_ticket")
 								    			.queryParam("api_key", this.apiKey)
 									    		.accept(MediaType.APPLICATION_XML),
 									    		GetTicketResponse.class); 
-    			
-    	
     	if (response.isValid()) {
     		
     		String ticket = response.getTicket();
@@ -390,19 +349,26 @@ public class BoxConnector implements MuleContextAware {
      *
      * @param message the current mule message
      * @param ticket the ticket to authenticate against.
+     * @return an instance of {@link org.mule.modules.box.model.User} with information about the current user
      * @throws IllegalArgumentException if the ticket does not match a logged user
      */
     @Processor
     @Inject
-    public void authToken(MuleMessage message, String ticket) {
+    public User authToken(MuleMessage message, String ticket) {
     	
 
-    	GetAuthTokenResponse response = this.get(this.client.resource(AUTH_URL)
-								    			.queryParam("action", "get_auth_toke")
+    	GetAuthTokenResponse response = JerseyUtils.get(this.client.resource(AUTH_URL)
+								    			.queryParam("action", "get_auth_token")
 								    			.queryParam("api_key", this.apiKey)
 								    			.queryParam("ticket", ticket)
 									    		.accept(MediaType.APPLICATION_XML),
 									    		GetAuthTokenResponse.class); 
+    	
+    	if (response.isNotLoggedIn()) {
+    		String msg = "Failed to obtain authToken using ticket " + ticket + ". Not logged in";
+       	 	logger.error(msg);
+       	 	throw new IllegalStateException(msg);
+    	}
     	
     	if (response.isValid()) {
     		String authToken = response.getAuthToken();
@@ -412,6 +378,8 @@ public class BoxConnector implements MuleContextAware {
     		}
     		
     		this.saveAuthToken(message, ticket, authToken);
+    		return response.getUser();
+    		
     	} else {
     		throw new RuntimeException(String.format("Status %s was obtained while fetching access token", response.getStatus()));
     	}
@@ -428,21 +396,21 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.RegisterNewUserResponse} with
      * 			data about the operation status and info about the newly created user (if successful)
      */
-    @Processor
-    public RegisterNewUserResponse registerNewUser(String email, String password) {
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("about to create user with email: " + email + " and pass: " + password);
-    	}
-    	
-    	final RegisterNewUserRequest registerNewUserRequest = BoxRequestFactory.createRegisterNewUserRequest(apiKey, email, password);
-    	return this.execute(new BoxClosure<RegisterNewUserResponse>() {
-    		
-    		@Override
-    		public RegisterNewUserResponse execute() throws IOException, BoxException {
-    			return client.registerNewUser(registerNewUserRequest);
-    		}
-		}, "registerNewUser");
-    }
+//    @Processor
+//    public RegisterNewUserResponse registerNewUser(String email, String password) {
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("about to create user with email: " + email + " and pass: " + password);
+//    	}
+//    	
+//    	final RegisterNewUserRequest registerNewUserRequest = BoxRequestFactory.createRegisterNewUserRequest(apiKey, email, password);
+//    	return this.execute(new BoxClosure<RegisterNewUserResponse>() {
+//    		
+//    		@Override
+//    		public RegisterNewUserResponse execute() throws IOException, BoxException {
+//    			return client.registerNewUser(registerNewUserRequest);
+//    		}
+//		}, "registerNewUser");
+//    }
     
     /**
      * Create a new folder
@@ -456,34 +424,34 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse} with
      * 			data about the operation status and info about the newly created folder (if successful)
      */
-    @Processor
-    @Inject
-    public CreateFolderResponse createFolder(MuleMessage message,
-    										String parentFolderId,
-    										String folderName,
-    										@Optional @Default("false") Boolean share) {
-
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("About to create folder:" +
-    				"\nparentFolderId: " + parentFolderId +
-    				"\nfolderName: " + folderName +
-    				"\nshare: " + share);
-    	}
-    	
-    	final CreateFolderRequest createFolderRequest =
-    			BoxRequestFactory.createCreateFolderRequest(apiKey, authToken, parentFolderId, folderName, share);
-    	
-    	return this.execute(new BoxClosure<CreateFolderResponse>() {
-    		
-    		@Override
-    		public CreateFolderResponse execute() throws IOException, BoxException {
-    			
-    			return client.createFolder(createFolderRequest);
-    		}
-		}, "create Folder");
-    }
+//    @Processor
+//    @Inject
+//    public CreateFolderResponse createFolder(MuleMessage message,
+//    										String parentFolderId,
+//    										String folderName,
+//    										@Optional @Default("false") Boolean share) {
+//
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("About to create folder:" +
+//    				"\nparentFolderId: " + parentFolderId +
+//    				"\nfolderName: " + folderName +
+//    				"\nshare: " + share);
+//    	}
+//    	
+//    	final CreateFolderRequest createFolderRequest =
+//    			BoxRequestFactory.createCreateFolderRequest(apiKey, authToken, parentFolderId, folderName, share);
+//    	
+//    	return this.execute(new BoxClosure<CreateFolderResponse>() {
+//    		
+//    		@Override
+//    		public CreateFolderResponse execute() throws IOException, BoxException {
+//    			
+//    			return client.createFolder(createFolderRequest);
+//    		}
+//		}, "create Folder");
+//    }
     
     /**
      * Receives a comma separated list of paths and uploads the corresponding
@@ -497,44 +465,44 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded files (if successful)
      */
-    @Processor
-    @Inject
-    public UploadResponse uploadFiles(
-    						MuleMessage message,
-    						@Optional @Default("#[payload]") List<String> paths,
-    						@Optional @Default("0") String folderId) {
-    	
-    	String authToken = this.getAuthToken(message);
-    	
-    	final Map<String, File> files = new HashMap<String, File>();
-    	
-    	for (String path : paths) {
-    		File file = new File(path);
-    		
-    		if (!file.exists()) {
-    			throw new IllegalArgumentException("File " + path + " does not exist");
-    		}
-    		
-    		files.put(file.getName(), file);
-    	}
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("about to uploadFiles with parameters:" +
-    				"\ncsvPaths: " + paths +
-    				"\nfolderId: " + folderId
-    				);
-    	}
-    	
-    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, folderId, files);
-    	
-    	return this.execute(new BoxClosure<UploadResponse>() {
-    		
-    		@Override
-    		public UploadResponse execute() throws IOException, BoxException {
-    			return client.upload(uploadRequest);
-    		}
-		}, "uploadFiles");
-    }
+//    @Processor
+//    @Inject
+//    public UploadResponse uploadFiles(
+//    						MuleMessage message,
+//    						@Optional @Default("#[payload]") List<String> paths,
+//    						@Optional @Default("0") String folderId) {
+//    	
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	final Map<String, File> files = new HashMap<String, File>();
+//    	
+//    	for (String path : paths) {
+//    		File file = new File(path);
+//    		
+//    		if (!file.exists()) {
+//    			throw new IllegalArgumentException("File " + path + " does not exist");
+//    		}
+//    		
+//    		files.put(file.getName(), file);
+//    	}
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("about to uploadFiles with parameters:" +
+//    				"\ncsvPaths: " + paths +
+//    				"\nfolderId: " + folderId
+//    				);
+//    	}
+//    	
+//    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, folderId, files);
+//    	
+//    	return this.execute(new BoxClosure<UploadResponse>() {
+//    		
+//    		@Override
+//    		public UploadResponse execute() throws IOException, BoxException {
+//    			return client.upload(uploadRequest);
+//    		}
+//		}, "uploadFiles");
+//    }
     
     /**
      * Receives an input stream and uploads its content as a file
@@ -548,40 +516,40 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
      * 			data about the operation status and info about the newly uploaded file (if successful)
      */
-    @Processor
-    @Inject
-    public UploadResponse uploadStream(MuleMessage message,
-							    		@Optional @Default("0") String folderId,
-							    		String filename,
-							    		@Optional @Default("#[payload]") InputStream input) {
-    	
-    	String authToken = this.getAuthToken(message);
-    	byte[] data = null;
-    	
-    	try {
-    		data = IOUtils.toByteArray(input);
-    	} catch (IOException e) {
-    		throw new IllegalArgumentException("Failed to read input stream", e);
-    	}
-    	
-    	final Map<String, byte[]> uploadData = new HashMap<String, byte[]>();
-    	uploadData.put(filename, data);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("about to uploadFile using stream to folder " + folderId);
-    	}
-    	
-    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, false, folderId, uploadData);
-    	return this.execute(new BoxClosure<UploadResponse>() {
-    		
-    		@Override
-    		public UploadResponse execute() throws IOException, BoxException {
-    			return client.upload(uploadRequest);
-    		}
-		}, "uploadStream");
-    	
-    	
-    }
+//    @Processor
+//    @Inject
+//    public UploadResponse uploadStream(MuleMessage message,
+//							    		@Optional @Default("0") String folderId,
+//							    		String filename,
+//							    		@Optional @Default("#[payload]") InputStream input) {
+//    	
+//    	String authToken = this.getAuthToken(message);
+//    	byte[] data = null;
+//    	
+//    	try {
+//    		data = IOUtils.toByteArray(input);
+//    	} catch (IOException e) {
+//    		throw new IllegalArgumentException("Failed to read input stream", e);
+//    	}
+//    	
+//    	final Map<String, byte[]> uploadData = new HashMap<String, byte[]>();
+//    	uploadData.put(filename, data);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("about to uploadFile using stream to folder " + folderId);
+//    	}
+//    	
+//    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, false, folderId, uploadData);
+//    	return this.execute(new BoxClosure<UploadResponse>() {
+//    		
+//    		@Override
+//    		public UploadResponse execute() throws IOException, BoxException {
+//    			return client.upload(uploadRequest);
+//    		}
+//		}, "uploadStream");
+//    	
+//    	
+//    }
     
     /**
      * Makes a public share of a file or folder
@@ -597,36 +565,36 @@ public class BoxConnector implements MuleContextAware {
      * 			data about the operation status and info about the shared folder (if successful)
      * @throws {@link IllegalArgumentException} if target is invalid
      */
-    @Processor
-    @Inject
-    public PublicShareResponse publicShare(
-									MuleMessage muleMessage,
-    								Target target,
-									String targetId,
-									String password,
-									String message) {
-    	
-    	String authToken = this.getAuthToken(muleMessage);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("about to share folder with params:" +
-    					"\ntarget: " + target +
-    					"\ntargetId: " + targetId + 
-    					"\npassword: " + password + 
-    					"\nmessage: " + message);
-    	}
-    	
-    	final PublicShareRequest publicShareRequest = BoxRequestFactory.createPublicShareRequest(
-    			apiKey,	authToken, target.name(), targetId, password, message, null);
-    	
-    	return this.execute(new BoxClosure<PublicShareResponse>() {
-    		
-    		@Override
-    		public PublicShareResponse execute() throws IOException, BoxException {
-    			return client.publicShare(publicShareRequest);
-    		}
-		}, "publicShare");
-    }
+//    @Processor
+//    @Inject
+//    public PublicShareResponse publicShare(
+//									MuleMessage muleMessage,
+//    								Target target,
+//									String targetId,
+//									String password,
+//									String message) {
+//    	
+//    	String authToken = this.getAuthToken(muleMessage);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("about to share folder with params:" +
+//    					"\ntarget: " + target +
+//    					"\ntargetId: " + targetId + 
+//    					"\npassword: " + password + 
+//    					"\nmessage: " + message);
+//    	}
+//    	
+//    	final PublicShareRequest publicShareRequest = BoxRequestFactory.createPublicShareRequest(
+//    			apiKey,	authToken, target.name(), targetId, password, message, null);
+//    	
+//    	return this.execute(new BoxClosure<PublicShareResponse>() {
+//    		
+//    		@Override
+//    		public PublicShareResponse execute() throws IOException, BoxException {
+//    			return client.publicShare(publicShareRequest);
+//    		}
+//		}, "publicShare");
+//    }
     
     /**
      * This processor unshares a public shared file or folder
@@ -639,22 +607,22 @@ public class BoxConnector implements MuleContextAware {
      * @return  On a successful result, the status will be 'unshare_ok'. If the result wasn't successful, the status field can be: 'unshare_error', 'wrong_node', 'not_logged_in', 'application_restricted'.
      * @throws {@link IllegalArgumentException} if target is invalid
      */
-    @Processor
-    @Inject
-    public String publicUnshare(MuleMessage message, Target target, String targetId) {
-    	String authToken = this.getAuthToken(message);
-    	final PublicUnshareRequest request = BoxRequestFactory.createPublicUnshareRequest(apiKey, authToken, target.name(), targetId);
-    	
-    	PublicUnshareResponse response = this.execute(new BoxClosure<PublicUnshareResponse>() {
-    		
-    		@Override
-    		public PublicUnshareResponse execute() throws IOException, BoxException {
-    			return client.publicUnshare(request);
-    		}
-		}, "publicUnshare");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String publicUnshare(MuleMessage message, Target target, String targetId) {
+//    	String authToken = this.getAuthToken(message);
+//    	final PublicUnshareRequest request = BoxRequestFactory.createPublicUnshareRequest(apiKey, authToken, target.name(), targetId);
+//    	
+//    	PublicUnshareResponse response = this.execute(new BoxClosure<PublicUnshareResponse>() {
+//    		
+//    		@Override
+//    		public PublicUnshareResponse execute() throws IOException, BoxException {
+//    			return client.publicUnshare(request);
+//    		}
+//		}, "publicUnshare");
+//    	
+//    	return response.getStatus();
+//    }
     
     /**
      * This processor privately shares a file or folder with another user(s).
@@ -674,34 +642,34 @@ public class BoxConnector implements MuleContextAware {
      * @return if successful will be 'private_share_ok'. Otherwise can be: 'private_share_error', 'wrong_node', 'not_logged_in', 'application_restricted'.
      * @throws {@link IllegalArgumentException} if target is invalid or csvMails is null or empty
      */
-    @Processor
-    @Inject
-    public String privateShare( MuleMessage muleMessage,
-    							Target target,
-    							String targetId,
-    							String csvMails,
-    							@Optional @Default("true") Boolean notify,
-    							@Optional @Default("") String message )	{
-    	
-    	String authToken = this.getAuthToken(muleMessage);
-    	
-    	if (StringUtils.isEmpty(csvMails)) {
-    		throw new IllegalArgumentException("csvMails cannot be empty");
-    	}
-    	
-    	final PrivateShareRequest request = BoxRequestFactory.createPrivateShareRequest(
-    					apiKey, authToken, target.name(), targetId, csvMails.split(","), message, notify);
-    	
-    	PrivateShareResponse response = this.execute(new BoxClosure<PrivateShareResponse>() {
-    		
-    		@Override
-    		public PrivateShareResponse execute() throws IOException, BoxException {
-    			return client.privateShare(request);
-    		}
-		}, "privateShare");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String privateShare( MuleMessage muleMessage,
+//    							Target target,
+//    							String targetId,
+//    							String csvMails,
+//    							@Optional @Default("true") Boolean notify,
+//    							@Optional @Default("") String message )	{
+//    	
+//    	String authToken = this.getAuthToken(muleMessage);
+//    	
+//    	if (StringUtils.isEmpty(csvMails)) {
+//    		throw new IllegalArgumentException("csvMails cannot be empty");
+//    	}
+//    	
+//    	final PrivateShareRequest request = BoxRequestFactory.createPrivateShareRequest(
+//    					apiKey, authToken, target.name(), targetId, csvMails.split(","), message, notify);
+//    	
+//    	PrivateShareResponse response = this.execute(new BoxClosure<PrivateShareResponse>() {
+//    		
+//    		@Override
+//    		public PrivateShareResponse execute() throws IOException, BoxException {
+//    			return client.privateShare(request);
+//    		}
+//		}, "privateShare");
+//    	
+//    	return response.getStatus();
+//    }
     
     /**
      * This processor is used to get a user's files and folders tree.
@@ -726,39 +694,39 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetAccountTreeResponse} with
      * 			data about the operation status and info about the inspected folder (if successful)
      */
-    @Processor
-    @Inject
-    public GetAccountTreeResponse getTreeStructure(
-    		MuleMessage message,
-    		@Optional @Default("0") String folderId,
-			@Optional @Default("nozip") String csvParams,
-			final @Optional @Default("UTF-8") String encoding) {
-    	
-    	String authToken = this.getAuthToken(message);
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("fetching tree structure with params:\n" +
-    					"\nfolderId: " + folderId + 
-    					"\ncsvParams: " + csvParams);
-    	}
-    	
-    	String[] params = StringUtils.isEmpty(csvParams) ? null : csvParams.split(",");
-    	final GetAccountTreeRequest getAccountTreeRequest = BoxRequestFactory.createGetAccountTreeRequest(
-    			apiKey, authToken, folderId, params);
-    	
-    	return this.execute(new BoxClosure<GetAccountTreeResponse>() {
-    		
-    		@Override
-    		public GetAccountTreeResponse execute() throws IOException,	BoxException {
-    			GetAccountTreeResponse response = client.getAccountTree(getAccountTreeRequest);
-    			
-    			if (response.getEncodedTree() != null) {
-    				response.setEncodedTree(decode(response.getEncodedTree(), encoding));
-    			}
-    			
-    			return response;
-    		}
-		}, "getTreeStructure");
-    }
+//    @Processor
+//    @Inject
+//    public GetAccountTreeResponse getTreeStructure(
+//    		MuleMessage message,
+//    		@Optional @Default("0") String folderId,
+//			@Optional @Default("nozip") String csvParams,
+//			final @Optional @Default("UTF-8") String encoding) {
+//    	
+//    	String authToken = this.getAuthToken(message);
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("fetching tree structure with params:\n" +
+//    					"\nfolderId: " + folderId + 
+//    					"\ncsvParams: " + csvParams);
+//    	}
+//    	
+//    	String[] params = StringUtils.isEmpty(csvParams) ? null : csvParams.split(",");
+//    	final GetAccountTreeRequest getAccountTreeRequest = BoxRequestFactory.createGetAccountTreeRequest(
+//    			apiKey, authToken, folderId, params);
+//    	
+//    	return this.execute(new BoxClosure<GetAccountTreeResponse>() {
+//    		
+//    		@Override
+//    		public GetAccountTreeResponse execute() throws IOException,	BoxException {
+//    			GetAccountTreeResponse response = client.getAccountTree(getAccountTreeRequest);
+//    			
+//    			if (response.getEncodedTree() != null) {
+//    				response.setEncodedTree(decode(response.getEncodedTree(), encoding));
+//    			}
+//    			
+//    			return response;
+//    		}
+//		}, "getTreeStructure");
+//    }
     
     
     /**
@@ -770,27 +738,27 @@ public class BoxConnector implements MuleContextAware {
      * @param fileId the id of the file we want to download
      * @return the file's contents as a byte array
      */
-    @Processor
-    @Inject
-    public byte[] download(MuleMessage message, String fileId) {
-    	
-    	String authToken = this.getAuthToken(message);
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("About to download file with id: " + fileId);
-    	}
-    	
-    	final DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, fileId, false, null);
-    	DownloadResponse response = this.execute(new BoxClosure<DownloadResponse>() {
-    		
-    		@Override
-    		public DownloadResponse execute() throws IOException, BoxException {
-    			return client.download(downloadRequest);
-    		}
-    		
-		}, "download");
-    	
-    	return response.getRawData();
-    }
+//    @Processor
+//    @Inject
+//    public byte[] download(MuleMessage message, String fileId) {
+//    	
+//    	String authToken = this.getAuthToken(message);
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("About to download file with id: " + fileId);
+//    	}
+//    	
+//    	final DownloadRequest downloadRequest = BoxRequestFactory.createDownloadRequest(authToken, fileId, false, null);
+//    	DownloadResponse response = this.execute(new BoxClosure<DownloadResponse>() {
+//    		
+//    		@Override
+//    		public DownloadResponse execute() throws IOException, BoxException {
+//    			return client.download(downloadRequest);
+//    		}
+//    		
+//		}, "download");
+//    	
+//    	return response.getRawData();
+//    }
     
     /**
      * Deletes a file or folder
@@ -803,24 +771,24 @@ public class BoxConnector implements MuleContextAware {
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse} with data about the operation status
      * @throws {@link IllegalArgumentException} if target is invalid
      */
-    @Processor
-    @Inject
-    public DeleteResponse delete(MuleMessage message, final Target target, final String targetId) {
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("about to delete " + target + " " + targetId);
-    	}
-    	
-    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target.name(), targetId);
-    	return this.execute(new BoxClosure<DeleteResponse>() {
-    		
-    		@Override
-    		public DeleteResponse execute() throws IOException, BoxException {
-    			return client.delete(deleteRequest);
-    		}
-		}, "delete");
-    }
+//    @Processor
+//    @Inject
+//    public DeleteResponse delete(MuleMessage message, final Target target, final String targetId) {
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("about to delete " + target + " " + targetId);
+//    	}
+//    	
+//    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target.name(), targetId);
+//    	return this.execute(new BoxClosure<DeleteResponse>() {
+//    		
+//    		@Override
+//    		public DeleteResponse execute() throws IOException, BoxException {
+//    			return client.delete(deleteRequest);
+//    		}
+//		}, "delete");
+//    }
     
     
     /**
@@ -831,24 +799,24 @@ public class BoxConnector implements MuleContextAware {
      * @param message the current mule message
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.LogoutResponse} with data about the operation status
      */
-    @Processor
-    @Inject
-    public LogoutResponse logout(MuleMessage message) {
-    	String authToken = this.getAuthToken(message);  	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("logging off authToken: " + authToken);
-    	}
-    	
-    	final LogoutRequest logoutRequest = BoxRequestFactory.createLogoutRequest(apiKey, authToken);
-    	
-    	return this.execute(new BoxClosure<LogoutResponse>() {
-    		
-    		@Override
-    		public LogoutResponse execute() throws IOException, BoxException {
-    			return client.logout(logoutRequest);
-    		}
-		}, "logout");
-    }
+//    @Processor
+//    @Inject
+//    public LogoutResponse logout(MuleMessage message) {
+//    	String authToken = this.getAuthToken(message);  	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("logging off authToken: " + authToken);
+//    	}
+//    	
+//    	final LogoutRequest logoutRequest = BoxRequestFactory.createLogoutRequest(apiKey, authToken);
+//    	
+//    	return this.execute(new BoxClosure<LogoutResponse>() {
+//    		
+//    		@Override
+//    		public LogoutResponse execute() throws IOException, BoxException {
+//    			return client.logout(logoutRequest);
+//    		}
+//		}, "logout");
+//    }
     
     /**
     * This method is used to verify user registration email
@@ -863,26 +831,26 @@ public class BoxConnector implements MuleContextAware {
 	*		'email_already_registered' - The login provided is already registered by another user.
 	*		'application_restricted'- You provided an invalid api_key, or the api_key is restricted from calling this function. 
     */ 
-    @Processor
-    @Inject
-    public String verifyRegistrationEmail(MuleMessage message, String loginName) {
-
-        if (logger.isDebugEnabled()) {
-        	logger.debug("checking registration email for loginName: " + loginName);
-        }
-        
-        final VerifyRegistrationEmailRequest request = BoxRequestFactory.createVerifyRegistrationEmailRequest();
-        request.setLoginName(loginName);
-        request.setApiKey(apiKey);
-        
-        return this.execute(new BoxClosure<VerifyRegistrationEmailResponse>() {
-        	
-        	@Override
-        	public VerifyRegistrationEmailResponse execute() throws IOException, BoxException {
-        		return client.verifyRegistrationEmail(request);
-        	}
-		}, "verifyRegistrationEmail").getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String verifyRegistrationEmail(MuleMessage message, String loginName) {
+//
+//        if (logger.isDebugEnabled()) {
+//        	logger.debug("checking registration email for loginName: " + loginName);
+//        }
+//        
+//        final VerifyRegistrationEmailRequest request = BoxRequestFactory.createVerifyRegistrationEmailRequest();
+//        request.setLoginName(loginName);
+//        request.setApiKey(apiKey);
+//        
+//        return this.execute(new BoxClosure<VerifyRegistrationEmailResponse>() {
+//        	
+//        	@Override
+//        	public VerifyRegistrationEmailResponse execute() throws IOException, BoxException {
+//        		return client.verifyRegistrationEmail(request);
+//        	}
+//		}, "verifyRegistrationEmail").getStatus();
+//    }
     
     /**
      * This processor returns all the user's tags.
@@ -899,32 +867,32 @@ public class BoxConnector implements MuleContextAware {
      * @param encoding encoding to use when decoding from BASE64. Optional, defaults to UTF-8
      * @return a String xml representing the tags
      */
-    @Processor
-    @Inject
-    public String exportTags(MuleMessage message, @Optional @Default("UTF-8") String encoding) {
-    	String authToken = this.getAuthToken(message);
-    	final ExportTagsRequest request = BoxRequestFactory.createExportTagsRequest(apiKey, authToken);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("getting tags");
-    	}
-    	
-    	ExportTagsResponse response = this.execute(new BoxClosure<ExportTagsResponse>() {
-    		
-    		@Override
-    		public ExportTagsResponse execute() throws IOException, BoxException {
-    			 return client.exportTags(request);
-    			
-    		}
-    		
-		}, "exportTags");
-    	
-    	if (response.getStatus().equals("export_tags_ok")) {
-    		return this.decode(response.getEncodedTags(), encoding);
-    	}
-    	
-    	throw new RuntimeException("Error retrieving tags. Box.net replied " + response.getStatus());
-    }
+//    @Processor
+//    @Inject
+//    public String exportTags(MuleMessage message, @Optional @Default("UTF-8") String encoding) {
+//    	String authToken = this.getAuthToken(message);
+//    	final ExportTagsRequest request = BoxRequestFactory.createExportTagsRequest(apiKey, authToken);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("getting tags");
+//    	}
+//    	
+//    	ExportTagsResponse response = this.execute(new BoxClosure<ExportTagsResponse>() {
+//    		
+//    		@Override
+//    		public ExportTagsResponse execute() throws IOException, BoxException {
+//    			 return client.exportTags(request);
+//    			
+//    		}
+//    		
+//		}, "exportTags");
+//    	
+//    	if (response.getStatus().equals("export_tags_ok")) {
+//    		return this.decode(response.getEncodedTags(), encoding);
+//    	}
+//    	
+//    	throw new RuntimeException("Error retrieving tags. Box.net replied " + response.getStatus());
+//    }
     
     /**
      * This processor moves a file or folder to another folder.
@@ -943,27 +911,27 @@ public class BoxConnector implements MuleContextAware {
      * @return if successful 's_move_node'. Otherwise it can be 'e_move_node', 'not_logged_in',
      * 'application_restricted'.
      */
-    @Processor
-    @Inject
-    public String move(MuleMessage message, Target target, String targetId, String destinationId) {
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("moving " + target + " " + targetId + " to " + destinationId);
-    	}
-    	
-    	final MoveRequest request = BoxRequestFactory.createMoveRequest(apiKey, authToken, target.name(), targetId, destinationId);
-    	
-    	MoveResponse response = this.execute(new BoxClosure<MoveResponse>() {
-    		
-    		@Override
-    		public MoveResponse execute() throws IOException, BoxException {
-    			return client.move(request);
-    		}
-		}, "move");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String move(MuleMessage message, Target target, String targetId, String destinationId) {
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("moving " + target + " " + targetId + " to " + destinationId);
+//    	}
+//    	
+//    	final MoveRequest request = BoxRequestFactory.createMoveRequest(apiKey, authToken, target.name(), targetId, destinationId);
+//    	
+//    	MoveResponse response = this.execute(new BoxClosure<MoveResponse>() {
+//    		
+//    		@Override
+//    		public MoveResponse execute() throws IOException, BoxException {
+//    			return client.move(request);
+//    		}
+//		}, "move");
+//    	
+//    	return response.getStatus();
+//    }
     
     /**
      * This processor renames a file or folder.
@@ -976,27 +944,27 @@ public class BoxConnector implements MuleContextAware {
      * @param newName is the new name for a file or folder
      * @return if successful will be 's_rename_node'. Otherwise it can be: 'e_rename_node', 'not_logged_in', 'application_restricted'
      */
-    @Processor
-    @Inject
-    public String rename(MuleMessage message, Target target, String targetId, String newName) {
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("renaming " + target + " " + targetId + " to " + newName);
-    	}
-    	
-    	final RenameRequest request = BoxRequestFactory.createRenameRequest(apiKey, authToken, target.name(), targetId, newName);
-    	
-    	RenameResponse response = this.execute(new BoxClosure<RenameResponse>() {
-    		
-    		@Override
-    		public RenameResponse execute() throws IOException, BoxException {
-    			return client.rename(request);
-    		}
-		}, "rename");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String rename(MuleMessage message, Target target, String targetId, String newName) {
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("renaming " + target + " " + targetId + " to " + newName);
+//    	}
+//    	
+//    	final RenameRequest request = BoxRequestFactory.createRenameRequest(apiKey, authToken, target.name(), targetId, newName);
+//    	
+//    	RenameResponse response = this.execute(new BoxClosure<RenameResponse>() {
+//    		
+//    		@Override
+//    		public RenameResponse execute() throws IOException, BoxException {
+//    			return client.rename(request);
+//    		}
+//		}, "rename");
+//    	
+//    	return response.getStatus();
+//    }
     
     /**
      * Gets information about a file
@@ -1007,24 +975,24 @@ public class BoxConnector implements MuleContextAware {
      * @param fileId the id of the file you want info about
      * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.GetFileInfoResponse}
      */
-    @Processor
-    @Inject
-    public GetFileInfoResponse getFileInfo(MuleMessage message, String fileId) {
-    	String authToken = this.getAuthToken(message);
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("getting information about file: " + fileId);
-    	}
-    	
-    	final GetFileInfoRequest request = BoxRequestFactory.createGetFileInfoRequest(apiKey, authToken, fileId);
-    	return this.execute(new BoxClosure<GetFileInfoResponse>() {
-    		
-    		@Override
-    		public GetFileInfoResponse execute() throws IOException, BoxException {
-    			return client.getFileInfo(request);
-    		}
-		}, "getFileInfo");
-    }
-    
+//    @Processor
+//    @Inject
+//    public GetFileInfoResponse getFileInfo(MuleMessage message, String fileId) {
+//    	String authToken = this.getAuthToken(message);
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("getting information about file: " + fileId);
+//    	}
+//    	
+//    	final GetFileInfoRequest request = BoxRequestFactory.createGetFileInfoRequest(apiKey, authToken, fileId);
+//    	return this.execute(new BoxClosure<GetFileInfoResponse>() {
+//    		
+//    		@Override
+//    		public GetFileInfoResponse execute() throws IOException, BoxException {
+//    			return client.getFileInfo(request);
+//    		}
+//		}, "getFileInfo");
+//    }
+//    
     /**
      * This processor adds file or folder to tags list. 
      * 
@@ -1037,30 +1005,30 @@ public class BoxConnector implements MuleContextAware {
      * @return 'addtotag_ok' if successful. Otherwise addtotag_error.
      * @throws {@link IllegalArgumentException} if target is invalid or csvTags is empty
      */
-    @Processor
-    @Inject
-    public String addToTag(MuleMessage message, String csvTags, Target target, String targetId) {
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (StringUtils.isEmpty(csvTags)) {
-    		throw new IllegalArgumentException("csvTags cannot be empty");
-    	}
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("adding tags to " + target + " " + targetId + ": " + csvTags);
-    	}
-    	
-    	final AddToTagRequest request = BoxRequestFactory.createAddToTagRequest(apiKey, authToken, csvTags.split(","), target.name(), targetId);
-    	AddToTagResponse response = this.execute(new BoxClosure<AddToTagResponse>() {
-    		
-    		@Override
-    		public AddToTagResponse execute() throws IOException, BoxException {
-    			return client.addToTag(request);
-    		}
-		}, "addToTag");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String addToTag(MuleMessage message, String csvTags, Target target, String targetId) {
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (StringUtils.isEmpty(csvTags)) {
+//    		throw new IllegalArgumentException("csvTags cannot be empty");
+//    	}
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("adding tags to " + target + " " + targetId + ": " + csvTags);
+//    	}
+//    	
+//    	final AddToTagRequest request = BoxRequestFactory.createAddToTagRequest(apiKey, authToken, csvTags.split(","), target.name(), targetId);
+//    	AddToTagResponse response = this.execute(new BoxClosure<AddToTagResponse>() {
+//    		
+//    		@Override
+//    		public AddToTagResponse execute() throws IOException, BoxException {
+//    			return client.addToTag(request);
+//    		}
+//		}, "addToTag");
+//    	
+//    	return response.getStatus();
+//    }
     
     /**
      * 
@@ -1074,26 +1042,26 @@ public class BoxConnector implements MuleContextAware {
      * @param description the description you want to set
      * @return 's_set_description' if successful. 'e_set_description' otherwise.
      */
-    @Processor
-    @Inject
-    public String setDescription(MuleMessage message, Target target, String targetId, String description) {
-    	String authToken = this.getAuthToken(message);
-    	
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("setting description of " + target + " " + targetId + " to:" + description);
-    	}
-    	
-    	final SetDescriptionRequest request = BoxRequestFactory.createSetDescriptionRequest(apiKey, authToken, target.name(), targetId, description);
-    	SetDescriptionResponse response = this.execute(new BoxClosure<SetDescriptionResponse>() {
-    		
-    		@Override
-    		public SetDescriptionResponse execute() throws IOException, BoxException {
-    			return client.setDescription(request);
-    		}
-		}, "setDescription");
-    	
-    	return response.getStatus();
-    }
+//    @Processor
+//    @Inject
+//    public String setDescription(MuleMessage message, Target target, String targetId, String description) {
+//    	String authToken = this.getAuthToken(message);
+//    	
+//    	if (logger.isDebugEnabled()) {
+//    		logger.debug("setting description of " + target + " " + targetId + " to:" + description);
+//    	}
+//    	
+//    	final SetDescriptionRequest request = BoxRequestFactory.createSetDescriptionRequest(apiKey, authToken, target.name(), targetId, description);
+//    	SetDescriptionResponse response = this.execute(new BoxClosure<SetDescriptionResponse>() {
+//    		
+//    		@Override
+//    		public SetDescriptionResponse execute() throws IOException, BoxException {
+//    			return client.setDescription(request);
+//    		}
+//		}, "setDescription");
+//    	
+//    	return response.getStatus();
+//    }
     
     private String getAuthToken(MuleMessage message) {
     	String token = null;
@@ -1178,45 +1146,12 @@ public class BoxConnector implements MuleContextAware {
 	   }
    }
     
-    private interface BoxClosure<T extends BoxResponse> {
-    	
-    	public T execute() throws IOException, BoxException;
-    }
-    
-    private <T extends BoxResponse> T execute(BoxClosure<T> closure, String operationName) {
-    	
-    	T response = null;
-    	try {
-    		response = closure.execute();
-    		if (logger.isDebugEnabled()) {
-    			logger.debug(operationName + " executed with return status: "
-    					+ response.getStatus() + " and values:\n" + 
-    					ToStringBuilder.reflectionToString(response));
-    		}
-    	} catch (IOException e) {
-    		this.logAndThrow(e);
-    	} catch (BoxException e) {
-    		this.logAndThrow(e);
-    	}
-    	
-    	return response;
-    }
-    
     private String decode(String encoded, String encoding) {
     	try {
     		return new String((byte[]) decoder.doTransform(encoded, encoding));
     	} catch (TransformerException e) {
     		throw new RuntimeException("Error decoding Base64 value");
     	}
-    }
-    
-    private void logAndThrow(Exception e) {
-    	final String msg = "exception caught on Box.net Cloud Connector";
-    	if (logger.isDebugEnabled()) {
-    		logger.error(msg, e);
-    	}
-    	
-    	throw new RuntimeException(e);
     }
     
 	public String getCallbackPath() {
