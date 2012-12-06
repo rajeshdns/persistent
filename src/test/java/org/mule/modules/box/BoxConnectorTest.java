@@ -16,6 +16,7 @@ import org.mule.api.MessagingException;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.construct.Flow;
+import org.mule.modules.box.model.Folder;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 /**
@@ -48,7 +49,12 @@ public class BoxConnectorTest extends FunctionalTestCase {
 				throw e;
 			}
 		}
-		
+	}
+	
+	@Test
+	public void getFolders() throws Exception {
+		Folder folder = (Folder) this.callFlow("", "testListFolders").getPayload();
+		Assert.assertEquals(folder.getId(), "0");
 	}
 	
 	private MuleMessage callFlow(Object payload, String flowName) throws Exception {

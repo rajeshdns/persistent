@@ -30,6 +30,7 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.context.MuleContextAware;
 import org.mule.api.transformer.TransformerException;
 import org.mule.construct.Flow;
+import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.GetAuthTokenResponse;
 import org.mule.modules.box.model.GetTicketResponse;
 import org.mule.modules.box.model.User;
@@ -42,9 +43,8 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 
 /**
- * Box.net Cloud Connector Module.
+ * Box Cloud Connector for API V2.
  * 
- * @author MuleSoft, Inc.
  * @author mariano.gonzalez@mulesoft.com
  */
 @Connector(name="box", schemaVersion="1.1.0", friendlyName="Box", minMuleVersion="3.3")
@@ -55,6 +55,7 @@ public class BoxConnector implements MuleContextAware {
 	
 	private static final String BOX_AUTH_TICKET = "boxAuthTicket";
 	private static final String BOX_AUTH_TOKEN = "boxAuthToken";
+	private static final String BASE_URL = "https://api.box.com/2.0/";
 	
 	/**
 	 * The url where the user needs to enter his credentials
@@ -383,6 +384,25 @@ public class BoxConnector implements MuleContextAware {
     	} else {
     		throw new RuntimeException(String.format("Status %s was obtained while fetching access token", response.getStatus()));
     	}
+    }
+
+    /**
+     * Retrieves information about a given folder. If the folderId parameter is not
+     * provided or equals 0, then the root folder will be returned.
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the fodler you want to get. 0 means root
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     */
+    @Processor
+    @Inject
+    public Folder getFolder(MuleMessage message, @Optional @Default("0") String folderId) {
+    	return JerseyUtils.secureGet(this.client.resource(BASE_URL + "folders")
+    				.path(folderId)
+    				.accept(MediaType.APPLICATION_JSON),
+    				Folder.class, apiKey, this.getAuthToken(message));
     }
     
 

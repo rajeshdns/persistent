@@ -29,8 +29,13 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     	<box:auth-token ticket="#[payload]" />
     </flow>
     
+    <flow name="testListFolders">
+    	<box:get-folder />
+    </flow>
+    
+    
     <flow name="getBoxToken">
-    	<set-payload value="" />
+    	<set-payload value="hrk1frbexzp7vvvtjb22fzird3b0aa5u" />
     </flow>
     
 </mule>
