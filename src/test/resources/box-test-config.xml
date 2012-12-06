@@ -33,6 +33,13 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     	<box:get-folder />
     </flow>
     
+    <flow name="testUpload">
+    	<box:upload-stream filename="testfile.txt" includeHash="false" />
+    </flow>
+    
+    <flow name="testDelete">
+    	<box:delete-file fileId="#[payload.entries[0].id]" />
+    </flow>
     
     <flow name="getBoxToken">
     	<set-payload value="hrk1frbexzp7vvvtjb22fzird3b0aa5u" />

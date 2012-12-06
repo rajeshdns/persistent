@@ -8,6 +8,11 @@
 
 package org.mule.modules.box;
 
+import java.io.ByteArrayInputStream;
+
+import org.mule.modules.box.exception.BoxException;
+import org.mule.modules.box.exception.ErrorList;
+import org.mule.modules.box.exception.Error;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -18,6 +23,23 @@ import com.sun.jersey.api.client.WebResource;
  */
 public class JerseyUtils {
 
+	
+	public static <T> T secureDelete(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
+		return delete(secure(resource, apiKey, authToken), entityClass);
+	}
+	
+	public static <T> T delete(WebResource.Builder resource, Class<T> entityClass) {
+		return execute(resource, entityClass, "DELETE", 200);
+	}
+	
+	public static <T> T securePost(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
+		return post(secure(resource, apiKey, authToken), entityClass);
+	}
+	
+	public static <T> T post(WebResource.Builder resource, Class<T> entityClass) {
+		return execute(resource, entityClass, "POST", 200);
+	}
+	
 	public static <T> T secureGet(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
 		return get(secure(resource, apiKey, authToken), entityClass);
 	}
@@ -37,8 +59,27 @@ public class JerseyUtils {
 		if (status == expectedStatus) {
 			 return response.getEntity(entityClass);
 		 } else {
-			 throw new RuntimeException(String.format("got status %d for resource at %s", status, response.getLocation().toString()));
+			 String json = response.getEntity(String.class);
+			 
+			 try {
+				 ErrorList list = parseError(json, response, ErrorList.class);
+				 throw new BoxException(json, list);
+			 } catch (Exception e) {
+				 Error error = null;
+				 try {
+					  error = parseError(json, response, Error.class);
+				 } catch (Exception e2) {
+					 throw new RuntimeException("Could not parse error response: " +json, e2);
+				 }
+
+				 throw new BoxException(json, error);
+			 }
 		 }
+    }
+    
+    private static <T> T parseError(String json, ClientResponse response, Class<T> clazz) {
+    	response.setEntityInputStream(new ByteArrayInputStream(json.getBytes()));
+    	return response.getEntity(clazz);
     }
 	
 }

@@ -8,6 +8,8 @@
 
 package org.mule.modules.box;
 
+import java.io.InputStream;
+
 import junit.framework.Assert;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +19,7 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
+import org.mule.modules.box.model.UploadFileResponse;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 /**
@@ -55,6 +58,18 @@ public class BoxConnectorTest extends FunctionalTestCase {
 	public void getFolders() throws Exception {
 		Folder folder = (Folder) this.callFlow("", "testListFolders").getPayload();
 		Assert.assertEquals(folder.getId(), "0");
+	}
+	
+	@Test
+	public void upload() throws Exception {
+		InputStream in = this.getClass().getResourceAsStream("/test.txt");
+		assert in != null : "Could not load file";
+		
+		UploadFileResponse file = (UploadFileResponse) this.callFlow(in, "testUpload").getPayload();
+		Assert.assertEquals(file.getTotalCount(), 1);
+		Assert.assertEquals(file.getEntries().get(0).getName(), "testfile.txt");
+		
+		this.callFlow(file, "testDelete");
 	}
 	
 	private MuleMessage callFlow(Object payload, String flowName) throws Exception {

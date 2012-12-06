@@ -10,13 +10,15 @@
 <!-- BEGIN_INCLUDE(box:get-folder) -->
 	<box:get-folder />
 <!-- END_INCLUDE(box:get-folder) -->
-
-
-
-
-
-
-
+<!-- BEGIN_INCLUDE(box:upload-path) -->
+    <box:upload-path path="hello.txt"   />
+<!-- END_INCLUDE(box:upload-path) -->
+<!-- BEGIN_INCLUDE(box:upload-stream) -->
+    <box:upload-stream filename="hello.txt" />
+<!-- END_INCLUDE(box:upload-stream) -->
+<!-- BEGIN_INCLUDE(box:delete-file) -->
+    <box:delete-file fileId="#[payload.id]" />
+<!-- END_INCLUDE(box:delete-file) -->
 
 
 
@@ -28,12 +30,6 @@
 <!-- BEGIN_INCLUDE(box:create-folder) -->
     <box:create-folder parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]" share="true" />
 <!-- END_INCLUDE(box:create-folder) -->
-<!-- BEGIN_INCLUDE(box:upload-files) -->
-    <box:upload-files />
-<!-- END_INCLUDE(box:upload-files) -->
-<!-- BEGIN_INCLUDE(box:upload-stream) -->
-    <box:upload-stream filename="#[map-payload:fileName]" />
-<!-- END_INCLUDE(box:upload-stream) -->
 <!-- BEGIN_INCLUDE(box:public-share) -->
     <box:public-share target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" message="#[map-payload:message]" />
 <!-- END_INCLUDE(box:public-share) -->
@@ -43,9 +39,6 @@
 <!-- BEGIN_INCLUDE(box:download) -->
     <box:download fileId="#[map-payload:fileId]"/>
 <!-- END_INCLUDE(box:download) -->
-<!-- BEGIN_INCLUDE(box:delete) -->
-    <box:delete targetId="#[map-payload:folderId]" target="folder"/>
-<!-- END_INCLUDE(box:delete) -->
 <!-- BEGIN_INCLUDE(box:logout) -->
     <box:logout />
 <!-- END_INCLUDE(box:logout) -->

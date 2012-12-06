@@ -11,9 +11,16 @@
  */
 package org.mule.modules.box;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.mule.DefaultMuleMessage;
@@ -33,14 +40,23 @@ import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.GetAuthTokenResponse;
 import org.mule.modules.box.model.GetTicketResponse;
+import org.mule.modules.box.model.UploadFileResponse;
 import org.mule.modules.box.model.User;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
 import org.mule.transformer.codec.Base64Decoder;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
+import com.sun.jersey.core.impl.provider.entity.FormMultivaluedMapProvider;
+import com.sun.jersey.core.impl.provider.entity.FormProvider;
+import com.sun.jersey.core.impl.provider.entity.InputStreamProvider;
+import com.sun.jersey.core.impl.provider.entity.MimeMultipartProvider;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.file.StreamDataBodyPart;
+import com.sun.jersey.multipart.impl.MultiPartWriter;
 
 /**
  * Box Cloud Connector for API V2.
@@ -114,7 +130,7 @@ public class BoxConnector implements MuleContextAware {
     
     /**
      * The name of a flow to be executed each time the authentication token
-     * needs to be used. If this attribute is specified, then a flow with this named
+     * needs to be used. If this attribute is specified, 	then a flow with this named
      * will be fetch on the registry and invoked every time the auth token is needed.
      * This flow will receive a copy of the current mule message and must set the payload
      * to a valid auth token. If the flow fails to accomplish that, an exception will be thrown
@@ -236,6 +252,12 @@ public class BoxConnector implements MuleContextAware {
     public void init() throws MuleException {
     	ClientConfig clientConfig = new DefaultClientConfig();
     	clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+    	clientConfig.getClasses().add(MultiPartWriter.class);
+    	clientConfig.getClasses().add(MimeMultipartProvider.class);
+    	clientConfig.getClasses().add(InputStreamProvider.class);
+    	clientConfig.getClasses().add(FormProvider.class);
+    	clientConfig.getClasses().add(FormMultivaluedMapProvider.class);
+    	
     	this.client = Client.create(clientConfig);
     	
     	this.authCallback = new AuthCallbackAdapter(this.muleContext, this);
@@ -405,6 +427,116 @@ public class BoxConnector implements MuleContextAware {
     				Folder.class, apiKey, this.getAuthToken(message));
     }
     
+    /**
+     * Creates a new file with the contents of a {@link java.io.InputStream}.
+     * You need to take in count that since this is a stream, using the option of including a verification hash
+     * will cause the contents of the input stream to be fully read and loaded in memory. 
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-stream}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the target folder.
+     * @param filename the name you want the file to have at box.
+     * @param content a {@link java.io.InputStream} with the contents of the file. This processor <b>IS NOT</b> responsible for closing it
+     * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
+     * 			to verify that the content's hasn't been corrupted.
+     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
+     */
+    @Processor
+    @Inject
+    public UploadFileResponse uploadStream(
+    		MuleMessage message,
+    		@Optional @Default("0") String folderId,
+    		String filename,
+    		@Optional @Default("#[payload]") InputStream content,
+    		@Optional @Default("false") boolean includeHash) {
+    	
+    	WebResource.Builder resource = this.client.resource(BASE_URL + "files/content").type(MediaType.MULTIPART_FORM_DATA);
+    	
+    	if (includeHash) {
+    		byte[] bytes = null;
+    		try {
+    			bytes = IOUtils.toByteArray(content);
+    			resource.header("Content-MD5", new String(DigestUtils.sha(bytes)));
+    		} catch (IOException e) {
+    			throw new RuntimeException("Error generating sha1 for content", e);
+    		}
+    	}
+    	
+    	FormDataMultiPart form = new FormDataMultiPart();
+		form.field("folder_id", folderId);
+		form.bodyPart(new StreamDataBodyPart(filename, content));
+    	resource.entity(form);
+    	
+    	return JerseyUtils.securePost(resource, UploadFileResponse.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    /**
+     * Receives the path of a file in local storage and uploads its content
+     *
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-path}
+     * 
+     * @param message the current mule message
+     * @param path the path of the file in local storage
+     * @param folderId the id of the target folder.
+     * @param filename the name you want the file to have at box. If not provided, the name on current storage will be used
+     * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
+     * 			to verify that the content's hasn't been corrupted. 
+     *        
+     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
+     */
+    @Processor
+    @Inject
+    public UploadFileResponse uploadPath(
+    		MuleMessage message,
+    		String path, 
+    		@Optional @Default("0") String folderId,
+    		@Optional String filename,
+    		@Optional @Default("false") boolean includeHash) {
+    	
+    	
+		java.io.File file = new java.io.File(path);
+    		
+		if (!file.exists()) {
+			throw new IllegalArgumentException(String.format("File %s does not exist", path));
+		}
+		
+		if (StringUtils.isBlank(filename)) {
+			filename = file.getName();
+		}
+    	
+		byte[] content = null;
+		
+		try {
+			FileUtils.readFileToByteArray(file);
+		} catch (IOException e) {
+			throw new RuntimeException(String.format("Error reading file at %s", path), e);
+		}
+		
+		return this.uploadStream(message, folderId, filename, new ByteArrayInputStream(content), includeHash);
+    }
+    
+    /**
+     * Deletes a file
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-file}
+     * 
+     * @param message the current mule message
+     * @param fileId the id of the file to be deleted
+     * @param etag if provided, it will be used to verify that no newer version of the file is available at box
+     */
+    @Processor
+    @Inject
+    public void deleteFile(MuleMessage message, String fileId, @Optional String etag) {
+    	WebResource.Builder resource = this.client.resource(BASE_URL + "files").path(fileId).accept(MediaType.APPLICATION_JSON);
+    	
+    	if (!StringUtils.isBlank(etag)) {
+    		resource.header("If-Match", etag);
+    	}
+    	
+    	JerseyUtils.secureDelete(resource, String.class, this.apiKey, this.getAuthToken(message));
+    }
+    
 
     /**
      * Create a new user in box.net
@@ -473,56 +605,6 @@ public class BoxConnector implements MuleContextAware {
 //		}, "create Folder");
 //    }
     
-    /**
-     * Receives a comma separated list of paths and uploads the corresponding
-     * files.
-     *
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-files}
-     *
-     * @param message the current mule message
-     * @param folderId the id of the parent folder. Defaults to 0 (the root folder)
-     * @param paths a List of Strings with the paths where the files are. Defaults to payload
-     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
-     * 			data about the operation status and info about the newly uploaded files (if successful)
-     */
-//    @Processor
-//    @Inject
-//    public UploadResponse uploadFiles(
-//    						MuleMessage message,
-//    						@Optional @Default("#[payload]") List<String> paths,
-//    						@Optional @Default("0") String folderId) {
-//    	
-//    	String authToken = this.getAuthToken(message);
-//    	
-//    	final Map<String, File> files = new HashMap<String, File>();
-//    	
-//    	for (String path : paths) {
-//    		File file = new File(path);
-//    		
-//    		if (!file.exists()) {
-//    			throw new IllegalArgumentException("File " + path + " does not exist");
-//    		}
-//    		
-//    		files.put(file.getName(), file);
-//    	}
-//    	
-//    	if (logger.isDebugEnabled()) {
-//    		logger.debug("about to uploadFiles with parameters:" +
-//    				"\ncsvPaths: " + paths +
-//    				"\nfolderId: " + folderId
-//    				);
-//    	}
-//    	
-//    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, true, folderId, files);
-//    	
-//    	return this.execute(new BoxClosure<UploadResponse>() {
-//    		
-//    		@Override
-//    		public UploadResponse execute() throws IOException, BoxException {
-//    			return client.upload(uploadRequest);
-//    		}
-//		}, "uploadFiles");
-//    }
     
     /**
      * Receives an input stream and uploads its content as a file
@@ -778,36 +860,6 @@ public class BoxConnector implements MuleContextAware {
 //		}, "download");
 //    	
 //    	return response.getRawData();
-//    }
-    
-    /**
-     * Deletes a file or folder
-     *
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:delete}
-     *
-     * @param message the current mule message
-     * @param target The type of item to be shared.  This can be set as 'file' or 'folder'. Any other value will throw a {@link IllegalArgumentException}
-     * @param targetId The id of the item you wish to delete. If the target is a folder, this will be the folder_id.  If the target is a file, this will be the file_id.
-     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.DeleteResponse} with data about the operation status
-     * @throws {@link IllegalArgumentException} if target is invalid
-     */
-//    @Processor
-//    @Inject
-//    public DeleteResponse delete(MuleMessage message, final Target target, final String targetId) {
-//    	String authToken = this.getAuthToken(message);
-//    	
-//    	if (logger.isDebugEnabled()) {
-//    		logger.debug("about to delete " + target + " " + targetId);
-//    	}
-//    	
-//    	final DeleteRequest deleteRequest = BoxRequestFactory.createDeleteRequest(apiKey, authToken, target.name(), targetId);
-//    	return this.execute(new BoxClosure<DeleteResponse>() {
-//    		
-//    		@Override
-//    		public DeleteResponse execute() throws IOException, BoxException {
-//    			return client.delete(deleteRequest);
-//    		}
-//		}, "delete");
 //    }
     
     

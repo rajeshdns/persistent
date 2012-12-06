@@ -20,7 +20,7 @@
 		<mule.devkit.version>3.3.1</mule.devkit.version>
 		<junit.version>4.9</junit.version>
 		<mockito.version>1.8.2</mockito.version>
-		<jersey.version>1.14</jersey.version>
+		<jersey.version>1.16</jersey.version>
 		<jdk.version>1.6</jdk.version>
 		<category>Community</category>
 		<licensePath>LICENSE.md</licensePath>
@@ -44,11 +44,19 @@
 			<version>1.6</version>
 		</dependency>
 		<dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-multipart</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-http</artifactId>
 			<version>${mule.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<repositories>
