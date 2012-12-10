@@ -14,17 +14,21 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class ErrorList implements Serializable {
 
 	private static final long serialVersionUID = -6878896011465139195L;
 	
 	private long totalCount = 0;
 	private String type;
+	
 	private List<Error> entries = new ArrayList<Error>();
 	
 	public ErrorList addError(Error error) {

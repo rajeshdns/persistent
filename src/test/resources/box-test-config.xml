@@ -45,4 +45,16 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     	<set-payload value="hrk1frbexzp7vvvtjb22fzird3b0aa5u" />
     </flow>
     
+    <flow name="testCreateFolder">
+    	<box:create-folder folderName="#[payload]" />
+    </flow>
+    
+    <flow name="testDeleteFolder">
+    	<box:delete-folder folderId="#[payload]" />
+    </flow>
+    
+    <flow name="testListFolder">
+    	<box:get-folder-items />
+    </flow>
+    
 </mule>

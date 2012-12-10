@@ -14,11 +14,11 @@ package org.mule.modules.box;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Formatter;
 
 import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -38,10 +38,12 @@ import org.mule.api.context.MuleContextAware;
 import org.mule.api.transformer.TransformerException;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
-import org.mule.modules.box.model.GetAuthTokenResponse;
-import org.mule.modules.box.model.GetTicketResponse;
-import org.mule.modules.box.model.UploadFileResponse;
+import org.mule.modules.box.model.FolderItems;
 import org.mule.modules.box.model.User;
+import org.mule.modules.box.model.request.CreateFolderRequest;
+import org.mule.modules.box.model.response.GetAuthTokenResponse;
+import org.mule.modules.box.model.response.GetTicketResponse;
+import org.mule.modules.box.model.response.UploadFileResponse;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
 import org.mule.transformer.codec.Base64Decoder;
 
@@ -63,7 +65,7 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
  * 
  * @author mariano.gonzalez@mulesoft.com
  */
-@Connector(name="box", schemaVersion="1.1.0", friendlyName="Box", minMuleVersion="3.3")
+@Connector(name="box", schemaVersion="2.0", friendlyName="Box", minMuleVersion="3.3")
 public class BoxConnector implements MuleContextAware {
     
 	private static final Logger logger = Logger.getLogger(BoxConnector.class);
@@ -303,11 +305,12 @@ public class BoxConnector implements MuleContextAware {
     @Inject
     public String getTicket(MuleMessage message, @Optional @Default("true") Boolean redirect) {
     	
-    	GetTicketResponse response = JerseyUtils.get(this.client.resource(AUTH_URL)
+    	GetTicketResponse response = JerseyUtils.get(
+    										this.client.resource(AUTH_URL)
 								    			.queryParam("action", "get_ticket")
 								    			.queryParam("api_key", this.apiKey)
 									    		.accept(MediaType.APPLICATION_XML),
-									    		GetTicketResponse.class); 
+								    		GetTicketResponse.class); 
     	if (response.isValid()) {
     		
     		String ticket = response.getTicket();
@@ -380,12 +383,13 @@ public class BoxConnector implements MuleContextAware {
     public User authToken(MuleMessage message, String ticket) {
     	
 
-    	GetAuthTokenResponse response = JerseyUtils.get(this.client.resource(AUTH_URL)
-								    			.queryParam("action", "get_auth_token")
-								    			.queryParam("api_key", this.apiKey)
-								    			.queryParam("ticket", ticket)
-									    		.accept(MediaType.APPLICATION_XML),
-									    		GetAuthTokenResponse.class); 
+    	GetAuthTokenResponse response = JerseyUtils.get(
+    									this.client.resource(AUTH_URL)
+							    			.queryParam("action", "get_auth_token")
+							    			.queryParam("api_key", this.apiKey)
+							    			.queryParam("ticket", ticket)
+								    		.accept(MediaType.APPLICATION_XML),
+							    		GetAuthTokenResponse.class); 
     	
     	if (response.isNotLoggedIn()) {
     		String msg = "Failed to obtain authToken using ticket " + ticket + ". Not logged in";
@@ -421,10 +425,77 @@ public class BoxConnector implements MuleContextAware {
     @Processor
     @Inject
     public Folder getFolder(MuleMessage message, @Optional @Default("0") String folderId) {
-    	return JerseyUtils.secureGet(this.client.resource(BASE_URL + "folders")
-    				.path(folderId)
-    				.accept(MediaType.APPLICATION_JSON),
+    	return JerseyUtils.secureGet(
+    				this.client.resource(BASE_URL + "folders")
+	    				.path(folderId)
+	    				.accept(MediaType.APPLICATION_JSON),
     				Folder.class, apiKey, this.getAuthToken(message));
+    }
+    
+    /**
+     * Creates a new folder and returns a folder object with all its associated information
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:create-folder}
+     * 
+     * @param message the current mule message
+     * @param parentId the id of the parent folder. If not provided then the root will be used
+     * @param folderName the name of the folder
+     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the newly created folder
+     */
+    @Processor
+    @Inject
+    public Folder createFolder(MuleMessage message, @Optional @Default("0") String parentId, String folderName) {
+    	return JerseyUtils.securePost(
+    							this.client.resource(BASE_URL + "folders")
+	    							.accept(MediaType.APPLICATION_JSON)
+	    							.type(MediaType.APPLICATION_JSON)
+	    							.entity(new CreateFolderRequest(folderName, parentId)),
+	    						Folder.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    
+    /**
+     * Returns the items of a folder
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-items}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the folder you want to inspect. If not provided then the root folder is assumed
+     * @return an instance of {@link org.mule.modules.box.model.FolderItems}
+     */
+    @Processor
+    @Inject
+    public FolderItems getFolderItems(MuleMessage message, @Optional @Default("0") String folderId) {
+    	return JerseyUtils.secureGet(
+    			this.client.resource(BASE_URL)
+	    			.path("folders")
+	    			.path(folderId)
+	    			.path("items")
+	    			.accept(MediaType.APPLICATION_JSON)
+    			, FolderItems.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    /**
+     * Deletes a folder
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-folder}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the folder to be deleted
+     * @param recursive Whether to delete this folder if it has items inside of it
+     */
+    @Processor
+    @Inject
+    public void deleteFolder(MuleMessage message, String folderId, @Optional @Default("true") Boolean recursive) {
+    	JerseyUtils.secureDelete(
+    			this.client.resource(BASE_URL)
+    				.path("folders")
+    				.path(folderId)
+    				.queryParam("recursive", recursive.toString())
+    				.accept(MediaType.APPLICATION_JSON)
+    			, String.class, this.apiKey, this.getAuthToken(message));
+    			
+    	
     }
     
     /**
@@ -454,13 +525,7 @@ public class BoxConnector implements MuleContextAware {
     	WebResource.Builder resource = this.client.resource(BASE_URL + "files/content").type(MediaType.MULTIPART_FORM_DATA);
     	
     	if (includeHash) {
-    		byte[] bytes = null;
-    		try {
-    			bytes = IOUtils.toByteArray(content);
-    			resource.header("Content-MD5", new String(DigestUtils.sha(bytes)));
-    		} catch (IOException e) {
-    			throw new RuntimeException("Error generating sha1 for content", e);
-    		}
+			resource.header("Content-MD5", this.hash(content));
     	}
     	
     	FormDataMultiPart form = new FormDataMultiPart();
@@ -469,6 +534,25 @@ public class BoxConnector implements MuleContextAware {
     	resource.entity(form);
     	
     	return JerseyUtils.securePost(resource, UploadFileResponse.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    private String hash(InputStream content) {
+    	byte[] bytes = null;
+		try {
+			bytes = IOUtils.toByteArray(content);
+		} catch (IOException e) {
+			throw new RuntimeException("Error generating sha1 for content", e);
+		}
+		
+		Formatter formatter = new Formatter();
+		try {
+			for (byte b : bytes) {
+				formatter.format("%02x", b);
+			}
+			return formatter.toString();
+		} finally {
+			formatter.close();
+		}
     }
     
     /**
@@ -564,94 +648,6 @@ public class BoxConnector implements MuleContextAware {
 //		}, "registerNewUser");
 //    }
     
-    /**
-     * Create a new folder
-     *
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:create-folder}
-     *
-     * @param message the current mule message
-     * @param parentFolderId the id of the parent folder
-     * @param folderName the name of the folder you want to create
-     * @param share specifies if the folder is shared. This parameter is optional and defaults to false
-     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.CreateFolderResponse} with
-     * 			data about the operation status and info about the newly created folder (if successful)
-     */
-//    @Processor
-//    @Inject
-//    public CreateFolderResponse createFolder(MuleMessage message,
-//    										String parentFolderId,
-//    										String folderName,
-//    										@Optional @Default("false") Boolean share) {
-//
-//    	String authToken = this.getAuthToken(message);
-//    	
-//    	if (logger.isDebugEnabled()) {
-//    		logger.debug("About to create folder:" +
-//    				"\nparentFolderId: " + parentFolderId +
-//    				"\nfolderName: " + folderName +
-//    				"\nshare: " + share);
-//    	}
-//    	
-//    	final CreateFolderRequest createFolderRequest =
-//    			BoxRequestFactory.createCreateFolderRequest(apiKey, authToken, parentFolderId, folderName, share);
-//    	
-//    	return this.execute(new BoxClosure<CreateFolderResponse>() {
-//    		
-//    		@Override
-//    		public CreateFolderResponse execute() throws IOException, BoxException {
-//    			
-//    			return client.createFolder(createFolderRequest);
-//    		}
-//		}, "create Folder");
-//    }
-    
-    
-    /**
-     * Receives an input stream and uploads its content as a file
-     *
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-stream}
-     *
-     * @param message the current mule message
-     * @param folderId the id of the parent folder. Defaults to 0 which is the root folder
-     * @param filename the name we want the file to have on box.net
-     * @param input InputStream with the contents of the file. Defaults to the message payload.
-     * @return an instance of {@link cn.com.believer.songyuanframework.openapi.storage.box.functions.UploadResponse} with
-     * 			data about the operation status and info about the newly uploaded file (if successful)
-     */
-//    @Processor
-//    @Inject
-//    public UploadResponse uploadStream(MuleMessage message,
-//							    		@Optional @Default("0") String folderId,
-//							    		String filename,
-//							    		@Optional @Default("#[payload]") InputStream input) {
-//    	
-//    	String authToken = this.getAuthToken(message);
-//    	byte[] data = null;
-//    	
-//    	try {
-//    		data = IOUtils.toByteArray(input);
-//    	} catch (IOException e) {
-//    		throw new IllegalArgumentException("Failed to read input stream", e);
-//    	}
-//    	
-//    	final Map<String, byte[]> uploadData = new HashMap<String, byte[]>();
-//    	uploadData.put(filename, data);
-//    	
-//    	if (logger.isDebugEnabled()) {
-//    		logger.debug("about to uploadFile using stream to folder " + folderId);
-//    	}
-//    	
-//    	final UploadRequest uploadRequest = BoxRequestFactory.createUploadRequest(authToken, false, folderId, uploadData);
-//    	return this.execute(new BoxClosure<UploadResponse>() {
-//    		
-//    		@Override
-//    		public UploadResponse execute() throws IOException, BoxException {
-//    			return client.upload(uploadRequest);
-//    		}
-//		}, "uploadStream");
-//    	
-//    	
-//    }
     
     /**
      * Makes a public share of a file or folder

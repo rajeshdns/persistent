@@ -19,7 +19,8 @@ import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
-import org.mule.modules.box.model.UploadFileResponse;
+import org.mule.modules.box.model.FolderItems;
+import org.mule.modules.box.model.response.UploadFileResponse;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 /**
@@ -58,6 +59,22 @@ public class BoxConnectorTest extends FunctionalTestCase {
 	public void getFolders() throws Exception {
 		Folder folder = (Folder) this.callFlow("", "testListFolders").getPayload();
 		Assert.assertEquals(folder.getId(), "0");
+	}
+	
+	@Test
+	public void createFolder() throws Exception {
+		final String name = "My mule connector folder";
+		Folder folder = (Folder) this.callFlow(name, "testCreateFolder").getPayload();
+		Assert.assertEquals(folder.getName(), name);
+		Assert.assertEquals(folder.getParent().getId(), "0");
+		
+		this.callFlow(folder.getId(), "testDeleteFolder");
+	}
+	
+	@Test
+	public void listFolder() throws Exception {
+		FolderItems items = (FolderItems) this.callFlow("", "testListFolder").getPayload();
+		Assert.assertTrue(items.getTotalCount() > 0);
 	}
 	
 	@Test

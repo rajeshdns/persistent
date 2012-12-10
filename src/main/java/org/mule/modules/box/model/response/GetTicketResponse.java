@@ -6,7 +6,7 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.box.model;
+package org.mule.modules.box.model.response;
 
 import java.io.Serializable;
 

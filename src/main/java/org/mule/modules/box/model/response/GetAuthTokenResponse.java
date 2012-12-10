@@ -6,12 +6,14 @@
  * LICENSE.md file.
  */
 
-package org.mule.modules.box.model;
+package org.mule.modules.box.model.response;
 
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.mule.modules.box.model.User;
 
 /**
  * 

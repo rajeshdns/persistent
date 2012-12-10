@@ -29,7 +29,7 @@ public class JerseyUtils {
 	}
 	
 	public static <T> T delete(WebResource.Builder resource, Class<T> entityClass) {
-		return execute(resource, entityClass, "DELETE", 200);
+		return execute(resource, entityClass, "DELETE", 200, 204);
 	}
 	
 	public static <T> T securePost(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
@@ -37,7 +37,7 @@ public class JerseyUtils {
 	}
 	
 	public static <T> T post(WebResource.Builder resource, Class<T> entityClass) {
-		return execute(resource, entityClass, "POST", 200);
+		return execute(resource, entityClass, "POST", 200, 201);
 	}
 	
 	public static <T> T secureGet(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
@@ -52,27 +52,27 @@ public class JerseyUtils {
 		return resource.header("Authorization", String.format("BoxAuth api_key=%s&auth_token=%s", apiKey, authToken));
 	}
 	
-    private static <T> T execute(WebResource.Builder resource, Class<T> entityClass, String method, int expectedStatus) {
+    private static <T> T execute(WebResource.Builder resource, Class<T> entityClass, String method, int... expectedStatus) {
     	ClientResponse response = resource.method(method, ClientResponse.class);
 		int status = response.getStatus();
 		 
-		if (status == expectedStatus) {
-			 return response.getEntity(entityClass);
+		if (contains(expectedStatus, status)) {
+			return status != 204 ? response.getEntity(entityClass) : null;
 		 } else {
 			 String json = response.getEntity(String.class);
 			 
 			 try {
 				 ErrorList list = parseError(json, response, ErrorList.class);
-				 throw new BoxException(json, list);
+				 throw new BoxException(String.format("was expecting status code %d but got %d. Response was %s", expectedStatus, status, json), list);
 			 } catch (Exception e) {
 				 Error error = null;
 				 try {
 					  error = parseError(json, response, Error.class);
 				 } catch (Exception e2) {
-					 throw new RuntimeException("Could not parse error response: " +json, e2);
+					 throw new RuntimeException(String.format("Got error with status %d but could not parse this: %s", status, json), e2);
 				 }
 
-				 throw new BoxException(json, error);
+				 throw new BoxException(json, error, e);
 			 }
 		 }
     }
@@ -80,6 +80,15 @@ public class JerseyUtils {
     private static <T> T parseError(String json, ClientResponse response, Class<T> clazz) {
     	response.setEntityInputStream(new ByteArrayInputStream(json.getBytes()));
     	return response.getEntity(clazz);
+    }
+    
+    private static boolean contains(int[] expected, int obtained) {
+    	for (int i : expected) {
+    		if (i == obtained) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
 	
 }

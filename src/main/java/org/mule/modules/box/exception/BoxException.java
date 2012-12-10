@@ -25,6 +25,11 @@ public class BoxException extends RuntimeException {
 		this.errors = new ErrorList().addError(error);
 	}
 	
+	public BoxException(String message, Error error, Throwable cause) {
+		super(message, cause);
+		this.errors = new ErrorList().addError(error);
+	}
+	
 	public BoxException(String message, ErrorList errors) {
 		super(message);
 		this.errors = errors;

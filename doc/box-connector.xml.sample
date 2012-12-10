@@ -19,7 +19,15 @@
 <!-- BEGIN_INCLUDE(box:delete-file) -->
     <box:delete-file fileId="#[payload.id]" />
 <!-- END_INCLUDE(box:delete-file) -->
-
+<!-- BEGIN_INCLUDE(box:create-folder) -->
+    <box:create-folder folderName="my new folder" />
+<!-- END_INCLUDE(box:create-folder) -->
+<!-- BEGIN_INCLUDE(box:get-folder-items) -->
+    <box:get-folder-items folderId="#[flowVars['folderID']]" />
+<!-- END_INCLUDE(box:get-folder-items) -->
+<!-- BEGIN_INCLUDE(box:delete-folder) -->
+    <box:delete-folder folderId="#[flowVars['folderID']]" />
+<!-- END_INCLUDE(box:delete-folder) -->
 
 
 
@@ -27,9 +35,6 @@
 <!-- BEGIN_INCLUDE(box:register-new-user) -->
     <box:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
 <!-- END_INCLUDE(box:register-new-user) -->
-<!-- BEGIN_INCLUDE(box:create-folder) -->
-    <box:create-folder parentFolderId="#[map-payload:parentFolderId]" folderName="#[map-payload:folderName]" share="true" />
-<!-- END_INCLUDE(box:create-folder) -->
 <!-- BEGIN_INCLUDE(box:public-share) -->
     <box:public-share target="file" targetId="#[map-payload:fileId]" password="#[map-payload:password]" message="#[map-payload:message]" />
 <!-- END_INCLUDE(box:public-share) -->
