@@ -35,7 +35,6 @@ import org.mule.api.annotations.lifecycle.Stop;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.context.MuleContextAware;
-import org.mule.api.transformer.TransformerException;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.FolderItems;
@@ -45,7 +44,6 @@ import org.mule.modules.box.model.response.GetAuthTokenResponse;
 import org.mule.modules.box.model.response.GetTicketResponse;
 import org.mule.modules.box.model.response.UploadFileResponse;
 import org.mule.modules.boxnet.callback.AuthCallbackAdapter;
-import org.mule.transformer.codec.Base64Decoder;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -69,7 +67,6 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
 public class BoxConnector implements MuleContextAware {
     
 	private static final Logger logger = Logger.getLogger(BoxConnector.class);
-	private static final Base64Decoder decoder = new Base64Decoder();
 	
 	private static final String BOX_AUTH_TICKET = "boxAuthTicket";
 	private static final String BOX_AUTH_TOKEN = "boxAuthToken";
@@ -220,11 +217,10 @@ public class BoxConnector implements MuleContextAware {
      * The http connector to be used when serving the authorization callback.
      * If {@link usesCallback} is false then this connector is not used.
      * 
-     * If not provided, the default http connector will be used. However, specifying an https
-     * connector instead is adviced. 
+     * If not provided, the default http connector under the key 'connector.http.mule.default' will be used.
+     * However, specifying an https connector is adviced. 
      */
     @Configurable
-    @Default("connector.http.mule.default")
     @Optional
     private org.mule.api.transport.Connector httpConnector;
     
@@ -1213,14 +1209,6 @@ public class BoxConnector implements MuleContextAware {
 		   }
 	   }
    }
-    
-    private String decode(String encoded, String encoding) {
-    	try {
-    		return new String((byte[]) decoder.doTransform(encoded, encoding));
-    	} catch (TransformerException e) {
-    		throw new RuntimeException("Error decoding Base64 value");
-    	}
-    }
     
 	public String getCallbackPath() {
 		return callbackPath;

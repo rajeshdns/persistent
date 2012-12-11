@@ -18,6 +18,7 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.callback.HttpCallback;
 import org.mule.api.processor.MessageProcessor;
+import org.mule.api.transport.Connector;
 import org.mule.modules.box.BoxConnector;
 
 
@@ -56,7 +57,18 @@ public class AuthCallbackAdapter extends HttpCallbackAdapter {
 
     public void start() throws MuleException {
     	this.init();
-    	callback = new DefaultHttpCallback(new AuthCallbackAdapter.GetAuthCodeCallback(), muleContext, getDomain(), getLocalPort(), getRemotePort(), this.connector.getCallbackPath(), getAsync(), this.connector.getHttpConnector());
+    	
+    	Connector httpConnector = this.connector.getHttpConnector();
+    	
+    	if (httpConnector == null) {
+    		httpConnector = muleContext.getRegistry().get("connector.http.mule.default");
+    		
+    		if (httpConnector == null) {
+    			throw new RuntimeException("Could not find default http connector under key 'connector.http.mule.default'");
+    		}
+    	}
+    	
+    	callback = new DefaultHttpCallback(new AuthCallbackAdapter.GetAuthCodeCallback(), muleContext, getDomain(), getLocalPort(), getRemotePort(), this.connector.getCallbackPath(), getAsync(), httpConnector);
         callback.start();
     }
 

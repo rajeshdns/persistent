@@ -8,10 +8,9 @@
 
 package org.mule.modules.box.model;
 
-import java.io.Serializable;
-
 import javax.xml.bind.annotation.XmlElement;
 
+import org.mule.modules.box.model.descriptor.EntityDescriptor;
 import org.mule.modules.box.model.descriptor.FolderItem;
 import org.mule.modules.box.model.descriptor.UserDescriptor;
 
@@ -20,15 +19,12 @@ import org.mule.modules.box.model.descriptor.UserDescriptor;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class Folder implements Serializable {
+public class Folder extends EntityDescriptor {
 
 	private static final long serialVersionUID = -4254960125347133726L;
 	
-	private String type;
-	private String id;
 	private String sequenceId;
 	private String etag;
-	private String name;
 	private String createdAt;
 	private String modifiedAt;
 	private String description;
@@ -41,19 +37,6 @@ public class Folder implements Serializable {
 	private FolderItem parent;
 	private FolderItems items;
     	
-    public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
 	@XmlElement(name="sequence_id")
 	public String getSequenceId() {
 		return sequenceId;
@@ -61,13 +44,7 @@ public class Folder implements Serializable {
 	public void setSequenceId(String sequenceId) {
 		this.sequenceId = sequenceId;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+
 	@XmlElement(name="created_at")
 	public String getCreatedAt() {
 		return createdAt;
