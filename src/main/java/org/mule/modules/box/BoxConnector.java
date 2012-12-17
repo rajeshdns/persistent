@@ -1127,7 +1127,7 @@ public class BoxConnector implements MuleContextAware {
 //    	return response.getStatus();
 //    }
     
-    private String getAuthToken(MuleMessage message) {
+    public String getAuthToken(MuleMessage message) {
     	String token = null;
     	
     	if (this.restoreTokenFlow == null) {
