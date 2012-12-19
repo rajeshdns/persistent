@@ -12,11 +12,14 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SharedLink implements Serializable {
 
 	private static final long serialVersionUID = -7687170653187915720L;

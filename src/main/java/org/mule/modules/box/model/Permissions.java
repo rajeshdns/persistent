@@ -10,11 +10,14 @@ package org.mule.modules.box.model;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Permissions implements Serializable {
 
 	private static final long serialVersionUID = 5764159592895329147L;

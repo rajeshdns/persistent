@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.mule.modules.box.model.descriptor.FolderItem;
 
 /**
@@ -20,12 +21,15 @@ import org.mule.modules.box.model.descriptor.FolderItem;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class FolderItems implements Serializable {
 	
 	private static final long serialVersionUID = -4335709092350643546L;
 	
 	private int totalCount;
 	private List<FolderItem> entries;
+	private int offset;
+	private int limit;
 	
 	@XmlElement(name="total_count")
 	public int getTotalCount() {
@@ -40,5 +44,16 @@ public class FolderItems implements Serializable {
 	public void setEntries(List<FolderItem> entries) {
 		this.entries = entries;
 	}
-	
+	public int getOffset() {
+		return offset;
+	}
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
 }

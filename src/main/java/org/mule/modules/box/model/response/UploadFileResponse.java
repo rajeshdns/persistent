@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.mule.modules.box.model.File;
 
 /**
@@ -20,6 +21,7 @@ import org.mule.modules.box.model.File;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UploadFileResponse implements Serializable {
 
 	private static final long serialVersionUID = -8182169706166443150L;

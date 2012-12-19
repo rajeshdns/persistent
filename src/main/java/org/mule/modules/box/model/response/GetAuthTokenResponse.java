@@ -13,6 +13,7 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.mule.modules.box.model.User;
 
 /**
@@ -21,6 +22,7 @@ import org.mule.modules.box.model.User;
  *
  */
 @XmlRootElement(name="response")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class GetAuthTokenResponse implements Serializable {
 	
 	private static final long serialVersionUID = -2702752413755354540L;

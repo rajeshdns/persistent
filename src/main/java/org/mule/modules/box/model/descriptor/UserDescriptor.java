@@ -8,11 +8,14 @@
 
 package org.mule.modules.box.model.descriptor;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class UserDescriptor extends EntityDescriptor {
 
 	private static final long serialVersionUID = -2256295750092315064L;

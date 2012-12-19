@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.mule.modules.box.model.descriptor.FolderItem;
 
 /**
@@ -19,6 +20,7 @@ import org.mule.modules.box.model.descriptor.FolderItem;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class File implements Serializable {
 	
 	private static final long serialVersionUID = 6127755562219178478L;

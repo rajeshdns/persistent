@@ -12,12 +12,15 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
 @XmlRootElement(name="response")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class GetTicketResponse implements Serializable {
 
 	private static final long serialVersionUID = 5167813964487210808L;

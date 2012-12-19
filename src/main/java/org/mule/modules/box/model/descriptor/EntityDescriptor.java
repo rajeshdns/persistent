@@ -10,11 +10,14 @@ package org.mule.modules.box.model.descriptor;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class EntityDescriptor implements Serializable {
 
 	private static final long serialVersionUID = -7462401190978334169L;

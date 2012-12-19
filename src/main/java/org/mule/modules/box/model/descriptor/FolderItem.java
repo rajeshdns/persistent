@@ -10,11 +10,14 @@ package org.mule.modules.box.model.descriptor;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class FolderItem extends EntityDescriptor {
 
 	private static final long serialVersionUID = 3406333075012024404L;
