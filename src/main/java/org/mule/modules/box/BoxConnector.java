@@ -38,7 +38,6 @@ import org.mule.api.context.MuleContextAware;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.FolderItems;
-import org.mule.modules.box.model.User;
 import org.mule.modules.box.model.request.CreateFolderRequest;
 import org.mule.modules.box.model.response.GetAuthTokenResponse;
 import org.mule.modules.box.model.response.GetTicketResponse;
@@ -371,12 +370,12 @@ public class BoxConnector implements MuleContextAware {
      *
      * @param message the current mule message
      * @param ticket the ticket to authenticate against.
-     * @return an instance of {@link org.mule.modules.box.model.User} with information about the current user
+     * @return an instance of {@link org.mule.modules.box.model.response.GetAuthTokenResponse} with information about the current user
      * @throws IllegalArgumentException if the ticket does not match a logged user
      */
     @Processor
     @Inject
-    public User authToken(MuleMessage message, String ticket) {
+    public GetAuthTokenResponse authToken(MuleMessage message, String ticket) {
     	
 
     	GetAuthTokenResponse response = JerseyUtils.get(
@@ -401,7 +400,7 @@ public class BoxConnector implements MuleContextAware {
     		}
     		
     		this.saveAuthToken(message, ticket, authToken);
-    		return response.getUser();
+    		return response;
     		
     	} else {
     		throw new RuntimeException(String.format("Status %s was obtained while fetching access token", response.getStatus()));
