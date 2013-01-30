@@ -62,13 +62,19 @@ public class BoxConnectorTest extends FunctionalTestCase {
 	}
 	
 	@Test
-	public void createFolder() throws Exception {
+	public void createAndCopyFolder() throws Exception {
 		final String name = "My mule connector folder";
 		Folder folder = (Folder) this.callFlow(name, "testCreateFolder").getPayload();
 		Assert.assertEquals(folder.getName(), name);
 		Assert.assertEquals(folder.getParent().getId(), "0");
 		
+		MuleMessage response = this.callFlow(folder, "testCopyFolder");
+		Folder copiedFolder = (Folder) response.getPayload();
+		Folder targetFolder = (Folder) response.getInvocationProperty("targetFolder");
+		
 		this.callFlow(folder.getId(), "testDeleteFolder");
+		this.callFlow(copiedFolder.getId(), "testDeleteFolder");
+		this.callFlow(targetFolder.getId(), "testDeleteFolder");
 	}
 	
 	@Test

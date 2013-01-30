@@ -38,7 +38,10 @@ import org.mule.api.context.MuleContextAware;
 import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.FolderItems;
+import org.mule.modules.box.model.SharedLink;
+import org.mule.modules.box.model.request.CopyFolderRequest;
 import org.mule.modules.box.model.request.CreateFolderRequest;
+import org.mule.modules.box.model.request.CreateSharedLinkRequest;
 import org.mule.modules.box.model.response.GetAuthTokenResponse;
 import org.mule.modules.box.model.response.GetTicketResponse;
 import org.mule.modules.box.model.response.UploadFileResponse;
@@ -448,6 +451,71 @@ public class BoxConnector implements MuleContextAware {
 	    						Folder.class, this.apiKey, this.getAuthToken(message));
     }
     
+    /**
+     * Used to create a shared link for this particular folder
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:share-folder}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the folder you want to share
+     * @param sharedLink an instance of {@link org.mule.modules.box.model.SharedLink} with the information about the share
+     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the shared folder
+     */
+    @Processor
+    @Inject
+    public Folder shareFolder(MuleMessage message, String folderId, @Optional @Default("#[payload]") SharedLink sharedLink) {
+    	CreateSharedLinkRequest request = new CreateSharedLinkRequest();
+    	request.setSharedLink(sharedLink);
+    	
+    	return JerseyUtils.securePut(
+    							this.client.resource(BASE_URL + "folders")
+    								.path(folderId)
+	    							.accept(MediaType.APPLICATION_JSON)
+	    							.type(MediaType.APPLICATION_JSON)
+	    							.entity(request),
+	    						Folder.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    /**
+     * Deletes the shared link associated to a folder
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:unshare-folder}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the folder you want to unshare
+     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the unshared folder
+     */
+    @Processor
+    @Inject
+    public Folder unshareFolder(MuleMessage message, String folderId) {
+    	return this.shareFolder(message, folderId, null);
+    }
+    
+    /**
+     * Used to create a shared link for this particular folder
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:share-folder}
+     * 
+     * @param message the current mule message
+     * @param parentId the id of the parent folder that will hold the copy. If not provided then the root will be used
+     * @param folderId the if od the folder being copied
+     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the copy
+     */
+    @Processor
+    @Inject
+    public Folder copyFolder(MuleMessage message, @Optional @Default("0") String parentId, String folderId) {
+    	return JerseyUtils.securePost(
+    							this.client.resource(BASE_URL + "folders")
+    								.path(folderId)
+    								.path("copy")
+	    							.accept(MediaType.APPLICATION_JSON)
+	    							.type(MediaType.APPLICATION_JSON)
+	    							.entity(new CopyFolderRequest(parentId)),
+	    						Folder.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    
+    
     
     /**
      * Returns the items of a folder
@@ -456,18 +524,37 @@ public class BoxConnector implements MuleContextAware {
      * 
      * @param message the current mule message
      * @param folderId the id of the folder you want to inspect. If not provided then the root folder is assumed
+     * @param limit the maximum amount of items to be returned.
+     * @param offset pagination offset
+     * @param fields a comma separated list of fields to be returned. If you don't provide this, all are returned
      * @return an instance of {@link org.mule.modules.box.model.FolderItems}
      */
     @Processor
     @Inject
-    public FolderItems getFolderItems(MuleMessage message, @Optional @Default("0") String folderId) {
-    	return JerseyUtils.secureGet(
-    			this.client.resource(BASE_URL)
-	    			.path("folders")
-	    			.path(folderId)
-	    			.path("items")
-	    			.accept(MediaType.APPLICATION_JSON)
-    			, FolderItems.class, this.apiKey, this.getAuthToken(message));
+    public FolderItems getFolderItems(
+    					MuleMessage message,
+    					@Optional @Default("0") String folderId,
+    					@Optional String limit,
+    					@Optional String offset,
+    					@Optional String fields) {
+    	WebResource resource = this.client.resource(BASE_URL)
+						    			.path("folders")
+						    			.path(folderId)
+						    			.path("items");
+    	
+    	if (!StringUtils.isBlank(offset)) {
+    		resource = resource.queryParam("offset", offset);
+    	}
+    	
+    	if (!StringUtils.isBlank(limit)) {
+    		resource = resource.queryParam("limit", limit);
+    	}
+    	
+    	if (!StringUtils.isBlank(fields)) {
+    		resource = resource.queryParam("fields", fields);
+    	}
+    	
+    	return JerseyUtils.secureGet(resource.accept(MediaType.APPLICATION_JSON) , FolderItems.class, this.apiKey, this.getAuthToken(message));
     }
     
     /**

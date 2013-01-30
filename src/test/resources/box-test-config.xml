@@ -49,6 +49,14 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     	<box:create-folder folderName="#[payload]" />
     </flow>
     
+    <flow name="testCopyFolder">
+    	<enricher target="#[flowVars['targetFolder']]">
+	    	<box:create-folder folderName="copyFolder" />
+    	</enricher>
+    	
+    	<box:copy-folder parentId="#[flowVars['targetFolder'].id]" folderId="#[payload.id]" />
+    </flow>
+    
     <flow name="testDeleteFolder">
     	<box:delete-folder folderId="#[payload]" />
     </flow>

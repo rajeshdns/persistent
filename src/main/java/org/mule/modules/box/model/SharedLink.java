@@ -24,10 +24,16 @@ public class SharedLink implements Serializable {
 
 	private static final long serialVersionUID = -7687170653187915720L;
 	
+	public static enum Access {
+		open,
+		company,
+		collaborators
+	}
+	
+	private Access access;
 	private boolean passwordEnabled;
 	private String url;
 	private String downloadUrl;
-	private String access;
 	private Long previewCount;
 	private Long downloadCount;
 	private String unsharedAt;
@@ -57,14 +63,6 @@ public class SharedLink implements Serializable {
 
 	public void setDownloadUrl(String downloadUrl) {
 		this.downloadUrl = downloadUrl;
-	}
-
-	public String getAccess() {
-		return access;
-	}
-
-	public void setAccess(String access) {
-		this.access = access;
 	}
 
 	@XmlElement(name="preview_count")
@@ -102,4 +100,12 @@ public class SharedLink implements Serializable {
 		this.permissions = permissions;
 	}
 
+	public void setAccess(Access access) {
+		this.access = access;
+	}
+	
+	public Access getAccess() {
+		return access;
+	}
+	
 }

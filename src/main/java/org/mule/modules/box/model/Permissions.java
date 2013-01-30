@@ -12,6 +12,8 @@ import java.io.Serializable;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import com.sun.xml.txw2.annotation.XmlElement;
+
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
@@ -25,12 +27,15 @@ public class Permissions implements Serializable {
 	private boolean preview;
 	private boolean download;
 	
+	@XmlElement("can_preview")
 	public boolean isPreview() {
 		return preview;
 	}
 	public void setPreview(boolean preview) {
 		this.preview = preview;
 	}
+	
+	@XmlElement("can_download")
 	public boolean isDownload() {
 		return download;
 	}

@@ -22,6 +22,9 @@
 <!-- BEGIN_INCLUDE(box:create-folder) -->
     <box:create-folder folderName="my new folder" />
 <!-- END_INCLUDE(box:create-folder) -->
+<!-- BEGIN_INCLUDE(box:copy-folder) -->
+    <box:copy-folder folderId="my new folder" />
+<!-- END_INCLUDE(box:copy-folder) -->
 <!-- BEGIN_INCLUDE(box:get-folder-items) -->
     <box:get-folder-items folderId="#[flowVars['folderID']]" />
 <!-- END_INCLUDE(box:get-folder-items) -->
@@ -29,8 +32,12 @@
     <box:delete-folder folderId="#[flowVars['folderID']]" />
 <!-- END_INCLUDE(box:delete-folder) -->
 
-
-
+<!-- BEGIN_INCLUDE(box:share-folder) -->
+    <box:share-folder folderId="#[flowVars['folderID']]" />
+<!-- END_INCLUDE(box:share-folder) -->
+<!-- BEGIN_INCLUDE(box:unshare-folder) -->
+    <box:unshare-folder folderId="#[flowVars['folderID']]" />
+<!-- END_INCLUDE(box:unshare-folder) -->
 
 <!-- BEGIN_INCLUDE(box:register-new-user) -->
     <box:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>

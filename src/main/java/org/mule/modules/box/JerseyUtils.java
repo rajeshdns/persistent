@@ -40,6 +40,14 @@ public class JerseyUtils {
 		return execute(resource, entityClass, "POST", 200, 201);
 	}
 	
+	public static <T> T put(WebResource.Builder resource, Class<T> entityClass) {
+		return execute(resource, entityClass, "PUT", 200, 201);
+	}
+	
+	public static <T> T securePut(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
+		return put(secure(resource, apiKey, authToken), entityClass);
+	}
+	
 	public static <T> T secureGet(WebResource.Builder resource, Class<T> entityClass, String apiKey, String authToken) {
 		return get(secure(resource, apiKey, authToken), entityClass);
 	}
