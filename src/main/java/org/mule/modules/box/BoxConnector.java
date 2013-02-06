@@ -593,6 +593,8 @@ public class BoxConnector implements MuleContextAware {
      * @param content a {@link java.io.InputStream} with the contents of the file. This processor <b>IS NOT</b> responsible for closing it
      * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
      * 			to verify that the content's hasn't been corrupted.
+     * @param contentCreatedAt The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
+     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
      * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
      */
     @Processor
@@ -602,7 +604,9 @@ public class BoxConnector implements MuleContextAware {
     		@Optional @Default("0") String folderId,
     		String filename,
     		@Optional @Default("#[payload]") InputStream content,
-    		@Optional @Default("false") boolean includeHash) {
+    		@Optional @Default("false") boolean includeHash,
+    		@Optional String contentCreatedAt,
+    		@Optional String contentModifiedAt) {
     	
     	WebResource.Builder resource = this.client.resource(BASE_URL + "files/content").type(MediaType.MULTIPART_FORM_DATA);
     	
@@ -611,8 +615,18 @@ public class BoxConnector implements MuleContextAware {
     	}
     	
     	FormDataMultiPart form = new FormDataMultiPart();
-		form.field("folder_id", folderId);
+		form.field("parent_id", folderId);
+		
+		if (!StringUtils.isBlank(contentCreatedAt)) {
+			form.field("content_created_at", contentCreatedAt);
+		}
+		
+		if (!StringUtils.isBlank(contentModifiedAt)) {
+			form.field("content_modified_at", contentModifiedAt);
+		}
+		
 		form.bodyPart(new StreamDataBodyPart(filename, content));
+		
     	resource.entity(form);
     	
     	return JerseyUtils.securePost(resource, UploadFileResponse.class, this.apiKey, this.getAuthToken(message));
@@ -648,7 +662,9 @@ public class BoxConnector implements MuleContextAware {
      * @param filename the name you want the file to have at box. If not provided, the name on current storage will be used
      * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
      * 			to verify that the content's hasn't been corrupted. 
-     *        
+     * @param contentCreatedAt The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
+     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
+     * 
      * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
      */
     @Processor
@@ -658,7 +674,9 @@ public class BoxConnector implements MuleContextAware {
     		String path, 
     		@Optional @Default("0") String folderId,
     		@Optional String filename,
-    		@Optional @Default("false") boolean includeHash) {
+    		@Optional @Default("false") boolean includeHash,
+    		@Optional String contentCreatedAt,
+    		@Optional String contentModifiedAt) {
     	
     	
 		java.io.File file = new java.io.File(path);
@@ -679,7 +697,9 @@ public class BoxConnector implements MuleContextAware {
 			throw new RuntimeException(String.format("Error reading file at %s", path), e);
 		}
 		
-		return this.uploadStream(message, folderId, filename, new ByteArrayInputStream(content), includeHash);
+		return this.uploadStream(message, folderId, filename,
+								new ByteArrayInputStream(content), includeHash,
+								contentCreatedAt, contentModifiedAt);
     }
     
     /**

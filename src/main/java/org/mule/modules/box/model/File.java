@@ -35,6 +35,8 @@ public class File implements Serializable {
 	private String pathId;
 	private String createdAt;
 	private String modifiedAt;
+	private String contentCreatedAt;
+	private String contentModifiedAt;
 	private String sha1;
 	private String itemStatus;
 	private SharedLink sharedLink;
@@ -101,6 +103,7 @@ public class File implements Serializable {
 	public String getCreatedAt() {
 		return createdAt;
 	}
+	
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
@@ -113,6 +116,21 @@ public class File implements Serializable {
 		this.modifiedAt = modifiedAt;
 	}
 	
+	@XmlElement(name="content_created_at")
+	public String getContentCreatedAt() {
+		return contentCreatedAt;
+	}
+	public void setContentCreatedAt(String contentCreatedAt) {
+		this.contentCreatedAt = contentCreatedAt;
+	}
+	
+	@XmlElement(name="content_modified_at")
+	public String getContentModifiedAt() {
+		return contentModifiedAt;
+	}
+	public void setContentModifiedAt(String contentModifiedAt) {
+		this.contentModifiedAt = contentModifiedAt;
+	}
 	@XmlElement(name="shared_link")
 	public SharedLink getSharedLink() {
 		return sharedLink;
