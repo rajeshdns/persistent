@@ -31,14 +31,12 @@
 <!-- BEGIN_INCLUDE(box:delete-folder) -->
     <box:delete-folder folderId="#[flowVars['folderID']]" />
 <!-- END_INCLUDE(box:delete-folder) -->
-
 <!-- BEGIN_INCLUDE(box:share-folder) -->
     <box:share-folder folderId="#[flowVars['folderID']]" />
 <!-- END_INCLUDE(box:share-folder) -->
 <!-- BEGIN_INCLUDE(box:unshare-folder) -->
     <box:unshare-folder folderId="#[flowVars['folderID']]" />
 <!-- END_INCLUDE(box:unshare-folder) -->
-
 <!-- BEGIN_INCLUDE(box:register-new-user) -->
     <box:register-new-user email="#[map-payload:email]" password="#[map-payload:password]"/>
 <!-- END_INCLUDE(box:register-new-user) -->
@@ -84,3 +82,6 @@
 <!-- BEGIN_INCLUDE(box:set-description) -->
     <box:set-description target="file" targetId="#[map-payload:fileId]" description="my file" />
 <!-- END_INCLUDE(box:set-description) -->
+<!-- BEGIN_INCLUDE(box:get-folder-item) -->
+    <box:get-folder-item resourceName="invoices" />
+<!-- END_INCLUDE(box:get-folder-item) -->

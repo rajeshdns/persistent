@@ -39,6 +39,7 @@ import org.mule.construct.Flow;
 import org.mule.modules.box.model.Folder;
 import org.mule.modules.box.model.FolderItems;
 import org.mule.modules.box.model.SharedLink;
+import org.mule.modules.box.model.descriptor.FolderItem;
 import org.mule.modules.box.model.request.CopyFolderRequest;
 import org.mule.modules.box.model.request.CreateFolderRequest;
 import org.mule.modules.box.model.request.CreateSharedLinkRequest;
@@ -555,6 +556,30 @@ public class BoxConnector implements MuleContextAware {
     	}
     	
     	return JerseyUtils.secureGet(resource.accept(MediaType.APPLICATION_JSON) , FolderItems.class, this.apiKey, this.getAuthToken(message));
+    }
+    
+    /**
+     * Traverses a given folder looking for a resource (file or folder) of a given name.
+     *  
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-item}
+     * 
+     * @param message the current mule message
+     * @param folderId the id of the folder you want to inspect. If not provided then the root folder is assumed
+     * @param resourceName the name you want to test
+     * @return an instance of {@link org.mule.modules.box.model.descriptor.FolderItem} with that about the found item. {@code null} if the item is not found
+     */
+    @Processor
+    @Inject
+    public FolderItem getFolderItem(MuleMessage message, @Optional @Default("0") String folderId, String resourceName) {
+    	FolderItems items = this.getFolderItems(message, folderId, null, null, null);
+    	
+    	for (FolderItem item : items.getEntries()) {
+    		if (resourceName.equals(item.getName())) {
+    			return item;
+    		}
+    	}
+    	
+    	return null;
     }
     
     /**
