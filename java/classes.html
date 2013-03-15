@@ -205,11 +205,21 @@
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/box/package-summary.html">org.mule.modules.box</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/box/adapter/package-summary.html">org.mule.modules.box.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/box/adapters/package-summary.html">org.mule.modules.box.adapters</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/box/agents/package-summary.html">org.mule.modules.box.agents</a></li>
     <li class="api apilevel-">
+  <a href="../java/org/mule/modules/box/basic/package-summary.html">org.mule.modules.box.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/box/callback/package-summary.html">org.mule.modules.box.callback</a></li>
+    <li class="api apilevel-">
   <a href="../java/org/mule/modules/box/config/package-summary.html">org.mule.modules.box.config</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/box/connection/package-summary.html">org.mule.modules.box.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/box/devkit/package-summary.html">org.mule.modules.box.devkit</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/box/exception/package-summary.html">org.mule.modules.box.exception</a></li>
     <li class="api apilevel-">
@@ -306,6 +316,7 @@
     <a href="#letter_E">E</a>
     <a href="#letter_F">F</a>
     <a href="#letter_G">G</a>
+    <a href="#letter_H">H</a>
     <a href="#letter_I">I</a>
     <a href="#letter_L">L</a>
     <a href="#letter_M">M</a>
@@ -630,6 +641,18 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/basic/Capabilities.html">Capabilities</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module annotated class, to dynamically query what its capabilities are.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/basic/Capability.html">Capability</a></td>
+            <td class="jd-descrcol" width="100%">Enumeration of possible capabilities of Mule modules.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/ChangePrimaryLoginDefinitionParser.html">ChangePrimaryLoginDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
@@ -698,6 +721,18 @@
         <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/CommentFileMessageProcessor.html">CommentFileMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">CommentFileMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#commentFile(java.lang.String, java.lang.String)">commentFile(java.lang.String, java.lang.String)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/connection/Connection.html">Connection</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/connection/ConnectionManager.html">ConnectionManager</a>&lt;K,&nbsp;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/box/connection/Connection.html">Connection</a>&gt;</td>
+            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.Connector annotated class that will infuse it with connection management capabilities.&nbsp;</td>
         </tr>
     
     
@@ -1475,6 +1510,25 @@
 </table>
 
 
+<h2 id="letter_H">H</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/callback/HttpCallback.html">HttpCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/adapter/HttpCallbackAdapter.html">HttpCallbackAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
 <h2 id="letter_I">I</h2>
 <table class="jd-sumtable">
     
@@ -1572,24 +1626,30 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/basic/MetadataAware.html">MetadataAware</a></td>
+            <td class="jd-descrcol" width="100%">This interface is implemented for every org.mule.api.annotations.Module and org.mule.api.annotations.Connector annotated class and its purpose is to define a contract to query the annotated class about its metadata.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/MoveDefinitionParser.html">MoveDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/MoveFolderToUserDefinitionParser.html">MoveFolderToUserDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/MoveFolderToUserMessageProcessor.html">MoveFolderToUserMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">MoveFolderToUserMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#moveFolderToUser(org.mule.modules.box.model.User, java.lang.String, java.lang.Boolean)">moveFolderToUser(org.mule.modules.box.model.User, java.lang.String, java.lang.Boolean)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/MoveMessageProcessor.html">MoveMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">MoveMessageProcessor invokes the org.mule.modules.boxnet.BoxConnector#move(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String) method in BoxConnector.&nbsp;</td>
         </tr>
@@ -1614,11 +1674,42 @@
         </tr>
     
     
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/NotAuthorizedException.html">NotAuthorizedException</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
 </table>
 
 
 <h2 id="letter_O">O</h2>
 <table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/OAuth1Adapter.html">OAuth1Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/OAuth2Adapter.html">OAuth2Adapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/OAuthAdapter.html">OAuthAdapter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/OAuthManager.html">OAuthManager</a>&lt;C&nbsp;extends&nbsp;<a href="../java/org/mule/modules/box/oauth/OAuthAdapter.html">OAuthAdapter</a>&gt;</td>
+            <td class="jd-descrcol" width="100%">Wrapper around org.mule.api.annotations.oauth.OAuth annotated class that will infuse it with
+ access token management capabilities.&nbsp;</td>
+        </tr>
     
     
         <tr class="alt-color api apilevel-" >
@@ -1683,48 +1774,78 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/adapter/PoolManager.html">PoolManager</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PrivateShareDefinitionParser.html">PrivateShareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PrivateShareMessageProcessor.html">PrivateShareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PrivateShareMessageProcessor invokes the org.mule.modules.boxnet.BoxConnector#privateShare(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String, java.lang.Boolean, java.lang.String) method in BoxConnector.&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/process/ProcessAdapter.html">ProcessAdapter</a>&lt;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/process/ProcessCallback.html">ProcessCallback</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">Callback with logic to execute within a controlled environment provided by <code><a href="../java/org/mule/modules/box/process/ProcessTemplate.html">ProcessTemplate</a></code>&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/process/ProcessCallbackProcessInterceptor.html">ProcessCallbackProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/process/ProcessInterceptor.html">ProcessInterceptor</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/process/ProcessTemplate.html">ProcessTemplate</a>&lt;T,&nbsp;O&gt;</td>
+            <td class="jd-descrcol" width="100%">ProcessTemplate provides a processing context for message processing.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicShareDefinitionParser.html">PublicShareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PublicShareMessageProcessor.html">PublicShareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PublicShareMessageProcessor invokes the org.mule.modules.boxnet.BoxConnector#publicShare(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String, java.lang.String) method in BoxConnector.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/PublicUnshareDefinitionParser.html">PublicUnshareDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/PublicUnshareMessageProcessor.html">PublicUnshareMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">PublicUnshareMessageProcessor invokes the org.mule.modules.boxnet.BoxConnector#publicUnshare(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String) method in BoxConnector.&nbsp;</td>
         </tr>
@@ -1768,54 +1889,60 @@
     
     
         <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/RestoreAccessTokenCallback.html">RestoreAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/RestoreTrashedFileDefinitionParser.html">RestoreTrashedFileDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/RestoreTrashedFileMessageProcessor.html">RestoreTrashedFileMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">RestoreTrashedFileMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#restoreTrashedFile(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)">restoreTrashedFile(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/RestoreTrashedFolderDefinitionParser.html">RestoreTrashedFolderDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/RestoreTrashedFolderMessageProcessor.html">RestoreTrashedFolderMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">RestoreTrashedFolderMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#restoreTrashedFolder(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)">restoreTrashedFolder(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/request/RestoreTrashedItemRequest.html">RestoreTrashedItemRequest</a></td>
             <td class="jd-descrcol" width="100%">Request object for restoring items from the trash&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/request/holders/RestoreTrashedItemRequestExpressionHolder.html">RestoreTrashedItemRequestExpressionHolder</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/request/transformers/RestoreTrashedItemRequestExpressionHolderTransformer.html">RestoreTrashedItemRequestExpressionHolderTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/Role.html">Role</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/transformers/RoleEnumTransformer.html">RoleEnumTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
@@ -1829,56 +1956,82 @@
     
     
         <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/SaveAccessTokenCallback.html">SaveAccessTokenCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/config/SetDescriptionDefinitionParser.html">SetDescriptionDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/boxnet/processors/SetDescriptionMessageProcessor.html">SetDescriptionMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">SetDescriptionMessageProcessor invokes the org.mule.modules.boxnet.BoxConnector#setDescription(org.mule.api.MuleMessage, org.mule.modules.boxnet.Target, java.lang.String, java.lang.String) method in BoxConnector.&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/holders/SharedLinkExpressionHolder.html">SharedLinkExpressionHolder</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/model/transformers/SharedLinkExpressionHolderTransformer.html">SharedLinkExpressionHolderTransformer</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/ShareFileDefinitionParser.html">ShareFileDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/ShareFileMessageProcessor.html">ShareFileMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">ShareFileMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#shareFile(java.lang.String, org.mule.modules.box.model.SharedLink)">shareFile(java.lang.String, org.mule.modules.box.model.SharedLink)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
         </tr>
     
     
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/config/ShareFolderDefinitionParser.html">ShareFolderDefinitionParser</a></td>
             <td class="jd-descrcol" width="100%">&nbsp;</td>
         </tr>
     
     
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
             <td class="jd-linkcol"><a href="../java/org/mule/modules/box/processors/ShareFolderMessageProcessor.html">ShareFolderMessageProcessor</a></td>
             <td class="jd-descrcol" width="100%">ShareFolderMessageProcessor invokes the <code><a href="../java/org/mule/modules/box/BoxConnector.html#shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)">shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)</a></code> method in <code><a href="../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/callback/SourceCallback.html">SourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback interface used by org.mule.api.annotations.Source annotated methods to dispatch messages.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/devkit/SplashScreenAgent.html">SplashScreenAgent</a></td>
+            <td class="jd-descrcol" width="100%">Marks DevKit org.mule.api.agent.Agent implementations to take care of logging information at Mule app level mainly for troubleshooting purposes.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/callback/StopSourceCallback.html">StopSourceCallback</a></td>
+            <td class="jd-descrcol" width="100%">Callback returned by methods that are annotated with @Source
+ <p/>
+ It will be executed when the MessageSource is being stopped.&nbsp;</td>
         </tr>
     
     
@@ -1924,6 +2077,36 @@
 
 <h2 id="letter_U">U</h2>
 <table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/UnableToAcquireAccessTokenException.html">UnableToAcquireAccessTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the access token needed for accessing a protected resource cannot be acquired
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/connection/UnableToAcquireConnectionException.html">UnableToAcquireConnectionException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the connection needed for executing an
+  operation is null.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/oauth/UnableToAcquireRequestTokenException.html">UnableToAcquireRequestTokenException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the request token needed for building the authorization URL cannot be acquired
+ 
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="../java/org/mule/modules/box/connection/UnableToReleaseConnectionException.html">UnableToReleaseConnectionException</a></td>
+            <td class="jd-descrcol" width="100%">Exception thrown when the release connection operation of the
+  connection manager fails.&nbsp;</td>
+        </tr>
     
     
         <tr class="alt-color api apilevel-" >

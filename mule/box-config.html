@@ -297,10 +297,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/box-config.html#listen-events">&lt;box:listen-events&gt;</a></nobr>
         
-        <div class="jd-descrdiv">Subscribes to the events long polling server and will generate a new mule message
- each time an event arrives
- 
- </div>
+        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.</div>
         
   </td></tr>
 
@@ -6556,8 +6553,13 @@ of the object store that he wishes to use to save and restore access tokens.</p>
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Subscribes to the events long polling server and will generate a new mule message
- each time an event arrives
+  <div class="jd-tagdata jd-tagdescr"><p>Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+ 
+ Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent} as payload and  
+ an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+ 
+ This source will not provide the events that are generated, it's just a notification that there're new events available.
+ You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.
  
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:listen-events /&gt;</pre></div></p></div>
   <div class="jd-tagdata">

@@ -205,11 +205,21 @@
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/modules/box/package-summary.html">org.mule.modules.box</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/box/adapter/package-summary.html">org.mule.modules.box.adapter</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/box/adapters/package-summary.html">org.mule.modules.box.adapters</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/box/agents/package-summary.html">org.mule.modules.box.agents</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/box/basic/package-summary.html">org.mule.modules.box.basic</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/box/callback/package-summary.html">org.mule.modules.box.callback</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/box/config/package-summary.html">org.mule.modules.box.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/box/connection/package-summary.html">org.mule.modules.box.connection</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/box/devkit/package-summary.html">org.mule.modules.box.devkit</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/box/exception/package-summary.html">org.mule.modules.box.exception</a></li>
     <li class="api apilevel-">
@@ -1597,10 +1607,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#listenEvents(org.mule.api.callback.SourceCallback)">listenEvents</a></span>(SourceCallback callback)</nobr>
         
-        <div class="jd-descrdiv">Subscribes to the events long polling server and will generate a new mule message
- each time an event arrives
- 
- </div>
+        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.</div>
   
   </td></tr>
 
@@ -4972,8 +4979,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Subscribes to the events long polling server and will generate a new mule message
- each time an event arrives
+  <div class="jd-tagdata jd-tagdescr"><p>Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+ 
+ Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent} as payload and  
+ an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+ 
+ This source will not provide the events that are generated, it's just a notification that there're new events available.
+ You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.
  
  </p></div>
   <div class="jd-tagdata">

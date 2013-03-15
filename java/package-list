@@ -1,7 +1,12 @@
 org.mule.modules.box
+org.mule.modules.box.adapter
 org.mule.modules.box.adapters
 org.mule.modules.box.agents
+org.mule.modules.box.basic
+org.mule.modules.box.callback
 org.mule.modules.box.config
+org.mule.modules.box.connection
+org.mule.modules.box.devkit
 org.mule.modules.box.exception
 org.mule.modules.box.jersey
 org.mule.modules.box.jersey.json
