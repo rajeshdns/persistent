@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+xmlns:http="http://www.mulesoft.org/schema/mule/http"
+xmlns="http://www.mulesoft.org/schema/mule/core"
+xmlns:box="http://www.mulesoft.org/schema/mule/box"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/box http://www.mulesoft.org/schema/mule/box/current/mule-box.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+
+    <box:config name="box" clientId="id0awan7avjr5r42jjcafiv8f95kedqe" clientSecret="OOduivoDQvnPlhUot9AEFYyqZ8PvUXAs">
+    	<box:oauth-callback-config connector-ref="connector.http.mule.default" domain="localhost" localPort="8080" async="false" path="callback" />
+		<box:oauth-store-config objectStore-ref="_defaultInMemoryObjectStore" />
+    </box:config>
+				
+    <http:connector name="connector.http.mule.default" />
+    
+    <flow name="testListFolders">
+    	<box:get-folder />
+    </flow>
+    
+    <flow name="testUpload">
+    	<box:upload-stream filename="testfile.txt" includeHash="false" contentCreatedAt="2012-12-12T10:55:30-08:00" contentModifiedAt="2012-12-12T10:55:30-08:00" />
+    </flow>
+    
+    <flow name="testUploadNewVersion">
+    	<box:upload-new-version-stream fileId="#[flowVars['fileId']]" filename="testfile.txt" />
+    </flow>
+    
+    <flow name="testDelete">
+    	<box:delete-file fileId="#[payload]" />
+    </flow>
+    
+    <flow name="testCreateFolder">
+    	<box:create-folder folderName="#[payload]" />
+    </flow>
+    
+    <flow name="testCopyFolder">
+    	<enricher target="#[flowVars['targetFolder']]">
+	    	<box:create-folder folderName="copyFolder" />
+    	</enricher>
+    	
+    	<box:copy-folder targetFolderId="#[flowVars['targetFolder'].id]" folderId="#[payload.id]" />
+    </flow>
+    
+    <flow name="testDeleteFolder">
+    	<box:delete-folder folderId="#[payload]" />
+    </flow>
+    
+    <flow name="testListFolder">
+    	<box:get-folder-items />
+    </flow>
+    
+    <flow name="testTrashed">
+    	<box:get-trashed-items />
+    </flow>
+    
+    <flow name="downloadFlow">
+    	<box:download fileId="#[payload]" />
+    </flow>
+    
+    <flow name="authorize">
+    	<box:authorize />
+    </flow>
+    
+</mule>
