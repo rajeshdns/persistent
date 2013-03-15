@@ -191,6 +191,7 @@ public class BoxConnector {
     	this.client = Client.create(clientConfig);
 
     	this.initJerseyUtil();
+    	this.longPollingClient = new LongPollingClient(this.jerseyUtil);
 		
 		this.apiResource = this.client.resource(this.baseUrl);
 		this.uploadResource = this.client.resource(this.uploadUrl);
@@ -1441,8 +1442,13 @@ public class BoxConnector {
     }
     
     /**
-     * Subscribes to the events long polling server and will generate a new mule message
-     * each time an event arrives
+     * Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+     * 
+     * Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent} as payload and  
+     * an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+     * 
+     * This source will not provide the events that are generated, it's just a notification that there're new events available.
+     * You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:listen-events}
      * 
@@ -1451,7 +1457,7 @@ public class BoxConnector {
      */
     @Source(primaryNodeOnly = true, exchangePattern=MessageExchangePattern.ONE_WAY)
     public synchronized StopSourceCallback listenEvents(final SourceCallback callback) {
-    	if (this.accessToken == null) {
+    	if (this.accessToken == null || this.accessTokenIdentifier == null) {
         	pendingSubscriptions.add(callback);
         } else {
         	this.subscribe(callback);
@@ -1461,9 +1467,7 @@ public class BoxConnector {
         	
         	@Override
         	public void stop() throws Exception {
-        		if (longPollingClient != null) {
-        			longPollingClient.unsubscribe();
-        		}
+    			longPollingClient.unsubscribe();
         	}
         };
     }
@@ -1496,16 +1500,8 @@ public class BoxConnector {
 												.queryParam("channel", server.getChannel())
 												.queryParam("stream_type", "all");
 		
-		this.getLongPollingClient(pollingResource).subscribe(callback);
+		this.longPollingClient.subscribe(pollingResource, this.accessTokenIdentifier, callback);
 	}
-    
-    private synchronized LongPollingClient getLongPollingClient(WebResource pollingResource) {
-    	if (this.longPollingClient == null) {
-    		this.longPollingClient = new LongPollingClient(pollingResource, this.jerseyUtil);
-    	}
-    	
-    	return this.longPollingClient;
-    }
     
     private WebResource.Builder maybeAddIfMacth(WebResource resource, String etag) {
     	Builder builder = resource.getRequestBuilder();

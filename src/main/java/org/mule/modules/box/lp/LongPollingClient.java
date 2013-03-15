@@ -8,6 +8,9 @@
 
 package org.mule.modules.box.lp;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.mule.api.callback.SourceCallback;
 import org.mule.commons.jersey.JerseyUtil;
@@ -26,16 +29,14 @@ public class LongPollingClient {
 	private static final Logger logger = Logger.getLogger(LongPollingClient.class);
 	
 	private JerseyUtil jerseyUtil;
-	private WebResource pollingResource;
 	private boolean subscribed = true;
 	
-	public LongPollingClient(WebResource pollingResource, JerseyUtil jerseyUtil) {
-		this.pollingResource = pollingResource;
+	public LongPollingClient(JerseyUtil jerseyUtil) {
 		this.jerseyUtil = jerseyUtil;
 	}
 	
 	
-	public synchronized void subscribe(final SourceCallback callback) {
+	public synchronized void subscribe(final WebResource pollingResource, final String tokenIdentifier, final SourceCallback callback) {
 		Runnable listener = new Runnable() {
 			
 			@Override
@@ -55,11 +56,15 @@ public class LongPollingClient {
 								logger.debug(String.format("Received polling event from %s... Yielding to source callback", pollingResource));
 							}
 							
+							Map<String, Object> inbound = new HashMap<String, Object>();
+							inbound.put("boxAccessTokenId", tokenIdentifier);
+							
 							try {
-								callback.process(event);
+								callback.process(event, inbound);
 							} catch (Exception e) {
 								logger.error(String.format("Exception found processing new long polling event for resource %s. Will reconnect anyway", pollingResource), e);
 							}
+							
 						} else if (event.isReconnect()) {
 							if (logger.isDebugEnabled()) {
 								logger.debug(String.format("Received reconnect message from polling endpoint %s", pollingResource));
@@ -78,7 +83,7 @@ public class LongPollingClient {
 			}
 		};
 		
-		new Thread(listener, "Box Long Polling thread for endpont " + this.pollingResource).start();
+		new Thread(listener, "Box Long Polling thread for endpont " + pollingResource).start();
 	}
 	
 	public synchronized void unsubscribe() {
