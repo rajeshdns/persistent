@@ -22,10 +22,4 @@ org.mule.modules.box.oauth
 org.mule.modules.box.process
 org.mule.modules.box.processors
 org.mule.modules.box.sources
-org.mule.modules.boxnet.adapters
-org.mule.modules.boxnet.agents
-org.mule.modules.boxnet.config
-org.mule.modules.boxnet.process
-org.mule.modules.boxnet.processors
-org.mule.modules.boxnet.transformers
 

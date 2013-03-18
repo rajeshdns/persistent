@@ -250,18 +250,6 @@
   <a href="../../../../../../java/org/mule/modules/box/processors/package-summary.html">org.mule.modules.box.processors</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/sources/package-summary.html">org.mule.modules.box.sources</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/adapters/package-summary.html">org.mule.modules.boxnet.adapters</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/agents/package-summary.html">org.mule.modules.boxnet.agents</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/config/package-summary.html">org.mule.modules.boxnet.config</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/process/package-summary.html">org.mule.modules.boxnet.process</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/processors/package-summary.html">org.mule.modules.boxnet.processors</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/boxnet/transformers/package-summary.html">org.mule.modules.boxnet.transformers</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -320,6 +308,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/PermDeleteFolderMessageProcessor.html">PermDeleteFolderMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/RestoreTrashedFileMessageProcessor.html">RestoreTrashedFileMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/RestoreTrashedFolderMessageProcessor.html">RestoreTrashedFolderMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/SearchMessageProcessor.html">SearchMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/ShareFileMessageProcessor.html">ShareFileMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/ShareFolderMessageProcessor.html">ShareFolderMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/UnauthorizeMessageProcessor.html">UnauthorizeMessageProcessor</a></li>
@@ -640,7 +629,7 @@ Summary:
                 <a href="../../../../../../java/org/mule/modules/box/processors/DeleteEmailAliasMessageProcessor.html">DeleteEmailAliasMessageProcessor</a>,
               
               and
-                <a href="#" onclick="return toggleInherited(document.getElementById('subclasses-direct', null))">46 others.</a>
+                <a href="#" onclick="return toggleInherited(document.getElementById('subclasses-direct', null))">47 others.</a>
               
             
           
@@ -834,62 +823,66 @@ Summary:
               <td class="jd-descrcol" width="100%">RestoreTrashedFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#restoreTrashedFolder(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)">restoreTrashedFolder(java.lang.String, org.mule.modules.box.model.request.RestoreTrashedItemRequest)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/SearchMessageProcessor.html">SearchMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">SearchMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#search(java.lang.String, java.lang.Long, java.lang.Long)">search(java.lang.String, java.lang.Long, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/ShareFileMessageProcessor.html">ShareFileMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">ShareFileMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#shareFile(java.lang.String, org.mule.modules.box.model.SharedLink)">shareFile(java.lang.String, org.mule.modules.box.model.SharedLink)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/ShareFolderMessageProcessor.html">ShareFolderMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">ShareFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)">shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnauthorizeMessageProcessor.html">UnauthorizeMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnshareFileMessageProcessor.html">UnshareFileMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UnshareFileMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#unshareFile(java.lang.String)">unshareFile(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnshareFolderMessageProcessor.html">UnshareFolderMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UnshareFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#unshareFolder(java.lang.String)">unshareFolder(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateCollaborationMessageProcessor.html">UpdateCollaborationMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateCollaborationMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)">updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateCommentMessageProcessor.html">UpdateCommentMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateCommentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateComment(java.lang.String, java.lang.String)">updateComment(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateDiscussionMessageProcessor.html">UpdateDiscussionMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateDiscussionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateDiscussion(org.mule.modules.box.model.Discussion, java.lang.String)">updateDiscussion(org.mule.modules.box.model.Discussion, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateFileMessageProcessor.html">UpdateFileMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateFileMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateFile(java.lang.String, org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String)">updateFile(java.lang.String, org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateFolderMessageProcessor.html">UpdateFolderMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateFolder(org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String, java.lang.String)">updateFolder(org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateUserMessageProcessor.html">UpdateUserMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateUserMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateUser(java.lang.String, org.mule.modules.box.model.User, java.lang.Boolean)">updateUser(java.lang.String, org.mule.modules.box.model.User, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadNewVersionPathMessageProcessor.html">UploadNewVersionPathMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadNewVersionPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadNewVersionStreamMessageProcessor.html">UploadNewVersionStreamMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadNewVersionStreamMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadNewVersionStream(java.io.InputStream, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionStream(java.io.InputStream, java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadPathMessageProcessor.html">UploadPathMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)">uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadStreamMessageProcessor.html">UploadStreamMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadStreamMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadStream(java.lang.String, java.lang.String, java.io.InputStream, boolean, java.lang.String, java.lang.String)">uploadStream(java.lang.String, java.lang.String, java.io.InputStream, boolean, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
