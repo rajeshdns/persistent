@@ -2,22 +2,33 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="box-connector-demo">
     <global-element name="Box" type="http://www.mulesoft.org/schema/mule/box/config" entity-id="Box#1">
         <properties>
-            <property name="uploadUrl"/>
-            <property name="baseUrl"/>
-            <property name="useGzip"/>
+            <property name="uploadUrl" value=""/>
+            <property name="objectStore-ref" value=""/>
+            <property name="clientSecret" value="${box.clientSecret}"/>
+            <property name="async" value="false"/>
+            <property name="clientId" value="${box.clientId}"/>
+            <property name="baseUrl" value=""/>
+            <property name="useGzip" value="false"/>
+            <property name="updated"/>
             <property name="name" value="Box"/>
-            <property name="clientSecret" value="OOduivoDQvnPlhUot9AEFYyqZ8PvUXAs"/>
-            <property name="clientId" value="id0awan7avjr5r42jjcafiv8f95kedqe"/>
+            <property name="domain" value="localhost"/>
+            <property name="path" value="callback"/>
+            <property name="localPort" value="8080"/>
+            <property name="remotePort" value="8080"/>
             <property name="auxiliary;index" value="1"/>
-            <property-collection name="@http://www.mulesoft.org/schema/mule/box/oauth-callback-config;0">
-                <property name="domain" value="localhost"/>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/box/oauth-callback-config;12500011">
                 <property name="path" value="callback"/>
-                <property name="localPort" value="8080"/>
+                <property name="domain" value="localhost"/>
                 <property name="remotePort" value="8080"/>
+                <property name="localPort" value="8080"/>
+                <property name="async" value="false"/>
                 <property name="auxiliary;index" value="2"/>
-                <property name="auxiliary;wrapIn" value="2"/>
+            </property-collection>
+            <property-collection name="@http://www.mulesoft.org/schema/mule/box/oauth-store-config;1781771118">
+                <property name="objectStore-ref" value=""/>
             </property-collection>
         </properties>
+        <description></description>
     </global-element>
     <global-element name="ObjectStore" type="http://www.mulesoft.org/schema/mule/objectstore/config" entity-id="ObjectStore#1">
         <properties>
@@ -28,13 +39,13 @@
             <property name="auxiliary;index" value="3"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="authorize" entity-id="c5b9174b-9ba6-432b-b010-16b445ffea27">
+    <flow SubFlow="false" name="authorize" entity-id="102873df-7914-491f-b303-e9961b8c168e">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
             <property name="bussinessEventsLabel"/>
-            <property name="tracking:enable-default-events"/>
             <property name="auxiliary;index" value="4"/>
+            <property name="tracking:enable-default-events"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
             <graphicalData x="0" y="0" width="0" height="0"/>
@@ -53,17 +64,17 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="transformer-refs"/>
                     <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
                     <property name="address"/>
-                    <property name="path" value="auth"/>
                     <property name="encoding"/>
+                    <property name="path" value="auth"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method"/>
                     <property name="user"/>
-                    <property name="responseTimeout"/>
-                    <property name="mimeType"/>
                     <property name="auxiliary;index" value="5"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
@@ -72,21 +83,21 @@
                 <properties>
                     <property name="authorizationUrl"/>
                     <property name="accessTokenUrl"/>
-                    <property name="state"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/box/authorize"/>
+                    <property name="state"/>
                     <property name="config-ref" value="Box"/>
                     <property name="auxiliary;index" value="6"/>
                 </properties>
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="longPolling" entity-id="53ea4a37-e6d4-4305-be10-ec2ee5209fa1">
+    <flow SubFlow="false" name="longPolling" entity-id="63f146e2-e2b5-4019-9bd2-8833133a166b">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
             <property name="bussinessEventsLabel"/>
-            <property name="tracking:enable-default-events"/>
             <property name="auxiliary;index" value="7"/>
+            <property name="tracking:enable-default-events"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#2">
             <graphicalData x="0" y="0" width="0" height="0"/>
@@ -95,16 +106,16 @@
                 <properties>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/box/listen-events"/>
                     <property name="config-ref" value="Box"/>
-                    <property name="auxiliary;index" value="8"/>
                     <property name="exchange-pattern" value="one-way"/>
+                    <property name="auxiliary;index" value="8"/>
                 </properties>
             </endpoint>
             <pattern name="Variable" type="http://www.mulesoft.org/schema/mule/core/variable-transformer" entity-id="Variable#1">
                 <graphicalData x="0" y="0" width="0" height="0"/>
                 <properties>
                     <property name="variableName" value="defaultValue"/>
-                    <property name="value" value="0"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/core/set-variable"/>
+                    <property name="value" value="0"/>
                     <property name="auxiliary;index" value="9"/>
                 </properties>
             </pattern>
@@ -114,8 +125,8 @@
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/objectstore/retrieve"/>
                     <property name="defaultValue-ref" value="#[flowVars['defaultValue']]"/>
                     <property name="config-ref" value="ObjectStore"/>
-                    <property name="key" value="streamPosition"/>
                     <property name="auxiliary;index" value="10"/>
+                    <property name="key" value="streamPosition"/>
                 </properties>
             </pattern>
             <pattern name="Box" type="http://www.mulesoft.org/schema/mule/box/box-connector" entity-id="Box#3">
@@ -123,8 +134,8 @@
                 <properties>
                     <property name="limit"/>
                     <property name="streamPosition" value="#[payload]"/>
-                    <property name="streamType"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/box/get-events"/>
+                    <property name="streamType"/>
                     <property name="accessTokenId" value="#[message.inboundProperties['boxAccessTokenId']]"/>
                     <property name="config-ref" value="Box"/>
                     <property name="auxiliary;index" value="11"/>
@@ -136,9 +147,9 @@
                     <property name="overwrite" value="true"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/objectstore/store"/>
                     <property name="config-ref" value="ObjectStore"/>
-                    <property name="value-ref" value="#[payload.nextStreamPosition]"/>
-                    <property name="key" value="streamPosition"/>
                     <property name="auxiliary;index" value="12"/>
+                    <property name="key" value="streamPosition"/>
+                    <property name="value-ref" value="#[payload.nextStreamPosition]"/>
                 </properties>
             </pattern>
             <pattern name="Groovy" type="http://www.mulesoft.org/schema/mule/scripting/groovyTransformer" entity-id="Groovy#1">
@@ -147,19 +158,19 @@
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
-                    <property name="mimeType"/>
                     <property name="auxiliary;index" value="13"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
-                        <property name="text" value="return payload.entries.findAll{it.eventType =='ITEM_DOWNLOAD' || it.eventType == 'ITEM_PREVIEW'}&#xA;&#x9;&#x9;"/>
-                        <property name="engine" value="Groovy"/>
-                        <property name="auxiliary;index" value="14"/>
-                        <property name="auxiliary;wrapIn" value="14"/>
-                    </property-collection>
+                    <property name="mimeType"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
                         <property name="text" value="return payload.entries.findAll{it.eventType =='ITEM_DOWNLOAD' || it.eventType == 'ITEM_PREVIEW'}&#xA;&#x9;&#x9;"/>
                         <property name="engine" value="Groovy"/>
-                        <property name="auxiliary;index" value="14"/>
                         <property name="auxiliary;wrapIn" value="14"/>
+                        <property name="auxiliary;index" value="14"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+                        <property name="text" value="return payload.entries.findAll{it.eventType =='ITEM_DOWNLOAD' || it.eventType == 'ITEM_PREVIEW'}&#xA;&#x9;&#x9;"/>
+                        <property name="engine" value="Groovy"/>
+                        <property name="auxiliary;wrapIn" value="14"/>
+                        <property name="auxiliary;index" value="14"/>
                     </property-collection>
                 </properties>
             </pattern>
@@ -169,19 +180,19 @@
                     <property name="returnClass"/>
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
-                    <property name="mimeType"/>
                     <property name="auxiliary;index" value="15"/>
-                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
-                        <property name="text" value="return payload.findAll{it.source?.type == &quot;file&quot; &amp;&amp; it.source?.parent.id == &quot;0&quot;}&#xA;&#x9;&#x9;"/>
-                        <property name="engine" value="Groovy"/>
-                        <property name="auxiliary;index" value="16"/>
-                        <property name="auxiliary;wrapIn" value="16"/>
-                    </property-collection>
+                    <property name="mimeType"/>
                     <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script;0">
                         <property name="text" value="return payload.findAll{it.source?.type == &quot;file&quot; &amp;&amp; it.source?.parent.id == &quot;0&quot;}&#xA;&#x9;&#x9;"/>
                         <property name="engine" value="Groovy"/>
-                        <property name="auxiliary;index" value="16"/>
                         <property name="auxiliary;wrapIn" value="16"/>
+                        <property name="auxiliary;index" value="16"/>
+                    </property-collection>
+                    <property-collection name="@http://www.mulesoft.org/schema/mule/scripting/script-for-properties;0">
+                        <property name="text" value="return payload.findAll{it.source?.type == &quot;file&quot; &amp;&amp; it.source?.parent.id == &quot;0&quot;}&#xA;&#x9;&#x9;"/>
+                        <property name="engine" value="Groovy"/>
+                        <property name="auxiliary;wrapIn" value="16"/>
+                        <property name="auxiliary;index" value="16"/>
                     </property-collection>
                 </properties>
             </pattern>
@@ -210,13 +221,13 @@
             </scope>
         </lane>
     </flow>
-    <flow SubFlow="false" name="box-connector-demoFlow1" entity-id="37e67a95-c97d-4e77-b8b8-3a724abe62bc">
+    <flow SubFlow="false" name="box-connector-demoFlow1" entity-id="cb4308f7-0ae8-44fe-b4be-ca0ccbd2ab3a">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
             <property name="bussinessEventsLabel"/>
-            <property name="tracking:enable-default-events"/>
             <property name="auxiliary;index" value="19"/>
+            <property name="tracking:enable-default-events"/>
         </properties>
         <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#4">
             <graphicalData x="0" y="0" width="0" height="0"/>
@@ -235,17 +246,17 @@
                     <property name="exchange-pattern" value="request-response"/>
                     <property name="tracking:enable-default-events"/>
                     <property name="ref"/>
-                    <property name="transformer-refs"/>
                     <property name="httpLabel"/>
+                    <property name="transformer-refs"/>
                     <property name="address"/>
-                    <property name="path" value="search"/>
                     <property name="encoding"/>
+                    <property name="path" value="search"/>
                     <property name="responseTransformer-refs"/>
                     <property name="method"/>
                     <property name="user"/>
-                    <property name="responseTimeout"/>
-                    <property name="mimeType"/>
                     <property name="auxiliary;index" value="20"/>
+                    <property name="mimeType"/>
+                    <property name="responseTimeout"/>
                     <property name="connector-ref"/>
                 </properties>
             </endpoint>
@@ -255,8 +266,8 @@
                     <property name="limit"/>
                     <property name="query" value="#[message.inboundProperties['query']]"/>
                     <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/box/search"/>
-                    <property name="accessTokenId" value="#[message.inboundProperties['user']]"/>
                     <property name="offset"/>
+                    <property name="accessTokenId" value="#[message.inboundProperties['user']]"/>
                     <property name="config-ref" value="Box"/>
                     <property name="auxiliary;index" value="21"/>
                 </properties>
@@ -269,8 +280,8 @@
                     <property name="ignoreBadInput"/>
                     <property name="encoding"/>
                     <property name="mapper-ref"/>
-                    <property name="mimeType"/>
                     <property name="auxiliary;index" value="22"/>
+                    <property name="mimeType"/>
                 </properties>
             </pattern>
         </lane>

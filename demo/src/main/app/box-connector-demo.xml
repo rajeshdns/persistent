@@ -10,7 +10,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd ">
     
-    <box:config name="Box" clientId="id0awan7avjr5r42jjcafiv8f95kedqe" clientSecret="OOduivoDQvnPlhUot9AEFYyqZ8PvUXAs" doc:name="Box">
+    <box:config name="Box" clientId="${box.clientId}" clientSecret="${box.clientSecret}" doc:name="Box">
         <box:oauth-callback-config domain="localhost" localPort="8080" remotePort="8080" path="callback"/>
     </box:config>
     <objectstore:config name="ObjectStore" objectStore-ref="_defaultInMemoryObjectStore" doc:name="ObjectStore"/>
