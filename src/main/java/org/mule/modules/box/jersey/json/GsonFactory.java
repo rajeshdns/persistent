@@ -9,6 +9,7 @@
 package org.mule.modules.box.jersey.json;
 
 import org.mule.modules.box.model.Event;
+import org.mule.modules.box.model.response.SearchResponse;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -24,6 +25,7 @@ public abstract class GsonFactory {
 	private final static Gson instance = new GsonBuilder()
 									.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 									.registerTypeAdapter(Event.class, new EventDeserializer())
+									.registerTypeAdapter(SearchResponse.class, new SearchResponseDeserealizer())
 									.create();
 	
 	private final static Gson raw = new GsonBuilder()

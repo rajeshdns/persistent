@@ -38,6 +38,7 @@ import org.mule.api.annotations.oauth.OAuthAccessToken;
 import org.mule.api.annotations.oauth.OAuthAccessTokenIdentifier;
 import org.mule.api.annotations.oauth.OAuthConsumerKey;
 import org.mule.api.annotations.oauth.OAuthConsumerSecret;
+import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
 import org.mule.api.annotations.oauth.OAuthPostAuthorization;
 import org.mule.api.annotations.oauth.OAuthProtected;
 import org.mule.api.annotations.param.Default;
@@ -47,6 +48,7 @@ import org.mule.api.callback.StopSourceCallback;
 import org.mule.commons.jersey.JerseyUtil;
 import org.mule.commons.jersey.provider.GsonProvider;
 import org.mule.modules.box.exception.BoxException;
+import org.mule.modules.box.exception.BoxTokenExpiredException;
 import org.mule.modules.box.jersey.AuthBuilderBehaviour;
 import org.mule.modules.box.jersey.BoxResponseHandler;
 import org.mule.modules.box.jersey.GzipBehaviour;
@@ -79,6 +81,7 @@ import org.mule.modules.box.model.response.GetEmailAliasResponse;
 import org.mule.modules.box.model.response.GetEventsResponse;
 import org.mule.modules.box.model.response.GetUsersResponse;
 import org.mule.modules.box.model.response.LongPollingServerResponse;
+import org.mule.modules.box.model.response.SearchResponse;
 import org.mule.modules.box.model.response.UploadFileResponse;
 
 import com.sun.jersey.api.client.Client;
@@ -237,6 +240,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder getFolder(@Optional @Default("0") String folderId) {
     	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId), Folder.class, 200);
     }
@@ -252,6 +256,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder createFolder(@Optional @Default("0") String parentId, String folderName) {
     	return this.jerseyUtil.post(this.apiResource.path("folders")
     							.entity(new CreateFolderRequest(folderName, parentId)),
@@ -274,6 +279,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder updateFolder(@Optional @Default("#[payload]") UpdateItemRequest request, String folderId, @Optional String etag) {
     	WebResource resource = this.apiResource.path("folders").path(folderId);
     	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag), Folder.class, 200, 201);
@@ -289,6 +295,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Entries getFolderDiscussions(String folderId) {
     	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("discussions"), Entries.class, 200, 204);
     }
@@ -305,6 +312,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetItemsResponse getTrashedItems(@Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
     	return this.getFolderItems("trash", limit, offset);
     }
@@ -322,6 +330,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder restoreTrashedFolder(String folderId, @Optional @Default("#[payload]") RestoreTrashedItemRequest request) {
     	return this.jerseyUtil.post(this.apiResource
 	    								.path("folders")
@@ -340,6 +349,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void permDeleteFolder(String folderId) {
     	this.jerseyUtil.delete(this.apiResource.path("folders").path(folderId).path("trash"), String.class, 204);
     }
@@ -354,6 +364,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder getTrashedFolder(String folderId) {
     	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("trash"), Folder.class, 200);
     }
@@ -369,6 +380,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder shareFolder(String folderId, @Optional @Default("#[payload]") SharedLink sharedLink) {
     	CreateSharedLinkRequest request = new CreateSharedLinkRequest();
     	request.setSharedLink(sharedLink);
@@ -390,6 +402,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder unshareFolder(String folderId) {
     	return this.shareFolder(folderId, null);
     }
@@ -405,6 +418,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder copyFolder(@Optional @Default("0") String targetFolderId, String folderId) {
     	Item parent = new Item();
     	parent.setId(targetFolderId);
@@ -432,6 +446,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetItemsResponse getFolderItems(
     					@Optional @Default("0") String folderId,
     					@Optional @Default("100") Long limit,
@@ -463,6 +478,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Item getFolderItem(@Optional @Default("0") String folderId, String resourceName) {
     	GetItemsResponse items = this.getFolderItems(folderId, null, null);
     	
@@ -485,6 +501,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteFolder(String folderId, @Optional @Default("true") Boolean recursive) {
     	this.jerseyUtil.delete(
     			this.apiResource
@@ -514,6 +531,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File uploadStream(
     		@Optional @Default("0") String folderId,
     		String filename,
@@ -561,6 +579,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File uploadNewVersionStream(
     				@Optional @Default("#[payload]") InputStream content,
     				String fileId,
@@ -599,6 +618,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File uploadNewVersionPath(
     		String path, 
     		String fileId,
@@ -620,6 +640,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public InputStream download(String fileId, @Optional String version) {
     	WebResource resource = this.apiResource.path("files").path(fileId).path("content");
     	
@@ -640,6 +661,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File getFileMetadata(String fileId) {
     	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId), File.class, 200);
     }
@@ -655,6 +677,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public FileVersionResponse getVersionsMetadata(String fileId) {
     	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("versions"), FileVersionResponse.class, 200, 201);
     }
@@ -676,6 +699,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File uploadPath(
     		String path, 
     		@Optional @Default("0") String folderId,
@@ -703,6 +727,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteFile(String fileId, @Optional String etag) {
     	WebResource resource = this.apiResource.path("files").path(fileId);
     	this.jerseyUtil.delete(this.maybeAddIfMacth(resource, etag), String.class, 200, 204);
@@ -723,6 +748,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File updateFile(String fileId, @Optional @Default("#[payload]") UpdateItemRequest request, @Optional String etag) {
     	WebResource resource = this.apiResource.path("files").path(fileId);
     	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag), File.class, 200, 201);
@@ -739,6 +765,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File copyFile(@Optional @Default("0") String targetFolderId, String fileId) {
     	Item parent = new Item();
     	parent.setId(targetFolderId);
@@ -764,6 +791,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File shareFile(String fileId, @Optional @Default("#[payload]") SharedLink sharedLink) {
     	CreateSharedLinkRequest request = new CreateSharedLinkRequest();
     	request.setSharedLink(sharedLink);
@@ -785,6 +813,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File unshareFile(String fileId) {
     	return this.shareFile(fileId, null);
     }
@@ -799,6 +828,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetCommentsResponse getFileComments(String fileId) {
     	return this.jerseyUtil.get(this.apiResource.path("files").path("comments"), GetCommentsResponse.class, 200);
     }
@@ -817,6 +847,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public InputStream getFileThumbnail(String fileId, @Optional ThumbnailSize minSize, @Optional ThumbnailSize maxSize) {
     	WebResource resource = this.apiResource.path("files").path(fileId).path("thumbnail.extension");
     	
@@ -841,6 +872,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File getTrashedFile(String fileId) {
     	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("trash"), File.class, 200);
     }
@@ -858,6 +890,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File restoreTrashedFile(String fileId, @Optional @Default("#[payload]") RestoreTrashedItemRequest request) {
     	return this.jerseyUtil.post(this.apiResource
 	    								.path("files")
@@ -876,6 +909,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void permDeleteFile(String fileId) {
     	this.jerseyUtil.delete(this.apiResource.path("files").path(fileId).path("trash"), String.class, 204);
     }
@@ -890,6 +924,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Comment getComment(String commentId) {
     	return this.jerseyUtil.get(this.apiResource.path("comments").path(commentId), Comment.class, 200);
     }
@@ -905,6 +940,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Comment commentFile(String fileId, String message) {
     	Map<String, String> entity = new HashMap<String, String>();
     	entity.put("message", message);
@@ -928,6 +964,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Comment updateComment(String commentId, String newMessage) {
     	Map<String, String> entity = new HashMap<String, String>();
     	entity.put("message", newMessage);
@@ -948,6 +985,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteComment(String commentId) {
     	this.jerseyUtil.delete(this.apiResource.path("comments").path(commentId), Comment.class, 200, 204);
     }
@@ -963,6 +1001,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Discussion createDiscussion(@Optional @Default("#[payload]") Discussion discussion) {
     	return this.jerseyUtil.post(this.apiResource
     									.path("discussions")
@@ -981,6 +1020,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Comment commentDiscussion(String discussionId, String message) {
     	Map<String, String> entity = new HashMap<String, String>();
     	entity.put("message", message);
@@ -1004,6 +1044,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Discussion getDiscussion(String discussionId) {
     	return this.jerseyUtil.get(this.apiResource.path("discussions").path(discussionId), Discussion.class, 200);
     }
@@ -1019,6 +1060,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Discussion updateDiscussion(@Optional @Default("#[payload]") Discussion discussion, String discussionId) {
     	return this.jerseyUtil.put(this.apiResource.path("discussions")
     							.path(discussionId)
@@ -1036,6 +1078,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetCommentsResponse getDiscussionComments(String discussionId) {
     	return this.jerseyUtil.get(this.apiResource
     										.path("discussions")
@@ -1059,6 +1102,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Collaboration createCollaboration(@Optional @Default("#[payload]") Collaboration collaboration) {
     	return this.jerseyUtil.post(this.apiResource
     							.path("collaborations")
@@ -1077,6 +1121,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Collaboration updateCollaboration(@Optional @Default("#[payload]") Collaboration collaboration, String collaborationId) {
     	return this.jerseyUtil.put(this.apiResource
 								.path("collaborations")
@@ -1094,6 +1139,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteCollaboration(String collaborationId) {
     	this.jerseyUtil.delete(this.apiResource
     									.path("collaborations")
@@ -1111,6 +1157,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Collaboration getCollaboration(String collaborationId) {
     	return this.jerseyUtil.get(this.apiResource
     									.path("collaborations")
@@ -1127,6 +1174,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetCollaborationsResponse getPendingCollaborations() {
     	return this.jerseyUtil.get(this.apiResource
     									.path("collaborations")
@@ -1144,6 +1192,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public User getUser() {
     	return this.jerseyUtil.get(this.apiResource.path("users/me"), User.class, 200);
     }
@@ -1160,6 +1209,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetUsersResponse getUsers(@Optional String filterTerm, @Optional Long limit, @Optional Long offset) {
     	WebResource resource = this.apiResource.path("users");
     	
@@ -1193,6 +1243,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public User updateUser(
     			String userId,
     			@Optional @Default("#[payload]") User user,
@@ -1216,6 +1267,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public User createUser(@Optional @Default("#[payload]") User user) {
     	return this.jerseyUtil.post(this.apiResource.path("users").entity(user), User.class, 200, 201);
     }
@@ -1234,6 +1286,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder moveFolderToUser(
     			@Optional @Default("#[paylaod]") User targetUser,
     			@Optional @Default("0") String folderId,
@@ -1265,6 +1318,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteUser(
     			String userId,
     			@Optional @Default("true") Boolean notify,
@@ -1290,6 +1344,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public EmailAlias createEmailAlias(String userId, String email) {
     	Map<String, String> entity = new HashMap<String, String>();
     	entity.put("email", email);
@@ -1311,6 +1366,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public void deleteEmailAlias(String userId, String emailAliasId) {
     	this.jerseyUtil.delete(this.apiResource
     				.path("users")
@@ -1331,6 +1387,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public User changePrimaryLogin(String userId, String login) {
     	Map<String, String> entity = new HashMap<String, String>();
     	entity.put("login", login);
@@ -1353,6 +1410,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetEmailAliasResponse getEmailAliases(String userId) {
     	return this.jerseyUtil.get(this.apiResource
     								.path("users")
@@ -1376,6 +1434,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetEventsResponse getEvents(String streamPosition, @Optional @Default("all") StreamType streamType, @Optional @Default("100") Long limit) {
     	return this.jerseyUtil.get(this.apiResource
     				.path("events")
@@ -1400,6 +1459,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public GetEventsResponse getEnterpriseEvents(
     		@Optional String createdAfter,
     		@Optional String createdBefore,
@@ -1483,6 +1543,7 @@ public class BoxConnector {
      */
     @Processor
 	@OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public LongPollingServer getEventsLongPollingServer() {
     	LongPollingServerResponse response = this.jerseyUtil.options(this.apiResource.path("events"), LongPollingServerResponse.class, 200);
     	
@@ -1491,6 +1552,29 @@ public class BoxConnector {
     	}
     	
     	return response.getEntries().get(0);
+    }
+    
+    /**
+     * The search endpoint provides a simple way of finding items that are accessible in a given user’s Box account.
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:search}
+     * 
+     * @param query The string to search for; can be matched against item names, descriptions, text content of a file, and other fields of the different item types.
+     * @param limit Number of search results to return
+     * @param offset The search result at which to start the response
+     * @return an instance of {@link org.mule.modules.box.model.response.SearchResponse}
+     */
+    @Processor
+    @OAuthProtected
+	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    public SearchResponse search(String query, @Optional @Default("30") Long limit, @Optional @Default("0") Long offset) {
+    	return this.jerseyUtil.get(this.apiResource
+    									.path("search")
+    									.queryParam("query", query)
+    									.queryParam("limit", limit.toString())
+    									.queryParam("offset", offset.toString()),
+    									SearchResponse.class
+    									, 200);
     }
     
 	private void subscribe(final SourceCallback callback) {

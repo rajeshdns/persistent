@@ -220,3 +220,6 @@
 <!-- BEGIN_INCLUDE(box:get-events-long-polling-server) -->
     <box:get-events-long-polling-server />
 <!-- END_INCLUDE(box:get-events-long-polling-server) -->
+<!-- BEGIN_INCLUDE(box:search) -->
+    <box:search query="football" />
+<!-- END_INCLUDE(box:search) -->

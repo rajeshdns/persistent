@@ -6,8 +6,8 @@
             <property name="baseUrl"/>
             <property name="useGzip"/>
             <property name="name" value="Box"/>
-            <property name="clientSecret" value="${box.clientSecret}"/>
-            <property name="clientId" value="${box.clientId}"/>
+            <property name="clientSecret" value="OOduivoDQvnPlhUot9AEFYyqZ8PvUXAs"/>
+            <property name="clientId" value="id0awan7avjr5r42jjcafiv8f95kedqe"/>
             <property name="auxiliary;index" value="1"/>
             <property-collection name="@http://www.mulesoft.org/schema/mule/box/oauth-callback-config;0">
                 <property name="domain" value="localhost"/>
@@ -28,7 +28,7 @@
             <property name="auxiliary;index" value="3"/>
         </properties>
     </global-element>
-    <flow SubFlow="false" name="authorize" entity-id="08bfaef9-1376-4b9a-8f77-4da6231fe878">
+    <flow SubFlow="false" name="authorize" entity-id="c5b9174b-9ba6-432b-b010-16b445ffea27">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
@@ -80,7 +80,7 @@
             </pattern>
         </lane>
     </flow>
-    <flow SubFlow="false" name="longPolling" entity-id="abf1dd80-b838-43c5-bd59-e936055c03aa">
+    <flow SubFlow="false" name="longPolling" entity-id="53ea4a37-e6d4-4305-be10-ec2ee5209fa1">
         <properties>
             <property name="processingStrategy"/>
             <property name="processingStrategy2"/>
@@ -208,6 +208,71 @@
                     </lane>
                 </compartment>
             </scope>
+        </lane>
+    </flow>
+    <flow SubFlow="false" name="box-connector-demoFlow1" entity-id="37e67a95-c97d-4e77-b8b8-3a724abe62bc">
+        <properties>
+            <property name="processingStrategy"/>
+            <property name="processingStrategy2"/>
+            <property name="bussinessEventsLabel"/>
+            <property name="tracking:enable-default-events"/>
+            <property name="auxiliary;index" value="19"/>
+        </properties>
+        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#4">
+            <graphicalData x="0" y="0" width="0" height="0"/>
+            <endpoint direction="Inbound" message-exchange-pattern="RequestResponse" name="HTTP" type="http://www.mulesoft.org/schema/mule/http/endpoint" entity-id="HTTP#2">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="port" value="8081"/>
+                    <property name="host" value="localhost"/>
+                    <property name="businessEventsLabel"/>
+                    <property name="followRedirects"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/http/endpoint"/>
+                    <property name="keep-alive"/>
+                    <property name="contentType"/>
+                    <property name="disableTransportTransformer"/>
+                    <property name="password"/>
+                    <property name="exchange-pattern" value="request-response"/>
+                    <property name="tracking:enable-default-events"/>
+                    <property name="ref"/>
+                    <property name="transformer-refs"/>
+                    <property name="httpLabel"/>
+                    <property name="address"/>
+                    <property name="path" value="search"/>
+                    <property name="encoding"/>
+                    <property name="responseTransformer-refs"/>
+                    <property name="method"/>
+                    <property name="user"/>
+                    <property name="responseTimeout"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="20"/>
+                    <property name="connector-ref"/>
+                </properties>
+            </endpoint>
+            <pattern name="Box" type="http://www.mulesoft.org/schema/mule/box/box-connector" entity-id="Box#4">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="limit"/>
+                    <property name="query" value="#[message.inboundProperties['query']]"/>
+                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/box/search"/>
+                    <property name="accessTokenId" value="#[message.inboundProperties['user']]"/>
+                    <property name="offset"/>
+                    <property name="config-ref" value="Box"/>
+                    <property name="auxiliary;index" value="21"/>
+                </properties>
+            </pattern>
+            <pattern name="Object to JSON" type="http://www.mulesoft.org/schema/mule/json/object-to-json-transformer" entity-id="Object to JSON#1">
+                <graphicalData x="0" y="0" width="0" height="0"/>
+                <properties>
+                    <property name="sourceClass"/>
+                    <property name="returnClass"/>
+                    <property name="ignoreBadInput"/>
+                    <property name="encoding"/>
+                    <property name="mapper-ref"/>
+                    <property name="mimeType"/>
+                    <property name="auxiliary;index" value="22"/>
+                </properties>
+            </pattern>
         </lane>
     </flow>
     <description></description>

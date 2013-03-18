@@ -12,10 +12,12 @@ import java.io.ByteArrayInputStream;
 
 import org.mule.commons.jersey.DefaultResponseHandler;
 import org.mule.modules.box.exception.BoxException;
+import org.mule.modules.box.exception.BoxTokenExpiredException;
 import org.mule.modules.box.exception.Error;
 import org.mule.modules.box.exception.ErrorList;
 
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.ClientResponse.Status;
 
 /**
  * 
@@ -30,6 +32,10 @@ public class BoxResponseHandler extends DefaultResponseHandler {
 	
 	@Override
 	public <T> T onFailure(ClientResponse response, int status, int[] expectedStatus) {
+		if (status == Status.UNAUTHORIZED.getStatusCode()) {
+			throw new BoxTokenExpiredException();
+		}
+		
 		String json = response.getEntity(String.class);
 		 
 		 try {
