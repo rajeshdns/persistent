@@ -89,6 +89,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.core.impl.provider.entity.FormMultivaluedMapProvider;
 import com.sun.jersey.core.impl.provider.entity.FormProvider;
@@ -282,7 +283,7 @@ public class BoxConnector {
 	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public Folder updateFolder(@Optional @Default("#[payload]") UpdateItemRequest request, String folderId, @Optional String etag) {
     	WebResource resource = this.apiResource.path("folders").path(folderId);
-    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag), Folder.class, 200, 201);
+    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), Folder.class, 200, 201);
     }
     
     /**
@@ -751,7 +752,7 @@ public class BoxConnector {
 	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
     public File updateFile(String fileId, @Optional @Default("#[payload]") UpdateItemRequest request, @Optional String etag) {
     	WebResource resource = this.apiResource.path("files").path(fileId);
-    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag), File.class, 200, 201);
+    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), File.class, 200, 201);
     }
     
     /**
