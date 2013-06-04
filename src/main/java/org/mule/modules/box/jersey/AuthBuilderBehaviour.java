@@ -11,6 +11,7 @@ package org.mule.modules.box.jersey;
 import org.mule.commons.jersey.RequestBehaviour;
 import org.mule.modules.box.BoxConnector;
 
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 /**
@@ -28,6 +29,11 @@ public class AuthBuilderBehaviour implements RequestBehaviour {
 	
 	@Override
 	public <T> Builder behave(Builder builder, String method, Class<T> entityClass) {
+		return builder.header("Authorization", "Bearer " + this.connector.getAccessToken());
+	}
+
+	@Override
+	public <T> Builder behave(Builder builder, String method, GenericType<T> type) {
 		return builder.header("Authorization", "Bearer " + this.connector.getAccessToken());
 	}
 }

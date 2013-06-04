@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.mule.commons.jersey.RequestBehaviour;
 import org.mule.modules.box.model.response.UploadFileResponse;
 
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 /**
@@ -34,6 +35,15 @@ public class MediaTypesBuilderBehaviour implements RequestBehaviour {
 			return builder.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
 		}
 		
+	}
+
+	@Override
+	public <T> Builder behave(Builder builder, String method, GenericType<T> type) {
+		if (UploadFileResponse.class.isAssignableFrom(type.getRawClass())) {
+			return builder;
+		} else {
+			return builder.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON);
+		}
 	};
 
 }

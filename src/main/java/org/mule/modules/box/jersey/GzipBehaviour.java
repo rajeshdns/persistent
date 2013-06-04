@@ -10,7 +10,9 @@ package org.mule.modules.box.jersey;
 
 import org.mule.commons.jersey.RequestBehaviour;
 
+import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 
 /**
  * 
@@ -24,6 +26,11 @@ public class GzipBehaviour implements RequestBehaviour {
 	private GzipBehaviour(){}
 	
 	public <T> WebResource.Builder behave(WebResource.Builder builder, String method, Class<T> entityClass) {
+		return builder.header("Accept-Encoding", "gzip, deflate");
+	}
+
+	@Override
+	public <T> Builder behave(Builder builder, String method, GenericType<T> type) {
 		return builder.header("Accept-Encoding", "gzip, deflate");
 	};
 
