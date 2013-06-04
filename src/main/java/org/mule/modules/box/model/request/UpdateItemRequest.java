@@ -106,7 +106,7 @@ public class UpdateItemRequest implements Serializable {
 		this.parent = parent;
 	}
 
-	@XmlAttribute(name="id")
+//	@XmlAttribute(name="id")
 	public String getParentId() {
 		return parentId;
 	}
@@ -115,7 +115,7 @@ public class UpdateItemRequest implements Serializable {
 		this.parentId = parentId;
 	}
 
-	@XmlAttribute(name="shared_link")
+//	@XmlAttribute(name="shared_link")
 	public SharedLink getSharedLink() {
 		return sharedLink;
 	}
@@ -132,7 +132,7 @@ public class UpdateItemRequest implements Serializable {
 		this.access = access;
 	}
 
-	@XmlAttribute(name="unshared_at")
+//	@XmlAttribute(name="unshared_at")
 	public String getUnsharedAt() {
 		return unsharedAt;
 	}
@@ -149,12 +149,12 @@ public class UpdateItemRequest implements Serializable {
 		this.permissions = permissions;
 	}
 
-	@XmlAttribute(name="permissions.download")
+//	@XmlAttribute(name="permissions.download")
 	public Boolean isCanDownload() {
 		return canDownload;
 	}
 
-	@XmlAttribute(name="permissions.preview")
+//	@XmlAttribute(name="permissions.preview")
 	public void setCanDownload(Boolean canDownload) {
 		this.canDownload = canDownload;
 	}
@@ -167,7 +167,7 @@ public class UpdateItemRequest implements Serializable {
 		this.canPreview = canPreview;
 	}
 
-	@XmlAttribute(name="folder_upload_email")
+//	@XmlAttribute(name="folder_upload_email")
 	public FolderUploadEmail getFolderUploadEmail() {
 		return folderUploadEmail;
 	}
