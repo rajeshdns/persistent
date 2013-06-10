@@ -491,6 +491,68 @@ public class BoxConnector {
     	
     	return null;
     }
+
+    /**
+     * Returns the item information for a given path.
+     *
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-item-by-path}
+     *
+     * @param resourcePath the resource to retrieve from Box
+     * @return an instance of {@link org.mule.modules.box.model.Item} with that about the found item. {@code null} if the item is not found
+     */
+    @Processor
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    public Item getItemByPath(String resourcePath) {
+        String parentId = "0";
+        String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
+
+        Item boxItem = null;
+
+        for (int i=0;i<itemNames.length;i++) {
+            boxItem = this.getFolderItem(parentId, itemNames[i]);
+
+            if (boxItem == null) {
+                return null;
+            }
+
+            parentId = boxItem.getId();
+        }
+
+        return boxItem;
+    }
+
+    /**
+     * Returns the folder information for a given path
+     *
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-by-path}
+     *
+     * @param resourcePath the resource to retrieve from Box
+     * @return an instance of {@link org.mule.modules.box.model.Folder} with that about the found Folder. {@code null} if the folder is not found
+     */
+    @Processor
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    public Folder getFolderByPath(String resourcePath) {
+        String parentId = "0";
+        String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
+
+        for (int i=0;i<itemNames.length;i++) {
+            if (StringUtils.isBlank(itemNames[i])) {
+               continue;
+            }
+
+            Item boxItem = this.getFolderItem(parentId, itemNames[i]);
+
+            if (boxItem == null) {
+                return null;
+            }
+
+            parentId = boxItem.getId();
+        }
+
+        return this.getFolder(parentId);
+    }
     
     /**
      * Deletes a folder

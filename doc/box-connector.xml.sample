@@ -115,6 +115,9 @@
 <!-- BEGIN_INCLUDE(box:get-folder-item) -->
     <box:get-folder-item resourceName="invoices" />
 <!-- END_INCLUDE(box:get-folder-item) -->
+<!-- BEGIN_INCLUDE(box:get-item-by-path) -->
+    <box:get-item-by-path resourcePath="/Download/newFile.jpg" />
+<!-- END_INCLUDE(box:get-item-by-path) -->
 <!-- BEGIN_INCLUDE(box:copy-file) -->
     <box:copy-file fileId="#[flowVars['fileId']]" />
 <!-- END_INCLUDE(box:copy-file) -->
@@ -223,3 +226,6 @@
 <!-- BEGIN_INCLUDE(box:search) -->
     <box:search query="football" />
 <!-- END_INCLUDE(box:search) -->
+<!-- BEGIN_INCLUDE(box:get-folder-by-path) -->
+    <box:get-folder-by-path resourcePath="/Download" />
+<!-- END_INCLUDE(box:get-folder-by-path) -->
