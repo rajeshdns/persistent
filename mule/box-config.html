@@ -619,6 +619,18 @@ Summary:
 	 
     <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/box-config.html#get-folder-by-path">&lt;box:get-folder-by-path&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Returns the folder information for a given path
+
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/box-config.html#get-folder-discussions">&lt;box:get-folder-discussions&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the discussions on a particular folder, if any exist.</div>
@@ -627,7 +639,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/box-config.html#get-folder-item">&lt;box:get-folder-item&gt;</a></nobr>
         
@@ -637,11 +649,21 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../mule/box-config.html#get-folder-items">&lt;box:get-folder-items&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/box-config.html#get-item-by-path">&lt;box:get-item-by-path&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Returns the item information for a given path.</div>
         
   </td></tr>
 
@@ -3775,6 +3797,86 @@ of the object store that he wishes to use to save and restore access tokens.</p>
 </div>
 
 
+<A NAME="get-folder-by-path"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;box:get-folder-by-path&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the folder information for a given path
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder-by-path resourcePath="/Download" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>resourcePath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The resource to retrieve from Box</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+              <tr><th colspan="12">OAuth Parameters<br/><span style="font-weight: 200;">The following values are always required when using OAuth as the authentication mechanism.</span></th></tr>
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessTokenId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%">Access token identifier used to retrieve an access token from the store</td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol"><a href="../java/org/mule/modules/box/model/Folder.html">Folder</a></td>
+                <td class="jd-descrcol">an instance of <code><a href="../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with that about the found Folder. <code>null</code> if the folder is not found
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
 <A NAME="get-folder-discussions"></A>
 
 <div class="jd-details api apilevel-">
@@ -4041,6 +4143,86 @@ of the object store that he wishes to use to save and restore access tokens.</p>
              <tr>
                 <td class="jd-descrcol"><a href="../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></td>
                 <td class="jd-descrcol">an instance of <code><a href="../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="get-item-by-path"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;box:get-item-by-path&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns the item information for a given path.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-item-by-path resourcePath="/Download/newFile.jpg" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>resourcePath</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The resource to retrieve from Box</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+              <tr><th colspan="12">OAuth Parameters<br/><span style="font-weight: 200;">The following values are always required when using OAuth as the authentication mechanism.</span></th></tr>
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>accessTokenId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol" width="100%">Access token identifier used to retrieve an access token from the store</td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol"><a href="../java/org/mule/modules/box/model/Item.html">Item</a></td>
+                <td class="jd-descrcol">an instance of <code><a href="../java/org/mule/modules/box/model/Item.html">Item</a></code> with that about the found item. <code>null</code> if the item is not found
 </td>
              </tr>
          </table>
