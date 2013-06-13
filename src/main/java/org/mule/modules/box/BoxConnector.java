@@ -216,15 +216,17 @@ public class BoxConnector {
     
     @OAuthAccessTokenIdentifier
     public String getOAuthTokenAccessIdentifier() {
-    	return this.accessTokenIdentifier;
+        if (this.accessTokenIdentifier == null){
+            User user = this.getUser();
+            this.accessTokenIdentifier = user.getLogin();
+        }
+
+        return this.accessTokenIdentifier;
     }
     
     @OAuthPostAuthorization
     public void postAuth() {
-    	User user = this.getUser();
-    	this.accessTokenIdentifier = user.getLogin();
-    	
-    	for (SourceCallback callback : pendingSubscriptions) {
+        for (SourceCallback callback : pendingSubscriptions) {
     		this.subscribe(callback);
     	}
     }
