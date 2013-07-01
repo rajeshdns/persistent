@@ -154,7 +154,7 @@ Add two Global Elements.
 
 
 
-*     Similarly, add **Box Connector**.
+* Similarly, add **Box Connector**.
 
 
 
@@ -180,13 +180,13 @@ Add two Global Elements.
 
 
 
-*     Switch to **Message Flow** tab and add a new flow by dragging it from the palette.
+* Switch to **Message Flow** tab and add a new flow by dragging it from the palette.
 
 
 
  
 
-*     Name the new flow **authorize**. It can be done by right-clicking on flow's header and selecting **Rename** from context menu.  
+* Name the new flow **authorize**. It can be done by right-clicking on flow's header and selecting **Rename** from context menu.  
 
 
 
@@ -194,7 +194,7 @@ Add two Global Elements.
 
 
 
-*     Add **HTTP Endpoint** to your flow by dragging it from the palette. Double click it to display properties and enter **auth** as a path value.  
+* Add **HTTP Endpoint** to your flow by dragging it from the palette. Double click it to display properties and enter **auth** as a path value.  
 
   
 
@@ -202,7 +202,7 @@ Add two Global Elements.
 
 
 
-*     Add **Box Cloud Connector** to the flow by dragging it from the palette. 
+* Add **Box Cloud Connector** to the flow by dragging it from the palette. 
 
 Double click it to show connector properties and select **Box** in **Config Reference** drop-down.
 
@@ -216,7 +216,7 @@ Next, we need to provide values for **box.clientId** and **box.clientSecret** pa
 
 
 
-*     Copy values from your application settings on Box.com (see Step 1) and put to **src/main/app/flows/mule-app.properties** file.   
+* Copy values from your application settings on Box.com (see Step 1) and put to **src/main/app/flows/mule-app.properties** file.   
 
 
 
