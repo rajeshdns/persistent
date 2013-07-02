@@ -948,7 +948,7 @@ org.mule.api.lifecycle.Stoppable
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#clientId">clientId</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth2 client id 
+          <td class="jd-descrcol" width="100%">The OAuth2 client id
 </td>
       </tr>
       
@@ -960,7 +960,7 @@ org.mule.api.lifecycle.Stoppable
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#clientSecret">clientSecret</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth2 client secret 
+          <td class="jd-descrcol" width="100%">The OAuth2 client secret
 </td>
       </tr>
       
@@ -994,13 +994,24 @@ org.mule.api.lifecycle.Stoppable
           
           List&lt;SourceCallback&gt;</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#pendingSubscriptions">pendingSubscriptions</a></td>
-          <td class="jd-descrcol" width="100%">This list holds the source callbacks for long polling that can't yet be served
- because authorization hasn't happened
+          <td class="jd-descrcol" width="100%">This list holds the source callbacks for long polling that can't yet be
+ served because authorization hasn't happened
 </td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Client</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#uploadClient">uploadClient</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1011,7 +1022,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1023,7 +1034,7 @@ org.mule.api.lifecycle.Stoppable
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -1353,7 +1364,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#changePrimaryLogin(java.lang.String, java.lang.String)">changePrimaryLogin</a></span>(String userId, String login)</nobr>
         
-        <div class="jd-descrdiv">Used to convert one of the user’s confirmed email aliases into the user’s primary login.</div>
+        <div class="jd-descrdiv">Used to convert one of the user’s confirmed email aliases into the user’s
+ primary login.</div>
   
   </td></tr>
 
@@ -1501,7 +1513,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String parentId, String folderName)</nobr>
         
-        <div class="jd-descrdiv">Creates a new folder and returns a folder object with all its associated information
+        <div class="jd-descrdiv">Creates a new folder and returns a folder object with all its associated
+ information
  
  </div>
   
@@ -1859,8 +1872,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getEventsLongPollingServer()">getEventsLongPollingServer</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Requests access to a long polling server that
- notifies about events in real time.</div>
+        <div class="jd-descrdiv">Requests access to a long polling server that notifies about events in
+ real time.</div>
   
   </td></tr>
 
@@ -1951,7 +1964,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String)">getFolderByPath</a></span>(String resourcePath)</nobr>
         
         <div class="jd-descrdiv">Returns the folder information for a given path
-
+ 
  </div>
   
   </td></tr>
@@ -1988,7 +2001,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderItem(java.lang.String, java.lang.String)">getFolderItem</a></span>(String folderId, String resourceName)</nobr>
         
-        <div class="jd-descrdiv">Traverses a given folder looking for a resource (file or folder) of a given name.</div>
+        <div class="jd-descrdiv">Traverses a given folder looking for a resource (file or folder) of a
+ given name.</div>
   
   </td></tr>
 
@@ -2006,7 +2020,9 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)">getFolderItems</a></span>(String folderId, Long limit, Long offset)</nobr>
         
-        <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.</div>
+        <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without
+ any other metadata about the folder in the mini format is returned for
+ each item by default.</div>
   
   </td></tr>
 
@@ -2077,7 +2093,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getTrashedFile(java.lang.String)">getTrashedFile</a></span>(String fileId)</nobr>
         
         <div class="jd-descrdiv">Retrieves the metadata of a trashed file
-
+ 
  </div>
   
   </td></tr>
@@ -2164,8 +2180,7 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getUser()">getUser</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves information about the user who is currently logged in
- i.e.</div>
+        <div class="jd-descrdiv">Retrieves information about the user who is currently logged in i.e.</div>
   
   </td></tr>
 
@@ -2203,7 +2218,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getVersionsMetadata(java.lang.String)">getVersionsMetadata</a></span>(String fileId)</nobr>
         
-        <div class="jd-descrdiv">If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.</div>
+        <div class="jd-descrdiv">If there are previous versions of this file, this method can be used to
+ retrieve metadata about the older versions.</div>
   
   </td></tr>
 
@@ -2239,7 +2255,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#listenEvents(org.mule.api.callback.SourceCallback)">listenEvents</a></span>(SourceCallback callback)</nobr>
         
-        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.</div>
+        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will
+ trigger a new message each time an event is generated.</div>
   
   </td></tr>
 
@@ -2257,7 +2274,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#moveFolderToUser(org.mule.modules.box.model.User, java.lang.String, java.lang.Boolean)">moveFolderToUser</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> targetUser, String folderId, Boolean notify)</nobr>
         
-        <div class="jd-descrdiv">Moves all of the content from within one user’s folder into a new folder in another user’s account.</div>
+        <div class="jd-descrdiv">Moves all of the content from within one user’s folder into a new folder
+ in another user’s account.</div>
   
   </td></tr>
 
@@ -2363,7 +2381,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#search(java.lang.String, java.lang.Long, java.lang.Long)">search</a></span>(String query, Long limit, Long offset)</nobr>
         
-        <div class="jd-descrdiv">The search endpoint provides a simple way of finding items that are accessible in a given user’s Box account.</div>
+        <div class="jd-descrdiv">The search endpoint provides a simple way of finding items that are
+ accessible in a given user’s Box account.</div>
   
   </td></tr>
 
@@ -2555,7 +2574,7 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)">updateCollaboration</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a> collaboration, String collaborationId)</nobr>
         
-        <div class="jd-descrdiv">Used to update  an existing collaboration.</div>
+        <div class="jd-descrdiv">Used to update an existing collaboration.</div>
   
   </td></tr>
 
@@ -2663,7 +2682,8 @@ From class
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionPath</a></span>(String path, String fileId, String filename, String etag, String contentModifiedAt)</nobr>
         
-        <div class="jd-descrdiv">Uploads a new version of a file by reading the contents from a path in local storage
+        <div class="jd-descrdiv">Uploads a new version of a file by reading the contents from a path in
+ local storage
  
  </div>
   
@@ -2704,7 +2724,7 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)">uploadPath</a></span>(String path, String folderId, String filename, boolean includeHash, String contentCreatedAt, String contentModifiedAt)</nobr>
         
         <div class="jd-descrdiv">Receives the path of a file in local storage and uploads its content
-
+ 
  </div>
   
   </td></tr>

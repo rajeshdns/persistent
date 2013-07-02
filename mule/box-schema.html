@@ -377,8 +377,8 @@
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-folder&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetFolderType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Retrieves information about a given folder. If the folderId parameter is not
-provided or equals 0, then the root folder will be returned.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Retrieves information about a given folder. If the folderId parameter is
+not provided or equals 0, then the root folder will be returned.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetFolderType&quot;&gt;
@@ -404,7 +404,8 @@ provided or equals 0, then the root folder will be returned.&lt;/xs:documentatio
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;create-folder&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;CreateFolderType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Creates a new folder and returns a folder object with all its associated information&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Creates a new folder and returns a folder object with all its associated
+information&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;CreateFolderType&quot;&gt;
@@ -435,9 +436,12 @@ provided or equals 0, then the root folder will be returned.&lt;/xs:documentatio
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;update-folder&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UpdateFolderType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to update information about the folder. To move a folder, update the ID of its parent.
-To enable an email address that can be used to upload files to this folder, update the folderUploadEmail attribute.
-An optional If-Match header can be included to ensure that client only updates the folder if it knows about the latest version by setting the etag attribute.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to update information about the folder. To move a folder, update the
+ID of its parent. To enable an email address that can be used to upload
+files to this folder, update the folderUploadEmail attribute. An optional
+If-Match header can be included to ensure that client only updates the
+folder if it knows about the latest version by setting the etag
+attribute.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;ItemObjectType&quot;&gt;
@@ -685,7 +689,7 @@ An optional If-Match header can be included to ensure that client only updates t
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;folderId&quot; use=&quot;required&quot; type=&quot;xs:string&quot;&gt;
           &lt;xs:annotation&gt;
-            &lt;xs:documentation&gt;the id of the folder which discussions  you want&lt;/xs:documentation&gt;
+            &lt;xs:documentation&gt;the id of the folder which discussions you want&lt;/xs:documentation&gt;
           &lt;/xs:annotation&gt;
         &lt;/xs:attribute&gt;
         &lt;xs:attribute name=&quot;accessTokenId&quot; use=&quot;optional&quot; type=&quot;xs:string&quot;&gt;
@@ -698,8 +702,9 @@ An optional If-Match header can be included to ensure that client only updates t
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-trashed-items&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetTrashedItemsType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Get the folders in the Trash. Retrieves the files and/or folders that have been moved to the trash using the mini format.
-Paginated results can be retrieved using the limit and offset parameters.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Get the folders in the Trash. Retrieves the files and/or folders that
+have been moved to the trash using the mini format. Paginated results can
+be retrieved using the limit and offset parameters.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetTrashedItemsType&quot;&gt;
@@ -730,9 +735,11 @@ Paginated results can be retrieved using the limit and offset parameters.&lt;/xs
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;restore-trashed-folder&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;RestoreTrashedFolderType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
-If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
-the new parent folder and/or new name will need to be included in the request.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Restores an item that has been moved to the trash. Default behavior is to
+restore the item to the folder it was in before it was moved to the
+trash. If that parent folder no longer exists or if there is now an item
+with the same name in that parent folder, the new parent folder and/or
+new name will need to be included in the request.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;RestoreTrashedItemRequestObjectType&quot;&gt;
@@ -799,7 +806,8 @@ the new parent folder and/or new name will need to be included in the request.&l
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;perm-delete-folder&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;PermDeleteFolderType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Permanently deletes an item that is in the trash. The item will no longer
+exist in Box. This action cannot be undone.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;PermDeleteFolderType&quot;&gt;
@@ -946,8 +954,10 @@ the new parent folder and/or new name will need to be included in the request.&l
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-folder-items&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetFolderItemsType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.
-Paginated results can be retrieved using the limit and offset parameters.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Retrieves the files and/or folders contained within this folder without
+any other metadata about the folder in the mini format is returned for
+each item by default. Paginated results can be retrieved using the limit
+and offset parameters.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetFolderItemsType&quot;&gt;
@@ -983,7 +993,8 @@ Paginated results can be retrieved using the limit and offset parameters.&lt;/xs
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-folder-item&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetFolderItemType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Traverses a given folder looking for a resource (file or folder) of a given name.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Traverses a given folder looking for a resource (file or folder) of a
+given name.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetFolderItemType&quot;&gt;
@@ -1098,8 +1109,9 @@ Paginated results can be retrieved using the limit and offset parameters.&lt;/xs
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;upload-stream&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UploadStreamType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;Creates a new file with the contents of a .
-You need to take in count that since this is a stream, using the option of including a verification hash
-will cause the contents of the input stream to be fully read and loaded in memory.&lt;/xs:documentation&gt;
+You need to take in count that since this is a stream, using the option
+of including a verification hash will cause the contents of the input
+stream to be fully read and loaded in memory.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;UploadStreamType&quot;&gt;
@@ -1196,7 +1208,8 @@ will cause the contents of the input stream to be fully read and loaded in memor
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;upload-new-version-path&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UploadNewVersionPathType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Uploads a new version of a file by reading the contents from a path in local storage&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Uploads a new version of a file by reading the contents from a path in
+local storage&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;UploadNewVersionPathType&quot;&gt;
@@ -1299,8 +1312,9 @@ will cause the contents of the input stream to be fully read and loaded in memor
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-versions-metadata&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetVersionsMetadataType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.
-Alert: Versions are only tracked for Box users with premium accounts.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;If there are previous versions of this file, this method can be used to
+retrieve metadata about the older versions. Alert: Versions are only
+tracked for Box users with premium accounts.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetVersionsMetadataType&quot;&gt;
@@ -1377,8 +1391,10 @@ Alert: Versions are only tracked for Box users with premium accounts.&lt;/xs:doc
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;delete-file&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;DeleteFileType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Discards a file to the trash. The etag of the file can be included as an ���If-Match��� header to prevent race conditions.
-Depending on the enterprise settings for this user, the item will either be actually deleted from Box or moved to the trash.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Discards a file to the trash. The etag of the file can be included as an
+���If-Match��� header to prevent race conditions. Depending on the enterprise
+settings for this user, the item will either be actually deleted from Box
+or moved to the trash.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;DeleteFileType&quot;&gt;
@@ -1409,10 +1425,12 @@ Depending on the enterprise settings for this user, the item will either be actu
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;update-file&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UpdateFileType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Update a file���s information. Used to update individual or multiple fields in the file object, including renaming the file,
-changing it���s description, and creating a shared link for the file.
-To move a file, change the ID of its parent folder.
-An optional etag can be provided to ensure that client only updates the file if it knows about the latest version&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Update a file���s information. Used to update individual or multiple fields
+in the file object, including renaming the file, changing it���s
+description, and creating a shared link for the file. To move a file,
+change the ID of its parent folder. An optional etag can be provided to
+ensure that client only updates the file if it knows about the latest
+version&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;UpdateFileType&quot;&gt;
@@ -1455,7 +1473,8 @@ An optional etag can be provided to ensure that client only updates the file if 
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;copy-file&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;CopyFileType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to create a copy of a file in another folder. The original version of the file will not be altered.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to create a copy of a file in another folder. The original version
+of the file will not be altered.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;CopyFileType&quot;&gt;
@@ -1577,8 +1596,9 @@ An optional etag can be provided to ensure that client only updates the file if 
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-file-thumbnail&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetFileThumbnailType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;Retrieves a thumbnail, or smaller image representation, of this file.
-Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned.
-Currently thumbnails are only available in .png format and will only be generated for image file formats.&lt;/xs:documentation&gt;
+Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned. Currently
+thumbnails are only available in .png format and will only be generated
+for image file formats.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetFileThumbnailType&quot;&gt;
@@ -1640,9 +1660,11 @@ Currently thumbnails are only available in .png format and will only be generate
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;restore-trashed-file&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;RestoreTrashedFileType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Restores a file that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
-If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
-the new parent folder and/or new name will need to be included in the request.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Restores a file that has been moved to the trash. Default behavior is to
+restore the item to the folder it was in before it was moved to the
+trash. If that parent folder no longer exists or if there is now an item
+with the same name in that parent folder, the new parent folder and/or
+new name will need to be included in the request.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;RestoreTrashedFileType&quot;&gt;
@@ -1680,7 +1702,8 @@ the new parent folder and/or new name will need to be included in the request.&l
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;perm-delete-file&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;PermDeleteFileType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Permanently deletes an item that is in the trash. The item will no longer
+exist in Box. This action cannot be undone.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;PermDeleteFileType&quot;&gt;
@@ -1706,7 +1729,8 @@ the new parent folder and/or new name will need to be included in the request.&l
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-comment&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetCommentType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to retrieve the message and metadata about a specific comment. Information about the user who created the comment is also included.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to retrieve the message and metadata about a specific comment.
+Information about the user who created the comment is also included.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetCommentType&quot;&gt;
@@ -2061,8 +2085,8 @@ The parent, id and name attributes of the request object are required&lt;/xs:doc
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-discussion&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetDiscussionType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to retrieve the metadata about a specific discussion.
-Information about the user who created the discussion is also included.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to retrieve the metadata about a specific discussion. Information
+about the user who created the discussion is also included.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetDiscussionType&quot;&gt;
@@ -2152,12 +2176,12 @@ Information about the user who created the discussion is also included.&lt;/xs:d
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;create-collaboration&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;CreateCollaborationType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to add a collaboration for a single user to a folder.
-Either an email address or a user ID can be used to create the collaboration.
+      &lt;xs:documentation&gt;Used to add a collaboration for a single user to a folder. Either an
+email address or a user ID can be used to create the collaboration.
 
-Transferring ownership: To transfer ownership of a folder (as the current owner of the folder),
-first create a collaboration for the new user with any role.
-Then update that collaboration with a role of ���owner���.&lt;/xs:documentation&gt;
+Transferring ownership: To transfer ownership of a folder (as the current
+owner of the folder), first create a collaboration for the new user with
+any role. Then update that collaboration with a role of ���owner���.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;CollaborationObjectType&quot;&gt;
@@ -2259,7 +2283,7 @@ Then update that collaboration with a role of ���owner���.&lt;/xs:do
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;update-collaboration&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UpdateCollaborationType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to update  an existing collaboration.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to update an existing collaboration.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;UpdateCollaborationType&quot;&gt;
@@ -2370,8 +2394,8 @@ Then update that collaboration with a role of ���owner���.&lt;/xs:do
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-user&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetUserType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Retrieves information about the user who is currently logged in
-i.e. the user for whom this auth token was generated.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Retrieves information about the user who is currently logged in i.e. the
+user for whom this auth token was generated.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetUserType&quot;&gt;
@@ -2428,10 +2452,10 @@ i.e. the user for whom this auth token was generated.&lt;/xs:documentation&gt;
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;update-user&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;UpdateUserType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to edit the settings and information about a user.
-This method only works for enterprise admins.
-To roll a user out of the enterprise (and convert them to a standalone free user),
-update the special enterprise attribute to be null&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to edit the settings and information about a user. This method only
+works for enterprise admins. To roll a user out of the enterprise (and
+convert them to a standalone free user), update the special enterprise
+attribute to be null&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;UpdateUserType&quot;&gt;
@@ -2474,7 +2498,8 @@ update the special enterprise attribute to be null&lt;/xs:documentation&gt;
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;create-user&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;CreateUserType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to provision a new user in an enterprise. This method only works for enterprise admins.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to provision a new user in an enterprise. This method only works for
+enterprise admins.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;CreateUserType&quot;&gt;
@@ -2507,9 +2532,11 @@ update the special enterprise attribute to be null&lt;/xs:documentation&gt;
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;move-folder-to-user&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;MoveFolderToUserType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Moves all of the content from within one user���s folder into a new folder in another user���s account.
-You can move folders across users as long as the you have administrative permissions.
-To move everything from the root folder, use 0 (zero) which always represents the root folder of a Box account&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Moves all of the content from within one user���s folder into a new folder
+in another user���s account. You can move folders across users as long as
+the you have administrative permissions. To move everything from the root
+folder, use 0 (zero) which always represents the root folder of a Box
+account&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;MoveFolderToUserType&quot;&gt;
@@ -2650,7 +2677,8 @@ To move everything from the root folder, use 0 (zero) which always represents th
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;change-primary-login&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;ChangePrimaryLoginType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Used to convert one of the user���s confirmed email aliases into the user���s primary login.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Used to convert one of the user���s confirmed email aliases into the user���s
+primary login.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;ChangePrimaryLoginType&quot;&gt;
@@ -2681,8 +2709,8 @@ To move everything from the root folder, use 0 (zero) which always represents th
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-email-aliases&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetEmailAliasesType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Retrieves all email aliases for this user. The collection of email aliases does not include the primary
-login for the user&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Retrieves all email aliases for this user. The collection of email
+aliases does not include the primary login for the user&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetEmailAliasesType&quot;&gt;
@@ -2708,8 +2736,10 @@ login for the user&lt;/xs:documentation&gt;
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-events&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetEventsType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Use this to get events for a given user. A chunk of event objects is returned for the user based on the parameters passed in.
-Parameters indicating how many chunks are left as well as the next streamPosition are also returned.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Use this to get events for a given user. A chunk of event objects is
+returned for the user based on the parameters passed in. Parameters
+indicating how many chunks are left as well as the next streamPosition
+are also returned.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetEventsType&quot;&gt;
@@ -2745,8 +2775,8 @@ Parameters indicating how many chunks are left as well as the next streamPositio
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-enterprise-events&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetEnterpriseEventsType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Retrieves events for all users in an enterprise.
-Upper and lower bounds as well as filters can be applied to the results.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;Retrieves events for all users in an enterprise. Upper and lower bounds
+as well as filters can be applied to the results.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetEnterpriseEventsType&quot;&gt;
@@ -2812,10 +2842,11 @@ Upper and lower bounds as well as filters can be applied to the results.&lt;/xs:
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;get-events-long-polling-server&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;GetEventsLongPollingServerType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Requests access to a long polling server that
-notifies about events in real time.
+      &lt;xs:documentation&gt;Requests access to a long polling server that notifies about events in
+real time.
 
-This is just a request for connection details. A subscription to such topic is not made&lt;/xs:documentation&gt;
+This is just a request for connection details. A subscription to such
+topic is not made&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;GetEventsLongPollingServerType&quot;&gt;
@@ -2836,7 +2867,8 @@ This is just a request for connection details. A subscription to such topic is n
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;search&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; type=&quot;SearchType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;The search endpoint provides a simple way of finding items that are accessible in a given user���s Box account.&lt;/xs:documentation&gt;
+      &lt;xs:documentation&gt;The search endpoint provides a simple way of finding items that are
+accessible in a given user���s Box account.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;SearchType&quot;&gt;
@@ -2872,13 +2904,18 @@ This is just a request for connection details. A subscription to such topic is n
   &lt;/xs:complexType&gt;
   &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/box&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; name=&quot;listen-events&quot; substitutionGroup=&quot;mule:abstract-inbound-endpoint&quot; type=&quot;ListenEventsType&quot;&gt;
     &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+      &lt;xs:documentation&gt;Message source that subscribes to the events long polling server and will
+trigger a new message each time an event is generated.
 
-Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent as payload and
-an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+Such message will have an instance of @{link
+org.mule.modules.box.model.PollingEvent as payload and an inbound
+property called 'boxAccessTokenId' that will carry the accessTokenId of
+the user that owns the event.
 
-This source will not provide the events that are generated, it's just a notification that there're new events available.
-You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.&lt;/xs:documentation&gt;
+This source will not provide the events that are generated, it's just a
+notification that there're new events available. You'll need to use the
+get-events processor to actually get them. Managing the stream position
+while doing so is up to you.&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
   &lt;/xs:element&gt;
   &lt;xs:complexType name=&quot;ListenEventsType&quot;&gt;
@@ -2892,35 +2929,6 @@ You'll need to use the get-events processor to actually get them. Managing the s
       &lt;/xs:extension&gt;
     &lt;/xs:complexContent&gt;
   &lt;/xs:complexType&gt;
-  &lt;xs:simpleType name=&quot;RoleEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;admin&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;coadmin&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;user&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
   &lt;xs:simpleType name=&quot;ThumbnailSizeEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
@@ -2944,6 +2952,59 @@ You'll need to use the get-events processor to actually get them. Managing the s
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
           &lt;xs:enumeration value=&quot;px256x256&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;StreamTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Limits the type of events returned&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;all&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;everything&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;changes&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;tree changes,&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;sync&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;tree changes only for sync folders&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;UserStatusEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;active&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;inactive&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -3013,50 +3074,26 @@ You'll need to use the get-events processor to actually get them. Managing the s
       &lt;/xs:simpleType&gt;
     &lt;/xs:union&gt;
   &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;UserStatusEnumType&quot;&gt;
+  &lt;xs:simpleType name=&quot;RoleEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
     &lt;xs:union&gt;
       &lt;xs:simpleType&gt;
         &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;active&quot;&gt;
+          &lt;xs:enumeration value=&quot;admin&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;inactive&quot;&gt;
+          &lt;xs:enumeration value=&quot;coadmin&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;StreamTypeEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;Limits the type of events returned&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;all&quot;&gt;
+          &lt;xs:enumeration value=&quot;user&quot;&gt;
             &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;everything&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;changes&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;tree changes,&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;sync&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;tree changes only for sync folders&lt;/xs:documentation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;

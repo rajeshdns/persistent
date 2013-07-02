@@ -604,7 +604,7 @@ Summary:
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/box/BoxConnector.html#clientId">clientId</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth2 client id 
+          <td class="jd-descrcol" width="100%">The OAuth2 client id
 </td>
       </tr>
       
@@ -616,7 +616,7 @@ Summary:
           
           String</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/box/BoxConnector.html#clientSecret">clientSecret</a></td>
-          <td class="jd-descrcol" width="100%">The OAuth2 client secret 
+          <td class="jd-descrcol" width="100%">The OAuth2 client secret
 </td>
       </tr>
       
@@ -650,13 +650,24 @@ Summary:
           
           List&lt;SourceCallback&gt;</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/box/BoxConnector.html#pendingSubscriptions">pendingSubscriptions</a></td>
-          <td class="jd-descrcol" width="100%">This list holds the source callbacks for long polling that can't yet be served
- because authorization hasn't happened
+          <td class="jd-descrcol" width="100%">This list holds the source callbacks for long polling that can't yet be
+ served because authorization hasn't happened
 </td>
       </tr>
       
     
       <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Client</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/box/BoxConnector.html#uploadClient">uploadClient</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -667,7 +678,7 @@ Summary:
       </tr>
       
     
-      <tr class=" api apilevel-" >
+      <tr class="alt-color api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -679,7 +690,7 @@ Summary:
       </tr>
       
     
-      <tr class="alt-color api apilevel-" >
+      <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
           private
           
@@ -747,7 +758,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#changePrimaryLogin(java.lang.String, java.lang.String)">changePrimaryLogin</a></span>(String userId, String login)</nobr>
         
-        <div class="jd-descrdiv">Used to convert one of the user’s confirmed email aliases into the user’s primary login.</div>
+        <div class="jd-descrdiv">Used to convert one of the user’s confirmed email aliases into the user’s
+ primary login.</div>
   
   </td></tr>
 
@@ -895,7 +907,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#createFolder(java.lang.String, java.lang.String)">createFolder</a></span>(String parentId, String folderName)</nobr>
         
-        <div class="jd-descrdiv">Creates a new folder and returns a folder object with all its associated information
+        <div class="jd-descrdiv">Creates a new folder and returns a folder object with all its associated
+ information
  
  </div>
   
@@ -1253,8 +1266,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getEventsLongPollingServer()">getEventsLongPollingServer</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Requests access to a long polling server that
- notifies about events in real time.</div>
+        <div class="jd-descrdiv">Requests access to a long polling server that notifies about events in
+ real time.</div>
   
   </td></tr>
 
@@ -1345,7 +1358,7 @@ Summary:
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String)">getFolderByPath</a></span>(String resourcePath)</nobr>
         
         <div class="jd-descrdiv">Returns the folder information for a given path
-
+ 
  </div>
   
   </td></tr>
@@ -1382,7 +1395,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderItem(java.lang.String, java.lang.String)">getFolderItem</a></span>(String folderId, String resourceName)</nobr>
         
-        <div class="jd-descrdiv">Traverses a given folder looking for a resource (file or folder) of a given name.</div>
+        <div class="jd-descrdiv">Traverses a given folder looking for a resource (file or folder) of a
+ given name.</div>
   
   </td></tr>
 
@@ -1400,7 +1414,9 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)">getFolderItems</a></span>(String folderId, Long limit, Long offset)</nobr>
         
-        <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.</div>
+        <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without
+ any other metadata about the folder in the mini format is returned for
+ each item by default.</div>
   
   </td></tr>
 
@@ -1471,7 +1487,7 @@ Summary:
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getTrashedFile(java.lang.String)">getTrashedFile</a></span>(String fileId)</nobr>
         
         <div class="jd-descrdiv">Retrieves the metadata of a trashed file
-
+ 
  </div>
   
   </td></tr>
@@ -1558,8 +1574,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getUser()">getUser</a></span>()</nobr>
         
-        <div class="jd-descrdiv">Retrieves information about the user who is currently logged in
- i.e.</div>
+        <div class="jd-descrdiv">Retrieves information about the user who is currently logged in i.e.</div>
   
   </td></tr>
 
@@ -1597,7 +1612,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getVersionsMetadata(java.lang.String)">getVersionsMetadata</a></span>(String fileId)</nobr>
         
-        <div class="jd-descrdiv">If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.</div>
+        <div class="jd-descrdiv">If there are previous versions of this file, this method can be used to
+ retrieve metadata about the older versions.</div>
   
   </td></tr>
 
@@ -1633,7 +1649,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#listenEvents(org.mule.api.callback.SourceCallback)">listenEvents</a></span>(SourceCallback callback)</nobr>
         
-        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.</div>
+        <div class="jd-descrdiv">Message source that subscribes to the events long polling server and will
+ trigger a new message each time an event is generated.</div>
   
   </td></tr>
 
@@ -1651,7 +1668,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#moveFolderToUser(org.mule.modules.box.model.User, java.lang.String, java.lang.Boolean)">moveFolderToUser</a></span>(<a href="../../../../../java/org/mule/modules/box/model/User.html">User</a> targetUser, String folderId, Boolean notify)</nobr>
         
-        <div class="jd-descrdiv">Moves all of the content from within one user’s folder into a new folder in another user’s account.</div>
+        <div class="jd-descrdiv">Moves all of the content from within one user’s folder into a new folder
+ in another user’s account.</div>
   
   </td></tr>
 
@@ -1757,7 +1775,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#search(java.lang.String, java.lang.Long, java.lang.Long)">search</a></span>(String query, Long limit, Long offset)</nobr>
         
-        <div class="jd-descrdiv">The search endpoint provides a simple way of finding items that are accessible in a given user’s Box account.</div>
+        <div class="jd-descrdiv">The search endpoint provides a simple way of finding items that are
+ accessible in a given user’s Box account.</div>
   
   </td></tr>
 
@@ -1949,7 +1968,7 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)">updateCollaboration</a></span>(<a href="../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a> collaboration, String collaborationId)</nobr>
         
-        <div class="jd-descrdiv">Used to update  an existing collaboration.</div>
+        <div class="jd-descrdiv">Used to update an existing collaboration.</div>
   
   </td></tr>
 
@@ -2057,7 +2076,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionPath</a></span>(String path, String fileId, String filename, String etag, String contentModifiedAt)</nobr>
         
-        <div class="jd-descrdiv">Uploads a new version of a file by reading the contents from a path in local storage
+        <div class="jd-descrdiv">Uploads a new version of a file by reading the contents from a path in
+ local storage
  
  </div>
   
@@ -2098,7 +2118,7 @@ Summary:
         <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)">uploadPath</a></span>(String path, String folderId, String filename, boolean includeHash, String contentCreatedAt, String contentModifiedAt)</nobr>
         
         <div class="jd-descrdiv">Receives the path of a file in local storage and uploads its content
-
+ 
  </div>
   
   </td></tr>
@@ -2543,7 +2563,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The OAuth2 client id 
+  <div class="jd-tagdata jd-tagdescr"><p>The OAuth2 client id
 </p></div>
 
     
@@ -2574,7 +2594,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The OAuth2 client secret 
+  <div class="jd-tagdata jd-tagdescr"><p>The OAuth2 client secret
 </p></div>
 
     
@@ -2665,9 +2685,39 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>This list holds the source callbacks for long polling that can't yet be served
- because authorization hasn't happened
+  <div class="jd-tagdata jd-tagdescr"><p>This list holds the source callbacks for long polling that can't yet be
+ served because authorization hasn't happened
 </p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="uploadClient"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Client
+      </span>
+        uploadClient
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     
     </div>
@@ -2847,7 +2897,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to convert one of the user’s confirmed email aliases into the user’s primary login.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to convert one of the user’s confirmed email aliases into the user’s
+ primary login.
  
  </p></div>
   <div class="jd-tagdata">
@@ -2865,7 +2916,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with the modified state
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with the
+         modified state
 </li></ul>
   </div>
 
@@ -2916,7 +2968,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code> representing the created message
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code>
+         representing the created message
 </li></ul>
   </div>
 
@@ -2967,7 +3020,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code> representing the created message
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code>
+         representing the created message
 </li></ul>
   </div>
 
@@ -3000,7 +3054,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to create a copy of a file in another folder. The original version of the file will not be altered.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to create a copy of a file in another folder. The original version
+ of the file will not be altered.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3018,7 +3073,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>and instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> representing the copy of the file
+      <ul class="nolist"><li>and instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code>
+         representing the copy of the file
 </li></ul>
   </div>
 
@@ -3059,7 +3115,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>targetFolderId</td>
-          <td>The id of the parent folder that will hold the copy. If not provided then the root will be used</td>
+          <td>The id of the parent folder that will hold the copy. If not
+            provided then the root will be used</td>
         </tr>
         <tr>
           <th>folderId</td>
@@ -3069,7 +3126,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> representing the copy
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code>
+         representing the copy
 </li></ul>
   </div>
 
@@ -3102,12 +3160,12 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to add a collaboration for a single user to a folder.
- Either an email address or a user ID can be used to create the collaboration.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to add a collaboration for a single user to a folder. Either an
+ email address or a user ID can be used to create the collaboration.
  
- Transferring ownership: To transfer ownership of a folder (as the current owner of the folder),
- first create a collaboration for the new user with any role.
- Then update that collaboration with a role of ‘owner’.
+ Transferring ownership: To transfer ownership of a folder (as the current
+ owner of the folder), first create a collaboration for the new user with
+ any role. Then update that collaboration with a role of ‘owner’.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3121,7 +3179,9 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a></code> with the state of the newly created collab
+      <ul class="nolist"><li>a new instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a></code> with the state
+         of the newly created collab
 </li></ul>
   </div>
 
@@ -3169,7 +3229,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code> with the metadata of the created discussion
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code> with
+         the metadata of the created discussion
 </li></ul>
   </div>
 
@@ -3253,7 +3314,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder and returns a folder object with all its associated information
+  <div class="jd-tagdata jd-tagdescr"><p>Creates a new folder and returns a folder object with all its associated
+ information
  
  </p></div>
   <div class="jd-tagdata">
@@ -3261,7 +3323,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>parentId</td>
-          <td>The id of the parent folder. If not provided then the root will be used</td>
+          <td>The id of the parent folder. If not provided then the root
+            will be used</td>
         </tr>
         <tr>
           <th>folderName</td>
@@ -3271,7 +3334,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> representing the newly created folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code>
+         representing the newly created folder
 </li></ul>
   </div>
 
@@ -3304,7 +3368,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to provision a new user in an enterprise. This method only works for enterprise admins.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to provision a new user in an enterprise. This method only works for
+ enterprise admins.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3312,13 +3377,15 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>user</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> representing the user to be created</td>
+          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code>
+            representing the user to be created</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with the final state of the created object
+      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with
+         the final state of the created object
 </li></ul>
   </div>
 
@@ -3484,8 +3551,10 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Discards a file to the trash. The etag of the file can be included as an ‘If-Match’ header to prevent race conditions.
- Depending on the enterprise settings for this user, the item will either be actually deleted from Box or moved to the trash.
+  <div class="jd-tagdata jd-tagdescr"><p>Discards a file to the trash. The etag of the file can be included as an
+ ‘If-Match’ header to prevent race conditions. Depending on the enterprise
+ settings for this user, the item will either be actually deleted from Box
+ or moved to the trash.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3497,7 +3566,8 @@ From class
         </tr>
         <tr>
           <th>etag</td>
-          <td>If provided, it will be used to verify that no newer version of the file is available at box
+          <td>If provided, it will be used to verify that no newer version
+            of the file is available at box
 </td>
         </tr>
       </table>
@@ -3591,11 +3661,13 @@ From class
         </tr>
         <tr>
           <th>notify</td>
-          <td>Determines if the destination user should receive email notification of the transfer.</td>
+          <td>Determines if the destination user should receive email
+            notification of the transfer.</td>
         </tr>
         <tr>
           <th>force</td>
-          <td>Whether or not the user should be deleted even if this user still own files.
+          <td>Whether or not the user should be deleted even if this user
+            still own files.
 </td>
         </tr>
       </table>
@@ -3852,7 +3924,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to retrieve the message and metadata about a specific comment. Information about the user who created the comment is also included.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to retrieve the message and metadata about a specific comment.
+ Information about the user who created the comment is also included.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3866,7 +3939,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code> representing the message
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code>
+         representing the message
 </li></ul>
   </div>
 
@@ -3899,8 +3973,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to retrieve the metadata about a specific discussion.
- Information about the user who created the discussion is also included.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to retrieve the metadata about a specific discussion. Information
+ about the user who created the discussion is also included.
  
  </p></div>
   <div class="jd-tagdata">
@@ -3914,7 +3988,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code> with the discussion metadata
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code> with
+         the discussion metadata
 </li></ul>
   </div>
 
@@ -3961,7 +4036,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCommentsResponse.html">GetCommentsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCommentsResponse.html">GetCommentsResponse</a></code>
 </li></ul>
   </div>
 
@@ -3994,8 +4070,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves all email aliases for this user. The collection of email aliases does not include the primary
- login for the user
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves all email aliases for this user. The collection of email
+ aliases does not include the primary login for the user
  
  </p></div>
   <div class="jd-tagdata">
@@ -4009,7 +4085,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEmailAliasResponse.html">GetEmailAliasResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEmailAliasResponse.html">GetEmailAliasResponse</a></code>
 </li></ul>
   </div>
 
@@ -4042,8 +4119,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves events for all users in an enterprise.
- Upper and lower bounds as well as filters can be applied to the results.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves events for all users in an enterprise. Upper and lower bounds
+ as well as filters can be applied to the results.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4073,7 +4150,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEventsResponse.html">GetEventsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEventsResponse.html">GetEventsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4106,8 +4184,10 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Use this to get events for a given user. A chunk of event objects is returned for the user based on the parameters passed in.
- Parameters indicating how many chunks are left as well as the next streamPosition are also returned.
+  <div class="jd-tagdata jd-tagdescr"><p>Use this to get events for a given user. A chunk of event objects is
+ returned for the user based on the parameters passed in. Parameters
+ indicating how many chunks are left as well as the next streamPosition
+ are also returned.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4115,8 +4195,9 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>streamPosition</td>
-          <td>The location in the event stream at which you want to start receiving events.
- 						Can specify special case ‘now’ to get 0 events and the latest stream position for initialization.</td>
+          <td>The location in the event stream at which you want to start
+            receiving events. Can specify special case ‘now’ to get 0
+            events and the latest stream position for initialization.</td>
         </tr>
         <tr>
           <th>streamType</td>
@@ -4130,7 +4211,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEventsResponse.html">GetEventsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetEventsResponse.html">GetEventsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4163,15 +4245,17 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Requests access to a long polling server that
- notifies about events in real time.
+  <div class="jd-tagdata jd-tagdescr"><p>Requests access to a long polling server that notifies about events in
+ real time.
  
-  This is just a request for connection details. A subscription to such topic is not made
+ This is just a request for connection details. A subscription to such
+ topic is not made
  
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/LongPollingServer.html">LongPollingServer</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/LongPollingServer.html">LongPollingServer</a></code>
 </li></ul>
   </div>
 
@@ -4218,7 +4302,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCommentsResponse.html">GetCommentsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCommentsResponse.html">GetCommentsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4299,8 +4384,9 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves a thumbnail, or smaller image representation, of this file.
- Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned.
- Currently thumbnails are only available in .png format and will only be generated for image file formats.
+ Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned. Currently
+ thumbnails are only available in .png format and will only be generated
+ for image file formats.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4322,7 +4408,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an InputStream with the content of the thumb. Remember to close it!
+      <ul class="nolist"><li>an InputStream with the content of the thumb. Remember to close
+         it!
 </li></ul>
   </div>
 
@@ -4355,8 +4442,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves information about a given folder. If the folderId parameter is not
- provided or equals 0, then the root folder will be returned.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves information about a given folder. If the folderId parameter is
+ not provided or equals 0, then the root folder will be returned.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4404,7 +4491,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the folder information for a given path
-
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -4417,7 +4504,9 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with that about the found Folder. <code>null</code> if the folder is not found
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with
+         that about the found Folder. <code>null</code> if the folder is not
+         found
 </li></ul>
   </div>
 
@@ -4458,7 +4547,7 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>folderId</td>
-          <td>The id of the folder which discussions  you want</td>
+          <td>The id of the folder which discussions you want</td>
         </tr>
       </table>
   </div>
@@ -4497,15 +4586,17 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Traverses a given folder looking for a resource (file or folder) of a given name.
-  
+  <div class="jd-tagdata jd-tagdescr"><p>Traverses a given folder looking for a resource (file or folder) of a
+ given name.
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>folderId</td>
-          <td>The id of the folder you want to inspect. If not provided then the root folder is assumed</td>
+          <td>The id of the folder you want to inspect. If not provided then
+            the root folder is assumed</td>
         </tr>
         <tr>
           <th>resourceName</td>
@@ -4515,7 +4606,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that about the found item. <code>null</code> if the item is not found
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that
+         about the found item. <code>null</code> if the item is not found
 </li></ul>
   </div>
 
@@ -4548,8 +4640,10 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.
- Paginated results can be retrieved using the limit and offset parameters.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves the files and/or folders contained within this folder without
+ any other metadata about the folder in the mini format is returned for
+ each item by default. Paginated results can be retrieved using the limit
+ and offset parameters.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4557,11 +4651,13 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>folderId</td>
-          <td>The id of the folder you want to inspect. If not provided then the root folder is assumed</td>
+          <td>The id of the folder you want to inspect. If not provided then
+            the root folder is assumed</td>
         </tr>
         <tr>
           <th>limit</td>
-          <td>The maximum amount of items to be returned (default=100, max=1000)</td>
+          <td>The maximum amount of items to be returned (default=100,
+            max=1000)</td>
         </tr>
         <tr>
           <th>offset</td>
@@ -4571,7 +4667,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4605,7 +4702,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Returns the item information for a given path.
-
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -4618,7 +4715,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that about the found item. <code>null</code> if the item is not found
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that
+         about the found item. <code>null</code> if the item is not found
 </li></ul>
   </div>
 
@@ -4687,7 +4785,8 @@ From class
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCollaborationsResponse.html">GetCollaborationsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetCollaborationsResponse.html">GetCollaborationsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4721,7 +4820,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Retrieves the metadata of a trashed file
-
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -4814,16 +4913,18 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Get the folders in the Trash. Retrieves the files and/or folders that have been moved to the trash using the mini format.
- Paginated results can be retrieved using the limit and offset parameters.
-
+  <div class="jd-tagdata jd-tagdescr"><p>Get the folders in the Trash. Retrieves the files and/or folders that
+ have been moved to the trash using the mini format. Paginated results can
+ be retrieved using the limit and offset parameters.
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>limit</td>
-          <td>The maximum amount of items to be returned (default=100, max=1000)</td>
+          <td>The maximum amount of items to be returned (default=100,
+            max=1000)</td>
         </tr>
         <tr>
           <th>offset</td>
@@ -4833,7 +4934,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
 </li></ul>
   </div>
 
@@ -4928,8 +5030,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves information about the user who is currently logged in
- i.e. the user for whom this auth token was generated.
+  <div class="jd-tagdata jd-tagdescr"><p>Retrieves information about the user who is currently logged in i.e. the
+ user for whom this auth token was generated.
  
  </p></div>
   <div class="jd-tagdata">
@@ -4975,7 +5077,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>filterTerm</td>
-          <td>A string used to filter the results to only users starting with the filter_term in either the name or the login</td>
+          <td>A string used to filter the results to only users starting
+            with the filter_term in either the name or the login</td>
         </tr>
         <tr>
           <th>limit</td>
@@ -4989,7 +5092,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/GetUsersResponse.html">GetUsersResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/GetUsersResponse.html">GetUsersResponse</a></code>
 </li></ul>
   </div>
 
@@ -5022,8 +5126,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.
- Alert: Versions are only tracked for Box users with premium accounts.
+  <div class="jd-tagdata jd-tagdescr"><p>If there are previous versions of this file, this method can be used to
+ retrieve metadata about the older versions. Alert: Versions are only
+ tracked for Box users with premium accounts.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5037,7 +5142,9 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/FileVersionResponse.html">FileVersionResponse</a></code> with the metadata about the versions
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/FileVersionResponse.html">FileVersionResponse</a></code>
+         with the metadata about the versions
 </li></ul>
   </div>
 
@@ -5070,9 +5177,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>This method initiaes the box client and the auth callback.
- Also, it fetches the save/restore flows (if specified). If those are specified
- but don't exist in the registry, then IllegalArgumentException is thrown</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>This method initiaes the box client and the auth callback. Also, it
+ fetches the save/restore flows (if specified). If those are specified but
+ don't exist in the registry, then IllegalArgumentException is thrown</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
@@ -5117,13 +5224,18 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+  <div class="jd-tagdata jd-tagdescr"><p>Message source that subscribes to the events long polling server and will
+ trigger a new message each time an event is generated.
  
- Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent} as payload and  
- an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+ Such message will have an instance of @{link
+ org.mule.modules.box.model.PollingEvent} as payload and an inbound
+ property called 'boxAccessTokenId' that will carry the accessTokenId of
+ the user that owns the event.
  
- This source will not provide the events that are generated, it's just a notification that there're new events available.
- You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.
+ This source will not provide the events that are generated, it's just a
+ notification that there're new events available. You'll need to use the
+ get-events processor to actually get them. Managing the stream position
+ while doing so is up to you.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5137,7 +5249,9 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of  org.mule.api.callback.StopSourceCallback that unsubscribes the long polling server when the app is stopped. 
+      <ul class="nolist"><li>an instance of org.mule.api.callback.StopSourceCallback
+         that unsubscribes the long polling server when the app is
+         stopped.
 </li></ul>
   </div>
 
@@ -5170,9 +5284,11 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Moves all of the content from within one user’s folder into a new folder in another user’s account.
- You can move folders across users as long as the you have administrative permissions.
- To move everything from the root folder, use 0 (zero) which always represents the root folder of a Box account
+  <div class="jd-tagdata jd-tagdescr"><p>Moves all of the content from within one user’s folder into a new folder
+ in another user’s account. You can move folders across users as long as
+ the you have administrative permissions. To move everything from the root
+ folder, use 0 (zero) which always represents the root folder of a Box
+ account
  
  </p></div>
   <div class="jd-tagdata">
@@ -5180,7 +5296,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>targetUser</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> representing the user that will receive the folder</td>
+          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code>
+            representing the user that will receive the folder</td>
         </tr>
         <tr>
           <th>folderId</td>
@@ -5188,13 +5305,15 @@ From class
         </tr>
         <tr>
           <th>notify</td>
-          <td>Determines if the destination user should receive email notification of the transfer.</td>
+          <td>Determines if the destination user should receive email
+            notification of the transfer.</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> representing the moved folder 
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code>
+         representing the moved folder
 </li></ul>
   </div>
 
@@ -5227,7 +5346,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+  <div class="jd-tagdata jd-tagdescr"><p>Permanently deletes an item that is in the trash. The item will no longer
+ exist in Box. This action cannot be undone.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5270,7 +5390,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+  <div class="jd-tagdata jd-tagdescr"><p>Permanently deletes an item that is in the trash. The item will no longer
+ exist in Box. This action cannot be undone.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5344,9 +5465,11 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Restores a file that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
- If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
- the new parent folder and/or new name will need to be included in the request.
+  <div class="jd-tagdata jd-tagdescr"><p>Restores a file that has been moved to the trash. Default behavior is to
+ restore the item to the folder it was in before it was moved to the
+ trash. If that parent folder no longer exists or if there is now an item
+ with the same name in that parent folder, the new parent folder and/or
+ new name will need to be included in the request.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5358,13 +5481,16 @@ From class
         </tr>
         <tr>
           <th>request</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/request/RestoreTrashedItemRequest.html">RestoreTrashedItemRequest</a></code> with the request parameters</td>
+          <td>An instance of
+            <code><a href="../../../../../java/org/mule/modules/box/model/request/RestoreTrashedItemRequest.html">RestoreTrashedItemRequest</a></code>
+            with the request parameters</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with the restored folder new state
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with the
+         restored folder new state
 </li></ul>
   </div>
 
@@ -5397,9 +5523,11 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
- If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
- the new parent folder and/or new name will need to be included in the request.
+  <div class="jd-tagdata jd-tagdescr"><p>Restores an item that has been moved to the trash. Default behavior is to
+ restore the item to the folder it was in before it was moved to the
+ trash. If that parent folder no longer exists or if there is now an item
+ with the same name in that parent folder, the new parent folder and/or
+ new name will need to be included in the request.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5411,13 +5539,16 @@ From class
         </tr>
         <tr>
           <th>request</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/request/RestoreTrashedItemRequest.html">RestoreTrashedItemRequest</a></code> with the request parameters</td>
+          <td>An instance of
+            <code><a href="../../../../../java/org/mule/modules/box/model/request/RestoreTrashedItemRequest.html">RestoreTrashedItemRequest</a></code>
+            with the request parameters</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with the restored folder new state
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with the
+         restored folder new state
 </li></ul>
   </div>
 
@@ -5450,7 +5581,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The search endpoint provides a simple way of finding items that are accessible in a given user’s Box account.
+  <div class="jd-tagdata jd-tagdescr"><p>The search endpoint provides a simple way of finding items that are
+ accessible in a given user’s Box account.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5458,7 +5590,9 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>query</td>
-          <td>The string to search for; can be matched against item names, descriptions, text content of a file, and other fields of the different item types.</td>
+          <td>The string to search for; can be matched against item names,
+            descriptions, text content of a file, and other fields of the
+            different item types.</td>
         </tr>
         <tr>
           <th>limit</td>
@@ -5472,7 +5606,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/response/SearchResponse.html">SearchResponse</a></code>
+      <ul class="nolist"><li>an instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/response/SearchResponse.html">SearchResponse</a></code>
 </li></ul>
   </div>
 
@@ -5757,13 +5892,15 @@ From class
         </tr>
         <tr>
           <th>sharedLink</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></code> with the information about the share</td>
+          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></code>
+            with the information about the share</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> representing the shared folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code>
+         representing the shared folder
 </li></ul>
   </div>
 
@@ -5808,13 +5945,15 @@ From class
         </tr>
         <tr>
           <th>sharedLink</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></code> with the information about the share</td>
+          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></code>
+            with the information about the share</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> representing the shared folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code>
+         representing the shared folder
 </li></ul>
   </div>
 
@@ -5861,7 +6000,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> representing the unshared folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code>
+         representing the unshared folder
 </li></ul>
   </div>
 
@@ -5908,7 +6048,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> representing the unshared folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code>
+         representing the unshared folder
 </li></ul>
   </div>
 
@@ -5941,7 +6082,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to update  an existing collaboration. 
+  <div class="jd-tagdata jd-tagdescr"><p>Used to update an existing collaboration.
  
  </p></div>
   <div class="jd-tagdata">
@@ -5959,7 +6100,9 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a></code> with the state of the collab
+      <ul class="nolist"><li>a new instance of
+         <code><a href="../../../../../java/org/mule/modules/box/model/Collaboration.html">Collaboration</a></code> with the state
+         of the collab
 </li></ul>
   </div>
 
@@ -6010,7 +6153,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code> representing the updated message
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Comment.html">Comment</a></code>
+         representing the updated message
 </li></ul>
   </div>
 
@@ -6061,7 +6205,8 @@ From class
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code> carrying the updated state
+      <ul class="nolist"><li>a new instance of <code><a href="../../../../../java/org/mule/modules/box/model/Discussion.html">Discussion</a></code>
+         carrying the updated state
 </li></ul>
   </div>
 
@@ -6094,10 +6239,12 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Update a file’s information. Used to update individual or multiple fields in the file object, including renaming the file,
- changing it’s description, and creating a shared link for the file.
- To move a file, change the ID of its parent folder.
- An optional etag can be provided to ensure that client only updates the file if it knows about the latest version
+  <div class="jd-tagdata jd-tagdescr"><p>Update a file’s information. Used to update individual or multiple fields
+ in the file object, including renaming the file, changing it’s
+ description, and creating a shared link for the file. To move a file,
+ change the ID of its parent folder. An optional etag can be provided to
+ ensure that client only updates the file if it knows about the latest
+ version
  
  </p></div>
   <div class="jd-tagdata">
@@ -6109,17 +6256,21 @@ From class
         </tr>
         <tr>
           <th>request</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/request/UpdateItemRequest.html">UpdateItemRequest</a></code> carrying the update parameters</td>
+          <td>An instance of
+            <code><a href="../../../../../java/org/mule/modules/box/model/request/UpdateItemRequest.html">UpdateItemRequest</a></code>
+            carrying the update parameters</td>
         </tr>
         <tr>
           <th>etag</td>
-          <td>If provided, it will be used to verify that no newer version of the file is available at box </td>
+          <td>If provided, it will be used to verify that no newer version
+            of the file is available at box</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the updated state of the file
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the
+         updated state of the file
 </li></ul>
   </div>
 
@@ -6152,9 +6303,12 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to update information about the folder. To move a folder, update the ID of its parent.
- To enable an email address that can be used to upload files to this folder, update the folderUploadEmail attribute.
- An optional If-Match header can be included to ensure that client only updates the folder if it knows about the latest version by setting the etag attribute.
+  <div class="jd-tagdata jd-tagdescr"><p>Used to update information about the folder. To move a folder, update the
+ ID of its parent. To enable an email address that can be used to upload
+ files to this folder, update the folderUploadEmail attribute. An optional
+ If-Match header can be included to ensure that client only updates the
+ folder if it knows about the latest version by setting the etag
+ attribute.
  
  </p></div>
   <div class="jd-tagdata">
@@ -6162,7 +6316,9 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>request</td>
-          <td>An instance of <code><a href="../../../../../java/org/mule/modules/box/model/request/UpdateItemRequest.html">UpdateItemRequest</a></code> with the attributes you want to change</td>
+          <td>An instance of
+            <code><a href="../../../../../java/org/mule/modules/box/model/request/UpdateItemRequest.html">UpdateItemRequest</a></code>
+            with the attributes you want to change</td>
         </tr>
         <tr>
           <th>folderId</td>
@@ -6170,13 +6326,15 @@ From class
         </tr>
         <tr>
           <th>etag</td>
-          <td>If provided, it will be used to verify that no newer version of the file is available at box</td>
+          <td>If provided, it will be used to verify that no newer version
+            of the file is available at box</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> that represents the updated folder
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> that
+         represents the updated folder
 </li></ul>
   </div>
 
@@ -6209,10 +6367,10 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Used to edit the settings and information about a user.
- This method only works for enterprise admins.
- To roll a user out of the enterprise (and convert them to a standalone free user),
- update the special enterprise attribute to be null
+  <div class="jd-tagdata jd-tagdescr"><p>Used to edit the settings and information about a user. This method only
+ works for enterprise admins. To roll a user out of the enterprise (and
+ convert them to a standalone free user), update the special enterprise
+ attribute to be null
  
  </p></div>
   <div class="jd-tagdata">
@@ -6228,13 +6386,15 @@ From class
         </tr>
         <tr>
           <th>notify</td>
-          <td>Whether the user should receive an email when they are rolled out of an enterprise</td>
+          <td>Whether the user should receive an email when they are rolled
+            out of an enterprise</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with the updated user state
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/User.html">User</a></code> with the
+         updated user state
 </li></ul>
   </div>
 
@@ -6267,7 +6427,8 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Uploads a new version of a file by reading the contents from a path in local storage
+  <div class="jd-tagdata jd-tagdescr"><p>Uploads a new version of a file by reading the contents from a path in
+ local storage
  
  </p></div>
   <div class="jd-tagdata">
@@ -6279,7 +6440,7 @@ From class
         </tr>
         <tr>
           <th>fileId</td>
-          <td>The id of the file to be updated </td>
+          <td>The id of the file to be updated</td>
         </tr>
         <tr>
           <th>filename</td>
@@ -6287,17 +6448,20 @@ From class
         </tr>
         <tr>
           <th>etag</td>
-          <td>If provided, it will be used to verify that no newer version of the file is available at box</td>
+          <td>If provided, it will be used to verify that no newer version
+            of the file is available at box</td>
         </tr>
         <tr>
           <th>contentModifiedAt</td>
-          <td>The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was modified on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the information of the updated file
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the
+         information of the updated file
 </li></ul>
   </div>
 
@@ -6338,7 +6502,8 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>content</td>
-          <td>A java.io.InputStream with the contents of the file. This stream will leave this processor in a closed state</td>
+          <td>A java.io.InputStream with the contents of the file.
+            This stream will leave this processor in a closed state</td>
         </tr>
         <tr>
           <th>fileId</td>
@@ -6346,7 +6511,8 @@ From class
         </tr>
         <tr>
           <th>etag</td>
-          <td>If provided, it will be used to verify that no newer version of the file is available at box</td>
+          <td>If provided, it will be used to verify that no newer version
+            of the file is available at box</td>
         </tr>
         <tr>
           <th>filename</td>
@@ -6354,13 +6520,15 @@ From class
         </tr>
         <tr>
           <th>contentModifiedAt</td>
-          <td>The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was modified on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the information of the updated file
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the
+         information of the updated file
 </li></ul>
   </div>
 
@@ -6394,7 +6562,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Receives the path of a file in local storage and uploads its content
-
+ 
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
@@ -6409,26 +6577,31 @@ From class
         </tr>
         <tr>
           <th>filename</td>
-          <td>The name you want the file to have at box. If not provided, the name on current storage will be used</td>
+          <td>The name you want the file to have at box. If not provided,
+            the name on current storage will be used</td>
         </tr>
         <tr>
           <th>includeHash</td>
-          <td>If true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
- 			to verify that the content's hasn't been corrupted. </td>
+          <td>If true a sha1 hash of the file will be calculated prior to
+            upload. Box will use that hash to verify that the content's
+            hasn't been corrupted.</td>
         </tr>
         <tr>
           <th>contentCreatedAt</td>
-          <td>The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was created on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
         <tr>
           <th>contentModifiedAt</td>
-          <td>The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was modified on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the information of the created file
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the
+         information of the created file
 </li></ul>
   </div>
 
@@ -6462,8 +6635,9 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Creates a new file with the contents of a java.io.InputStream.
- You need to take in count that since this is a stream, using the option of including a verification hash
- will cause the contents of the input stream to be fully read and loaded in memory. 
+ You need to take in count that since this is a stream, using the option
+ of including a verification hash will cause the contents of the input
+ stream to be fully read and loaded in memory.
  
  </p></div>
   <div class="jd-tagdata">
@@ -6479,26 +6653,31 @@ From class
         </tr>
         <tr>
           <th>content</td>
-          <td>A java.io.InputStream with the contents of the file. This stream will leave this processor in a closed state</td>
+          <td>A java.io.InputStream with the contents of the file.
+            This stream will leave this processor in a closed state</td>
         </tr>
         <tr>
           <th>includeHash</td>
-          <td>If true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
- 			to verify that the content's hasn't been corrupted.</td>
+          <td>If true a sha1 hash of the file will be calculated prior to
+            upload. Box will use that hash to verify that the content's
+            hasn't been corrupted.</td>
         </tr>
         <tr>
           <th>contentCreatedAt</td>
-          <td>The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was created on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
         <tr>
           <th>contentModifiedAt</td>
-          <td>The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00</td>
+          <td>The time this file was modified on the user’s machine. An
+            example of a valid date is 2012-12-12T10:55:30-08:00</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the information of the created file
+      <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></code> with the
+         information of the created file
 </li></ul>
   </div>
 
