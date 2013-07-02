@@ -104,51 +104,47 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
  * 
  * @author mariano.gonzalez@mulesoft.com
  */
-@Connector(name="box", schemaVersion="2.0", friendlyName="Box", minMuleVersion="3.3")
-@OAuth2(
-		authorizationUrl = "https://api.box.com/oauth2/authorize",
-		accessTokenUrl = "https://api.box.com/oauth2/token",
-		accessTokenRegex="\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"",
-		expirationRegex="\"expires_in\"[ ]*:[ ]*([\\d]*)",
-		refreshTokenRegex="\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\""
-)
+@Connector(name = "box", schemaVersion = "2.0", friendlyName = "Box", minMuleVersion = "3.3")
+@OAuth2(authorizationUrl = "https://api.box.com/oauth2/authorize", accessTokenUrl = "https://api.box.com/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
 public class BoxConnector {
+
+    private Client client;
     
-	private Client client;
-	
-	/**
-	 * The api's base url
-	 */
-	@Configurable
-	@Optional
-	@Default("https://api.box.com/2.0/")
-	private String baseUrl;
-	
-	/**
-	 * The url of the endpoints dedicated to file uploading operations
-	 */
-	@Configurable
-	@Optional
-	@Default("https://upload.box.com/api/2.0/files")
-	private String uploadUrl;
-	
-	/**
-     * The OAuth2 client id 
+    private Client uploadClient;
+
+    /**
+     * The api's base url
+     */
+    @Configurable
+    @Optional
+    @Default("https://api.box.com/2.0/")
+    private String baseUrl;
+
+    /**
+     * The url of the endpoints dedicated to file uploading operations
+     */
+    @Configurable
+    @Optional
+    @Default("https://upload.box.com/api/2.0/files")
+    private String uploadUrl;
+
+    /**
+     * The OAuth2 client id
      */
     @Configurable
     @OAuthConsumerKey
     private String clientId;
 
     /**
-     * The OAuth2 client secret 
+     * The OAuth2 client secret
      */
     @Configurable
     @OAuthConsumerSecret
     private String clientSecret;
-    
+
     @OAuthAccessToken
     private String accessToken;
-    
+
     /**
      * If set to true, Box will be asked to gzip all its responses
      */
@@ -156,362 +152,407 @@ public class BoxConnector {
     @Optional
     @Default("false")
     private boolean useGzip = false;
-    
+
     private LongPollingClient longPollingClient = null;
-    
+
     /**
-     * This list holds the source callbacks for long polling that can't yet be served
-     * because authorization hasn't happened
+     * This list holds the source callbacks for long polling that can't yet be
+     * served because authorization hasn't happened
      */
     private static List<SourceCallback> pendingSubscriptions = new ArrayList<SourceCallback>();
-    
+
     private String accessTokenIdentifier;
-	
+
     private JerseyUtil jerseyUtil;
-    
+
     private WebResource apiResource;
-    
+
     private WebResource uploadResource;
-    
+
     /**
-     * This method initiaes the box client and the auth callback.
-     * Also, it fetches the save/restore flows (if specified). If those are specified
-     * but don't exist in the registry, then IllegalArgumentException is thrown
+     * This method initiaes the box client and the auth callback. Also, it
+     * fetches the save/restore flows (if specified). If those are specified but
+     * don't exist in the registry, then IllegalArgumentException is thrown
      * 
      * @throws MuleException
-     * @throws IllegalArgumentException if restore/save token flows are specified but don't exist
+     * @throws IllegalArgumentException
+     *             if restore/save token flows are specified but don't exist
      */
     @Start
     public void init() throws MuleException {
-    	ClientConfig clientConfig = new DefaultClientConfig();
-    	clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
-    	clientConfig.getClasses().add(MultiPartWriter.class);
-    	clientConfig.getClasses().add(MimeMultipartProvider.class);
-    	clientConfig.getClasses().add(InputStreamProvider.class);
-    	clientConfig.getClasses().add(FormProvider.class);
-    	clientConfig.getClasses().add(FormMultivaluedMapProvider.class);
-    	clientConfig.getSingletons().add(new GsonProvider(GsonFactory.get()));
-    	
-    	this.client = Client.create(clientConfig);
+        ClientConfig clientConfig = new DefaultClientConfig();
+        clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+        clientConfig.getClasses().add(MultiPartWriter.class);
+        clientConfig.getClasses().add(MimeMultipartProvider.class);
+        clientConfig.getClasses().add(InputStreamProvider.class);
+        clientConfig.getClasses().add(FormProvider.class);
+        clientConfig.getClasses().add(FormMultivaluedMapProvider.class);
+        clientConfig.getSingletons().add(new GsonProvider(GsonFactory.get()));
 
-    	this.initJerseyUtil();
-    	this.longPollingClient = new LongPollingClient(this.jerseyUtil);
-		
-		this.apiResource = this.client.resource(this.baseUrl);
-		this.uploadResource = this.client.resource(this.uploadUrl);
+        this.client = Client.create(clientConfig);
+        this.uploadClient = Client.create(clientConfig);
+        this.uploadClient.setChunkedEncodingSize(512);
+
+        this.initJerseyUtil();
+        this.longPollingClient = new LongPollingClient(this.jerseyUtil);
+
+        this.apiResource = this.client.resource(this.baseUrl);
+        this.uploadResource = this.uploadClient.resource(this.uploadUrl);
     }
-    
+
     private void initJerseyUtil() {
-    	JerseyUtil.Builder builder = JerseyUtil.builder()
-											.addRequestBehaviour(MediaTypesBuilderBehaviour.INSTANCE)
-											.addRequestBehaviour(new AuthBuilderBehaviour(this))
-									    	.setResponseHandler(BoxResponseHandler.INSTANCE);
-    	
-    	if (this.useGzip) {
-    		builder.addRequestBehaviour(GzipBehaviour.INSTANCE);
-    	}
-    	
-    	this.jerseyUtil = builder.build();
+        JerseyUtil.Builder builder = JerseyUtil.builder().addRequestBehaviour(MediaTypesBuilderBehaviour.INSTANCE)
+                .addRequestBehaviour(new AuthBuilderBehaviour(this)).setResponseHandler(BoxResponseHandler.INSTANCE);
+
+        if (this.useGzip) {
+            builder.addRequestBehaviour(GzipBehaviour.INSTANCE);
+        }
+
+        this.jerseyUtil = builder.build();
     }
-    
+
     @OAuthAccessTokenIdentifier
     public String getOAuthTokenAccessIdentifier() {
-        if (this.accessTokenIdentifier == null){
+        if (this.accessTokenIdentifier == null) {
             User user = this.getUser();
             this.accessTokenIdentifier = user.getLogin();
         }
 
         return this.accessTokenIdentifier;
     }
-    
+
     @OAuthPostAuthorization
     public void postAuth() {
         for (SourceCallback callback : pendingSubscriptions) {
-    		this.subscribe(callback);
-    	}
+            this.subscribe(callback);
+        }
     }
-    
-    
+
     /**
-     * Retrieves information about a given folder. If the folderId parameter is not
-     * provided or equals 0, then the root folder will be returned.
+     * Retrieves information about a given folder. If the folderId parameter is
+     * not provided or equals 0, then the root folder will be returned.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder}
      * 
-     * @param folderId the id of the fodler you want to get. 0 means root
+     * @param folderId
+     *            the id of the fodler you want to get. 0 means root
      * @return an instance of {@link org.mule.modules.box.model.Folder}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder getFolder(@Optional @Default("0") String folderId) {
-    	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId), Folder.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId), Folder.class, 200);
     }
-    
+
     /**
-     * Creates a new folder and returns a folder object with all its associated information
+     * Creates a new folder and returns a folder object with all its associated
+     * information
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:create-folder}
      * 
-     * @param parentId the id of the parent folder. If not provided then the root will be used
-     * @param folderName the name of the folder
-     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the newly created folder
+     * @param parentId
+     *            the id of the parent folder. If not provided then the root
+     *            will be used
+     * @param folderName
+     *            the name of the folder
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     *         representing the newly created folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder createFolder(@Optional @Default("0") String parentId, String folderName) {
-    	return this.jerseyUtil.post(this.apiResource.path("folders")
-    							.entity(new CreateFolderRequest(folderName, parentId)),
-	    						Folder.class,
-	    						200, 201);
+        return this.jerseyUtil.post(
+                this.apiResource.path("folders").entity(new CreateFolderRequest(folderName, parentId)), Folder.class,
+                200, 201);
     }
-    
-    
+
     /**
-     * Used to update information about the folder. To move a folder, update the ID of its parent.
-     * To enable an email address that can be used to upload files to this folder, update the folderUploadEmail attribute.
-     * An optional If-Match header can be included to ensure that client only updates the folder if it knows about the latest version by setting the etag attribute.
+     * Used to update information about the folder. To move a folder, update the
+     * ID of its parent. To enable an email address that can be used to upload
+     * files to this folder, update the folderUploadEmail attribute. An optional
+     * If-Match header can be included to ensure that client only updates the
+     * folder if it knows about the latest version by setting the etag
+     * attribute.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:update-folder}
      * 
-     * @param request an instance of {@link org.mule.modules.box.model.request.UpdateItemRequest} with the attributes you want to change
-     * @param folderId the id of the folder to be modified
-     * @param etag if provided, it will be used to verify that no newer version of the file is available at box
-     * @return an instance of {@link org.mule.modules.box.model.Folder} that represents the updated folder
+     * @param request
+     *            an instance of
+     *            {@link org.mule.modules.box.model.request.UpdateItemRequest}
+     *            with the attributes you want to change
+     * @param folderId
+     *            the id of the folder to be modified
+     * @param etag
+     *            if provided, it will be used to verify that no newer version
+     *            of the file is available at box
+     * @return an instance of {@link org.mule.modules.box.model.Folder} that
+     *         represents the updated folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public Folder updateFolder(@Optional @Default("#[payload]") UpdateItemRequest request, String folderId, @Optional String etag) {
-    	WebResource resource = this.apiResource.path("folders").path(folderId);
-    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), Folder.class, 200, 201);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public Folder updateFolder(@Optional @Default("#[payload]") UpdateItemRequest request, String folderId,
+            @Optional String etag) {
+        WebResource resource = this.apiResource.path("folders").path(folderId);
+        return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), Folder.class, 200, 201);
     }
-    
+
     /**
      * Retrieves the discussions on a particular folder, if any exist.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-discussions}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-folder-discussions}
      * 
-     * @param folderId the id of the folder which discussions  you want
+     * @param folderId
+     *            the id of the folder which discussions you want
      * @return an instance of {@link org.mule.modules.box.model.Entries}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Entries getFolderDiscussions(String folderId) {
-    	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("discussions"), Entries.class, 200, 204);
+        return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("discussions"), Entries.class,
+                200, 204);
     }
-    
-    /**
-     * Get the folders in the Trash. Retrieves the files and/or folders that have been moved to the trash using the mini format.
-     * Paginated results can be retrieved using the limit and offset parameters.
 
+    /**
+     * Get the folders in the Trash. Retrieves the files and/or folders that
+     * have been moved to the trash using the mini format. Paginated results can
+     * be retrieved using the limit and offset parameters.
+     * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-trashed-items}
      * 
-     * @param limit the maximum amount of items to be returned (default=100, max=1000)
-     * @param offset pagination offset (default=0)
-     * @return an instance of {@link org.mule.modules.box.model.GetItemsResponse}
+     * @param limit
+     *            the maximum amount of items to be returned (default=100,
+     *            max=1000)
+     * @param offset
+     *            pagination offset (default=0)
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.GetItemsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetItemsResponse getTrashedItems(@Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
-    	return this.getFolderItems("trash", limit, offset);
+        return this.getFolderItems("trash", limit, offset);
     }
-    
+
     /**
-     * Restores an item that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
-     * If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
-     * the new parent folder and/or new name will need to be included in the request.
+     * Restores an item that has been moved to the trash. Default behavior is to
+     * restore the item to the folder it was in before it was moved to the
+     * trash. If that parent folder no longer exists or if there is now an item
+     * with the same name in that parent folder, the new parent folder and/or
+     * new name will need to be included in the request.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:restore-trashed-folder}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:restore-trashed-folder}
      * 
-     * @param folderId the id of the trashed folder being restored
-     * @param request an instance of {@link org.mule.modules.box.model.request.RestoreTrashedItemRequest} with the request parameters
-     * @return an instance of {@link org.mule.modules.box.model.Folder} with the restored folder new state
+     * @param folderId
+     *            the id of the trashed folder being restored
+     * @param request
+     *            an instance of
+     *            {@link org.mule.modules.box.model.request.RestoreTrashedItemRequest}
+     *            with the request parameters
+     * @return an instance of {@link org.mule.modules.box.model.Folder} with the
+     *         restored folder new state
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public Folder restoreTrashedFolder(String folderId, @Optional @Default("#[payload]") RestoreTrashedItemRequest request) {
-    	return this.jerseyUtil.post(this.apiResource
-	    								.path("folders")
-	    								.path(folderId)
-	    								.entity(request)
-    								, Folder.class
-    								, 201);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public Folder restoreTrashedFolder(String folderId,
+            @Optional @Default("#[payload]") RestoreTrashedItemRequest request) {
+        return this.jerseyUtil.post(this.apiResource.path("folders").path(folderId).entity(request), Folder.class, 201);
     }
-    
+
     /**
-     * Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+     * Permanently deletes an item that is in the trash. The item will no longer
+     * exist in Box. This action cannot be undone.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:perm-delete-folder}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:perm-delete-folder}
      * 
-     * @param folderId the id of the folder to be permanently deleted
+     * @param folderId
+     *            the id of the folder to be permanently deleted
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void permDeleteFolder(String folderId) {
-    	this.jerseyUtil.delete(this.apiResource.path("folders").path(folderId).path("trash"), String.class, 204);
+        this.jerseyUtil.delete(this.apiResource.path("folders").path(folderId).path("trash"), String.class, 204);
     }
-    
+
     /**
      * Retrieves a folder that has been moved to the trash.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-trashed-folder}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-trashed-folder}
      * 
-     * @param folderId the id of the folder you want
+     * @param folderId
+     *            the id of the folder you want
      * @return an instance of {@link org.mule.modules.box.model.Folder}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder getTrashedFolder(String folderId) {
-    	return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("trash"), Folder.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId).path("trash"), Folder.class, 200);
     }
-    
+
     /**
      * Used to create a shared link for this particular folder
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:share-folder}
      * 
-     * @param folderId the id of the folder you want to share
-     * @param sharedLink an instance of {@link org.mule.modules.box.model.SharedLink} with the information about the share
-     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the shared folder
+     * @param folderId
+     *            the id of the folder you want to share
+     * @param sharedLink
+     *            an instance of {@link org.mule.modules.box.model.SharedLink}
+     *            with the information about the share
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     *         representing the shared folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder shareFolder(String folderId, @Optional @Default("#[payload]") SharedLink sharedLink) {
-    	CreateSharedLinkRequest request = new CreateSharedLinkRequest();
-    	request.setSharedLink(sharedLink);
-    	
-    	return this.jerseyUtil.put(this.apiResource.path("folders")
-    								.path(folderId)
-	    							.entity(request),
-	    						Folder.class,
-	    						200, 201);
+        CreateSharedLinkRequest request = new CreateSharedLinkRequest();
+        request.setSharedLink(sharedLink);
+
+        return this.jerseyUtil.put(this.apiResource.path("folders").path(folderId).entity(request), Folder.class, 200,
+                201);
     }
-    
+
     /**
      * Deletes the shared link associated to a folder
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:unshare-folder}
      * 
-     * @param folderId the id of the folder you want to unshare
-     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the unshared folder
+     * @param folderId
+     *            the id of the folder you want to unshare
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     *         representing the unshared folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder unshareFolder(String folderId) {
-    	return this.shareFolder(folderId, null);
+        return this.shareFolder(folderId, null);
     }
-    
+
     /**
      * Used to create a shared link for this particular folder
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:share-folder}
      * 
-     * @param targetFolderId the id of the parent folder that will hold the copy. If not provided then the root will be used
-     * @param folderId the if od the folder being copied
-     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the copy
+     * @param targetFolderId
+     *            the id of the parent folder that will hold the copy. If not
+     *            provided then the root will be used
+     * @param folderId
+     *            the if od the folder being copied
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     *         representing the copy
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder copyFolder(@Optional @Default("0") String targetFolderId, String folderId) {
-    	Item parent = new Item();
-    	parent.setId(targetFolderId);
-    	CopyItemRequest request = new CopyItemRequest();
-    	request.setParent(parent);
-    	
-    	return this.jerseyUtil.post(this.apiResource.path("folders")
-    								.path(folderId)
-    								.path("copy")
-	    							.entity(request),
-	    						Folder.class,
-	    						200, 201);
+        Item parent = new Item();
+        parent.setId(targetFolderId);
+        CopyItemRequest request = new CopyItemRequest();
+        request.setParent(parent);
+
+        return this.jerseyUtil.post(this.apiResource.path("folders").path(folderId).path("copy").entity(request),
+                Folder.class, 200, 201);
     }
-    
+
     /**
-     * Retrieves the files and/or folders contained within this folder without any other metadata about the folder in the mini format is returned for each item by default.
-     * Paginated results can be retrieved using the limit and offset parameters.
+     * Retrieves the files and/or folders contained within this folder without
+     * any other metadata about the folder in the mini format is returned for
+     * each item by default. Paginated results can be retrieved using the limit
+     * and offset parameters.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-items}
      * 
-     * @param folderId the id of the folder you want to inspect. If not provided then the root folder is assumed
-     * @param limit the maximum amount of items to be returned (default=100, max=1000)
-     * @param offset pagination offset (default=0)
-     * @return an instance of {@link org.mule.modules.box.model.GetItemsResponse}
+     * @param folderId
+     *            the id of the folder you want to inspect. If not provided then
+     *            the root folder is assumed
+     * @param limit
+     *            the maximum amount of items to be returned (default=100,
+     *            max=1000)
+     * @param offset
+     *            pagination offset (default=0)
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.GetItemsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public GetItemsResponse getFolderItems(
-    					@Optional @Default("0") String folderId,
-    					@Optional @Default("100") Long limit,
-    					@Optional @Default("0") Long offset) {
-    	WebResource resource = this.apiResource
-						    			.path("folders")
-						    			.path(folderId)
-						    			.path("items");
-    	
-    	if (offset != null) {
-    		resource = resource.queryParam("offset", offset.toString());
-    	}
-    	
-    	if (limit != null) {
-    		resource = resource.queryParam("limit", limit.toString());
-    	}
-    	
-    	return this.jerseyUtil.get(resource, GetItemsResponse.class, 200);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public GetItemsResponse getFolderItems(@Optional @Default("0") String folderId,
+            @Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
+        WebResource resource = this.apiResource.path("folders").path(folderId).path("items");
+
+        if (offset != null) {
+            resource = resource.queryParam("offset", offset.toString());
+        }
+
+        if (limit != null) {
+            resource = resource.queryParam("limit", limit.toString());
+        }
+
+        return this.jerseyUtil.get(resource, GetItemsResponse.class, 200);
     }
-    
+
     /**
-     * Traverses a given folder looking for a resource (file or folder) of a given name.
-     *  
+     * Traverses a given folder looking for a resource (file or folder) of a
+     * given name.
+     * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-item}
      * 
-     * @param folderId the id of the folder you want to inspect. If not provided then the root folder is assumed
-     * @param resourceName the name you want to test
-     * @return an instance of {@link org.mule.modules.box.model.Item} with that about the found item. {@code null} if the item is not found
+     * @param folderId
+     *            the id of the folder you want to inspect. If not provided then
+     *            the root folder is assumed
+     * @param resourceName
+     *            the name you want to test
+     * @return an instance of {@link org.mule.modules.box.model.Item} with that
+     *         about the found item. {@code null} if the item is not found
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Item getFolderItem(@Optional @Default("0") String folderId, String resourceName) {
-    	GetItemsResponse items = this.getFolderItems(folderId, null, null);
-    	
-    	for (Item item : items.getEntries()) {
-    		if (resourceName.equals(item.getName())) {
-    			return item;
-    		}
-    	}
-    	
-    	return null;
+        GetItemsResponse items = this.getFolderItems(folderId, null, null);
+
+        for (Item item : items.getEntries()) {
+            if (resourceName.equals(item.getName())) {
+                return item;
+            }
+        }
+
+        return null;
     }
 
     /**
      * Returns the item information for a given path.
-     *
+     * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-item-by-path}
-     *
-     * @param resourcePath the resource to retrieve from Box
-     * @return an instance of {@link org.mule.modules.box.model.Item} with that about the found item. {@code null} if the item is not found
+     * 
+     * @param resourcePath
+     *            the resource to retrieve from Box
+     * @return an instance of {@link org.mule.modules.box.model.Item} with that
+     *         about the found item. {@code null} if the item is not found
      */
     @Processor
     @OAuthProtected
-    @OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Item getItemByPath(String resourcePath) {
         String parentId = "0";
         String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
 
         Item boxItem = null;
 
-        for (int i=0;i<itemNames.length;i++) {
+        for (int i = 0; i < itemNames.length; i++) {
             boxItem = this.getFolderItem(parentId, itemNames[i]);
 
             if (boxItem == null) {
@@ -526,22 +567,26 @@ public class BoxConnector {
 
     /**
      * Returns the folder information for a given path
-     *
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder-by-path}
-     *
-     * @param resourcePath the resource to retrieve from Box
-     * @return an instance of {@link org.mule.modules.box.model.Folder} with that about the found Folder. {@code null} if the folder is not found
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-folder-by-path}
+     * 
+     * @param resourcePath
+     *            the resource to retrieve from Box
+     * @return an instance of {@link org.mule.modules.box.model.Folder} with
+     *         that about the found Folder. {@code null} if the folder is not
+     *         found
      */
     @Processor
     @OAuthProtected
-    @OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Folder getFolderByPath(String resourcePath) {
         String parentId = "0";
         String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
 
-        for (int i=0;i<itemNames.length;i++) {
+        for (int i = 0; i < itemNames.length; i++) {
             if (StringUtils.isBlank(itemNames[i])) {
-               continue;
+                continue;
             }
 
             Item boxItem = this.getFolderItem(parentId, itemNames[i]);
@@ -555,1191 +600,1285 @@ public class BoxConnector {
 
         return this.getFolder(parentId);
     }
-    
+
     /**
      * Deletes a folder
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-folder}
      * 
-     * @param folderId the id of the folder to be deleted
-     * @param recursive Whether to delete this folder if it has items inside of it
+     * @param folderId
+     *            the id of the folder to be deleted
+     * @param recursive
+     *            Whether to delete this folder if it has items inside of it
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteFolder(String folderId, @Optional @Default("true") Boolean recursive) {
-    	this.jerseyUtil.delete(
-    			this.apiResource
-    				.path("folders")
-    				.path(folderId)
-    				.queryParam("recursive", recursive.toString())
-    			, String.class, 200, 204);
-    			
-    	
+        this.jerseyUtil.delete(
+                this.apiResource.path("folders").path(folderId).queryParam("recursive", recursive.toString()),
+                String.class, 200, 204);
+
     }
-    
+
     /**
      * Creates a new file with the contents of a {@link java.io.InputStream}.
-     * You need to take in count that since this is a stream, using the option of including a verification hash
-     * will cause the contents of the input stream to be fully read and loaded in memory. 
+     * You need to take in count that since this is a stream, using the option
+     * of including a verification hash will cause the contents of the input
+     * stream to be fully read and loaded in memory.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-stream}
      * 
-     * @param folderId the id of the target folder.
-     * @param filename the name you want the file to have at box.
-     * @param content a {@link java.io.InputStream} with the contents of the file. This stream will leave this processor in a closed state
-     * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
-     * 			to verify that the content's hasn't been corrupted.
-     * @param contentCreatedAt The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
-     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
-     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
+     * @param folderId
+     *            the id of the target folder.
+     * @param filename
+     *            the name you want the file to have at box.
+     * @param content
+     *            a {@link java.io.InputStream} with the contents of the file.
+     *            This stream will leave this processor in a closed state
+     * @param includeHash
+     *            if true a sha1 hash of the file will be calculated prior to
+     *            upload. Box will use that hash to verify that the content's
+     *            hasn't been corrupted.
+     * @param contentCreatedAt
+     *            The time this file was created on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
+     * @param contentModifiedAt
+     *            The time this file was modified on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
+     * @return an instance of {@link org.mule.modules.box.model.File} with the
+     *         information of the created file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public File uploadStream(
-    		@Optional @Default("0") String folderId,
-    		String filename,
-    		@Optional @Default("#[payload]") InputStream content,
-    		@Optional @Default("false") boolean includeHash,
-    		@Optional String contentCreatedAt,
-    		@Optional String contentModifiedAt) {
-    	
-    	WebResource.Builder resource = this.uploadResource.path("content").type(MediaType.MULTIPART_FORM_DATA);
-    	
-    	if (includeHash) {
-			resource.header("Content-MD5", this.hash(content));
-    	}
-    	
-    	FormDataMultiPart form = new FormDataMultiPart();
-		form.field("parent_id", folderId);
-		
-		if (!StringUtils.isBlank(contentCreatedAt)) {
-			form.field("content_created_at", contentCreatedAt);
-		}
-		
-		if (!StringUtils.isBlank(contentModifiedAt)) {
-			form.field("content_modified_at", contentModifiedAt);
-		}
-		
-		form.bodyPart(new StreamDataBodyPart(filename, content));
-		
-    	resource.entity(form);
-    	
-    	UploadFileResponse response = this.jerseyUtil.post(resource, UploadFileResponse.class, 200, 201);
-    	return response.getEntries().get(0);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public File uploadStream(@Optional @Default("0") String folderId, String filename,
+            @Optional @Default("#[payload]") InputStream content, @Optional @Default("false") boolean includeHash,
+            @Optional String contentCreatedAt, @Optional String contentModifiedAt) {
+
+        WebResource.Builder resource = this.uploadResource.path("content").type(MediaType.MULTIPART_FORM_DATA);
+
+        if (includeHash) {
+            resource.header("Content-MD5", this.hash(content));
+        }
+
+        FormDataMultiPart form = new FormDataMultiPart();
+        form.field("parent_id", folderId);
+
+        if (!StringUtils.isBlank(contentCreatedAt)) {
+            form.field("content_created_at", contentCreatedAt);
+        }
+
+        if (!StringUtils.isBlank(contentModifiedAt)) {
+            form.field("content_modified_at", contentModifiedAt);
+        }
+
+        form.bodyPart(new StreamDataBodyPart(filename, content));
+
+        resource.entity(form);
+
+        UploadFileResponse response = this.jerseyUtil.post(resource, UploadFileResponse.class, 200, 201);
+        return response.getEntries().get(0);
     }
-    
+
     /**
      * Uploads a new version of a file from an input stream
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-new-version-stream}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:upload-new-version-stream}
      * 
-     * @param content a {@link java.io.InputStream} with the contents of the file. This stream will leave this processor in a closed state
-     * @param fileId the id of the file to be updated
-     * @param etag if provided, it will be used to verify that no newer version of the file is available at box
-     * @param filename new name for the file
-     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
-     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the updated file
+     * @param content
+     *            a {@link java.io.InputStream} with the contents of the file.
+     *            This stream will leave this processor in a closed state
+     * @param fileId
+     *            the id of the file to be updated
+     * @param etag
+     *            if provided, it will be used to verify that no newer version
+     *            of the file is available at box
+     * @param filename
+     *            new name for the file
+     * @param contentModifiedAt
+     *            The time this file was modified on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
+     * @return an instance of {@link org.mule.modules.box.model.File} with the
+     *         information of the updated file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public File uploadNewVersionStream(
-    				@Optional @Default("#[payload]") InputStream content,
-    				String fileId,
-    				@Optional String etag,
-    				String filename,
-    				@Optional String contentModifiedAt) {
-    	
-    	WebResource.Builder resource = this.maybeAddIfMacth(this.uploadResource.path(fileId).path("content"), etag)
-    											.type(MediaType.MULTIPART_FORM_DATA);
-    	
-    	FormDataMultiPart form = new FormDataMultiPart();
-		
-		if (!StringUtils.isBlank(contentModifiedAt)) {
-			form.field("content_modified_at", contentModifiedAt);
-		}
-		
-		form.bodyPart(new StreamDataBodyPart(filename, content));
-		
-    	resource.entity(form);
-    	
-    	UploadFileResponse response = this.jerseyUtil.post(resource, UploadFileResponse.class, 200, 201);
-    	return response.getEntries().get(0);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public File uploadNewVersionStream(@Optional @Default("#[payload]") InputStream content, String fileId,
+            @Optional String etag, String filename, @Optional String contentModifiedAt) {
+
+        WebResource.Builder resource = this.maybeAddIfMacth(this.uploadResource.path(fileId).path("content"), etag)
+                .type(MediaType.MULTIPART_FORM_DATA);
+
+        FormDataMultiPart form = new FormDataMultiPart();
+
+        if (!StringUtils.isBlank(contentModifiedAt)) {
+            form.field("content_modified_at", contentModifiedAt);
+        }
+
+        form.bodyPart(new StreamDataBodyPart(filename, content));
+
+        resource.entity(form);
+
+        UploadFileResponse response = this.jerseyUtil.post(resource, UploadFileResponse.class, 200, 201);
+        return response.getEntries().get(0);
     }
-    
+
     /**
-     * Uploads a new version of a file by reading the contents from a path in local storage
+     * Uploads a new version of a file by reading the contents from a path in
+     * local storage
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-new-version-stream}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:upload-new-version-stream}
      * 
-     * @param path the path of the file in local storage
-     * @param fileId the id of the file to be updated 
-     * @param filename new name for the file
-     * @param etag if provided, it will be used to verify that no newer version of the file is available at box
-     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
-     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the updated file
+     * @param path
+     *            the path of the file in local storage
+     * @param fileId
+     *            the id of the file to be updated
+     * @param filename
+     *            new name for the file
+     * @param etag
+     *            if provided, it will be used to verify that no newer version
+     *            of the file is available at box
+     * @param contentModifiedAt
+     *            The time this file was modified on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
+     * @return an instance of {@link org.mule.modules.box.model.File} with the
+     *         information of the updated file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public File uploadNewVersionPath(
-    		String path, 
-    		String fileId,
-    		String filename,
-    		@Optional String etag,
-    		@Optional String contentModifiedAt) {
-    	
-    	return this.uploadNewVersionStream(this.readLocalFile(path), fileId, etag, filename, contentModifiedAt);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public File uploadNewVersionPath(String path, String fileId, String filename, @Optional String etag,
+            @Optional String contentModifiedAt) {
+
+        return this.uploadNewVersionStream(this.readLocalFile(path), fileId, etag, filename, contentModifiedAt);
     }
-    
+
     /**
      * Downloads a file
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:download}
      * 
-     * @param fileId the id of the file you want
-     * @param version The ID specific version of this file to download.
+     * @param fileId
+     *            the id of the file you want
+     * @param version
+     *            The ID specific version of this file to download.
      * @return an input stream with the contents of the file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public InputStream download(String fileId, @Optional String version) {
-    	WebResource resource = this.apiResource.path("files").path(fileId).path("content");
-    	
-    	if (version != null) {
-    		resource.queryParam("version", version);
-    	}
-    	
-    	return this.jerseyUtil.get(resource, InputStream.class, 200);
+        WebResource resource = this.apiResource.path("files").path(fileId).path("content");
+
+        if (version != null) {
+            resource.queryParam("version", version);
+        }
+
+        return this.jerseyUtil.get(resource, InputStream.class, 200);
     }
-    
+
     /**
      * Used to retrieve the metadata about a file.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-file-metadata}
      * 
-     * @param fileId the id of the file you want to inspect
+     * @param fileId
+     *            the id of the file you want to inspect
      * @return an instance of {@link org.mule.modules.box.model.File}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File getFileMetadata(String fileId) {
-    	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId), File.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("files").path(fileId), File.class, 200);
     }
-    
+
     /**
-     * If there are previous versions of this file, this method can be used to retrieve metadata about the older versions.
-     * Alert: Versions are only tracked for Box users with premium accounts.
+     * If there are previous versions of this file, this method can be used to
+     * retrieve metadata about the older versions. Alert: Versions are only
+     * tracked for Box users with premium accounts.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-file-metadata}
      * 
-     * @param fileId the id of the file which versions you want to pull
-     * @return an instance of {@link org.mule.modules.box.model.response.FileVersionResponse} with the metadata about the versions
+     * @param fileId
+     *            the id of the file which versions you want to pull
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.FileVersionResponse}
+     *         with the metadata about the versions
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public FileVersionResponse getVersionsMetadata(String fileId) {
-    	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("versions"), FileVersionResponse.class, 200, 201);
+        return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("versions"),
+                FileVersionResponse.class, 200, 201);
     }
-    
+
     /**
      * Receives the path of a file in local storage and uploads its content
-     *
+     * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:upload-path}
      * 
-     * @param path the path of the file in local storage
-     * @param folderId the id of the target folder.
-     * @param filename the name you want the file to have at box. If not provided, the name on current storage will be used
-     * @param includeHash if true a sha1 hash of the file will be calculated prior to upload. Box will use that hash
-     * 			to verify that the content's hasn't been corrupted. 
-     * @param contentCreatedAt The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
-     * @param contentModifiedAt The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00
+     * @param path
+     *            the path of the file in local storage
+     * @param folderId
+     *            the id of the target folder.
+     * @param filename
+     *            the name you want the file to have at box. If not provided,
+     *            the name on current storage will be used
+     * @param includeHash
+     *            if true a sha1 hash of the file will be calculated prior to
+     *            upload. Box will use that hash to verify that the content's
+     *            hasn't been corrupted.
+     * @param contentCreatedAt
+     *            The time this file was created on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
+     * @param contentModifiedAt
+     *            The time this file was modified on the user’s machine. An
+     *            example of a valid date is 2012-12-12T10:55:30-08:00
      * 
-     * @return an instance of {@link org.mule.modules.box.model.File} with the information of the created file
+     * @return an instance of {@link org.mule.modules.box.model.File} with the
+     *         information of the created file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public File uploadPath(
-    		String path, 
-    		@Optional @Default("0") String folderId,
-    		String filename,
-    		@Optional @Default("false") boolean includeHash,
-    		@Optional String contentCreatedAt,
-    		@Optional String contentModifiedAt) {
-    	
-		return this.uploadStream(folderId,
-								filename,
-								this.readLocalFile(path),
-								includeHash,
-								contentCreatedAt,
-								contentModifiedAt);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public File uploadPath(String path, @Optional @Default("0") String folderId, String filename,
+            @Optional @Default("false") boolean includeHash, @Optional String contentCreatedAt,
+            @Optional String contentModifiedAt) {
+
+        return this.uploadStream(folderId, filename, this.readLocalFile(path), includeHash, contentCreatedAt,
+                contentModifiedAt);
     }
-    
+
     /**
-     * Discards a file to the trash. The etag of the file can be included as an ‘If-Match’ header to prevent race conditions.
-     * Depending on the enterprise settings for this user, the item will either be actually deleted from Box or moved to the trash.
+     * Discards a file to the trash. The etag of the file can be included as an
+     * ‘If-Match’ header to prevent race conditions. Depending on the enterprise
+     * settings for this user, the item will either be actually deleted from Box
+     * or moved to the trash.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-file}
      * 
-     * @param fileId the id of the file to be deleted
-     * @param etag if provided, it will be used to verify that no newer version of the file is available at box
+     * @param fileId
+     *            the id of the file to be deleted
+     * @param etag
+     *            if provided, it will be used to verify that no newer version
+     *            of the file is available at box
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteFile(String fileId, @Optional String etag) {
-    	WebResource resource = this.apiResource.path("files").path(fileId);
-    	this.jerseyUtil.delete(this.maybeAddIfMacth(resource, etag), String.class, 200, 204);
+        WebResource resource = this.apiResource.path("files").path(fileId);
+        this.jerseyUtil.delete(this.maybeAddIfMacth(resource, etag), String.class, 200, 204);
     }
-    
+
     /**
-     * Update a file’s information. Used to update individual or multiple fields in the file object, including renaming the file,
-     * changing it’s description, and creating a shared link for the file.
-     * To move a file, change the ID of its parent folder.
-     * An optional etag can be provided to ensure that client only updates the file if it knows about the latest version
+     * Update a file’s information. Used to update individual or multiple fields
+     * in the file object, including renaming the file, changing it’s
+     * description, and creating a shared link for the file. To move a file,
+     * change the ID of its parent folder. An optional etag can be provided to
+     * ensure that client only updates the file if it knows about the latest
+     * version
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:update-file}
      * 
-     * @param fileId the id of the file which metadata you want to update
-     * @param request an instance of {@link org.mule.modules.box.model.request.UpdateItemRequest} carrying the update parameters
-     * @param etag if provided, it will be used to verify that no newer version of the file is available at box 
-     * @return an instance of {@link org.mule.modules.box.model.File} with the updated state of the file
+     * @param fileId
+     *            the id of the file which metadata you want to update
+     * @param request
+     *            an instance of
+     *            {@link org.mule.modules.box.model.request.UpdateItemRequest}
+     *            carrying the update parameters
+     * @param etag
+     *            if provided, it will be used to verify that no newer version
+     *            of the file is available at box
+     * @return an instance of {@link org.mule.modules.box.model.File} with the
+     *         updated state of the file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public File updateFile(String fileId, @Optional @Default("#[payload]") UpdateItemRequest request, @Optional String etag) {
-    	WebResource resource = this.apiResource.path("files").path(fileId);
-    	return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), File.class, 200, 201);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public File updateFile(String fileId, @Optional @Default("#[payload]") UpdateItemRequest request,
+            @Optional String etag) {
+        WebResource resource = this.apiResource.path("files").path(fileId);
+        return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), File.class, 200, 201);
     }
-    
+
     /**
-     * Used to create a copy of a file in another folder. The original version of the file will not be altered.
+     * Used to create a copy of a file in another folder. The original version
+     * of the file will not be altered.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:copy-file}
      * 
-     * @param fileId the id of the file you want to copy
-     * @param targetFolderId the if of the target folder. Defaults to the root folder
-     * @return and instance of {@link org.mule.modules.box.model.File} representing the copy of the file
+     * @param fileId
+     *            the id of the file you want to copy
+     * @param targetFolderId
+     *            the if of the target folder. Defaults to the root folder
+     * @return and instance of {@link org.mule.modules.box.model.File}
+     *         representing the copy of the file
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File copyFile(@Optional @Default("0") String targetFolderId, String fileId) {
-    	Item parent = new Item();
-    	parent.setId(targetFolderId);
-    	CopyItemRequest request = new CopyItemRequest();
-    	request.setParent(parent);
-    	
-    	return this.jerseyUtil.post(this.apiResource.path("files")
-    								.path(fileId)
-    								.path("copy")
-	    							.entity(request),
-	    						File.class,
-	    						200, 201);
+        Item parent = new Item();
+        parent.setId(targetFolderId);
+        CopyItemRequest request = new CopyItemRequest();
+        request.setParent(parent);
+
+        return this.jerseyUtil.post(this.apiResource.path("files").path(fileId).path("copy").entity(request),
+                File.class, 200, 201);
     }
-    
+
     /**
      * Used to create a shared link for this particular file.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:share-file}
      * 
-     * @param fileId the id of the file you want to share
-     * @param sharedLink an instance of {@link org.mule.modules.box.model.SharedLink} with the information about the share
-     * @return an instance of {@link org.mule.modules.box.model.File} representing the shared folder
+     * @param fileId
+     *            the id of the file you want to share
+     * @param sharedLink
+     *            an instance of {@link org.mule.modules.box.model.SharedLink}
+     *            with the information about the share
+     * @return an instance of {@link org.mule.modules.box.model.File}
+     *         representing the shared folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File shareFile(String fileId, @Optional @Default("#[payload]") SharedLink sharedLink) {
-    	CreateSharedLinkRequest request = new CreateSharedLinkRequest();
-    	request.setSharedLink(sharedLink);
-    	
-    	return this.jerseyUtil.put(this.apiResource.path("files")
-    								.path(fileId)
-	    							.entity(request),
-	    						File.class,
-	    						200, 201);
+        CreateSharedLinkRequest request = new CreateSharedLinkRequest();
+        request.setSharedLink(sharedLink);
+
+        return this.jerseyUtil.put(this.apiResource.path("files").path(fileId).entity(request), File.class, 200, 201);
     }
-    
+
     /**
      * Deletes the shared link associated to a file
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:unshare-file}
      * 
-     * @param fileId the id of the file you want to unshare
-     * @return an instance of {@link org.mule.modules.box.model.File} representing the unshared folder
+     * @param fileId
+     *            the id of the file you want to unshare
+     * @return an instance of {@link org.mule.modules.box.model.File}
+     *         representing the unshared folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File unshareFile(String fileId) {
-    	return this.shareFile(fileId, null);
+        return this.shareFile(fileId, null);
     }
-    
+
     /**
      * Retrieves the comments on a particular file, if any exist.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-file-comments}
      * 
-     * @param fileId the id of the while which comments you want
-     * @return an instance of {@link org.mule.modules.box.model.response.GetCommentsResponse}
+     * @param fileId
+     *            the id of the while which comments you want
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetCommentsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetCommentsResponse getFileComments(String fileId) {
-    	return this.jerseyUtil.get(this.apiResource.path("files").path("comments"), GetCommentsResponse.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("files").path("comments"), GetCommentsResponse.class, 200);
     }
-    
+
     /**
      * Retrieves a thumbnail, or smaller image representation, of this file.
-     * Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned.
-     * Currently thumbnails are only available in .png format and will only be generated for image file formats.
+     * Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned. Currently
+     * thumbnails are only available in .png format and will only be generated
+     * for image file formats.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-file-thumbnail}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-file-thumbnail}
      * 
-     * @param fileId the id of the file which thumb you want
-     * @param minSize the minimum size you're interested in
-     * @param maxSize the maximum size you're interested in
-     * @return an InputStream with the content of the thumb. Remember to close it!
+     * @param fileId
+     *            the id of the file which thumb you want
+     * @param minSize
+     *            the minimum size you're interested in
+     * @param maxSize
+     *            the maximum size you're interested in
+     * @return an InputStream with the content of the thumb. Remember to close
+     *         it!
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public InputStream getFileThumbnail(String fileId, @Optional ThumbnailSize minSize, @Optional ThumbnailSize maxSize) {
-    	WebResource resource = this.apiResource.path("files").path(fileId).path("thumbnail.extension");
-    	
-    	if (minSize != null) {
-    		resource = minSize.setAsMin(resource);
-    	}
-    	
-    	if (maxSize != null) {
-    		resource = maxSize.setAsMax(resource);
-    	}
-    	
-    	return this.jerseyUtil.get(resource, InputStream.class, 200, 202);
+        WebResource resource = this.apiResource.path("files").path(fileId).path("thumbnail.extension");
+
+        if (minSize != null) {
+            resource = minSize.setAsMin(resource);
+        }
+
+        if (maxSize != null) {
+            resource = maxSize.setAsMax(resource);
+        }
+
+        return this.jerseyUtil.get(resource, InputStream.class, 200, 202);
     }
-    
+
     /**
      * Retrieves the metadata of a trashed file
-
+     * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-trashed-file}
      * 
-     * @param fileId the id of the trashed file you want
+     * @param fileId
+     *            the id of the trashed file you want
      * @return an instance of {@link org.mule.modules.box.model.File}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File getTrashedFile(String fileId) {
-    	return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("trash"), File.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("trash"), File.class, 200);
     }
-    
+
     /**
-     * Restores a file that has been moved to the trash. Default behavior is to restore the item to the folder it was in before it was moved to the trash.
-     * If that parent folder no longer exists or if there is now an item with the same name in that parent folder,
-     * the new parent folder and/or new name will need to be included in the request.
+     * Restores a file that has been moved to the trash. Default behavior is to
+     * restore the item to the folder it was in before it was moved to the
+     * trash. If that parent folder no longer exists or if there is now an item
+     * with the same name in that parent folder, the new parent folder and/or
+     * new name will need to be included in the request.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:restore-trashed-file}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:restore-trashed-file}
      * 
-     * @param fileId the id of the trashed file being restored
-     * @param request an instance of {@link org.mule.modules.box.model.request.RestoreTrashedItemRequest} with the request parameters
-     * @return an instance of {@link org.mule.modules.box.model.Folder} with the restored folder new state
+     * @param fileId
+     *            the id of the trashed file being restored
+     * @param request
+     *            an instance of
+     *            {@link org.mule.modules.box.model.request.RestoreTrashedItemRequest}
+     *            with the request parameters
+     * @return an instance of {@link org.mule.modules.box.model.Folder} with the
+     *         restored folder new state
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public File restoreTrashedFile(String fileId, @Optional @Default("#[payload]") RestoreTrashedItemRequest request) {
-    	return this.jerseyUtil.post(this.apiResource
-	    								.path("files")
-	    								.path(fileId)
-	    								.entity(request)
-    								, File.class
-    								, 201);
+        return this.jerseyUtil.post(this.apiResource.path("files").path(fileId).entity(request), File.class, 201);
     }
-    
+
     /**
-     * Permanently deletes an item that is in the trash. The item will no longer exist in Box. This action cannot be undone.
+     * Permanently deletes an item that is in the trash. The item will no longer
+     * exist in Box. This action cannot be undone.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:perm-delete-file}
      * 
-     * @param fileId the id of the file to be permanently deleted
+     * @param fileId
+     *            the id of the file to be permanently deleted
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void permDeleteFile(String fileId) {
-    	this.jerseyUtil.delete(this.apiResource.path("files").path(fileId).path("trash"), String.class, 204);
+        this.jerseyUtil.delete(this.apiResource.path("files").path(fileId).path("trash"), String.class, 204);
     }
-    
+
     /**
-     * Used to retrieve the message and metadata about a specific comment. Information about the user who created the comment is also included.
+     * Used to retrieve the message and metadata about a specific comment.
+     * Information about the user who created the comment is also included.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-comment}
      * 
-     * @param commentId the id of the comment you want
-     * @return an instance of {@link org.mule.modules.box.model.Comment} representing the message
+     * @param commentId
+     *            the id of the comment you want
+     * @return an instance of {@link org.mule.modules.box.model.Comment}
+     *         representing the message
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Comment getComment(String commentId) {
-    	return this.jerseyUtil.get(this.apiResource.path("comments").path(commentId), Comment.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("comments").path(commentId), Comment.class, 200);
     }
-    
+
     /**
      * Used to add a comment by the user to a specific file
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:comment-file}
      * 
-     * @param fileId the id of the file to be commented on
-     * @param message text of the comment to be posted
-     * @return an instance of {@link org.mule.modules.box.model.Comment} representing the created message
+     * @param fileId
+     *            the id of the file to be commented on
+     * @param message
+     *            text of the comment to be posted
+     * @return an instance of {@link org.mule.modules.box.model.Comment}
+     *         representing the created message
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Comment commentFile(String fileId, String message) {
-    	Map<String, String> entity = new HashMap<String, String>();
-    	entity.put("message", message);
-    	
-    	return this.jerseyUtil.post(this.apiResource
-    										.path("files")
-    										.path(fileId)
-    										.path("comments")
-    										.entity(entity)
-    									, Comment.class, 200, 201);
+        Map<String, String> entity = new HashMap<String, String>();
+        entity.put("message", message);
+
+        return this.jerseyUtil.post(this.apiResource.path("files").path(fileId).path("comments").entity(entity),
+                Comment.class, 200, 201);
     }
-    
+
     /**
      * Used to update the message of the comment.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:update-comment}
      * 
-     * @param commentId the id of the comment to be updated
-     * @param newMessage the new message
-     * @return an instance of {@link org.mule.modules.box.model.Comment} representing the updated message
+     * @param commentId
+     *            the id of the comment to be updated
+     * @param newMessage
+     *            the new message
+     * @return an instance of {@link org.mule.modules.box.model.Comment}
+     *         representing the updated message
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Comment updateComment(String commentId, String newMessage) {
-    	Map<String, String> entity = new HashMap<String, String>();
-    	entity.put("message", newMessage);
-    	
-    	return this.jerseyUtil.put(this.apiResource
-    									.path("comments")
-    									.path(commentId)
-    									.entity(entity)
-    								, Comment.class, 200, 201);
+        Map<String, String> entity = new HashMap<String, String>();
+        entity.put("message", newMessage);
+
+        return this.jerseyUtil.put(this.apiResource.path("comments").path(commentId).entity(entity), Comment.class,
+                200, 201);
     }
-    
+
     /**
      * Delets a comment.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-comment}
      * 
-     * @param commentId the id of the comment to be deleted
+     * @param commentId
+     *            the id of the comment to be deleted
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteComment(String commentId) {
-    	this.jerseyUtil.delete(this.apiResource.path("comments").path(commentId), Comment.class, 200, 204);
+        this.jerseyUtil.delete(this.apiResource.path("comments").path(commentId), Comment.class, 200, 204);
     }
-    
+
     /**
      * Used to create the metadata for a new discussion for a particular folder.
      * The parent, id and name attributes of the request object are required
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:create-discussion}
      * 
-     * @param discussion the discussion object to be created
-     * @return an instance of {@link org.mule.modules.box.model.Discussion} with the metadata of the created discussion
+     * @param discussion
+     *            the discussion object to be created
+     * @return an instance of {@link org.mule.modules.box.model.Discussion} with
+     *         the metadata of the created discussion
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Discussion createDiscussion(@Optional @Default("#[payload]") Discussion discussion) {
-    	return this.jerseyUtil.post(this.apiResource
-    									.path("discussions")
-    									.entity(discussion)
-    								, Discussion.class, 200, 201);
+        return this.jerseyUtil
+                .post(this.apiResource.path("discussions").entity(discussion), Discussion.class, 200, 201);
     }
-    
+
     /**
      * Used to add a comment to a discussion.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:comment-discussion}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:comment-discussion}
      * 
-     * @param discussionId the id of the discussion to comment on
-     * @param message the text of the comment to be posted
-     * @return an instance of {@link org.mule.modules.box.model.Comment} representing the created message
+     * @param discussionId
+     *            the id of the discussion to comment on
+     * @param message
+     *            the text of the comment to be posted
+     * @return an instance of {@link org.mule.modules.box.model.Comment}
+     *         representing the created message
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Comment commentDiscussion(String discussionId, String message) {
-    	Map<String, String> entity = new HashMap<String, String>();
-    	entity.put("message", message);
-    	
-    	return this.jerseyUtil.post(this.apiResource
-    					.path("discussions")
-    					.path(discussionId)
-    					.path("comments")
-    					.entity(entity),
-    				Comment.class, 200, 201);
+        Map<String, String> entity = new HashMap<String, String>();
+        entity.put("message", message);
+
+        return this.jerseyUtil.post(
+                this.apiResource.path("discussions").path(discussionId).path("comments").entity(entity), Comment.class,
+                200, 201);
     }
-    
+
     /**
-     * Used to retrieve the metadata about a specific discussion.
-     * Information about the user who created the discussion is also included.
+     * Used to retrieve the metadata about a specific discussion. Information
+     * about the user who created the discussion is also included.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-discussion}
      * 
-     * @param discussionId the id of the discussion you wnat
-     * @return an instance of {@link org.mule.modules.box.model.Discussion} with the discussion metadata
+     * @param discussionId
+     *            the id of the discussion you wnat
+     * @return an instance of {@link org.mule.modules.box.model.Discussion} with
+     *         the discussion metadata
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Discussion getDiscussion(String discussionId) {
-    	return this.jerseyUtil.get(this.apiResource.path("discussions").path(discussionId), Discussion.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("discussions").path(discussionId), Discussion.class, 200);
     }
-    
+
     /**
      * Used to update the metadata for an existing discussion.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:update-discussion}
      * 
-     * @param discussion discussion object carrying the new state
-     * @param discussionId the id of the discussion to be updated
-     * @return a new instance of {@link org.mule.modules.box.model.Discussion} carrying the updated state
+     * @param discussion
+     *            discussion object carrying the new state
+     * @param discussionId
+     *            the id of the discussion to be updated
+     * @return a new instance of {@link org.mule.modules.box.model.Discussion}
+     *         carrying the updated state
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Discussion updateDiscussion(@Optional @Default("#[payload]") Discussion discussion, String discussionId) {
-    	return this.jerseyUtil.put(this.apiResource.path("discussions")
-    							.path(discussionId)
-    							.entity(discussion)
-    						, Discussion.class, 200, 201);
+        return this.jerseyUtil.put(this.apiResource.path("discussions").path(discussionId).entity(discussion),
+                Discussion.class, 200, 201);
     }
-    
+
     /**
      * Used to retrieve all comments for a given discussion.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-discussion-comments}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-discussion-comments}
      * 
-     * @param discussionId the id of the discussions which comments you want
-     * @return an instance of {@link org.mule.modules.box.model.response.GetCommentsResponse}
+     * @param discussionId
+     *            the id of the discussions which comments you want
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetCommentsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetCommentsResponse getDiscussionComments(String discussionId) {
-    	return this.jerseyUtil.get(this.apiResource
-    										.path("discussions")
-    										.path(discussionId)
-    										.path("comments")
-    							, GetCommentsResponse.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("discussions").path(discussionId).path("comments"),
+                GetCommentsResponse.class, 200);
     }
-    
+
     /**
-     * Used to add a collaboration for a single user to a folder.
-     * Either an email address or a user ID can be used to create the collaboration.
+     * Used to add a collaboration for a single user to a folder. Either an
+     * email address or a user ID can be used to create the collaboration.
      * 
-     * Transferring ownership: To transfer ownership of a folder (as the current owner of the folder),
-     * first create a collaboration for the new user with any role.
-     * Then update that collaboration with a role of ‘owner’.
+     * Transferring ownership: To transfer ownership of a folder (as the current
+     * owner of the folder), first create a collaboration for the new user with
+     * any role. Then update that collaboration with a role of ‘owner’.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:create-collaboration}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:create-collaboration}
      * 
-     * @param collaboration object representing the collaboration to be created
-     * @return a new instance of {@link org.mule.modules.box.model.Collaboration} with the state of the newly created collab
+     * @param collaboration
+     *            object representing the collaboration to be created
+     * @return a new instance of
+     *         {@link org.mule.modules.box.model.Collaboration} with the state
+     *         of the newly created collab
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Collaboration createCollaboration(@Optional @Default("#[payload]") Collaboration collaboration) {
-    	return this.jerseyUtil.post(this.apiResource
-    							.path("collaborations")
-    							.entity(collaboration),
-    						Collaboration.class, 200, 201);
+        return this.jerseyUtil.post(this.apiResource.path("collaborations").entity(collaboration), Collaboration.class,
+                200, 201);
     }
-    
+
     /**
-     * Used to update  an existing collaboration. 
+     * Used to update an existing collaboration.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:update-collaboration}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:update-collaboration}
      * 
-     * @param collaboration object holding the new state for the collaboration
-     * @param collaborationId the id of the collaboration to be updated
-     * @return a new instance of {@link org.mule.modules.box.model.Collaboration} with the state of the collab
+     * @param collaboration
+     *            object holding the new state for the collaboration
+     * @param collaborationId
+     *            the id of the collaboration to be updated
+     * @return a new instance of
+     *         {@link org.mule.modules.box.model.Collaboration} with the state
+     *         of the collab
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public Collaboration updateCollaboration(@Optional @Default("#[payload]") Collaboration collaboration, String collaborationId) {
-    	return this.jerseyUtil.put(this.apiResource
-								.path("collaborations")
-								.path(collaborationId)
-								.entity(collaboration),
-							Collaboration.class, 200, 201);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public Collaboration updateCollaboration(@Optional @Default("#[payload]") Collaboration collaboration,
+            String collaborationId) {
+        return this.jerseyUtil.put(this.apiResource.path("collaborations").path(collaborationId).entity(collaboration),
+                Collaboration.class, 200, 201);
     }
-    
+
     /**
      * Used to delete a single collaboration.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-collaboration}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:delete-collaboration}
      * 
-     * @param collaborationId the id of the collaboration to be deleted
+     * @param collaborationId
+     *            the id of the collaboration to be deleted
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteCollaboration(String collaborationId) {
-    	this.jerseyUtil.delete(this.apiResource
-    									.path("collaborations")
-    									.path(collaborationId)
-    						, String.class, 200, 204);
+        this.jerseyUtil.delete(this.apiResource.path("collaborations").path(collaborationId), String.class, 200, 204);
     }
-    
+
     /**
      * Used to get information about a single collaboration.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-collaboration}
      * 
-     * @param collaborationId the id of the collaboration you want
+     * @param collaborationId
+     *            the id of the collaboration you want
      * @return an instance of {@link org.mule.modules.box.model.Collaboration}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Collaboration getCollaboration(String collaborationId) {
-    	return this.jerseyUtil.get(this.apiResource
-    									.path("collaborations")
-    									.path(collaborationId)
-    								, Collaboration.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("collaborations").path(collaborationId), Collaboration.class,
+                200);
     }
-    
+
     /**
      * Used to retrieve all pending collaboration invites for this user.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-collaboration}
      * 
-     * @return an instance of {@link org.mule.modules.box.model.response.GetCollaborationsResponse}
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetCollaborationsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetCollaborationsResponse getPendingCollaborations() {
-    	return this.jerseyUtil.get(this.apiResource
-    									.path("collaborations")
-    									.queryParam("status", "pending")
-    							, GetCollaborationsResponse.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("collaborations").queryParam("status", "pending"),
+                GetCollaborationsResponse.class, 200);
     }
-    
+
     /**
-     * Retrieves information about the user who is currently logged in
-     * i.e. the user for whom this auth token was generated.
+     * Retrieves information about the user who is currently logged in i.e. the
+     * user for whom this auth token was generated.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-user}
      * 
      * @return an instance of {@link org.mule.modules.box.model.User}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public User getUser() {
-    	return this.jerseyUtil.get(this.apiResource.path("users/me"), User.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("users/me"), User.class, 200);
     }
-    
+
     /**
      * Returns a list of all users for the Enterprise
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-users}
      * 
-     * @param filterTerm A string used to filter the results to only users starting with the filter_term in either the name or the login
-     * @param limit The number of records to return.
-     * @param offset The record at which to start
-     * @return an instance of {@link org.mule.modules.box.model.response.GetUsersResponse}
+     * @param filterTerm
+     *            A string used to filter the results to only users starting
+     *            with the filter_term in either the name or the login
+     * @param limit
+     *            The number of records to return.
+     * @param offset
+     *            The record at which to start
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetUsersResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetUsersResponse getUsers(@Optional String filterTerm, @Optional Long limit, @Optional Long offset) {
-    	WebResource resource = this.apiResource.path("users");
-    	
-    	if (filterTerm != null) {
-    		resource = resource.queryParam("filter_term", filterTerm);
-    	}
-    	
-    	if (limit != null) {
-    		resource = resource.queryParam("limit", limit.toString());
-    	}
-    	
-    	if (offset != null) {
-    		resource = resource.queryParam("offset", offset.toString());
-    	}
-    	
-    	return this.jerseyUtil.get(this.apiResource.path("users"), GetUsersResponse.class, 200);
+        WebResource resource = this.apiResource.path("users");
+
+        if (filterTerm != null) {
+            resource = resource.queryParam("filter_term", filterTerm);
+        }
+
+        if (limit != null) {
+            resource = resource.queryParam("limit", limit.toString());
+        }
+
+        if (offset != null) {
+            resource = resource.queryParam("offset", offset.toString());
+        }
+
+        return this.jerseyUtil.get(this.apiResource.path("users"), GetUsersResponse.class, 200);
     }
-    
+
     /**
-     * Used to edit the settings and information about a user.
-     * This method only works for enterprise admins.
-     * To roll a user out of the enterprise (and convert them to a standalone free user),
-     * update the special enterprise attribute to be null
+     * Used to edit the settings and information about a user. This method only
+     * works for enterprise admins. To roll a user out of the enterprise (and
+     * convert them to a standalone free user), update the special enterprise
+     * attribute to be null
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:update-user}
      * 
-     * @param userId the id of the user you want to update
-     * @param user the user object with the updated state
-     * @param notify Whether the user should receive an email when they are rolled out of an enterprise
-     * @return an instance of {@link org.mule.modules.box.model.User} with the updated user state
+     * @param userId
+     *            the id of the user you want to update
+     * @param user
+     *            the user object with the updated state
+     * @param notify
+     *            Whether the user should receive an email when they are rolled
+     *            out of an enterprise
+     * @return an instance of {@link org.mule.modules.box.model.User} with the
+     *         updated user state
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public User updateUser(
-    			String userId,
-    			@Optional @Default("#[payload]") User user,
-    			@Optional @Default("true") Boolean notify) {
-    	
-    	return this.jerseyUtil.put(this.apiResource
-    									.path("users")
-    									.path(userId)
-    									.queryParam("notify", notify.toString())
-    									.entity(user)
-    									, User.class, 200);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public User updateUser(String userId, @Optional @Default("#[payload]") User user,
+            @Optional @Default("true") Boolean notify) {
+
+        return this.jerseyUtil.put(this.apiResource.path("users").path(userId).queryParam("notify", notify.toString())
+                .entity(user), User.class, 200);
     }
-    
+
     /**
-     * Used to provision a new user in an enterprise. This method only works for enterprise admins.
+     * Used to provision a new user in an enterprise. This method only works for
+     * enterprise admins.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:create-user}
      * 
-     * @param user an instance of {@link org.mule.modules.box.model.User} representing the user to be created
-     * @return a new instance of {@link org.mule.modules.box.model.User} with the final state of the created object
+     * @param user
+     *            an instance of {@link org.mule.modules.box.model.User}
+     *            representing the user to be created
+     * @return a new instance of {@link org.mule.modules.box.model.User} with
+     *         the final state of the created object
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public User createUser(@Optional @Default("#[payload]") User user) {
-    	return this.jerseyUtil.post(this.apiResource.path("users").entity(user), User.class, 200, 201);
+        return this.jerseyUtil.post(this.apiResource.path("users").entity(user), User.class, 200, 201);
     }
-    
+
     /**
-     * Moves all of the content from within one user’s folder into a new folder in another user’s account.
-     * You can move folders across users as long as the you have administrative permissions.
-     * To move everything from the root folder, use 0 (zero) which always represents the root folder of a Box account
+     * Moves all of the content from within one user’s folder into a new folder
+     * in another user’s account. You can move folders across users as long as
+     * the you have administrative permissions. To move everything from the root
+     * folder, use 0 (zero) which always represents the root folder of a Box
+     * account
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:move-folder-to-user}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:move-folder-to-user}
      * 
-     * @param targetUser an instance of {@link org.mule.modules.box.model.User} representing the user that will receive the folder
-     * @param folderId the id of the folder to be moved
-     * @param notify Determines if the destination user should receive email notification of the transfer.
-     * @return an instance of {@link org.mule.modules.box.model.Folder} representing the moved folder 
+     * @param targetUser
+     *            an instance of {@link org.mule.modules.box.model.User}
+     *            representing the user that will receive the folder
+     * @param folderId
+     *            the id of the folder to be moved
+     * @param notify
+     *            Determines if the destination user should receive email
+     *            notification of the transfer.
+     * @return an instance of {@link org.mule.modules.box.model.Folder}
+     *         representing the moved folder
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public Folder moveFolderToUser(
-    			@Optional @Default("#[paylaod]") User targetUser,
-    			@Optional @Default("0") String folderId,
-    			@Optional @Default("true") Boolean notify) {
-    	
-    	Map<String, Object> entity = new HashMap<String, Object>();
-    	entity.put("owned_by", targetUser);
-    	entity.put("id", targetUser.getId());
-    	
-    	return this.jerseyUtil.put(this.apiResource
-    									.path("users")
-    									.path(targetUser.getId())
-    									.path("folders")
-    									.path(folderId)
-    									.queryParam("notify", notify.toString())
-    									.entity(entity)
-    								, Folder.class,
-    								200, 201);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public Folder moveFolderToUser(@Optional @Default("#[paylaod]") User targetUser,
+            @Optional @Default("0") String folderId, @Optional @Default("true") Boolean notify) {
+
+        Map<String, Object> entity = new HashMap<String, Object>();
+        entity.put("owned_by", targetUser);
+        entity.put("id", targetUser.getId());
+
+        return this.jerseyUtil.put(
+                this.apiResource.path("users").path(targetUser.getId()).path("folders").path(folderId)
+                        .queryParam("notify", notify.toString()).entity(entity), Folder.class, 200, 201);
     }
-    
+
     /**
      * Deletes a user in an enterprise account.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-user}
      * 
-     * @param userId the id of the user being delete
-     * @param notify Determines if the destination user should receive email notification of the transfer.
-     * @param force Whether or not the user should be deleted even if this user still own files.
+     * @param userId
+     *            the id of the user being delete
+     * @param notify
+     *            Determines if the destination user should receive email
+     *            notification of the transfer.
+     * @param force
+     *            Whether or not the user should be deleted even if this user
+     *            still own files.
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public void deleteUser(
-    			String userId,
-    			@Optional @Default("true") Boolean notify,
-    			@Optional @Default("false") Boolean force) {
-    	
-    	this.jerseyUtil.delete(
-    			this.apiResource
-    				.path("users")
-    				.path(userId)
-    				.queryParam("notify", notify.toString())
-    				.queryParam("force", force.toString())
-    			, String.class, 200, 204);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public void deleteUser(String userId, @Optional @Default("true") Boolean notify,
+            @Optional @Default("false") Boolean force) {
+
+        this.jerseyUtil.delete(this.apiResource.path("users").path(userId).queryParam("notify", notify.toString())
+                .queryParam("force", force.toString()), String.class, 200, 204);
     }
-    
+
     /**
      * Adds a new email alias to the given user’s account.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:create-email-alias}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:create-email-alias}
      * 
-     * @param userId the id of the user getting the alias
-     * @param email the new email alias
+     * @param userId
+     *            the id of the user getting the alias
+     * @param email
+     *            the new email alias
      * @return an instance of {@link org.mule.modules.box.model.EmailAlias}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public EmailAlias createEmailAlias(String userId, String email) {
-    	Map<String, String> entity = new HashMap<String, String>();
-    	entity.put("email", email);
-    	
-    	return this.jerseyUtil.post(this.apiResource
-    									.path("users")
-    									.path(userId)
-    									.path("email_aliases"),
-    								EmailAlias.class, 200, 201);
+        Map<String, String> entity = new HashMap<String, String>();
+        entity.put("email", email);
+
+        return this.jerseyUtil.post(this.apiResource.path("users").path(userId).path("email_aliases"),
+                EmailAlias.class, 200, 201);
     }
-    
+
     /**
      * Removes an email alias from a user.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:delete-email-alias}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:delete-email-alias}
      * 
-     * @param userId the id of the user owning the alias
-     * @param emailAliasId the id of the alias being deleted
+     * @param userId
+     *            the id of the user owning the alias
+     * @param emailAliasId
+     *            the id of the alias being deleted
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteEmailAlias(String userId, String emailAliasId) {
-    	this.jerseyUtil.delete(this.apiResource
-    				.path("users")
-    				.path(userId)
-    				.path("email_aliases")
-    				.path(emailAliasId),
-    			String.class, 200, 204);
+        this.jerseyUtil.delete(this.apiResource.path("users").path(userId).path("email_aliases").path(emailAliasId),
+                String.class, 200, 204);
     }
-    
+
     /**
-     * Used to convert one of the user’s confirmed email aliases into the user’s primary login.
+     * Used to convert one of the user’s confirmed email aliases into the user’s
+     * primary login.
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:change-primary-login}
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:change-primary-login}
      * 
-     * @param userId the id of the user being updated
-     * @param login the new login
-     * @return an instance of {@link org.mule.modules.box.model.User} with the modified state
+     * @param userId
+     *            the id of the user being updated
+     * @param login
+     *            the new login
+     * @return an instance of {@link org.mule.modules.box.model.User} with the
+     *         modified state
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public User changePrimaryLogin(String userId, String login) {
-    	Map<String, String> entity = new HashMap<String, String>();
-    	entity.put("login", login);
-    	
-    	return this.jerseyUtil.put(this.apiResource
-    								.path("users")
-    								.path(userId)
-    								.entity(entity)
-    							, User.class, 200, 204);
+        Map<String, String> entity = new HashMap<String, String>();
+        entity.put("login", login);
+
+        return this.jerseyUtil.put(this.apiResource.path("users").path(userId).entity(entity), User.class, 200, 204);
     }
-    
+
     /**
-     * Retrieves all email aliases for this user. The collection of email aliases does not include the primary
-     * login for the user
+     * Retrieves all email aliases for this user. The collection of email
+     * aliases does not include the primary login for the user
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-email-aliases}
      * 
-     * @param userId the id of the user whose aliases you want
-     * @return an instance of {@link org.mule.modules.box.model.response.GetEmailAliasResponse}
+     * @param userId
+     *            the id of the user whose aliases you want
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetEmailAliasResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetEmailAliasResponse getEmailAliases(String userId) {
-    	return this.jerseyUtil.get(this.apiResource
-    								.path("users")
-    								.path(userId)
-    								.path("email_aliases")
-    								, GetEmailAliasResponse.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("users").path(userId).path("email_aliases"),
+                GetEmailAliasResponse.class, 200);
     }
-    
+
     /**
      * 
-     * Use this to get events for a given user. A chunk of event objects is returned for the user based on the parameters passed in.
-     * Parameters indicating how many chunks are left as well as the next streamPosition are also returned.
+     * Use this to get events for a given user. A chunk of event objects is
+     * returned for the user based on the parameters passed in. Parameters
+     * indicating how many chunks are left as well as the next streamPosition
+     * are also returned.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-events}
      * 
-     * @param streamPosition The location in the event stream at which you want to start receiving events.
-     * 						Can specify special case ‘now’ to get 0 events and the latest stream position for initialization.
-     * @param streamType Limits the type of events returned
-     * @param limit Limits the number of events returned
-     * @return an instance of {@link org.mule.modules.box.model.response.GetEventsResponse}
+     * @param streamPosition
+     *            The location in the event stream at which you want to start
+     *            receiving events. Can specify special case ‘now’ to get 0
+     *            events and the latest stream position for initialization.
+     * @param streamType
+     *            Limits the type of events returned
+     * @param limit
+     *            Limits the number of events returned
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetEventsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public GetEventsResponse getEvents(String streamPosition, @Optional @Default("all") StreamType streamType, @Optional @Default("100") Long limit) {
-    	return this.jerseyUtil.get(this.apiResource
-    				.path("events")
-    				.queryParam("stream_position", streamPosition.toString())
-    				.queryParam("stream_type", streamType.name())
-    				.queryParam("limit", limit.toString())
-    				, GetEventsResponse.class, 200, 204);	
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public GetEventsResponse getEvents(String streamPosition, @Optional @Default("all") StreamType streamType,
+            @Optional @Default("100") Long limit) {
+        return this.jerseyUtil.get(
+                this.apiResource.path("events").queryParam("stream_position", streamPosition.toString())
+                        .queryParam("stream_type", streamType.name()).queryParam("limit", limit.toString()),
+                GetEventsResponse.class, 200, 204);
     }
-    
+
     /**
-     * Retrieves events for all users in an enterprise.
-     * Upper and lower bounds as well as filters can be applied to the results.
+     * Retrieves events for all users in an enterprise. Upper and lower bounds
+     * as well as filters can be applied to the results.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-events}
      * 
-     * @param createdAfter A lower bound on the timestamp of the events returned
-     * @param createdBefore An upper bound on the timestamp of the events returned
-     * @param eventTypes list of events to filter by
-     * @param limit Limits the number of events returned
-     * @param offset The item at which to start
-     * @return an instance of {@link org.mule.modules.box.model.response.GetEventsResponse}
+     * @param createdAfter
+     *            A lower bound on the timestamp of the events returned
+     * @param createdBefore
+     *            An upper bound on the timestamp of the events returned
+     * @param eventTypes
+     *            list of events to filter by
+     * @param limit
+     *            Limits the number of events returned
+     * @param offset
+     *            The item at which to start
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.GetEventsResponse}
      */
     @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public GetEventsResponse getEnterpriseEvents(
-    		@Optional String createdAfter,
-    		@Optional String createdBefore,
-    		@Optional List<String> eventTypes,
-    		@Optional @Default("100") Long limit,
-    		@Optional @Default("0") Long offset
-    		) {
-    	
-    	WebResource resource = this.apiResource.path("events")
-    							.queryParam("stream_type", "admin_logs")
-    							.queryParam("limit", limit.toString())
-    							.queryParam("offset", offset.toString());
-    	
-    	if (createdAfter != null) {
-    		resource = resource.queryParam("created_after", createdAfter);
-    	}
-    	
-    	if (createdBefore != null) {
-    		resource = resource.queryParam("created_before", createdBefore.toString());
-    	}
-    	
-    	if (!CollectionUtils.isEmpty(eventTypes)) {
-    		StringBuilder builder = new StringBuilder();
-    		boolean isFirst = true;
-    		for (String value : eventTypes) {
-    			
-    			if (isFirst) {
-    				isFirst = false;
-    			} else {
-    				builder.append(',');
-    			}
-    			
-    			builder.append(value);
-    		}
-    		
-    		resource = resource.queryParam("event_type", builder.toString());
-    	}
-    	
-    	return this.jerseyUtil.get(resource, GetEventsResponse.class, 200);
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public GetEventsResponse getEnterpriseEvents(@Optional String createdAfter, @Optional String createdBefore,
+            @Optional List<String> eventTypes, @Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
+
+        WebResource resource = this.apiResource.path("events").queryParam("stream_type", "admin_logs")
+                .queryParam("limit", limit.toString()).queryParam("offset", offset.toString());
+
+        if (createdAfter != null) {
+            resource = resource.queryParam("created_after", createdAfter);
+        }
+
+        if (createdBefore != null) {
+            resource = resource.queryParam("created_before", createdBefore.toString());
+        }
+
+        if (!CollectionUtils.isEmpty(eventTypes)) {
+            StringBuilder builder = new StringBuilder();
+            boolean isFirst = true;
+            for (String value : eventTypes) {
+
+                if (isFirst) {
+                    isFirst = false;
+                } else {
+                    builder.append(',');
+                }
+
+                builder.append(value);
+            }
+
+            resource = resource.queryParam("event_type", builder.toString());
+        }
+
+        return this.jerseyUtil.get(resource, GetEventsResponse.class, 200);
     }
-    
+
     /**
-     * Message source that subscribes to the events long polling server and will trigger a new message each time an event is generated.
+     * Message source that subscribes to the events long polling server and will
+     * trigger a new message each time an event is generated.
      * 
-     * Such message will have an instance of @{link org.mule.modules.box.model.PollingEvent} as payload and  
-     * an inbound property called 'boxAccessTokenId' that will carry the accessTokenId of the user that owns the event.
+     * Such message will have an instance of @{link
+     * org.mule.modules.box.model.PollingEvent} as payload and an inbound
+     * property called 'boxAccessTokenId' that will carry the accessTokenId of
+     * the user that owns the event.
      * 
-     * This source will not provide the events that are generated, it's just a notification that there're new events available.
-     * You'll need to use the get-events processor to actually get them. Managing the stream position while doing so is up to you.
+     * This source will not provide the events that are generated, it's just a
+     * notification that there're new events available. You'll need to use the
+     * get-events processor to actually get them. Managing the stream position
+     * while doing so is up to you.
      * 
      * {@sample.xml ../../../doc/box-connector.xml.sample box:listen-events}
      * 
-     * @param callback callback to be invoked when a message arribes
-     * @return an instance of  {@link org.mule.api.callback.StopSourceCallback} that unsubscribes the long polling server when the app is stopped. 
+     * @param callback
+     *            callback to be invoked when a message arribes
+     * @return an instance of {@link org.mule.api.callback.StopSourceCallback}
+     *         that unsubscribes the long polling server when the app is
+     *         stopped.
      */
-    @Source(primaryNodeOnly = true, exchangePattern=MessageExchangePattern.ONE_WAY)
+    @Source(primaryNodeOnly = true, exchangePattern = MessageExchangePattern.ONE_WAY)
     public synchronized StopSourceCallback listenEvents(final SourceCallback callback) {
-    	if (this.accessToken == null || this.accessTokenIdentifier == null) {
-        	pendingSubscriptions.add(callback);
+        if (this.accessToken == null || this.accessTokenIdentifier == null) {
+            pendingSubscriptions.add(callback);
         } else {
-        	this.subscribe(callback);
+            this.subscribe(callback);
         }
-        
+
         return new StopSourceCallback() {
-        	
-        	@Override
-        	public void stop() throws Exception {
-    			longPollingClient.unsubscribe();
-        	}
+
+            @Override
+            public void stop() throws Exception {
+                longPollingClient.unsubscribe();
+            }
         };
     }
 
     /**
-     * Requests access to a long polling server that
-     * notifies about events in real time.
+     * Requests access to a long polling server that notifies about events in
+     * real time.
      * 
-     *  This is just a request for connection details. A subscription to such topic is not made
+     * This is just a request for connection details. A subscription to such
+     * topic is not made
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:get-events-long-polling-server}
-     * @return an instance of {@link org.mule.modules.box.model.LongPollingServer}
-     */
-    @Processor
-	@OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
-    public LongPollingServer getEventsLongPollingServer() {
-    	LongPollingServerResponse response = this.jerseyUtil.options(this.apiResource.path("events"), LongPollingServerResponse.class, 200);
-    	
-    	if (CollectionUtils.isEmpty(response.getEntries())) {
-    		throw new BoxException("Box did not returned a long polling server back");
-    	}
-    	
-    	return response.getEntries().get(0);
-    }
-    
-    /**
-     * The search endpoint provides a simple way of finding items that are accessible in a given user’s Box account.
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:get-events-long-polling-server}
      * 
-     * {@sample.xml ../../../doc/box-connector.xml.sample box:search}
-     * 
-     * @param query The string to search for; can be matched against item names, descriptions, text content of a file, and other fields of the different item types.
-     * @param limit Number of search results to return
-     * @param offset The search result at which to start the response
-     * @return an instance of {@link org.mule.modules.box.model.response.SearchResponse}
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.LongPollingServer}
      */
     @Processor
     @OAuthProtected
-	@OAuthInvalidateAccessTokenOn(exception=BoxTokenExpiredException.class)
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public LongPollingServer getEventsLongPollingServer() {
+        LongPollingServerResponse response = this.jerseyUtil.options(this.apiResource.path("events"),
+                LongPollingServerResponse.class, 200);
+
+        if (CollectionUtils.isEmpty(response.getEntries())) {
+            throw new BoxException("Box did not returned a long polling server back");
+        }
+
+        return response.getEntries().get(0);
+    }
+
+    /**
+     * The search endpoint provides a simple way of finding items that are
+     * accessible in a given user’s Box account.
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample box:search}
+     * 
+     * @param query
+     *            The string to search for; can be matched against item names,
+     *            descriptions, text content of a file, and other fields of the
+     *            different item types.
+     * @param limit
+     *            Number of search results to return
+     * @param offset
+     *            The search result at which to start the response
+     * @return an instance of
+     *         {@link org.mule.modules.box.model.response.SearchResponse}
+     */
+    @Processor
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public SearchResponse search(String query, @Optional @Default("30") Long limit, @Optional @Default("0") Long offset) {
-    	return this.jerseyUtil.get(this.apiResource
-    									.path("search")
-    									.queryParam("query", query)
-    									.queryParam("limit", limit.toString())
-    									.queryParam("offset", offset.toString()),
-    									SearchResponse.class
-    									, 200);
+        return this.jerseyUtil.get(
+                this.apiResource.path("search").queryParam("query", query).queryParam("limit", limit.toString())
+                        .queryParam("offset", offset.toString()), SearchResponse.class, 200);
     }
-    
-	private void subscribe(final SourceCallback callback) {
-		LongPollingServer server = this.getEventsLongPollingServer();
-		WebResource pollingResource = this.client.resource(server.getHost())
-												.path("subscribe")
-												.queryParam("channel", server.getChannel())
-												.queryParam("stream_type", "all");
-		
-		this.longPollingClient.subscribe(pollingResource, this.accessTokenIdentifier, callback);
-	}
-    
+
+    private void subscribe(final SourceCallback callback) {
+        LongPollingServer server = this.getEventsLongPollingServer();
+        WebResource pollingResource = this.client.resource(server.getHost()).path("subscribe")
+                .queryParam("channel", server.getChannel()).queryParam("stream_type", "all");
+
+        this.longPollingClient.subscribe(pollingResource, this.accessTokenIdentifier, callback);
+    }
+
     private WebResource.Builder maybeAddIfMacth(WebResource resource, String etag) {
-    	Builder builder = resource.getRequestBuilder();
-    	
-    	if (!StringUtils.isBlank(etag)) {
-    		builder = builder.header("If-Match", etag);
-    	}
-    	
-    	return builder;
+        Builder builder = resource.getRequestBuilder();
+
+        if (!StringUtils.isBlank(etag)) {
+            builder = builder.header("If-Match", etag);
+        }
+
+        return builder;
     }
-    
+
     private InputStream readLocalFile(String path) {
-    	java.io.File file = new java.io.File(path);
-		
-		if (!file.exists()) {
-			throw new IllegalArgumentException(String.format("File %s does not exist", path));
-		}
-    	
-		try {
-			return new ByteArrayInputStream(FileUtils.readFileToByteArray(file));
-		} catch (IOException e) {
-			throw new RuntimeException(String.format("Error reading file at %s", path), e);
-		}
+        java.io.File file = new java.io.File(path);
+
+        if (!file.exists()) {
+            throw new IllegalArgumentException(String.format("File %s does not exist", path));
+        }
+
+        try {
+            return new ByteArrayInputStream(FileUtils.readFileToByteArray(file));
+        } catch (IOException e) {
+            throw new RuntimeException(String.format("Error reading file at %s", path), e);
+        }
     }
-    
-   private String hash(InputStream content) {
-   	byte[] bytes = null;
-		try {
-			bytes = IOUtils.toByteArray(content);
-		} catch (IOException e) {
-			throw new RuntimeException("Error generating sha1 for content", e);
-		}
-		
-		Formatter formatter = new Formatter();
-		try {
-			for (byte b : bytes) {
-				formatter.format("%02x", b);
-			}
-			return formatter.toString();
-		} finally {
-			formatter.close();
-		}
-   }
-   
-	public String getBaseUrl() {
-		return baseUrl;
-	}
 
-	public void setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
-	}
+    private String hash(InputStream content) {
+        byte[] bytes = null;
+        try {
+            bytes = IOUtils.toByteArray(content);
+        } catch (IOException e) {
+            throw new RuntimeException("Error generating sha1 for content", e);
+        }
 
-	public String getUploadUrl() {
-		return uploadUrl;
-	}
+        Formatter formatter = new Formatter();
+        try {
+            for (byte b : bytes) {
+                formatter.format("%02x", b);
+            }
+            return formatter.toString();
+        } finally {
+            formatter.close();
+        }
+    }
 
-	public void setUploadUrl(String uploadUrl) {
-		this.uploadUrl = uploadUrl;
-	}
+    public String getBaseUrl() {
+        return baseUrl;
+    }
 
-	public String getClientId() {
-		return clientId;
-	}
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
 
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
+    public String getUploadUrl() {
+        return uploadUrl;
+    }
 
-	public String getClientSecret() {
-		return clientSecret;
-	}
+    public void setUploadUrl(String uploadUrl) {
+        this.uploadUrl = uploadUrl;
+    }
 
-	public void setClientSecret(String clientSecret) {
-		this.clientSecret = clientSecret;
-	}
+    public String getClientId() {
+        return clientId;
+    }
 
-	public String getAccessToken() {
-		return accessToken;
-	}
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
+    public String getClientSecret() {
+        return clientSecret;
+    }
 
-	public boolean getUseGzip() {
-		return useGzip;
-	}
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
 
-	public void setUseGzip(boolean useGzip) {
-		this.useGzip = useGzip;
-	}
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public boolean getUseGzip() {
+        return useGzip;
+    }
+
+    public void setUseGzip(boolean useGzip) {
+        this.useGzip = useGzip;
+    }
 }
