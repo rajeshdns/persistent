@@ -8,6 +8,8 @@
 
 package org.mule.modules.box.model;
 
+import com.google.gson.annotations.SerializedName;
+
 
 /**
  * File objects represent that metadata about individual files in Box, with attributes describing who created the file,
@@ -63,6 +65,7 @@ public class File extends Item {
 	/**
 	 * The path of folders to this item, starting at the root
 	 */
+	@SerializedName("path_collection")
 	private Entries paths;
 	
 	/**
