@@ -89,7 +89,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.core.impl.provider.entity.FormMultivaluedMapProvider;
 import com.sun.jersey.core.impl.provider.entity.FormProvider;
@@ -214,7 +213,13 @@ public class BoxConnector {
     @OAuthAccessTokenIdentifier
     public String getOAuthTokenAccessIdentifier() {
         if (this.accessTokenIdentifier == null) {
-            User user = this.getUser();
+        	User user = null;
+        	try {
+            	 user = this.getUser();
+            } catch (BoxTokenExpiredException e) {
+            	//TODO: Fix SFDL-1755
+            	return "";
+            }
             this.accessTokenIdentifier = user.getLogin();
         }
 
