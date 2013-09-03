@@ -104,7 +104,8 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
  * @author mariano.gonzalez@mulesoft.com
  */
 @Connector(name = "box", schemaVersion = "2.0", friendlyName = "Box", minMuleVersion = "3.3")
-@OAuth2(authorizationUrl = "https://api.box.com/oauth2/authorize", accessTokenUrl = "https://api.box.com/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
+//@OAuth2(authorizationUrl = "https://api.box.com/oauth2/authorize", accessTokenUrl = "https://api.box.com/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
+@OAuth2(authorizationUrl = "https://www.box.com/api/oauth2/authorize", accessTokenUrl = "https://www.box.com/api/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
 public class BoxConnector {
 
     private Client client;

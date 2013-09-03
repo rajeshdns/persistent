@@ -9,10 +9,6 @@
 package org.mule.modules.box;
 
 import org.junit.Test;
-import org.mule.api.config.MuleProperties;
-import org.mule.api.store.ObjectStore;
-import org.mule.construct.Flow;
-import org.mule.modules.box.oauth.BoxConnectorOAuthState;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 public class MerloTest extends FunctionalTestCase {
@@ -24,18 +20,18 @@ public class MerloTest extends FunctionalTestCase {
 	
 	@Test
 	public void merlo() throws Exception {
-		ObjectStore<BoxConnectorOAuthState> os = muleContext.getRegistry().lookupObject(MuleProperties.OBJECT_STORE_DEFAULT_IN_MEMORY_NAME);
-		
-		BoxConnectorOAuthState state = new BoxConnectorOAuthState();
-		
-		state.setAccessToken("ZmmYtvGfu0WyfIu7ONNMDEMUhkXOPizv");
-		state.setAuthorizationUrl("https://api.box.com/oauth2/authorize");
-		state.setAccessTokenUrl("https://api.box.com/oauth2/token");
-		state.setRefreshToken("495RUCVODo4vSt4Sqjg0710zdRb74N6szbXlBmbXDYEFEMVejtn9aAt9qHZf9quv");
-		
-		os.store("merlo", state);
-		
-		Flow flow = (Flow) muleContext.getRegistry().lookupFlowConstruct("merlo");
-		flow.process(getTestEvent(""));
+//		ObjectStore<BoxConnectorOAuthState> os = muleContext.getRegistry().lookupObject(MuleProperties.OBJECT_STORE_DEFAULT_IN_MEMORY_NAME);
+//		
+//		BoxConnectorOAuthState state = new BoxConnectorOAuthState();
+//		
+//		state.setAccessToken("ZmmYtvGfu0WyfIu7ONNMDEMUhkXOPizv");
+//		state.setAuthorizationUrl("https://api.box.com/oauth2/authorize");
+//		state.setAccessTokenUrl("https://api.box.com/oauth2/token");
+//		state.setRefreshToken("495RUCVODo4vSt4Sqjg0710zdRb74N6szbXlBmbXDYEFEMVejtn9aAt9qHZf9quv");
+//		
+//		os.store("merlo", state);
+//		
+//		Flow flow = (Flow) muleContext.getRegistry().lookupFlowConstruct("merlo");
+//		flow.process(getTestEvent(""));
 	}
 }
