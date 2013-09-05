@@ -2,9 +2,9 @@
 
 [Prerequisites](#prerequisites)  
 
-[Step 1: Create Box.com Developer account ](#step1)    
+[Step 1: Create Box.com Developer account ](#step-1-create-boxcom-developer-account)    
 
-[Step 2: Install Mule Box Connector from Update Site](#step2)   
+[Step 2: Install Mule Box Connector from Update Site](#step-2-install-mule-box-connector-from-update-site)   
 
 [Step 3: Create Demo Project](#step3)  
 
