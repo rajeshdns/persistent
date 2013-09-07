@@ -1409,10 +1409,10 @@ Summary:
             
             
             
-            <a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></nobr>
+            PagingDelegate&lt;<a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)">getFolderItems</a></span>(String folderId, Long limit, Long offset)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)">getFolderItems</a></span>(String folderId, Long limit, Long offset, PagingConfiguration pagingConfiguration)</nobr>
         
         <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without
  any other metadata about the folder in the mini format is returned for
@@ -1447,22 +1447,6 @@ Summary:
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getOAuthTokenAccessIdentifier()">getOAuthTokenAccessIdentifier</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             <a href="../../../../../java/org/mule/modules/box/model/response/GetCollaborationsResponse.html">GetCollaborationsResponse</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1474,7 +1458,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1494,7 +1478,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1512,17 +1496,17 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></nobr>
+            PagingDelegate&lt;<a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getTrashedItems(java.lang.Long, java.lang.Long)">getTrashedItems</a></span>(Long limit, Long offset)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getTrashedItems(java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)">getTrashedItems</a></span>(Long limit, Long offset, PagingConfiguration pagingConfiguration)</nobr>
         
         <div class="jd-descrdiv">Get the folders in the Trash.</div>
   
@@ -1530,7 +1514,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1546,7 +1530,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1562,7 +1546,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1580,7 +1564,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1600,7 +1584,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1619,7 +1603,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1637,7 +1621,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             synchronized
@@ -1656,7 +1640,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1675,7 +1659,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1693,7 +1677,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1711,7 +1695,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1727,7 +1711,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1745,7 +1729,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1763,7 +1747,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1782,7 +1766,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1798,7 +1782,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1814,7 +1798,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1830,7 +1814,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1846,7 +1830,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1862,7 +1846,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1878,7 +1862,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1896,7 +1880,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1916,7 +1900,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1936,7 +1920,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1956,7 +1940,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1974,7 +1958,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1992,7 +1976,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2010,7 +1994,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2028,7 +2012,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2046,7 +2030,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2064,7 +2048,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2085,7 +2069,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2105,7 +2089,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -2125,7 +2109,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -4506,8 +4490,17 @@ From class
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></code> with
          that about the found Folder. <code>null</code> if the folder is not
-         found
-</li></ul>
+         found</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td>if case of error         
+</td>
+        </tr>
+      </table>
   </div>
 
     </div>
@@ -4607,15 +4600,24 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that
-         about the found item. <code>null</code> if the item is not found
-</li></ul>
+         about the found item. <code>null</code> if the item is not found</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td>if case of error
+</td>
+        </tr>
+      </table>
   </div>
 
     </div>
 </div>
 
 
-<A NAME="getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)"></A>
+<A NAME="getFolderItems(java.lang.String, java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4625,10 +4627,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a>
+        PagingDelegate&lt;<a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;
       </span>
       <span class="sympad">getFolderItems</span>
-      <span class="normal">(String folderId, Long limit, Long offset)</span>
+      <span class="normal">(String folderId, Long limit, Long offset, PagingConfiguration pagingConfiguration)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4663,12 +4665,15 @@ From class
           <th>offset</td>
           <td>Pagination offset (default=0)</td>
         </tr>
+        <tr>
+          <th>pagingConfiguration</td>
+          <td>PagingConfiguration object</td>
+        </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of
-         <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
+      <ul class="nolist"><li>an auto paginated iterator
 </li></ul>
   </div>
 
@@ -4716,40 +4721,18 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>an instance of <code><a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a></code> with that
-         about the found item. <code>null</code> if the item is not found
-</li></ul>
+         about the found item. <code>null</code> if the item is not found</li></ul>
   </div>
-
-    </div>
-</div>
-
-
-<A NAME="getOAuthTokenAccessIdentifier()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getOAuthTokenAccessIdentifier</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th>Exception</td>
+            <td>if case of error
+</td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
@@ -4888,7 +4871,7 @@ From class
 </div>
 
 
-<A NAME="getTrashedItems(java.lang.Long, java.lang.Long)"></A>
+<A NAME="getTrashedItems(java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4898,10 +4881,10 @@ From class
          
          
          
-        <a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a>
+        PagingDelegate&lt;<a href="../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;
       </span>
       <span class="sympad">getTrashedItems</span>
-      <span class="normal">(Long limit, Long offset)</span>
+      <span class="normal">(Long limit, Long offset, PagingConfiguration pagingConfiguration)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4930,12 +4913,15 @@ From class
           <th>offset</td>
           <td>Pagination offset (default=0)</td>
         </tr>
+        <tr>
+          <th>pagingConfiguration</td>
+          <td>PagingConfiguration object</td>
+        </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>an instance of
-         <code><a href="../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></code>
+      <ul class="nolist"><li>an auto paginated iterator
 </li></ul>
   </div>
 
