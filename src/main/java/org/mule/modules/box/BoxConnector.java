@@ -30,12 +30,12 @@ import org.mule.MessageExchangePattern;
 import org.mule.api.MuleException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Paged;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Source;
 import org.mule.api.annotations.lifecycle.Start;
 import org.mule.api.annotations.oauth.OAuth2;
 import org.mule.api.annotations.oauth.OAuthAccessToken;
-import org.mule.api.annotations.oauth.OAuthAccessTokenIdentifier;
 import org.mule.api.annotations.oauth.OAuthConsumerKey;
 import org.mule.api.annotations.oauth.OAuthConsumerSecret;
 import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
@@ -83,6 +83,8 @@ import org.mule.modules.box.model.response.GetUsersResponse;
 import org.mule.modules.box.model.response.LongPollingServerResponse;
 import org.mule.modules.box.model.response.SearchResponse;
 import org.mule.modules.box.model.response.UploadFileResponse;
+import org.mule.streaming.PagingConfiguration;
+import org.mule.streaming.PagingDelegate;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -211,22 +213,6 @@ public class BoxConnector {
         this.jerseyUtil = builder.build();
     }
 
-    @OAuthAccessTokenIdentifier
-    public String getOAuthTokenAccessIdentifier() {
-        if (this.accessTokenIdentifier == null) {
-        	User user = null;
-        	try {
-            	 user = this.getUser();
-            } catch (BoxTokenExpiredException e) {
-            	//TODO: Fix SFDL-1755
-            	return "";
-            }
-            this.accessTokenIdentifier = user.getLogin();
-        }
-
-        return this.accessTokenIdentifier;
-    }
-
     @OAuthPostAuthorization
     public void postAuth() {
         for (SourceCallback callback : pendingSubscriptions) {
@@ -341,8 +327,13 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public GetItemsResponse getTrashedItems(@Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
-        return this.getFolderItems("trash", limit, offset);
+    @Paged
+    public PagingDelegate<Item> getTrashedItems(
+    		@Optional @Default("100") Long limit,
+    		@Optional @Default("0") Long offset,
+    		PagingConfiguration pagingConfiguration) {
+        
+    	return this.getFolderItems("trash", limit, offset, pagingConfiguration);
     }
 
     /**
@@ -495,19 +486,61 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public GetItemsResponse getFolderItems(@Optional @Default("0") String folderId,
-            @Optional @Default("100") Long limit, @Optional @Default("0") Long offset) {
-        WebResource resource = this.apiResource.path("folders").path(folderId).path("items");
+    @Paged
+    public PagingDelegate<Item> getFolderItems(
+    		final @Optional @Default("0") String folderId,
+    		final @Optional @Default("100") Long limit,
+    		final @Optional @Default("0") Long offset,
+    		final PagingConfiguration pagingConfiguration) {
+    	
+    	return new PagingDelegate<Item>() {
+            
+            private GetItemsResponse cachedResponse;
+            
+            @Override
+            public List<Item> getPage() {
+                if (this.cachedResponse != null) {
+                    List<Item> items = this.cachedResponse.getEntries();
+                    this.cachedResponse = null;
+                    
+                    return items;
+                }
+                
+                List<Item> items = this.query().getEntries();
+                
+                
+                return items;
+            }
 
-        if (offset != null) {
-            resource = resource.queryParam("offset", offset.toString());
-        }
+            private GetItemsResponse query() {
+            	WebResource resource = apiResource.path("folders").path(folderId).path("items");
 
-        if (limit != null) {
-            resource = resource.queryParam("limit", limit.toString());
-        }
+                if (offset != null) {
+                    resource = resource.queryParam("offset", offset.toString());
+                }
 
-        return this.jerseyUtil.get(resource, GetItemsResponse.class, 200);
+                if (limit != null) {
+                    resource = resource.queryParam("limit", limit.toString());
+                }
+
+                return jerseyUtil.get(resource, GetItemsResponse.class, 200);
+            }
+            
+            @Override
+            public int getTotalResults() {
+                if (this.cachedResponse == null) {
+                    this.cachedResponse = this.query();
+                }
+                
+                return this.cachedResponse.getTotalCount();
+            }
+            
+            @Override
+            public void close() throws MuleException {
+                this.cachedResponse = null;
+            }
+        };
+    	
     }
 
     /**
@@ -527,15 +560,22 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public Item getFolderItem(@Optional @Default("0") String folderId, String resourceName) {
-        GetItemsResponse items = this.getFolderItems(folderId, null, null);
+    public Item getFolderItem(@Optional @Default("0") String folderId, String resourceName) throws Exception {
+        PagingDelegate<Item> delegate = this.getFolderItems(folderId, null, null, new PagingConfiguration(100));
 
-        for (Item item : items.getEntries()) {
-            if (resourceName.equals(item.getName())) {
-                return item;
-            }
+        try {
+        	List<Item> items = delegate.getPage();
+        	while (!CollectionUtils.isEmpty(items)) {
+        		for (Item item : items) {
+        			if (resourceName.equals(item.getName())) {
+        				return item;
+        			}
+        		}
+        		items = delegate.getPage();
+        	}
+        } finally {
+        	delegate.close();
         }
-
         return null;
     }
 
@@ -552,7 +592,7 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public Item getItemByPath(String resourcePath) {
+    public Item getItemByPath(String resourcePath) throws Exception {
         String parentId = "0";
         String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
 
@@ -586,7 +626,7 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public Folder getFolderByPath(String resourcePath) {
+    public Folder getFolderByPath(String resourcePath) throws Exception {
         String parentId = "0";
         String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
 
