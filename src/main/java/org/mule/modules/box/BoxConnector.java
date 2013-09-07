@@ -321,8 +321,8 @@ public class BoxConnector {
      *            max=1000)
      * @param offset
      *            pagination offset (default=0)
-     * @return an instance of
-     *         {@link org.mule.modules.box.model.GetItemsResponse}
+     * @param pagingConfiguration pagingConfiguration object
+     * @return an auto paginated iterator
      */
     @Processor
     @OAuthProtected
@@ -480,8 +480,8 @@ public class BoxConnector {
      *            max=1000)
      * @param offset
      *            pagination offset (default=0)
-     * @return an instance of
-     *         {@link org.mule.modules.box.model.GetItemsResponse}
+     * @param pagingConfiguration pagingConfiguration object
+     * @return an auto paginated iterator
      */
     @Processor
     @OAuthProtected
@@ -556,6 +556,7 @@ public class BoxConnector {
      *            the name you want to test
      * @return an instance of {@link org.mule.modules.box.model.Item} with that
      *         about the found item. {@code null} if the item is not found
+     * @throws Exception if case of error
      */
     @Processor
     @OAuthProtected
@@ -588,6 +589,7 @@ public class BoxConnector {
      *            the resource to retrieve from Box
      * @return an instance of {@link org.mule.modules.box.model.Item} with that
      *         about the found item. {@code null} if the item is not found
+     * @throws Exception if case of error
      */
     @Processor
     @OAuthProtected
@@ -622,6 +624,7 @@ public class BoxConnector {
      * @return an instance of {@link org.mule.modules.box.model.Folder} with
      *         that about the found Folder. {@code null} if the folder is not
      *         found
+     * @throws Exception if case of error         
      */
     @Processor
     @OAuthProtected
