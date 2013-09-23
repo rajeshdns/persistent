@@ -229,3 +229,8 @@
 <!-- BEGIN_INCLUDE(box:get-folder-by-path) -->
     <box:get-folder-by-path resourcePath="/Download" />
 <!-- END_INCLUDE(box:get-folder-by-path) -->
+
+
+<!-- BEGIN_INCLUDE(box:empty-folder-by-id) -->
+    <box:empty-folder-by-id folderId="123246" />
+<!-- END_INCLUDE(box:empty-folder-by-id) -->

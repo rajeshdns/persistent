@@ -26,6 +26,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.mule.MessageExchangePattern;
 import org.mule.api.MuleException;
 import org.mule.api.annotations.Configurable;
@@ -104,12 +105,16 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
  * @author mariano.gonzalez@mulesoft.com
  */
 @Connector(name = "box", schemaVersion = "2.0", friendlyName = "Box", minMuleVersion = "3.3")
-//@OAuth2(authorizationUrl = "https://api.box.com/oauth2/authorize", accessTokenUrl = "https://api.box.com/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
+// @OAuth2(authorizationUrl = "https://api.box.com/oauth2/authorize",
+// accessTokenUrl = "https://api.box.com/oauth2/token", accessTokenRegex =
+// "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex =
+// "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex =
+// "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
 @OAuth2(authorizationUrl = "https://www.box.com/api/oauth2/authorize", accessTokenUrl = "https://www.box.com/api/oauth2/token", accessTokenRegex = "\"access_token\"[ ]*:[ ]*\"([^\\\"]*)\"", expirationRegex = "\"expires_in\"[ ]*:[ ]*([\\d]*)", refreshTokenRegex = "\"refresh_token\"[ ]*:[ ]*\"([^\\\"]*)\"")
 public class BoxConnector {
 
     private Client client;
-    
+
     private Client uploadClient;
 
     /**
@@ -214,12 +219,12 @@ public class BoxConnector {
     @OAuthAccessTokenIdentifier
     public String getOAuthTokenAccessIdentifier() {
         if (this.accessTokenIdentifier == null) {
-        	User user = null;
-        	try {
-            	 user = this.getUser();
+            User user = null;
+            try {
+                user = this.getUser();
             } catch (BoxTokenExpiredException e) {
-            	//TODO: Fix SFDL-1755
-            	return "";
+                // TODO: Fix SFDL-1755
+                return "";
             }
             this.accessTokenIdentifier = user.getLogin();
         }
@@ -605,6 +610,59 @@ public class BoxConnector {
         }
 
         return this.getFolder(parentId);
+    }
+
+    /**
+     * Delete all the items inside a folder with out actually deleting the
+     * folder. If inside it there are folders then all this will be recursively
+     * deleted.
+     * 
+     * {@sample.xml ../../../doc/box-connector.xml.sample
+     * box:empty-folder-by-id}
+     * 
+     * @param folderId
+     *            the id of the folder to empty from Box
+     */
+    @Processor
+    @OAuthProtected
+    @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
+    public void emptyFolderById(String folderId) {
+        Validate.notEmpty(folderId, "The id of the folder should not be null nor empty");
+
+        List<Item> items = new ArrayList<Item>();
+
+        Long limit = Long.valueOf("100");
+        Long offset = Long.valueOf("0");
+
+        GetItemsResponse itemsResponse = getFolderItems(folderId, limit, offset);
+
+        int itemsAcquiredCount = 0;
+        boolean shouldContinue = true;
+        int totalCount = itemsResponse.getTotalCount();
+
+        while (shouldContinue) {
+            itemsAcquiredCount += itemsResponse.getEntries().size();
+            items.addAll(itemsResponse.getEntries());
+
+            if ((totalCount - itemsAcquiredCount) == 0) {
+                shouldContinue = false;
+            } else {
+                itemsResponse = getFolderItems(folderId, limit, offset + itemsResponse.getEntries().size());
+            }
+
+        }
+
+        String folderType = "folder";
+        String fileType = "file";
+        for (Item item : items) {
+            if (item.getType().toLowerCase().endsWith(folderType)) {
+                deleteFolder(item.getId(), true);
+            }
+            if (item.getType().toLowerCase().endsWith(fileType)) {
+                deleteFile(item.getId(), "");
+            }
+        }
+
     }
 
     /**
