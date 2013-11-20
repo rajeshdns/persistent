@@ -1037,7 +1037,7 @@ public class BoxConnector {
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public GetCommentsResponse getFileComments(String fileId) {
-        return this.jerseyUtil.get(this.apiResource.path("files").path("comments"), GetCommentsResponse.class, 200);
+        return this.jerseyUtil.get(this.apiResource.path("files").path(fileId).path("comments"), GetCommentsResponse.class, 200);
     }
 
     /**
