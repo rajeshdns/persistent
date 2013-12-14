@@ -489,55 +489,75 @@ public class BoxConnector {
     @Paged
     public PagingDelegate<Item> getFolderItems(
     		final @Optional @Default("0") String folderId,
-    		final @Optional @Default("100") Long limit,
+    		final @Optional Long limit,
     		final @Optional @Default("0") Long offset,
     		final PagingConfiguration pagingConfiguration) {
     	
+    	if(limit != null && limit < 0){
+    		throw new IllegalArgumentException("The limit parameter cannot be a negative number.");
+    	}
+    	
+    	if(offset != null && offset < 0){
+    		throw new IllegalArgumentException("The offset parameter cannot to be a negative number.");
+    	}
+    	
+    	if(pagingConfiguration == null) {
+    		throw new IllegalArgumentException("The pagingConfiguration parameter cannot be null.");
+    	} else if(pagingConfiguration.getFetchSize() <= 0) {
+    		throw new IllegalArgumentException("The fetchSize value of pagingConfiguration needs to be a positive number.");
+    	}
+    	
     	return new PagingDelegate<Item>() {
-            
-            private GetItemsResponse cachedResponse;
+            private Long itemsReturned = 0L;
+            private Long initialOffset = offset == null ? 0L : offset;
+            private String folderIdValue = StringUtils.isEmpty(folderId) ? "0" : folderId;
             
             @Override
             public List<Item> getPage() {
-                if (this.cachedResponse != null) {
-                    List<Item> items = this.cachedResponse.getEntries();
-                    this.cachedResponse = null;
-                    
-                    return items;
+                if (this.isLimitReached()) {
+                	return new ArrayList<Item>();
                 }
                 
                 List<Item> items = this.query().getEntries();
-                
+                itemsReturned += items.size();
                 
                 return items;
             }
+            
+            private Boolean isLimitReached(){
+            	return limit != null && itemsReturned >= limit;
+            }
 
             private GetItemsResponse query() {
-            	WebResource resource = apiResource.path("folders").path(folderId).path("items");
+            	WebResource resource = apiResource.path("folders").path(folderIdValue).path("items");
 
-                if (offset != null) {
-                    resource = resource.queryParam("offset", offset.toString());
-                }
-
-                if (limit != null) {
-                    resource = resource.queryParam("limit", limit.toString());
-                }
-
+                resource = resource.queryParam("offset", this.defineQueryOffset().toString());
+                resource = resource.queryParam("limit", this.defineQueryLimit().toString());
+                
                 return jerseyUtil.get(resource, GetItemsResponse.class, 200);
+            }
+            
+            private Long defineQueryOffset(){
+            	return initialOffset + itemsReturned;
+            }
+            
+            private Long defineQueryLimit(){
+            	Long queryLimit = new Long(pagingConfiguration.getFetchSize());
+            	
+                if (limit != null) {
+                    queryLimit = Math.min(queryLimit, limit - itemsReturned);
+                }
+                
+                return queryLimit;
             }
             
             @Override
             public int getTotalResults() {
-                if (this.cachedResponse == null) {
-                    this.cachedResponse = this.query();
-                }
-                
-                return this.cachedResponse.getTotalCount();
+            	return -1;
             }
             
             @Override
             public void close() throws MuleException {
-                this.cachedResponse = null;
             }
         };
     	
