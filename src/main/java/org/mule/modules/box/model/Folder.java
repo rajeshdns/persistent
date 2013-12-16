@@ -8,6 +8,8 @@
 
 package org.mule.modules.box.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -88,6 +90,11 @@ public class Folder extends Item {
 	 * Whether this folder will be synced by the Box sync clients or not
 	 */
 	private String syncState;
+	
+	/**
+	 * The tags applied to this folder
+	 */
+	private List<String> tags;
 	
 	public String getSyncState() {
 		return syncState;
@@ -177,6 +184,14 @@ public class Folder extends Item {
 	}
 	public void setPaths(Entries paths) {
 		this.paths = paths;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 	
 }

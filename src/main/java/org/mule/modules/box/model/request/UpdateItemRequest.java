@@ -9,8 +9,7 @@
 package org.mule.modules.box.model.request;
 
 import java.io.Serializable;
-
-import javax.xml.bind.annotation.XmlAttribute;
+import java.util.List;
 
 import org.mule.modules.box.model.Access;
 import org.mule.modules.box.model.FolderUploadEmail;
@@ -63,7 +62,7 @@ public class UpdateItemRequest implements Serializable {
 	private String unsharedAt;
 	
 	/**
-	 * the set of permissions that apply to this link
+	 * The set of permissions that apply to this link
 	 */
 	private Permissions permissions;
 	
@@ -81,6 +80,11 @@ public class UpdateItemRequest implements Serializable {
 	 * The email-to-upload address for this folder
 	 */
 	private FolderUploadEmail folderUploadEmail;
+	
+	/**
+	 * The tags to be applied to this folder
+	 */
+	private List<String> tags;
 
 	public String getName() {
 		return name;
@@ -174,6 +178,14 @@ public class UpdateItemRequest implements Serializable {
 
 	public void setFolderUploadEmail(FolderUploadEmail folderUploadEmail) {
 		this.folderUploadEmail = folderUploadEmail;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 	
 }
