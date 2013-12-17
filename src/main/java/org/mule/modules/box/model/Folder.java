@@ -8,8 +8,6 @@
 
 package org.mule.modules.box.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -20,65 +18,14 @@ import com.google.gson.annotations.SerializedName;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class Folder extends Item {
+public class Folder extends StandardItem {
 
 	private static final long serialVersionUID = -4254960125347133726L;
 	
 	/**
-	 * The time the folder was created
+	 * The email-to-upload address for this folder
 	 */
-	private String createdAt;
-	
-	/**
-	 * The time the folder or its contents were last modified
-	 */
-	private String modifiedAt;
-	
-	/**
-	 * The description of the folder
-	 */
-	private String description;
-	
-	/**
-	 * Whether this item is deleted or not
-	 */
-	private String itemStatus;
-	
-	/**
-	 * The path of folders to this item, starting at the root
-	 */
-	@SerializedName("path_collection")
-	private Entries paths;
-	
-	/**
-	 * The folder size in bytes
-	 */
-	private Long size;
-	
-	/**
-	 * The shared link for this folder
-	 */
-	private SharedLink sharedLink;
-	
-	/**
-	 * The user who created this folder
-	 */
-	private User createdBy;
-	
-	/**
-	 * The user who last modified this folder
-	 */
-	private User modifiedBy;
-	
-	/**
-	 * The user who owns this folder
-	 */
-	private User ownedBy;
-	
-	/**
-	 * The folder that contains this one
-	 */
-	private Item parent;
+	private FolderUploadEmail folderUploadEmail;
 	
 	/**
 	 * Descriptors for folders and files contained in this folder
@@ -92,78 +39,24 @@ public class Folder extends Item {
 	private String syncState;
 	
 	/**
-	 * The tags applied to this folder
+	 * Whether this folder has any collaborators
 	 */
-	private List<String> tags;
+	private Boolean hasCollaborations;
 	
-	public String getSyncState() {
-		return syncState;
-	}
+	/**
+	 * The permissions that the current user has on this folder. 
+	 */
+	private FolderPermissions permissions;
 	
-	public void setSyncState(String syncState) {
-		this.syncState = syncState;
-	}
 	
-	public String getCreatedAt() {
-		return createdAt;
+	public FolderUploadEmail getFolderUploadEmail() {
+		return folderUploadEmail;
 	}
-	public void setCreatedAt(String createdAt) {
-		this.createdAt = createdAt;
+
+	public void setFolderUploadEmail(FolderUploadEmail folderUploadEmail) {
+		this.folderUploadEmail = folderUploadEmail;
 	}
-	
-	public String getModifiedAt() {
-		return modifiedAt;
-	}
-	public void setModifiedAt(String modifiedAt) {
-		this.modifiedAt = modifiedAt;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public Long getSize() {
-		return size;
-	}
-	public void setSize(Long size) {
-		this.size = size;
-	}
-	
-	public SharedLink getSharedLink() {
-		return sharedLink;
-	}
-	public void setSharedLink(SharedLink sharedLink) {
-		this.sharedLink = sharedLink;
-	}
-	
-	public User getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
-	
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
-	public void setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-	}
-	
-	public User getOwnedBy() {
-		return ownedBy;
-	}
-	public void setOwnedBy(User ownedBy) {
-		this.ownedBy = ownedBy;
-	}
-	public Item getParent() {
-		return parent;
-	}
-	public void setParent(Item parent) {
-		this.parent = parent;
-	}
-	
+
 	public GetItemsResponse getItems() {
 		return items;
 	}
@@ -171,27 +64,29 @@ public class Folder extends Item {
 	public void setItems(GetItemsResponse items) {
 		this.items = items;
 	}
-	
-	public String getItemStatus() {
-		return itemStatus;
-	}
-	public void setItemStatus(String itemStatus) {
-		this.itemStatus = itemStatus;
+
+	public String getSyncState() {
+		return syncState;
 	}
 	
-	public Entries getPaths() {
-		return paths;
-	}
-	public void setPaths(Entries paths) {
-		this.paths = paths;
+	public void setSyncState(String syncState) {
+		this.syncState = syncState;
 	}
 
-	public List<String> getTags() {
-		return tags;
+	public Boolean getHasCollaborations() {
+		return hasCollaborations;
 	}
 
-	public void setTags(List<String> tags) {
-		this.tags = tags;
+	public void setHasCollaborations(Boolean hasCollaborations) {
+		this.hasCollaborations = hasCollaborations;
+	}
+
+	public FolderPermissions getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(FolderPermissions permissions) {
+		this.permissions = permissions;
 	}
 	
 }

@@ -227,17 +227,25 @@ public class BoxConnector {
      * {@sample.xml ../../../doc/box-connector.xml.sample box:get-folder}
      * 
      * @param folderId
-     *            the id of the fodler you want to get. 0 means root
+     *            the id of the folder you want to get. 0 means root
+     * @param getAllAttributes
+     *            option to retrieve all folder attributes or just the default ones
      * @return an instance of {@link org.mule.modules.box.model.Folder}
      */
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public Folder getFolder(@Optional @Default("0") String folderId) {
-        return this.jerseyUtil.get(this.apiResource.path("folders").path(folderId), Folder.class, 200);
+    public Folder getFolder(@Optional @Default("0") String folderId, @Optional @Default("false") boolean getAllAttributes) {
+    	WebResource resource = this.apiResource.path("folders").path(folderId);
+    	
+    	if(getAllAttributes){
+    		resource = resource.queryParam("fields", this.getAllFolderFieldsAsString());
+    	}
+    	
+    	return this.jerseyUtil.get(resource, Folder.class, 200);
     }
 
-    /**
+	/**
      * Creates a new folder and returns a folder object with all its associated
      * information
      * 
@@ -288,7 +296,7 @@ public class BoxConnector {
     public Folder updateFolder(@Optional @Default("#[payload]") UpdateItemRequest request, String folderId,
             @Optional String etag) {
         WebResource resource = this.apiResource.path("folders").path(folderId);
-        return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), Folder.class, 200, 201);
+        return this.jerseyUtil.put(this.maybeAddIfMatch(resource, etag).entity(request), Folder.class, 200, 201);
     }
 
     /**
@@ -641,6 +649,9 @@ public class BoxConnector {
      * 
      * @param resourcePath
      *            the resource to retrieve from Box
+     * @param getAllAttributes
+     *            option to retrieve all folder attributes or just the default ones
+     * 
      * @return an instance of {@link org.mule.modules.box.model.Folder} with
      *         that about the found Folder. {@code null} if the folder is not
      *         found
@@ -649,7 +660,7 @@ public class BoxConnector {
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public Folder getFolderByPath(String resourcePath) throws Exception {
+    public Folder getFolderByPath(String resourcePath, @Optional @Default("false") boolean getAllAttributes) throws Exception {
         String parentId = "0";
         String[] itemNames = StringUtils.removeStart(resourcePath, "/").split("/");
 
@@ -667,7 +678,7 @@ public class BoxConnector {
             parentId = boxItem.getId();
         }
 
-        return this.getFolder(parentId);
+        return this.getFolder(parentId, getAllAttributes);
     }
 
     /**
@@ -778,7 +789,7 @@ public class BoxConnector {
     public File uploadNewVersionStream(@Optional @Default("#[payload]") InputStream content, String fileId,
             @Optional String etag, String filename, @Optional String contentModifiedAt) {
 
-        WebResource.Builder resource = this.maybeAddIfMacth(this.uploadResource.path(fileId).path("content"), etag)
+        WebResource.Builder resource = this.maybeAddIfMatch(this.uploadResource.path(fileId).path("content"), etag)
                 .type(MediaType.MULTIPART_FORM_DATA);
 
         FormDataMultiPart form = new FormDataMultiPart();
@@ -857,13 +868,21 @@ public class BoxConnector {
      * 
      * @param fileId
      *            the id of the file you want to inspect
+     * @param getAllAttributes
+     *            option to retrieve all file attributes or just the default ones
      * @return an instance of {@link org.mule.modules.box.model.File}
      */
     @Processor
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
-    public File getFileMetadata(String fileId) {
-        return this.jerseyUtil.get(this.apiResource.path("files").path(fileId), File.class, 200);
+    public File getFileMetadata(String fileId, @Optional @Default("false") boolean getAllAttributes) {
+    	WebResource resource = this.apiResource.path("files").path(fileId);
+    	
+    	if(getAllAttributes){
+    		resource = resource.queryParam("fields", this.getAllFileFieldsAsString());
+    	}
+    	
+    	return this.jerseyUtil.get(resource, File.class, 200);
     }
 
     /**
@@ -943,7 +962,7 @@ public class BoxConnector {
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public void deleteFile(String fileId, @Optional String etag) {
         WebResource resource = this.apiResource.path("files").path(fileId);
-        this.jerseyUtil.delete(this.maybeAddIfMacth(resource, etag), String.class, 200, 204);
+        this.jerseyUtil.delete(this.maybeAddIfMatch(resource, etag), String.class, 200, 204);
     }
 
     /**
@@ -974,7 +993,7 @@ public class BoxConnector {
     public File updateFile(String fileId, @Optional @Default("#[payload]") UpdateItemRequest request,
             @Optional String etag) {
         WebResource resource = this.apiResource.path("files").path(fileId);
-        return this.jerseyUtil.put(this.maybeAddIfMacth(resource, etag).entity(request), File.class, 200, 201);
+        return this.jerseyUtil.put(this.maybeAddIfMatch(resource, etag).entity(request), File.class, 200, 201);
     }
 
     /**
@@ -1860,7 +1879,7 @@ public class BoxConnector {
         this.longPollingClient.subscribe(pollingResource, this.accessTokenIdentifier, callback);
     }
 
-    private WebResource.Builder maybeAddIfMacth(WebResource resource, String etag) {
+    private WebResource.Builder maybeAddIfMatch(WebResource resource, String etag) {
         Builder builder = resource.getRequestBuilder();
 
         if (!StringUtils.isBlank(etag)) {
@@ -1902,6 +1921,63 @@ public class BoxConnector {
             formatter.close();
         }
     }
+    
+    private String getAllFolderFieldsAsString() {
+		return new StringBuilder()
+		.append("sequence_id,")
+		.append("etag,")
+		.append("name,")
+		.append("created_at,")
+		.append("modified_at,")
+		.append("description,")
+		.append("size,")
+		.append("path_collection,")
+		.append("created_by,")
+		.append("modified_by,")
+		.append("trashed_at,")
+		.append("purged_at,")
+		.append("content_created_at,")
+		.append("content_modified_at,")
+		.append("owned_by,")
+		.append("shared_link,")
+		.append("folder_upload_email,")
+		.append("parent,")
+		.append("item_status,")
+		.append("item_collection,")
+		.append("sync_state,")
+		.append("has_collaborations,")
+		.append("permissions,")
+		.append("tags")
+		.toString();
+	}
+    
+    private String getAllFileFieldsAsString() {
+		return new StringBuilder()
+		.append("sequence_id,")
+		.append("etag,")
+		.append("sha1,")
+		.append("name,")
+		.append("description,")
+		.append("size,")
+		.append("path_collection,")
+		.append("created_at,")
+		.append("modified_at,")
+		.append("trashed_at,")
+		.append("purged_at,")
+		.append("content_created_at,")
+		.append("content_modified_at,")
+		.append("created_by,")
+		.append("modified_by,")
+		.append("owned_by,")
+		.append("shared_link,")
+		.append("parent,")
+		.append("version_number,")
+		.append("comment_count,")
+		.append("permissions,")
+		.append("tags,")
+		.append("lock")
+		.toString();
+	}
 
     public String getBaseUrl() {
         return baseUrl;
