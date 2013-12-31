@@ -310,15 +310,20 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Event.html">Event</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/File.html">File</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FileVersion.html">FileVersion</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FolderPermissions.html">FolderPermissions</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FolderUploadEmail.html">FolderUploadEmail</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/ItemPermissions.html">ItemPermissions</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/LongPollingServer.html">LongPollingServer</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Permissions.html">Permissions</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/PollingEvent.html">PollingEvent</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/StandardItem.html">StandardItem</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></li>
       </ul>
     </li>
@@ -372,6 +377,17 @@
 <div id="api-info-block">
 
 
+
+  
+   
+  
+  
+   
+  
+  
+   
+  
+  
 
   
    
@@ -480,7 +496,11 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a><br/>
+  
+  
+
+  
+    extends <a href="../../../../../../java/org/mule/modules/box/model/StandardItem.html">StandardItem</a><br/>
   
   
   
@@ -500,7 +520,7 @@ Summary:
 
     <tr>
         
-        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="5" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -508,7 +528,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="3" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/Entity.html">org.mule.modules.box.model.Entity</a></td>
+        <td colspan="4" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/Entity.html">org.mule.modules.box.model.Entity</a></td>
     </tr>
     
 
@@ -518,11 +538,25 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/Item.html">org.mule.modules.box.model.Item</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/Item.html">org.mule.modules.box.model.Item</a></td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/StandardItem.html">org.mule.modules.box.model.StandardItem</a></td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -616,6 +650,37 @@ Summary:
 <tr class="api apilevel-" >
 <td colspan="12">
 
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.modules.box.model.StandardItem" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.modules.box.model.StandardItem-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../../../../../org/mule/modules/box/model/StandardItem.html">org.mule.modules.box.model.StandardItem</a>
+<div id="inherited-constants-org.mule.modules.box.model.StandardItem">
+  <div id="inherited-constants-org.mule.modules.box.model.StandardItem-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.modules.box.model.StandardItem-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">long</td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#serialVersionUID">serialVersionUID</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.modules.box.model.Item" class="jd-expando-trigger closed"
           ><img id="inherited-constants-org.mule.modules.box.model.Item-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
@@ -693,164 +758,21 @@ Summary:
           private
           
           
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#contentCreatedAt">contentCreatedAt</a></td>
-          <td class="jd-descrcol" width="100%">When the content of this file was created
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#contentModifiedAt">contentModifiedAt</a></td>
-          <td class="jd-descrcol" width="100%">When the content of this file was last modified
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#createdAt">createdAt</a></td>
-          <td class="jd-descrcol" width="100%">When this file was created on Box’s servers
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#createdBy">createdBy</a></td>
-          <td class="jd-descrcol" width="100%">The user who first created file
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#description">description</a></td>
-          <td class="jd-descrcol" width="100%">The description of this file
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#itemStatus">itemStatus</a></td>
-          <td class="jd-descrcol" width="100%">Whether this item is deleted or not
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#modifiedAt">modifiedAt</a></td>
-          <td class="jd-descrcol" width="100%">When this file was last updated on the Box servers
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#modifiedBy">modifiedBy</a></td>
-          <td class="jd-descrcol" width="100%">The user who last updated this file
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#ownedBy">ownedBy</a></td>
-          <td class="jd-descrcol" width="100%">The user who owns this file
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#parent">parent</a></td>
-          <td class="jd-descrcol" width="100%">The folder this file is contained in
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#paths">paths</a></td>
-          <td class="jd-descrcol" width="100%">The path of folders to this item, starting at the root
-</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#purgedAt">purgedAt</a></td>
-          <td class="jd-descrcol" width="100%">When this file will be permanently deleted
-</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#sharedLink">sharedLink</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           Long</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#size">size</a></td>
-          <td class="jd-descrcol" width="100%">Size of this file in bytes
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#commentCount">commentCount</a></td>
+          <td class="jd-descrcol" width="100%">The number of comments on a file
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#lock">lock</a></td>
+          <td class="jd-descrcol" width="100%">The lock held on the file
 </td>
       </tr>
       
@@ -860,9 +782,21 @@ Summary:
           private
           
           
+          <a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#permissions">permissions</a></td>
+          <td class="jd-descrcol" width="100%">The permissions that the current user has on this file
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#trashedAt">trashedAt</a></td>
-          <td class="jd-descrcol" width="100%">When this file was last moved to the trash
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/File.html#versionNumber">versionNumber</a></td>
+          <td class="jd-descrcol" width="100%">The version of the file
 </td>
       </tr>
       
@@ -878,6 +812,218 @@ Summary:
 <table id="inhfields" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Fields</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.box.model.StandardItem" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.modules.box.model.StandardItem-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../../../../../org/mule/modules/box/model/StandardItem.html">org.mule.modules.box.model.StandardItem</a>
+<div id="inherited-fields-org.mule.modules.box.model.StandardItem">
+  <div id="inherited-fields-org.mule.modules.box.model.StandardItem-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-fields-org.mule.modules.box.model.StandardItem-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#contentCreatedAt">contentCreatedAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item or its contents were originally created (according to the uploader).</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#contentModifiedAt">contentModifiedAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item or its contents were originally created (according to the uploader).</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#createdAt">createdAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item was created
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#createdBy">createdBy</a></td>
+          <td class="jd-descrcol" width="100%">The user who created this item
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#description">description</a></td>
+          <td class="jd-descrcol" width="100%">The description of the item
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#itemStatus">itemStatus</a></td>
+          <td class="jd-descrcol" width="100%">Whether this item is deleted or not
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#modifiedAt">modifiedAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item or its contents were last modified
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#modifiedBy">modifiedBy</a></td>
+          <td class="jd-descrcol" width="100%">The user who last modified this item
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#ownedBy">ownedBy</a></td>
+          <td class="jd-descrcol" width="100%">The user who owns this item
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#parent">parent</a></td>
+          <td class="jd-descrcol" width="100%">The item that contains this one
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#paths">paths</a></td>
+          <td class="jd-descrcol" width="100%">The path of folders to this item, starting at the root
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#purgedAt">purgedAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item or its contents were purged from the trash.</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#sharedLink">sharedLink</a></td>
+          <td class="jd-descrcol" width="100%">The shared link for this item
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Long</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#size">size</a></td>
+          <td class="jd-descrcol" width="100%">The size of the item in bytes
+</td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          List&lt;String&gt;</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#tags">tags</a></td>
+          <td class="jd-descrcol" width="100%">The tags applied to this folder
+</td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#trashedAt">trashedAt</a></td>
+          <td class="jd-descrcol" width="100%">The time the item or its contents were put in the trash.</td>
+      </tr>
+      
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -1050,224 +1196,48 @@ Summary:
             
             
             
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getContentCreatedAt()">getContentCreatedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getContentModifiedAt()">getContentModifiedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getCreatedAt()">getCreatedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getCreatedBy()">getCreatedBy</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getDescription()">getDescription</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getItemStatus()">getItemStatus</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getModifiedAt()">getModifiedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getModifiedBy()">getModifiedBy</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getOwnedBy()">getOwnedBy</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getParent()">getParent</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getPaths()">getPaths</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getPurgedAt()">getPurgedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getSharedLink()">getSharedLink</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             Long</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getSize()">getSize</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getCommentCount()">getCommentCount</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getLock()">getLock</a></span>()</nobr>
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getPermissions()">getPermissions</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1277,23 +1247,7 @@ Summary:
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getTrashedAt()">getTrashedAt</a></span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setContentCreatedAt(java.lang.String)">setContentCreatedAt</a></span>(String contentCreatedAt)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#getVersionNumber()">getVersionNumber</a></span>()</nobr>
         
   </td></tr>
 
@@ -1309,7 +1263,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setContentModifiedAt(java.lang.String)">setContentModifiedAt</a></span>(String contentModifiedAt)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setCommentCount(java.lang.Long)">setCommentCount</a></span>(Long commentCount)</nobr>
         
   </td></tr>
 
@@ -1325,7 +1279,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setCreatedAt(java.lang.String)">setCreatedAt</a></span>(String createdAt)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setLock(org.mule.modules.box.model.Lock)">setLock</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a> lock)</nobr>
         
   </td></tr>
 
@@ -1341,7 +1295,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setCreatedBy(org.mule.modules.box.model.User)">setCreatedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> createdBy)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setPermissions(org.mule.modules.box.model.FilePermissions)">setPermissions</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a> permissions)</nobr>
         
   </td></tr>
 
@@ -1357,167 +1311,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setDescription(java.lang.String)">setDescription</a></span>(String description)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setItemStatus(java.lang.String)">setItemStatus</a></span>(String itemStatus)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setModifiedAt(java.lang.String)">setModifiedAt</a></span>(String modifiedAt)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setModifiedBy(org.mule.modules.box.model.User)">setModifiedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> modifiedBy)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setOwnedBy(org.mule.modules.box.model.User)">setOwnedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> ownedBy)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setParent(org.mule.modules.box.model.Item)">setParent</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a> parent)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setPaths(org.mule.modules.box.model.Entries)">setPaths</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a> paths)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setPurgedAt(java.lang.String)">setPurgedAt</a></span>(String purgedAt)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setSharedLink(org.mule.modules.box.model.SharedLink)">setSharedLink</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a> sharedLink)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setSize(java.lang.Long)">setSize</a></span>(Long size)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setTrashedAt(java.lang.String)">setTrashedAt</a></span>(String trashedAt)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/File.html#setVersionNumber(java.lang.String)">setVersionNumber</a></span>(String versionNumber)</nobr>
         
   </td></tr>
 
@@ -1535,6 +1329,544 @@ Summary:
 <table id="inhmethods" class="jd-sumtable"><tr><th>
   <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
   <div style="clear:left;">Inherited Methods</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.box.model.StandardItem" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.box.model.StandardItem-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  <a href="../../../../../../org/mule/modules/box/model/StandardItem.html">org.mule.modules.box.model.StandardItem</a>
+
+<div id="inherited-methods-org.mule.modules.box.model.StandardItem">
+  <div id="inherited-methods-org.mule.modules.box.model.StandardItem-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.modules.box.model.StandardItem-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getContentCreatedAt()">getContentCreatedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getContentModifiedAt()">getContentModifiedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getCreatedAt()">getCreatedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getCreatedBy()">getCreatedBy</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getDescription()">getDescription</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getItemStatus()">getItemStatus</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getModifiedAt()">getModifiedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getModifiedBy()">getModifiedBy</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getOwnedBy()">getOwnedBy</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getParent()">getParent</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getPaths()">getPaths</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getPurgedAt()">getPurgedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getSharedLink()">getSharedLink</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Long</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getSize()">getSize</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;String&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getTags()">getTags</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#getTrashedAt()">getTrashedAt</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setContentCreatedAt(java.lang.String)">setContentCreatedAt</a></span>(String contentCreatedAt)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setContentModifiedAt(java.lang.String)">setContentModifiedAt</a></span>(String contentModifiedAt)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setCreatedAt(java.lang.String)">setCreatedAt</a></span>(String createdAt)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setCreatedBy(org.mule.modules.box.model.User)">setCreatedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> createdBy)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setDescription(java.lang.String)">setDescription</a></span>(String description)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setItemStatus(java.lang.String)">setItemStatus</a></span>(String itemStatus)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setModifiedAt(java.lang.String)">setModifiedAt</a></span>(String modifiedAt)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setModifiedBy(org.mule.modules.box.model.User)">setModifiedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> modifiedBy)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setOwnedBy(org.mule.modules.box.model.User)">setOwnedBy</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> ownedBy)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setParent(org.mule.modules.box.model.Item)">setParent</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a> parent)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setPaths(org.mule.modules.box.model.Entries)">setPaths</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a> paths)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setPurgedAt(java.lang.String)">setPurgedAt</a></span>(String purgedAt)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setSharedLink(org.mule.modules.box.model.SharedLink)">setSharedLink</a></span>(<a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a> sharedLink)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setSize(java.lang.Long)">setSize</a></span>(Long size)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setTags(java.util.List<java.lang.String>)">setTags</a></span>(List&lt;String&gt; tags)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/StandardItem.html#setTrashedAt(java.lang.String)">setTrashedAt</a></span>(String trashedAt)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
 
 
 <tr class="api apilevel-" >
@@ -2063,409 +2395,7 @@ From class
 
 
 
-<A NAME="contentCreatedAt"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        contentCreatedAt
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>When the content of this file was created
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="contentModifiedAt"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        contentModifiedAt
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>When the content of this file was last modified
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="createdAt"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        createdAt
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>When this file was created on Box’s servers
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="createdBy"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-        createdBy
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The user who first created file
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="description"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        description
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The description of this file
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="itemStatus"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        itemStatus
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Whether this item is deleted or not
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="modifiedAt"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        modifiedAt
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>When this file was last updated on the Box servers
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="modifiedBy"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-        modifiedBy
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The user who last updated this file
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="ownedBy"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-        ownedBy
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The user who owns this file
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="parent"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a>
-      </span>
-        parent
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The folder this file is contained in
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="paths"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a>
-      </span>
-        paths
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The path of folders to this item, starting at the root
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="purgedAt"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        purgedAt
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>When this file will be permanently deleted
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="sharedLink"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a>
-      </span>
-        sharedLink
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="size"></A>
+<A NAME="commentCount"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2475,7 +2405,7 @@ From class
          
         Long
       </span>
-        size
+        commentCount
     </h4>
       <div class="api-level">
         
@@ -2487,7 +2417,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Size of this file in bytes
+  <div class="jd-tagdata jd-tagdescr"><p>The number of comments on a file
 </p></div>
 
     
@@ -2496,7 +2426,69 @@ From class
 
 
 
-<A NAME="trashedAt"></A>
+<A NAME="lock"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        <a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a>
+      </span>
+        lock
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The lock held on the file
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="permissions"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        <a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a>
+      </span>
+        permissions
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>The permissions that the current user has on this file
+</p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="versionNumber"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2506,7 +2498,7 @@ From class
          
         String
       </span>
-        trashedAt
+        versionNumber
     </h4>
       <div class="api-level">
         
@@ -2518,7 +2510,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>When this file was last moved to the trash
+  <div class="jd-tagdata jd-tagdescr"><p>The version of the file
 </p></div>
 
     
@@ -2582,410 +2574,7 @@ From class
 
 
 
-<A NAME="getContentCreatedAt()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getContentCreatedAt</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getContentModifiedAt()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getContentModifiedAt</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getCreatedAt()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getCreatedAt</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getCreatedBy()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-      <span class="sympad">getCreatedBy</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getDescription()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getDescription</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getItemStatus()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getItemStatus</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getModifiedAt()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getModifiedAt</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getModifiedBy()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-      <span class="sympad">getModifiedBy</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getOwnedBy()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a>
-      </span>
-      <span class="sympad">getOwnedBy</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getParent()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a>
-      </span>
-      <span class="sympad">getParent</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getPaths()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a>
-      </span>
-      <span class="sympad">getPaths</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getPurgedAt()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        String
-      </span>
-      <span class="sympad">getPurgedAt</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getSharedLink()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        <a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a>
-      </span>
-      <span class="sympad">getSharedLink</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    </div>
-</div>
-
-
-<A NAME="getSize()"></A>
+<A NAME="getCommentCount()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2997,7 +2586,7 @@ From class
          
         Long
       </span>
-      <span class="sympad">getSize</span>
+      <span class="sympad">getCommentCount</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -3016,7 +2605,69 @@ From class
 </div>
 
 
-<A NAME="getTrashedAt()"></A>
+<A NAME="getLock()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a>
+      </span>
+      <span class="sympad">getLock</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getPermissions()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a>
+      </span>
+      <span class="sympad">getPermissions</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getVersionNumber()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3028,7 +2679,7 @@ From class
          
         String
       </span>
-      <span class="sympad">getTrashedAt</span>
+      <span class="sympad">getVersionNumber</span>
       <span class="normal">()</span>
     </h4>
       <div class="api-level">
@@ -3047,7 +2698,7 @@ From class
 </div>
 
 
-<A NAME="setContentCreatedAt(java.lang.String)"></A>
+<A NAME="setCommentCount(java.lang.Long)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3059,8 +2710,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setContentCreatedAt</span>
-      <span class="normal">(String contentCreatedAt)</span>
+      <span class="sympad">setCommentCount</span>
+      <span class="normal">(Long commentCount)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3077,7 +2728,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>contentCreatedAt</td>
+          <th>commentCount</td>
           <td></td>
         </tr>
       </table>
@@ -3087,7 +2738,7 @@ From class
 </div>
 
 
-<A NAME="setContentModifiedAt(java.lang.String)"></A>
+<A NAME="setLock(org.mule.modules.box.model.Lock)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3099,8 +2750,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setContentModifiedAt</span>
-      <span class="normal">(String contentModifiedAt)</span>
+      <span class="sympad">setLock</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/Lock.html">Lock</a> lock)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3117,7 +2768,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>contentModifiedAt</td>
+          <th>lock</td>
           <td></td>
         </tr>
       </table>
@@ -3127,7 +2778,7 @@ From class
 </div>
 
 
-<A NAME="setCreatedAt(java.lang.String)"></A>
+<A NAME="setPermissions(org.mule.modules.box.model.FilePermissions)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3139,8 +2790,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setCreatedAt</span>
-      <span class="normal">(String createdAt)</span>
+      <span class="sympad">setPermissions</span>
+      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a> permissions)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3157,7 +2808,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>createdAt</td>
+          <th>permissions</td>
           <td></td>
         </tr>
       </table>
@@ -3167,7 +2818,7 @@ From class
 </div>
 
 
-<A NAME="setCreatedBy(org.mule.modules.box.model.User)"></A>
+<A NAME="setVersionNumber(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -3179,8 +2830,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setCreatedBy</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> createdBy)</span>
+      <span class="sympad">setVersionNumber</span>
+      <span class="normal">(String versionNumber)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -3197,447 +2848,7 @@ From class
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>createdBy</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setDescription(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setDescription</span>
-      <span class="normal">(String description)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>description</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setItemStatus(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setItemStatus</span>
-      <span class="normal">(String itemStatus)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>itemStatus</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setModifiedAt(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setModifiedAt</span>
-      <span class="normal">(String modifiedAt)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>modifiedAt</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setModifiedBy(org.mule.modules.box.model.User)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setModifiedBy</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> modifiedBy)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>modifiedBy</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setOwnedBy(org.mule.modules.box.model.User)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setOwnedBy</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/User.html">User</a> ownedBy)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>ownedBy</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setParent(org.mule.modules.box.model.Item)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setParent</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a> parent)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>parent</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setPaths(org.mule.modules.box.model.Entries)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setPaths</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a> paths)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>paths</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setPurgedAt(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setPurgedAt</span>
-      <span class="normal">(String purgedAt)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>purgedAt</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setSharedLink(org.mule.modules.box.model.SharedLink)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setSharedLink</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/model/SharedLink.html">SharedLink</a> sharedLink)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>sharedLink</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setSize(java.lang.Long)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setSize</span>
-      <span class="normal">(Long size)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>size</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setTrashedAt(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setTrashedAt</span>
-      <span class="normal">(String trashedAt)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>trashedAt</td>
+          <th>versionNumber</td>
           <td></td>
         </tr>
       </table>

@@ -117,7 +117,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
 
-  Access
+  FilePermissions
 
 
 | Mule Box Cloud Connector
@@ -310,7 +310,7 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Entries.html">Entries</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Event.html">Event</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/File.html">File</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a></li>
+          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FilePermissions.html">FilePermissions</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FileVersion.html">FileVersion</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/FolderPermissions.html">FolderPermissions</a></li>
@@ -331,7 +331,7 @@
               
     <li><h2>Enums</h2>
       <ul>
-          <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Collaboration.CollaborationStatus.html">Collaboration.CollaborationStatus</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/Role.html">Role</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/model/StreamType.html">StreamType</a></li>
@@ -382,6 +382,8 @@
    
   
   
+   
+  
   
    
   
@@ -394,13 +396,6 @@
   
   
 
-  
-  
-  
-  
-
-  
-   
   
   
   
@@ -415,16 +410,25 @@ Summary:
 
 
 
-  <a href="#enumconstants">Enums</a>
+
+  <a href="#constants">Constants</a>
   
 
 
+  &#124; <a href="#inhconstants">Inherited Constants</a>
+  
 
+
+  &#124; <a href="#lfields">Fields</a>
+  
 
 
   &#124; <a href="#inhfields">Inherited Fields</a>
   
 
+
+  &#124; <a href="#pubctors">Ctors</a>
+  
 
 
 
@@ -454,10 +458,10 @@ Summary:
 <div id="jd-header">
     public
      
-    final 
+     
     
-    enum
-<h1>Access</h1>
+    class
+<h1>FilePermissions</h1>
 
 
 
@@ -466,7 +470,7 @@ Summary:
   
 
   
-    extends Enum&lt;E&nbsp;extends&nbsp;Enum&lt;E&gt;&gt;<br/>
+    extends <a href="../../../../../../java/org/mule/modules/box/model/ItemPermissions.html">ItemPermissions</a><br/>
   
   
   
@@ -494,7 +498,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell">java.lang.Enum&lt;E&nbsp;extends&nbsp;java.lang.Enum&lt;E&gt;&gt;</td>
+        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/model/ItemPermissions.html">org.mule.modules.box.model.ItemPermissions</a></td>
     </tr>
     
 
@@ -504,7 +508,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.box.model.Access</td>
+        <td colspan="1" class="jd-inheritance-class-cell">org.mule.modules.box.model.FilePermissions</td>
     </tr>
     
 
@@ -555,38 +559,101 @@ Summary:
 
 
 
+
+
 <!-- =========== ENUM CONSTANT SUMMARY =========== -->
-<table id="enumconstants" class="jd-sumtable"><tr><th colspan="12">Enum Values</th></tr>
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
+
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>&nbsp;</td>
-        <td class="jd-linkcol">Collaborators&nbsp;</td>
-        <td class="jd-descrcol" width="100%">&nbsp;</td>
+        <td class="jd-typecol">long</td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#serialVersionUID">serialVersionUID</a></td>
+        <td class="jd-descrcol" width="100%"></td>
     </tr>
     
     
-    <tr class=" api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>&nbsp;</td>
-        <td class="jd-linkcol">Company&nbsp;</td>
-        <td class="jd-descrcol" width="100%">&nbsp;</td>
-    </tr>
+
+</table>
+
+
+
+
+
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="inhconstants" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.modules.box.model.ItemPermissions" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.modules.box.model.ItemPermissions-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+<a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html">org.mule.modules.box.model.ItemPermissions</a>
+<div id="inherited-constants-org.mule.modules.box.model.ItemPermissions">
+  <div id="inherited-constants-org.mule.modules.box.model.ItemPermissions-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.modules.box.model.ItemPermissions-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
     
+
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-descrcol"><a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>&nbsp;</td>
-        <td class="jd-linkcol">Open&nbsp;</td>
-        <td class="jd-descrcol" width="100%">&nbsp;</td>
+        <td class="jd-typecol">long</td>
+        <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#serialVersionUID">serialVersionUID</a></td>
+        <td class="jd-descrcol" width="100%"></td>
     </tr>
     
     
+</table>
+  </div>
+</div>
+</td></tr>
 
 
 
 
 
 
+</table>
 
+
+
+
+<!-- =========== FIELD SUMMARY =========== -->
+<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+
+
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#canComment">canComment</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#canPreview">canPreview</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+
+</table>
 
 
 
@@ -601,16 +668,16 @@ Summary:
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-java.lang.Enum" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-java.lang.Enum-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.box.model.ItemPermissions" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.modules.box.model.ItemPermissions-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>From class
-java.lang.Enum
-<div id="inherited-fields-java.lang.Enum">
-  <div id="inherited-fields-java.lang.Enum-list"
+<a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html">org.mule.modules.box.model.ItemPermissions</a>
+<div id="inherited-fields-org.mule.modules.box.model.ItemPermissions">
+  <div id="inherited-fields-org.mule.modules.box.model.ItemPermissions-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-fields-java.lang.Enum-summary" style="display: none;">
+  <div id="inherited-fields-org.mule.modules.box.model.ItemPermissions-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -619,9 +686,9 @@ java.lang.Enum
           <td class="jd-typecol"><nobr>
           private
           
-          final
-          String</nobr></td>
-          <td class="jd-linkcol">name</td>
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canDelete">canDelete</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -630,9 +697,53 @@ java.lang.Enum
           <td class="jd-typecol"><nobr>
           private
           
-          final
-          int</nobr></td>
-          <td class="jd-linkcol">ordinal</td>
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canDownload">canDownload</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canRename">canRename</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canSetShareAccess">canSetShareAccess</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canShare">canShare</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Boolean</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#canUpload">canUpload</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
@@ -647,11 +758,34 @@ java.lang.Enum
 
 
 
-
-
 </table>
 
 
+
+
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<table id="pubctors" class="jd-sumtable"><tr><th colspan="12">Public Constructors</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            </nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#FilePermissions()">FilePermissions</a></span>()</nobr>
+        
+  </td></tr>
+
+
+
+</table>
 
 
 
@@ -669,12 +803,12 @@ java.lang.Enum
             
             
             
-            static
             
-            <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a></nobr>
+            
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/Access.html#valueOf(java.lang.String)">valueOf</a></span>(String name)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#getCanComment()">getCanComment</a></span>()</nobr>
         
   </td></tr>
 
@@ -684,13 +818,45 @@ java.lang.Enum
         <td class="jd-typecol"><nobr>
             
             
-            final
-            static
             
-            <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access[]</a></nobr>
+            
+            
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/Access.html#values()">values</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#getCanPreview()">getCanPreview</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#setCanComment(java.lang.Boolean)">setCanComment</a></span>(Boolean canComment)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/FilePermissions.html#setCanPreview(java.lang.Boolean)">setCanPreview</a></span>(Boolean canPreview)</nobr>
         
   </td></tr>
 
@@ -712,19 +878,19 @@ java.lang.Enum
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Enum" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.lang.Enum-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.box.model.ItemPermissions" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.modules.box.model.ItemPermissions-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  java.lang.Enum
+  <a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html">org.mule.modules.box.model.ItemPermissions</a>
 
-<div id="inherited-methods-java.lang.Enum">
-  <div id="inherited-methods-java.lang.Enum-list"
+<div id="inherited-methods-org.mule.modules.box.model.ItemPermissions">
+  <div id="inherited-methods-org.mule.modules.box.model.ItemPermissions-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-java.lang.Enum-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.modules.box.model.ItemPermissions-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -734,13 +900,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            final
             
             
-            Object</nobr>
+            
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">clone</span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanDelete()">getCanDelete</a></span>()</nobr>
         
   </td></tr>
 
@@ -753,10 +919,10 @@ From class
             
             
             
-            int</nobr>
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">compareTo</span>(Object arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanDownload()">getCanDownload</a></span>()</nobr>
         
   </td></tr>
 
@@ -766,13 +932,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            final
             
             
-            int</nobr>
+            
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">compareTo</span>(E arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanRename()">getCanRename</a></span>()</nobr>
         
   </td></tr>
 
@@ -782,13 +948,13 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            final
             
             
-            boolean</nobr>
+            
+            Boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">equals</span>(Object arg0)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanSetShareAccess()">getCanSetShareAccess</a></span>()</nobr>
         
   </td></tr>
 
@@ -798,77 +964,45 @@ From class
         <td class="jd-typecol"><nobr>
             
             
-            final
+            
+            
+            
+            Boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanShare()">getCanShare</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#getCanUpload()">getCanUpload</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
             
             
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">finalize</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            Class&lt;E&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getDeclaringClass</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            int</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">hashCode</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">name</span>()</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            final
-            
-            
-            int</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">ordinal</span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanDelete(java.lang.Boolean)">setCanDelete</a></span>(Boolean canDelete)</nobr>
         
   </td></tr>
 
@@ -881,10 +1015,10 @@ From class
             
             
             
-            String</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">toString</span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanDownload(java.lang.Boolean)">setCanDownload</a></span>(Boolean canDownload)</nobr>
         
   </td></tr>
 
@@ -895,12 +1029,60 @@ From class
             
             
             
-            static
-            &lt;T&nbsp;extends&nbsp;Enum&lt;T&gt;&gt;
-            T</nobr>
+            
+            
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">valueOf</span>(Class&lt;T&gt; arg0, String arg1)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanRename(java.lang.Boolean)">setCanRename</a></span>(Boolean canRename)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanSetShareAccess(java.lang.Boolean)">setCanSetShareAccess</a></span>(Boolean canSetShareAccess)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanShare(java.lang.Boolean)">setCanShare</a></span>(Boolean canShare)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/model/ItemPermissions.html#setCanUpload(java.lang.Boolean)">setCanUpload</a></span>(Boolean canUpload)</nobr>
         
   </td></tr>
 
@@ -1115,48 +1297,6 @@ From class
 
 
 
-
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-java.lang.Comparable" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-java.lang.Comparable-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From interface
-
-  java.lang.Comparable
-
-<div id="inherited-methods-java.lang.Comparable">
-  <div id="inherited-methods-java.lang.Comparable-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-java.lang.Comparable-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            abstract
-            
-            
-            
-            
-            int</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">compareTo</span>(T arg0)</nobr>
-        
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
-
 </table>
 
 
@@ -1177,110 +1317,165 @@ From interface
 <!-- Enum Values -->
 
 
-<!-- ========= ENUM CONSTANTS DETAIL ======== -->
-<h2>Enum Values</h2>
-
-
-
-
-<A NAME="Collaborators"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>
-      </span>
-        Collaborators
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="Company"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>
-      </span>
-        Company
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="Open"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>
-      </span>
-        Open
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-
 <!-- Constants -->
+
+
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<A NAME="serialVersionUID"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+        static 
+        final 
+        long
+      </span>
+        serialVersionUID
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                2763835017999859145
+                (0x265b1d4e31aabdc9)
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
 
 
 <!-- Fields -->
 
 
+<!-- ========= FIELD DETAIL ======== -->
+<h2>Fields</h2>
+
+
+
+
+<A NAME="canComment"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Boolean
+      </span>
+        canComment
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="canPreview"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Boolean
+      </span>
+        canPreview
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+
 <!-- Public ctors -->
+
+
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<h2>Public Constructors</h2>
+
+
+
+<A NAME="FilePermissions()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        
+      </span>
+      <span class="sympad">FilePermissions</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 
 
 
@@ -1296,20 +1491,82 @@ From interface
 
 
 
-<A NAME="valueOf(java.lang.String)"></A>
+<A NAME="getCanComment()"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
          
          
          
-        <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access</a>
+         
+        Boolean
       </span>
-      <span class="sympad">valueOf</span>
-      <span class="normal">(String name)</span>
+      <span class="sympad">getCanComment</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getCanPreview()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Boolean
+      </span>
+      <span class="sympad">getCanPreview</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="setCanComment(java.lang.Boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setCanComment</span>
+      <span class="normal">(Boolean canComment)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1326,7 +1583,7 @@ From interface
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>name</td>
+          <th>canComment</td>
           <td></td>
         </tr>
       </table>
@@ -1336,20 +1593,20 @@ From interface
 </div>
 
 
-<A NAME="values()"></A>
+<A NAME="setCanPreview(java.lang.Boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
       <span class="normal">
         public 
-        static 
-        final 
          
          
-        <a href="../../../../../../java/org/mule/modules/box/model/Access.html">Access[]</a>
+         
+         
+        void
       </span>
-      <span class="sympad">values</span>
-      <span class="normal">()</span>
+      <span class="sympad">setCanPreview</span>
+      <span class="normal">(Boolean canPreview)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1362,6 +1619,15 @@ From interface
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>canPreview</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>

@@ -1344,7 +1344,7 @@ Summary:
             <a href="../../../../../java/org/mule/modules/box/model/File.html">File</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String)">getFileMetadata</a></span>(String fileId)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String, boolean)">getFileMetadata</a></span>(String fileId, boolean getAllAttributes)</nobr>
         
         <div class="jd-descrdiv">Used to retrieve the metadata about a file.</div>
   
@@ -1380,7 +1380,7 @@ Summary:
             <a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String)">getFolder</a></span>(String folderId)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String, boolean)">getFolder</a></span>(String folderId, boolean getAllAttributes)</nobr>
         
         <div class="jd-descrdiv">Retrieves information about a given folder.</div>
   
@@ -1398,7 +1398,7 @@ Summary:
             <a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String)">getFolderByPath</a></span>(String resourcePath)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String, boolean)">getFolderByPath</a></span>(String resourcePath, boolean getAllAttributes)</nobr>
         
         <div class="jd-descrdiv">Returns the folder information for a given path
  
@@ -4338,7 +4338,7 @@ From class
 </div>
 
 
-<A NAME="getFileMetadata(java.lang.String)"></A>
+<A NAME="getFileMetadata(java.lang.String, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4351,7 +4351,7 @@ From class
         <a href="../../../../../java/org/mule/modules/box/model/File.html">File</a>
       </span>
       <span class="sympad">getFileMetadata</span>
-      <span class="normal">(String fileId)</span>
+      <span class="normal">(String fileId, boolean getAllAttributes)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4372,6 +4372,10 @@ From class
         <tr>
           <th>fileId</td>
           <td>The id of the file you want to inspect</td>
+        </tr>
+        <tr>
+          <th>getAllAttributes</td>
+          <td>Option to retrieve all file attributes or just the default ones</td>
         </tr>
       </table>
   </div>
@@ -4444,7 +4448,7 @@ From class
 </div>
 
 
-<A NAME="getFolder(java.lang.String)"></A>
+<A NAME="getFolder(java.lang.String, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4457,7 +4461,7 @@ From class
         <a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a>
       </span>
       <span class="sympad">getFolder</span>
-      <span class="normal">(String folderId)</span>
+      <span class="normal">(String folderId, boolean getAllAttributes)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4478,7 +4482,11 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>folderId</td>
-          <td>The id of the fodler you want to get. 0 means root</td>
+          <td>The id of the folder you want to get. 0 means root</td>
+        </tr>
+        <tr>
+          <th>getAllAttributes</td>
+          <td>Option to retrieve all folder attributes or just the default ones</td>
         </tr>
       </table>
   </div>
@@ -4492,7 +4500,7 @@ From class
 </div>
 
 
-<A NAME="getFolderByPath(java.lang.String)"></A>
+<A NAME="getFolderByPath(java.lang.String, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -4505,7 +4513,7 @@ From class
         <a href="../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a>
       </span>
       <span class="sympad">getFolderByPath</span>
-      <span class="normal">(String resourcePath)</span>
+      <span class="normal">(String resourcePath, boolean getAllAttributes)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -4526,6 +4534,10 @@ From class
         <tr>
           <th>resourcePath</td>
           <td>The resource to retrieve from Box</td>
+        </tr>
+        <tr>
+          <th>getAllAttributes</td>
+          <td>Option to retrieve all folder attributes or just the default ones</td>
         </tr>
       </table>
   </div>
