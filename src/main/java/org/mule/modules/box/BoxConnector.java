@@ -11,36 +11,29 @@
  */
 package org.mule.modules.box;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.MediaType;
-
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.json.JSONConfiguration;
+import com.sun.jersey.core.impl.provider.entity.FormMultivaluedMapProvider;
+import com.sun.jersey.core.impl.provider.entity.FormProvider;
+import com.sun.jersey.core.impl.provider.entity.InputStreamProvider;
+import com.sun.jersey.core.impl.provider.entity.MimeMultipartProvider;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.file.StreamDataBodyPart;
+import com.sun.jersey.multipart.impl.MultiPartWriter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.mule.MessageExchangePattern;
+import org.mule.RequestContext;
 import org.mule.api.MuleException;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Paged;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.Source;
+import org.mule.api.annotations.*;
 import org.mule.api.annotations.lifecycle.Start;
-import org.mule.api.annotations.oauth.OAuth2;
-import org.mule.api.annotations.oauth.OAuthAccessToken;
-import org.mule.api.annotations.oauth.OAuthConsumerKey;
-import org.mule.api.annotations.oauth.OAuthConsumerSecret;
-import org.mule.api.annotations.oauth.OAuthInvalidateAccessTokenOn;
-import org.mule.api.annotations.oauth.OAuthPostAuthorization;
-import org.mule.api.annotations.oauth.OAuthProtected;
+import org.mule.api.annotations.oauth.*;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.callback.SourceCallback;
@@ -55,50 +48,17 @@ import org.mule.modules.box.jersey.GzipBehaviour;
 import org.mule.modules.box.jersey.MediaTypesBuilderBehaviour;
 import org.mule.modules.box.jersey.json.GsonFactory;
 import org.mule.modules.box.lp.LongPollingClient;
-import org.mule.modules.box.model.Collaboration;
-import org.mule.modules.box.model.Comment;
-import org.mule.modules.box.model.Discussion;
-import org.mule.modules.box.model.EmailAlias;
-import org.mule.modules.box.model.Entries;
-import org.mule.modules.box.model.File;
-import org.mule.modules.box.model.Folder;
-import org.mule.modules.box.model.GetItemsResponse;
-import org.mule.modules.box.model.Item;
-import org.mule.modules.box.model.LongPollingServer;
-import org.mule.modules.box.model.SharedLink;
-import org.mule.modules.box.model.StreamType;
-import org.mule.modules.box.model.ThumbnailSize;
-import org.mule.modules.box.model.User;
-import org.mule.modules.box.model.request.CopyItemRequest;
-import org.mule.modules.box.model.request.CreateFolderRequest;
-import org.mule.modules.box.model.request.CreateSharedLinkRequest;
-import org.mule.modules.box.model.request.RestoreTrashedItemRequest;
-import org.mule.modules.box.model.request.UpdateItemRequest;
-import org.mule.modules.box.model.response.FileVersionResponse;
-import org.mule.modules.box.model.response.GetCollaborationsResponse;
-import org.mule.modules.box.model.response.GetCommentsResponse;
-import org.mule.modules.box.model.response.GetEmailAliasResponse;
-import org.mule.modules.box.model.response.GetEventsResponse;
-import org.mule.modules.box.model.response.GetUsersResponse;
-import org.mule.modules.box.model.response.LongPollingServerResponse;
-import org.mule.modules.box.model.response.SearchResponse;
-import org.mule.modules.box.model.response.UploadFileResponse;
+import org.mule.modules.box.model.*;
+import org.mule.modules.box.model.request.*;
+import org.mule.modules.box.model.response.*;
 import org.mule.streaming.PagingConfiguration;
 import org.mule.streaming.PagingDelegate;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.WebResource.Builder;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.json.JSONConfiguration;
-import com.sun.jersey.core.impl.provider.entity.FormMultivaluedMapProvider;
-import com.sun.jersey.core.impl.provider.entity.FormProvider;
-import com.sun.jersey.core.impl.provider.entity.InputStreamProvider;
-import com.sun.jersey.core.impl.provider.entity.MimeMultipartProvider;
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.file.StreamDataBodyPart;
-import com.sun.jersey.multipart.impl.MultiPartWriter;
+import javax.ws.rs.core.MediaType;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * Box Cloud Connector for API V2.
@@ -200,6 +160,7 @@ public class BoxConnector {
 
         this.apiResource = this.client.resource(this.baseUrl);
         this.uploadResource = this.uploadClient.resource(this.uploadUrl);
+
     }
 
     private void initJerseyUtil() {
@@ -214,7 +175,8 @@ public class BoxConnector {
     }
 
     @OAuthPostAuthorization
-    public void postAuth() {
+    public void postAuthorize() {
+        RequestContext.getEvent().setFlowVariable("remoteUserId", this.getUser().getLogin());
         for (SourceCallback callback : pendingSubscriptions) {
             this.subscribe(callback);
         }
