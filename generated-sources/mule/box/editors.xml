@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" prefix="box" url="http://www.mulesoft.org/schema/mule/box">
+  <global-cloud-connector metaData="static" connectivityTesting="disabled" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="" localId="parentConfig" icon="" description="" caption="Box" versions="[3.5.0,8.0.0]"></global-cloud-connector>
+  <cloud-connector-message-source supportsOutbound="false" supportsInbound="true" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="false" image="icons/large/box-endpoint-48x32.png" localId="endpoint" icon="icons/small/box-endpoint-24x16.png" description="Box Cloud Connector for API V2." caption="Box (Streaming)" versions="[3.5.0,8.0.0]">
+    <attribute-category description="General." caption="General">
+      <group caption="Generic" id="boxConnectorGeneric">
+        <modeSwitch alwaysCombo="true" description="Operation." caption="Operation" name="Box operations to execute">
+          <mode modeLabel="Listen events" modeId="http://www.mulesoft.org/schema/mule/box/listen-events"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector-message-source>
+  <cloud-connector-message-source inboundLocalName="listen-events" supportsOutbound="false" supportsInbound="true" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-endpoint-48x32.png" localId="listen-events" icon="icons/small/box-endpoint-24x16.png" description="Message source that subscribes to the events long polling server and will
+trigger a new message each time an event is generated.
+
+Such message will have an instance of @{link
+org.mule.modules.box.model.PollingEvent as payload and an inbound
+property called 'boxAccessTokenId' that will carry the accessTokenId of
+the user that owns the event.
+
+This source will not provide the events that are generated, it's just a
+notification that there're new events available. You'll need to use the
+get-events processor to actually get them. Managing the stream position
+while doing so is up to you." caption="Listen Events">
+    <attribute-category description="General." caption="General"></attribute-category>
+  </cloud-connector-message-source>
+  <global-cloud-connector metaData="static" connectivityTesting="disabled" extends="http://www.mulesoft.org/schema/mule/box/parentConfig" abstract="false" image="icons/large/box-connector-48x32.png" localId="config" icon="icons/small/box-connector-24x16.png" description="Global Box configuration information." caption="Box" versions="[3.5.0,8.0.0]">
+    <attribute-category description="Box configuration properties." caption="General">
+      <group caption="Generic" id="boxGenericProperties">
+        <name required="true" description="Give a name to this configuration so it can be later referenced by config-ref." caption="Name" name="name"></name>
+      </group>
+      <group caption="General" id="general">
+        <enum allowsCustom="false" defaultValue="EXCEPTION" description="Action to take when no token is found." caption="On No Token" xsdType="string" name="onNoToken">
+          <option value="EXCEPTION"></option>
+          <option value="STOP_FLOW"></option>
+        </enum>
+        <string defaultValue="https://api.box.com/2.0/" javaType="java.lang.String" required="false" description="The api's base url." caption="Base Url" name="baseUrl"></string>
+        <string javaType="java.lang.String" required="true" description="The OAuth2 client id." caption="Client Id" name="clientId"></string>
+        <string javaType="java.lang.String" required="true" description="The OAuth2 client secret." caption="Client Secret" name="clientSecret"></string>
+        <string defaultValue="https://upload.box.com/api/2.0/files" javaType="java.lang.String" required="false" description="The url of the endpoints dedicated to file uploading operations." caption="Upload Url" name="uploadUrl"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="If set to true, Box will be asked to gzip all its responses." caption="Use Gzip" name="useGzip"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="OAuth." caption="Oauth">
+      <group caption="Oauth Callback Config" id="oauthCallbackConfigGroup">
+        <childElement inplace="true" description="" caption="" name="http://www.mulesoft.org/schema/mule/box/oauth-callback-config"></childElement>
+      </group>
+      <group caption="Oauth Object Store Config" id="oauthStoreConfigGroup">
+        <childElement inplace="true" description="" caption="" name="http://www.mulesoft.org/schema/mule/box/oauth-store-config"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector abstract="true" image="icons/large/box-connector-48x32.png" localId="abstractBoxConnectorGeneric" icon="icons/small/box-connector-24x16.png" description="Interact with Box." caption="Abstractboxconnectorgeneric">
+    <attribute-category description="General." caption="General">
+      <group caption="Generic" id="abstractBoxConnectorGeneric">
+        <globalRef requiredType="http://www.mulesoft.org/schema/mule/box/config" required="true" description="Specify which configuration to use for this invocation." caption="Config Reference" name="config-ref"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" image="icons/large/box-connector-48x32.png" localId="box-connector" icon="icons/small/box-connector-24x16.png" description="Box Cloud Connector for API V2." caption="Box" aliasId="org.mule.tooling.ui.modules.core.pattern.box" versions="[3.5.0,8.0.0]">
+    <attribute-category description="General." caption="General">
+      <group caption="Generic" id="boxConnectorGeneric">
+        <modeSwitch alwaysCombo="true" description="Operation." caption="Operation" name="Box operations to execute">
+          <mode modeLabel="Authorize" modeId="http://www.mulesoft.org/schema/mule/box/authorize"></mode>
+          <mode modeLabel="Unauthorize" modeId="http://www.mulesoft.org/schema/mule/box/unauthorize"></mode>
+          <mode modeLabel="Change primary login" modeId="http://www.mulesoft.org/schema/mule/box/change-primary-login"></mode>
+          <mode modeLabel="Comment discussion" modeId="http://www.mulesoft.org/schema/mule/box/comment-discussion"></mode>
+          <mode modeLabel="Comment file" modeId="http://www.mulesoft.org/schema/mule/box/comment-file"></mode>
+          <mode modeLabel="Copy file" modeId="http://www.mulesoft.org/schema/mule/box/copy-file"></mode>
+          <mode modeLabel="Copy folder" modeId="http://www.mulesoft.org/schema/mule/box/copy-folder"></mode>
+          <mode modeLabel="Create collaboration" modeId="http://www.mulesoft.org/schema/mule/box/create-collaboration"></mode>
+          <mode modeLabel="Create discussion" modeId="http://www.mulesoft.org/schema/mule/box/create-discussion"></mode>
+          <mode modeLabel="Create email alias" modeId="http://www.mulesoft.org/schema/mule/box/create-email-alias"></mode>
+          <mode modeLabel="Create folder" modeId="http://www.mulesoft.org/schema/mule/box/create-folder"></mode>
+          <mode modeLabel="Create user" modeId="http://www.mulesoft.org/schema/mule/box/create-user"></mode>
+          <mode modeLabel="Delete collaboration" modeId="http://www.mulesoft.org/schema/mule/box/delete-collaboration"></mode>
+          <mode modeLabel="Delete comment" modeId="http://www.mulesoft.org/schema/mule/box/delete-comment"></mode>
+          <mode modeLabel="Delete email alias" modeId="http://www.mulesoft.org/schema/mule/box/delete-email-alias"></mode>
+          <mode modeLabel="Delete file" modeId="http://www.mulesoft.org/schema/mule/box/delete-file"></mode>
+          <mode modeLabel="Delete folder" modeId="http://www.mulesoft.org/schema/mule/box/delete-folder"></mode>
+          <mode modeLabel="Delete user" modeId="http://www.mulesoft.org/schema/mule/box/delete-user"></mode>
+          <mode modeLabel="Download" modeId="http://www.mulesoft.org/schema/mule/box/download"></mode>
+          <mode modeLabel="Get collaboration" modeId="http://www.mulesoft.org/schema/mule/box/get-collaboration"></mode>
+          <mode modeLabel="Get comment" modeId="http://www.mulesoft.org/schema/mule/box/get-comment"></mode>
+          <mode modeLabel="Get discussion" modeId="http://www.mulesoft.org/schema/mule/box/get-discussion"></mode>
+          <mode modeLabel="Get discussion comments" modeId="http://www.mulesoft.org/schema/mule/box/get-discussion-comments"></mode>
+          <mode modeLabel="Get email aliases" modeId="http://www.mulesoft.org/schema/mule/box/get-email-aliases"></mode>
+          <mode modeLabel="Get enterprise events" modeId="http://www.mulesoft.org/schema/mule/box/get-enterprise-events"></mode>
+          <mode modeLabel="Get events" modeId="http://www.mulesoft.org/schema/mule/box/get-events"></mode>
+          <mode modeLabel="Get events long polling server" modeId="http://www.mulesoft.org/schema/mule/box/get-events-long-polling-server"></mode>
+          <mode modeLabel="Get file comments" modeId="http://www.mulesoft.org/schema/mule/box/get-file-comments"></mode>
+          <mode modeLabel="Get file metadata" modeId="http://www.mulesoft.org/schema/mule/box/get-file-metadata"></mode>
+          <mode modeLabel="Get file thumbnail" modeId="http://www.mulesoft.org/schema/mule/box/get-file-thumbnail"></mode>
+          <mode modeLabel="Get folder" modeId="http://www.mulesoft.org/schema/mule/box/get-folder"></mode>
+          <mode modeLabel="Get folder by path" modeId="http://www.mulesoft.org/schema/mule/box/get-folder-by-path"></mode>
+          <mode modeLabel="Get folder discussions" modeId="http://www.mulesoft.org/schema/mule/box/get-folder-discussions"></mode>
+          <mode modeLabel="Get folder item" modeId="http://www.mulesoft.org/schema/mule/box/get-folder-item"></mode>
+          <mode modeLabel="Get folder items" modeId="http://www.mulesoft.org/schema/mule/box/get-folder-items"></mode>
+          <mode modeLabel="Get item by path" modeId="http://www.mulesoft.org/schema/mule/box/get-item-by-path"></mode>
+          <mode modeLabel="Get pending collaborations" modeId="http://www.mulesoft.org/schema/mule/box/get-pending-collaborations"></mode>
+          <mode modeLabel="Get trashed file" modeId="http://www.mulesoft.org/schema/mule/box/get-trashed-file"></mode>
+          <mode modeLabel="Get trashed folder" modeId="http://www.mulesoft.org/schema/mule/box/get-trashed-folder"></mode>
+          <mode modeLabel="Get trashed items" modeId="http://www.mulesoft.org/schema/mule/box/get-trashed-items"></mode>
+          <mode modeLabel="Get user" modeId="http://www.mulesoft.org/schema/mule/box/get-user"></mode>
+          <mode modeLabel="Get users" modeId="http://www.mulesoft.org/schema/mule/box/get-users"></mode>
+          <mode modeLabel="Get versions metadata" modeId="http://www.mulesoft.org/schema/mule/box/get-versions-metadata"></mode>
+          <mode modeLabel="Move folder to user" modeId="http://www.mulesoft.org/schema/mule/box/move-folder-to-user"></mode>
+          <mode modeLabel="Perm delete file" modeId="http://www.mulesoft.org/schema/mule/box/perm-delete-file"></mode>
+          <mode modeLabel="Perm delete folder" modeId="http://www.mulesoft.org/schema/mule/box/perm-delete-folder"></mode>
+          <mode modeLabel="Restore trashed file" modeId="http://www.mulesoft.org/schema/mule/box/restore-trashed-file"></mode>
+          <mode modeLabel="Restore trashed folder" modeId="http://www.mulesoft.org/schema/mule/box/restore-trashed-folder"></mode>
+          <mode modeLabel="Search" modeId="http://www.mulesoft.org/schema/mule/box/search"></mode>
+          <mode modeLabel="Share file" modeId="http://www.mulesoft.org/schema/mule/box/share-file"></mode>
+          <mode modeLabel="Share folder" modeId="http://www.mulesoft.org/schema/mule/box/share-folder"></mode>
+          <mode modeLabel="Unshare file" modeId="http://www.mulesoft.org/schema/mule/box/unshare-file"></mode>
+          <mode modeLabel="Unshare folder" modeId="http://www.mulesoft.org/schema/mule/box/unshare-folder"></mode>
+          <mode modeLabel="Update collaboration" modeId="http://www.mulesoft.org/schema/mule/box/update-collaboration"></mode>
+          <mode modeLabel="Update comment" modeId="http://www.mulesoft.org/schema/mule/box/update-comment"></mode>
+          <mode modeLabel="Update discussion" modeId="http://www.mulesoft.org/schema/mule/box/update-discussion"></mode>
+          <mode modeLabel="Update file" modeId="http://www.mulesoft.org/schema/mule/box/update-file"></mode>
+          <mode modeLabel="Update folder" modeId="http://www.mulesoft.org/schema/mule/box/update-folder"></mode>
+          <mode modeLabel="Update user" modeId="http://www.mulesoft.org/schema/mule/box/update-user"></mode>
+          <mode modeLabel="Upload new version path" modeId="http://www.mulesoft.org/schema/mule/box/upload-new-version-path"></mode>
+          <mode modeLabel="Upload new version stream" modeId="http://www.mulesoft.org/schema/mule/box/upload-new-version-stream"></mode>
+          <mode modeLabel="Upload path" modeId="http://www.mulesoft.org/schema/mule/box/upload-path"></mode>
+          <mode modeLabel="Upload stream" modeId="http://www.mulesoft.org/schema/mule/box/upload-stream"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="authorize" icon="icons/small/box-connector-24x16.png" caption="Authorize">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string required="false" description="Any value that you wish to be sent with the callback." caption="State" name="state"></string>
+        <string required="false" description="The URL defined by the Service Provider to obtain an access token." caption="Access Token Url" name="accessTokenUrl"></string>
+        <string required="false" description="The URL defined by the Service Provider where the resource owner will be redirected to grant authorization to the connector." caption="Authorization Url" name="authorizationUrl"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.User" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="change-primary-login" icon="icons/small/box-connector-24x16.png" caption="Change Primary Login">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The new login." caption="Login" name="login"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the user being updated." caption="User Id" name="userId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Comment" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="comment-discussion" icon="icons/small/box-connector-24x16.png" caption="Comment Discussion">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the discussion to comment on." caption="Discussion Id" name="discussionId"></string>
+        <string javaType="java.lang.String" required="true" description="The text of the comment to be posted." caption="Message" name="message"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Comment" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="comment-file" icon="icons/small/box-connector-24x16.png" caption="Comment File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file to be commented on." caption="File Id" name="fileId"></string>
+        <string javaType="java.lang.String" required="true" description="Text of the comment to be posted." caption="Message" name="message"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="copy-file" icon="icons/small/box-connector-24x16.png" caption="Copy File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file you want to copy." caption="File Id" name="fileId"></string>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The if of the target folder. Defaults to the root folder." caption="Target Folder Id" name="targetFolderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="copy-folder" icon="icons/small/box-connector-24x16.png" caption="Copy Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The if od the folder being copied." caption="Folder Id" name="folderId"></string>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the parent folder that will hold the copy. If not provided then the root will be used." caption="Target Folder Id" name="targetFolderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Collaboration" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="create-collaboration" icon="icons/small/box-connector-24x16.png" caption="Create Collaboration">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Collaboration" required="false" caption="Collaboration Reference" name="http://www.mulesoft.org/schema/mule/box/collaboration"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Discussion" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="create-discussion" icon="icons/small/box-connector-24x16.png" caption="Create Discussion">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Discussion" required="false" caption="Discussion Reference" name="http://www.mulesoft.org/schema/mule/box/discussion"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.EmailAlias" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="create-email-alias" icon="icons/small/box-connector-24x16.png" caption="Create Email Alias">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The new email alias." caption="Email" name="email"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the user getting the alias." caption="User Id" name="userId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="create-folder" icon="icons/small/box-connector-24x16.png" caption="Create Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The name of the folder." caption="Folder Name" name="folderName"></string>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the parent folder. If not provided then the root will be used." caption="Parent Id" name="parentId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.User" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="create-user" icon="icons/small/box-connector-24x16.png" caption="Create User">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" required="false" caption="User Reference" name="http://www.mulesoft.org/schema/mule/box/user"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-collaboration" icon="icons/small/box-connector-24x16.png" caption="Delete Collaboration">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the collaboration to be deleted." caption="Collaboration Id" name="collaborationId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-comment" icon="icons/small/box-connector-24x16.png" caption="Delete Comment">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the comment to be deleted." caption="Comment Id" name="commentId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-email-alias" icon="icons/small/box-connector-24x16.png" caption="Delete Email Alias">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the alias being deleted." caption="Email Alias Id" name="emailAliasId"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the user owning the alias." caption="User Id" name="userId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-file" icon="icons/small/box-connector-24x16.png" caption="Delete File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="If provided, it will be used to verify that no newer version of the file is available at box." caption="Etag" name="etag"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the file to be deleted." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-folder" icon="icons/small/box-connector-24x16.png" caption="Delete Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder to be deleted." caption="Folder Id" name="folderId"></string>
+        <boolean defaultValue="true" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Whether to delete this folder if it has items inside of it." caption="Recursive" name="recursive"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="delete-user" icon="icons/small/box-connector-24x16.png" caption="Delete User">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the user being delete." caption="User Id" name="userId"></string>
+        <boolean defaultValue="false" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Whether or not the user should be deleted even if this user still own files." caption="Force" name="force"></boolean>
+        <boolean defaultValue="true" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Determines if the destination user should receive email notification of the transfer." caption="Notify" name="notify"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.io.InputStream" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="download" icon="icons/small/box-connector-24x16.png" caption="Download">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file you want." caption="File Id" name="fileId"></string>
+        <string javaType="java.lang.String" required="false" description="The ID specific version of this file to download." caption="Version" name="version"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Collaboration" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-collaboration" icon="icons/small/box-connector-24x16.png" caption="Get Collaboration">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the collaboration you want." caption="Collaboration Id" name="collaborationId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Comment" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-comment" icon="icons/small/box-connector-24x16.png" caption="Get Comment">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the comment you want." caption="Comment Id" name="commentId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Discussion" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-discussion" icon="icons/small/box-connector-24x16.png" caption="Get Discussion">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the discussion you wnat." caption="Discussion Id" name="discussionId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetCommentsResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-discussion-comments" icon="icons/small/box-connector-24x16.png" caption="Get Discussion Comments">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the discussions which comments you want." caption="Discussion Id" name="discussionId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetEmailAliasResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-email-aliases" icon="icons/small/box-connector-24x16.png" caption="Get Email Aliases">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the user whose aliases you want." caption="User Id" name="userId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetEventsResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-enterprise-events" icon="icons/small/box-connector-24x16.png" caption="Get Enterprise Events">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="A lower bound on the timestamp of the events returned." caption="Created After" name="createdAfter"></string>
+        <string javaType="java.lang.String" required="false" description="An upper bound on the timestamp of the events returned." caption="Created Before" name="createdBefore"></string>
+        <integer step="1" min="0" defaultValue="100" javaType="java.lang.Long" required="false" description="Limits the number of events returned." caption="Limit" name="limit"></integer>
+        <integer step="1" min="0" defaultValue="0" javaType="java.lang.Long" required="false" description="The item at which to start." caption="Offset" name="offset"></integer>
+        <element-controller-list listName="event-types" itemName="event-type" localName="get-enterprise-events-event-types" javaType="java.util.List&lt;java.lang.String&gt;" required="false" description="List of events to filter by." caption="Event Types"></element-controller-list>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetEventsResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-events" icon="icons/small/box-connector-24x16.png" caption="Get Events">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The location in the event stream at which you want to start receiving events. Can specify special case ‘now’ to get 0 events and the latest stream position for initialization." caption="Stream Position" name="streamPosition"></string>
+        <integer step="1" min="0" defaultValue="100" javaType="java.lang.Long" required="false" description="Limits the number of events returned." caption="Limit" name="limit"></integer>
+        <enum allowsCustom="true" defaultValue="all" javaType="org.mule.modules.box.model.StreamType" required="false" supportsExpressions="true" description="Limits the type of events returned." caption="Stream Type" name="streamType">
+          <option value="all"></option>
+          <option value="changes"></option>
+          <option value="sync"></option>
+        </enum>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.LongPollingServer" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-events-long-polling-server" icon="icons/small/box-connector-24x16.png" caption="Get Events Long Polling Server">
+    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetCommentsResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-file-comments" icon="icons/small/box-connector-24x16.png" caption="Get File Comments">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the while which comments you want." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-file-metadata" icon="icons/small/box-connector-24x16.png" caption="Get File Metadata">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file you want to inspect." caption="File Id" name="fileId"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="Option to retrieve all file attributes or just the default ones." caption="Get All Attributes" name="getAllAttributes"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.io.InputStream" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-file-thumbnail" icon="icons/small/box-connector-24x16.png" caption="Get File Thumbnail">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file which thumb you want." caption="File Id" name="fileId"></string>
+        <enum allowsCustom="true" javaType="org.mule.modules.box.model.ThumbnailSize" required="false" supportsExpressions="true" description="The maximum size you're interested in." caption="Max Size" name="maxSize">
+          <option value="px128x128"></option>
+          <option value="px256x256"></option>
+          <option value="px32x32"></option>
+          <option value="px64x64"></option>
+        </enum>
+        <enum allowsCustom="true" javaType="org.mule.modules.box.model.ThumbnailSize" required="false" supportsExpressions="true" description="The minimum size you're interested in." caption="Min Size" name="minSize">
+          <option value="px128x128"></option>
+          <option value="px256x256"></option>
+          <option value="px32x32"></option>
+          <option value="px64x64"></option>
+        </enum>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-folder" icon="icons/small/box-connector-24x16.png" caption="Get Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the folder you want to get. 0 means root." caption="Folder Id" name="folderId"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="Option to retrieve all folder attributes or just the default ones." caption="Get All Attributes" name="getAllAttributes"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-folder-by-path" icon="icons/small/box-connector-24x16.png" caption="Get Folder By Path">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The resource to retrieve from Box." caption="Resource Path" name="resourcePath"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="Option to retrieve all folder attributes or just the default ones." caption="Get All Attributes" name="getAllAttributes"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Entries" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-folder-discussions" icon="icons/small/box-connector-24x16.png" caption="Get Folder Discussions">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder which discussions you want." caption="Folder Id" name="folderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Item" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-folder-item" icon="icons/small/box-connector-24x16.png" caption="Get Folder Item">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the folder you want to inspect. If not provided then the root folder is assumed." caption="Folder Id" name="folderId"></string>
+        <string javaType="java.lang.String" required="true" description="The name you want to test." caption="Resource Name" name="resourceName"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.mule.modules.box.model.Item&gt;" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-folder-items" icon="icons/small/box-connector-24x16.png" caption="Get Folder Items">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the folder you want to inspect. If not provided then the root folder is assumed." caption="Folder Id" name="folderId"></string>
+        <integer step="1" min="0" javaType="java.lang.Long" required="false" description="The maximum amount of items to be returned (default=100, max=1000)." caption="Limit" name="limit"></integer>
+        <integer step="1" min="0" defaultValue="0" javaType="java.lang.Long" required="false" description="Pagination offset (default=0)." caption="Offset" name="offset"></integer>
+      </group>
+      <group caption="Paging" id="paging">
+        <string defaultValue="100" javaType="java.lang.String" required="false" description="The amount of items to fetch on each invocation to the data source." caption="Fetch Size" name="fetchSize"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Item" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-item-by-path" icon="icons/small/box-connector-24x16.png" caption="Get Item By Path">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The resource to retrieve from Box." caption="Resource Path" name="resourcePath"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetCollaborationsResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-pending-collaborations" icon="icons/small/box-connector-24x16.png" caption="Get Pending Collaborations">
+    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-trashed-file" icon="icons/small/box-connector-24x16.png" caption="Get Trashed File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the trashed file you want." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-trashed-folder" icon="icons/small/box-connector-24x16.png" caption="Get Trashed Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder you want." caption="Folder Id" name="folderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.List&lt;org.mule.modules.box.model.Item&gt;" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-trashed-items" icon="icons/small/box-connector-24x16.png" caption="Get Trashed Items">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <integer step="1" min="0" defaultValue="100" javaType="java.lang.Long" required="false" description="The maximum amount of items to be returned (default=100, max=1000)." caption="Limit" name="limit"></integer>
+        <integer step="1" min="0" defaultValue="0" javaType="java.lang.Long" required="false" description="Pagination offset (default=0)." caption="Offset" name="offset"></integer>
+      </group>
+      <group caption="Paging" id="paging">
+        <string defaultValue="100" javaType="java.lang.String" required="false" description="The amount of items to fetch on each invocation to the data source." caption="Fetch Size" name="fetchSize"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.User" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-user" icon="icons/small/box-connector-24x16.png" caption="Get User">
+    <attribute-category description="General." caption="General"></attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.GetUsersResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-users" icon="icons/small/box-connector-24x16.png" caption="Get Users">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="A string used to filter the results to only users starting with the filter_term in either the name or the login." caption="Filter Term" name="filterTerm"></string>
+        <integer step="1" min="0" javaType="java.lang.Long" required="false" description="The number of records to return." caption="Limit" name="limit"></integer>
+        <integer step="1" min="0" javaType="java.lang.Long" required="false" description="The record at which to start." caption="Offset" name="offset"></integer>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.FileVersionResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="get-versions-metadata" icon="icons/small/box-connector-24x16.png" caption="Get Versions Metadata">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file which versions you want to pull." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="move-folder-to-user" icon="icons/small/box-connector-24x16.png" caption="Move Folder To User">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" required="false" caption="Target User Reference" name="http://www.mulesoft.org/schema/mule/box/target-user"></childElement>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the folder to be moved." caption="Folder Id" name="folderId"></string>
+        <boolean defaultValue="true" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Determines if the destination user should receive email notification of the transfer." caption="Notify" name="notify"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="perm-delete-file" icon="icons/small/box-connector-24x16.png" caption="Perm Delete File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file to be permanently deleted." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="perm-delete-folder" icon="icons/small/box-connector-24x16.png" caption="Perm Delete Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder to be permanently deleted." caption="Folder Id" name="folderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="restore-trashed-file" icon="icons/small/box-connector-24x16.png" caption="Restore Trashed File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the trashed file being restored." caption="File Id" name="fileId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.request.RestoreTrashedItemRequest" required="false" caption="Request Reference" name="http://www.mulesoft.org/schema/mule/box/request"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="restore-trashed-folder" icon="icons/small/box-connector-24x16.png" caption="Restore Trashed Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the trashed folder being restored." caption="Folder Id" name="folderId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.request.RestoreTrashedItemRequest" required="false" caption="Request Reference" name="http://www.mulesoft.org/schema/mule/box/request"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.response.SearchResponse" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="search" icon="icons/small/box-connector-24x16.png" caption="Search">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The string to search for; can be matched against item names, descriptions, text content of a file, and other fields of the different item types." caption="Query" name="query"></string>
+        <integer step="1" min="0" defaultValue="30" javaType="java.lang.Long" required="false" description="Number of search results to return." caption="Limit" name="limit"></integer>
+        <integer step="1" min="0" defaultValue="0" javaType="java.lang.Long" required="false" description="The search result at which to start the response." caption="Offset" name="offset"></integer>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="share-file" icon="icons/small/box-connector-24x16.png" caption="Share File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file you want to share." caption="File Id" name="fileId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.SharedLink" required="false" caption="Shared Link Reference" name="http://www.mulesoft.org/schema/mule/box/shared-link"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="share-folder" icon="icons/small/box-connector-24x16.png" caption="Share Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder you want to share." caption="Folder Id" name="folderId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.SharedLink" required="false" caption="Shared Link Reference" name="http://www.mulesoft.org/schema/mule/box/shared-link"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="unauthorize" icon="icons/small/box-connector-24x16.png" caption="Unauthorize">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="unshare-file" icon="icons/small/box-connector-24x16.png" caption="Unshare File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file you want to unshare." caption="File Id" name="fileId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="unshare-folder" icon="icons/small/box-connector-24x16.png" caption="Unshare Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the folder you want to unshare." caption="Folder Id" name="folderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Collaboration" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-collaboration" icon="icons/small/box-connector-24x16.png" caption="Update Collaboration">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Collaboration" required="false" caption="Collaboration Reference" name="http://www.mulesoft.org/schema/mule/box/collaboration"></childElement>
+        <string javaType="java.lang.String" required="true" description="The id of the collaboration to be updated." caption="Collaboration Id" name="collaborationId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Comment" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-comment" icon="icons/small/box-connector-24x16.png" caption="Update Comment">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the comment to be updated." caption="Comment Id" name="commentId"></string>
+        <string javaType="java.lang.String" required="true" description="The new message." caption="New Message" name="newMessage"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Discussion" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-discussion" icon="icons/small/box-connector-24x16.png" caption="Update Discussion">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Discussion" required="false" caption="Discussion Reference" name="http://www.mulesoft.org/schema/mule/box/discussion"></childElement>
+        <string javaType="java.lang.String" required="true" description="The id of the discussion to be updated." caption="Discussion Id" name="discussionId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-file" icon="icons/small/box-connector-24x16.png" caption="Update File">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the file which metadata you want to update." caption="File Id" name="fileId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.request.UpdateItemRequest" required="false" caption="Request Reference" name="http://www.mulesoft.org/schema/mule/box/request"></childElement>
+        <string javaType="java.lang.String" required="false" description="If provided, it will be used to verify that no newer version of the file is available at box." caption="Etag" name="etag"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.Folder" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-folder" icon="icons/small/box-connector-24x16.png" caption="Update Folder">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.request.UpdateItemRequest" required="false" caption="Request Reference" name="http://www.mulesoft.org/schema/mule/box/request"></childElement>
+        <string javaType="java.lang.String" required="false" description="If provided, it will be used to verify that no newer version of the file is available at box." caption="Etag" name="etag"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the folder to be modified." caption="Folder Id" name="folderId"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.User" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="update-user" icon="icons/small/box-connector-24x16.png" caption="Update User">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The id of the user you want to update." caption="User Id" name="userId"></string>
+        <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" required="false" caption="User Reference" name="http://www.mulesoft.org/schema/mule/box/user"></childElement>
+        <boolean defaultValue="true" javaType="java.lang.Boolean" required="false" supportsExpressions="true" description="Whether the user should receive an email when they are rolled out of an enterprise." caption="Notify" name="notify"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="upload-new-version-path" icon="icons/small/box-connector-24x16.png" caption="Upload New Version Path">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Modified At" name="contentModifiedAt"></string>
+        <string javaType="java.lang.String" required="false" description="If provided, it will be used to verify that no newer version of the file is available at box." caption="Etag" name="etag"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the file to be updated." caption="File Id" name="fileId"></string>
+        <string javaType="java.lang.String" required="true" description="New name for the file." caption="Filename" name="filename"></string>
+        <string javaType="java.lang.String" required="true" description="The path of the file in local storage." caption="Path" name="path"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="upload-new-version-stream" icon="icons/small/box-connector-24x16.png" caption="Upload New Version Stream">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string defaultValue="#[payload]" javaType="java.io.InputStream" required="false" description="A  with the contents of the file. This stream will leave this processor in a closed state." caption="Content Reference" name="content-ref"></string>
+        <string javaType="java.lang.String" required="false" description="The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Modified At" name="contentModifiedAt"></string>
+        <string javaType="java.lang.String" required="false" description="If provided, it will be used to verify that no newer version of the file is available at box." caption="Etag" name="etag"></string>
+        <string javaType="java.lang.String" required="true" description="The id of the file to be updated." caption="File Id" name="fileId"></string>
+        <string javaType="java.lang.String" required="true" description="New name for the file." caption="Filename" name="filename"></string>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="upload-path" icon="icons/small/box-connector-24x16.png" caption="Upload Path">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="false" description="The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Created At" name="contentCreatedAt"></string>
+        <string javaType="java.lang.String" required="false" description="The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Modified At" name="contentModifiedAt"></string>
+        <string javaType="java.lang.String" required="true" description="The name you want the file to have at box. If not provided, the name on current storage will be used." caption="Filename" name="filename"></string>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the target folder." caption="Folder Id" name="folderId"></string>
+        <string javaType="java.lang.String" required="true" description="The path of the file in local storage." caption="Path" name="path"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="If true a sha1 hash of the file will be calculated prior to upload. Box will use that hash to verify that the content's hasn't been corrupted." caption="Include Hash" name="includeHash"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="org.mule.modules.box.model.File" metaData="static" extends="http://www.mulesoft.org/schema/mule/box/abstractBoxConnectorGeneric" abstract="true" image="icons/large/box-connector-48x32.png" localId="upload-stream" icon="icons/small/box-connector-24x16.png" caption="Upload Stream">
+    <attribute-category description="General." caption="General">
+      <group caption="General" id="general">
+        <string javaType="java.lang.String" required="true" description="The name you want the file to have at box." caption="Filename" name="filename"></string>
+        <string defaultValue="0" javaType="java.lang.String" required="false" description="The id of the target folder." caption="Folder Id" name="folderId"></string>
+        <string defaultValue="#[payload]" javaType="java.io.InputStream" required="false" description="A  with the contents of the file. This stream will leave this processor in a closed state." caption="Content Reference" name="content-ref"></string>
+        <string javaType="java.lang.String" required="false" description="The time this file was created on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Created At" name="contentCreatedAt"></string>
+        <string javaType="java.lang.String" required="false" description="The time this file was modified on the user’s machine. An example of a valid date is 2012-12-12T10:55:30-08:00." caption="Content Modified At" name="contentModifiedAt"></string>
+        <boolean defaultValue="false" javaType="boolean" required="false" supportsExpressions="true" description="If true a sha1 hash of the file will be calculated prior to upload. Box will use that hash to verify that the content's hasn't been corrupted." caption="Include Hash" name="includeHash"></boolean>
+      </group>
+    </attribute-category>
+    <attribute-category description="Connection" caption="Connection">
+      <group caption="Connection" id="connection">
+        <string javaType="java.lang.String" required="false" description="The id of the access token that will be used to authenticate the call." caption="Access Token Id" name="accessTokenId"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <nested abstract="true" localId="oauth-callback-config" description="" caption="">
+    <string description="The domain name to use when setting up the callback endpoint." caption="Domain" name="domain"></string>
+    <string description="The local port to use when setting up the callback endpoint." caption="Local Port" name="localPort"></string>
+    <string description="The remote port is the port used to build the external callback URL." caption="Remote Port" name="remotePort"></string>
+    <string description="The path to use when setting up the callback endpoint." caption="Path" name="path"></string>
+    <string description="The Http Connector to use when setting up the callback endpoint." caption="Http Connector Reference" name="connector-ref"></string>
+    <string description="A Mule Expression to use as access token id." caption="Default Access Token Id" name="defaultAccessTokenId"></string>
+    <boolean defaultValue="false" fillLine="true" description="Async." caption="Async" name="async"></boolean>
+  </nested>
+  <nested abstract="true" localId="oauth-store-config" description="Configuration element for storage of access tokens" caption="">
+    <string description="Object store reference." caption="Object Store Reference" name="objectStore-ref"></string>
+  </nested>
+  <nested xmlname="accessible-by" abstract="false" localId="accessible-by" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Accessible By Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was last modified." caption="Modified At" name="modifiedAt"></string>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Role" controlled="complex" required="false" supportsExpressions="true" description="This user’s enterprise role." caption="Role" name="role">
+      <option value="admin"></option>
+      <option value="coadmin"></option>
+      <option value="user"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The language of this user." caption="Language" name="language"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The email address this user uses to login." caption="Login" name="login"></string>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The user’s total available space amount in bytes." caption="Space Amount" name="spaceAmount"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The amount of space in use by the user." caption="Space Used" name="spaceUsed"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The maximum individual file size in bytes this user can have." caption="Max Upload Size" name="maxUploadSize"></integer>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this user can see other enterprise users in its contact list." caption="Can See Managed Users" name="canSeeManagedUsers"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user can use Box Sync." caption="Is Sync Enabled" name="isSyncEnabled"></boolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.UserStatus" controlled="complex" required="false" supportsExpressions="true" description="Can be active or inactive." caption="Status" name="status">
+      <option value="active"></option>
+      <option value="inactive"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s job title." caption="Job Title" name="jobTitle"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s address." caption="Address" name="address"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="URL of this user’s avatar image." caption="Avatar Url" name="avatarUrl"></string>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether to exempt this user from Enterprise device limits." caption="Is Exempt From Device Limits" name="isExemptFromDeviceLimits"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user must use two-factor authentication." caption="Is Exempt From Login Verification" name="isExemptFromLoginVerification"></boolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Entity" controlled="complex" required="false" caption="Enterprise Reference" name="http://www.mulesoft.org/schema/mule/box/enterprise"></childElement>
+  </nested>
+  <nested xmlname="collaboration" abstract="false" localId="collaboration" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Collaboration Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" controlled="complex" required="false" caption="Created By Reference" name="http://www.mulesoft.org/schema/mule/box/created-by"></childElement>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this collaboration was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this collaboration was last modified." caption="Modified At" name="modifiedAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this collaboration will expire." caption="Expires At" name="expiresAt"></string>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Collaboration.CollaborationStatus" controlled="complex" required="false" supportsExpressions="true" description="The status of this collab." caption="Status" name="status">
+      <option value="accepted"></option>
+      <option value="pending"></option>
+      <option value="rejected"></option>
+    </enum>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" controlled="complex" required="false" caption="Accessible By Reference" name="http://www.mulesoft.org/schema/mule/box/accessible-by"></childElement>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The level of access this user has." caption="Role" name="role"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="When the status of this collab was changed." caption="Acknowledged At" name="acknowledgedAt"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Item" controlled="complex" required="false" caption="Item Reference" name="http://www.mulesoft.org/schema/mule/box/item"></childElement>
+  </nested>
+  <nested xmlname="created-by" abstract="false" localId="created-by" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Created By Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was last modified." caption="Modified At" name="modifiedAt"></string>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Role" controlled="complex" required="false" supportsExpressions="true" description="This user’s enterprise role." caption="Role" name="role">
+      <option value="admin"></option>
+      <option value="coadmin"></option>
+      <option value="user"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The language of this user." caption="Language" name="language"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The email address this user uses to login." caption="Login" name="login"></string>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The user’s total available space amount in bytes." caption="Space Amount" name="spaceAmount"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The amount of space in use by the user." caption="Space Used" name="spaceUsed"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The maximum individual file size in bytes this user can have." caption="Max Upload Size" name="maxUploadSize"></integer>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this user can see other enterprise users in its contact list." caption="Can See Managed Users" name="canSeeManagedUsers"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user can use Box Sync." caption="Is Sync Enabled" name="isSyncEnabled"></boolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.UserStatus" controlled="complex" required="false" supportsExpressions="true" description="Can be active or inactive." caption="Status" name="status">
+      <option value="active"></option>
+      <option value="inactive"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s job title." caption="Job Title" name="jobTitle"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s address." caption="Address" name="address"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="URL of this user’s avatar image." caption="Avatar Url" name="avatarUrl"></string>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether to exempt this user from Enterprise device limits." caption="Is Exempt From Device Limits" name="isExemptFromDeviceLimits"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user must use two-factor authentication." caption="Is Exempt From Login Verification" name="isExemptFromLoginVerification"></boolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Entity" controlled="complex" required="false" caption="Enterprise Reference" name="http://www.mulesoft.org/schema/mule/box/enterprise"></childElement>
+  </nested>
+  <nested xmlname="discussion" abstract="false" localId="discussion" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Discussion Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Item" controlled="complex" required="false" caption="Parent Reference" name="http://www.mulesoft.org/schema/mule/box/parent"></childElement>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The description of this discussion. 1024 chars max." caption="Description" name="description"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.User" controlled="complex" required="false" caption="Created By Reference" name="http://www.mulesoft.org/schema/mule/box/created-by"></childElement>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this discussion was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this discussion was last modified." caption="Modified At" name="modifiedAt"></string>
+  </nested>
+  <nested xmlname="enterprise" abstract="false" localId="enterprise" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Enterprise Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="String representing the item's type." caption="Type" name="type"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The id of the item." caption="Id" name="id"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The name of the item." caption="Name" name="name"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="A unique string identifying the version of this folder." caption="Etag" name="etag"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="A unique ID for use with the /events endpoint." caption="Sequence Id" name="sequenceId"></string>
+  </nested>
+  <nested xmlname="folder-upload-email" abstract="false" localId="folder-upload-email" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Folder Upload Email Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Access" controlled="complex" required="false" supportsExpressions="true" description="" caption="Access" name="access">
+      <option value="Collaborators"></option>
+      <option value="Company"></option>
+      <option value="Open"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="" caption="Email" name="email"></string>
+  </nested>
+  <nested xmlname="item" abstract="false" localId="item" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Item Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The sha1 hash of this item." caption="Sha1" name="sha1"></string>
+  </nested>
+  <nested xmlname="parent" abstract="false" localId="parent" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Parent Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The sha1 hash of this item." caption="Sha1" name="sha1"></string>
+  </nested>
+  <nested xmlname="permissions" abstract="false" localId="permissions" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Permissions Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="" caption="Preview" name="preview"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="" caption="Download" name="download"></boolean>
+  </nested>
+  <nested xmlname="request" abstract="false" localId="request" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Request Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The name of the folder." caption="Name" name="name"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The description of the folder." caption="Description" name="description"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Item" controlled="complex" required="false" caption="Parent Reference" name="http://www.mulesoft.org/schema/mule/box/parent"></childElement>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The ID of the parent folder." caption="Parent Id" name="parentId"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.SharedLink" controlled="complex" required="false" caption="Shared Link Reference" name="http://www.mulesoft.org/schema/mule/box/shared-link"></childElement>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Access" controlled="complex" required="false" supportsExpressions="true" description="The level of access required for this shared link. Can be open, company, collaborators." caption="Access" name="access">
+      <option value="Collaborators"></option>
+      <option value="Company"></option>
+      <option value="Open"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The day that this link should be disabled at. Timestamps are rounded off to the given day." caption="Unshared At" name="unsharedAt"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Permissions" controlled="complex" required="false" caption="Permissions Reference" name="http://www.mulesoft.org/schema/mule/box/permissions"></childElement>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this link allows downloads." caption="Can Download" name="canDownload"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this link allows previews." caption="Can Preview" name="canPreview"></boolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.FolderUploadEmail" controlled="complex" required="false" caption="Folder Upload Email Reference" name="http://www.mulesoft.org/schema/mule/box/folder-upload-email"></childElement>
+    <element-controller-list listName="tags" itemName="tag" localName="configurable-tags" javaType="java.util.List&lt;java.lang.String&gt;" controlled="complex" required="false" description="The tags to be applied to this folder." caption="Tags"></element-controller-list>
+  </nested>
+  <nested xmlname="shared-link" abstract="false" localId="shared-link" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Shared Link Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Access" controlled="complex" required="false" supportsExpressions="true" description="" caption="Access" name="access">
+      <option value="Collaborators"></option>
+      <option value="Company"></option>
+      <option value="Open"></option>
+    </enum>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="" caption="Password Enabled" name="passwordEnabled"></boolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="" caption="Url" name="url"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="" caption="Download Url" name="downloadUrl"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="" caption="Vanity Url" name="vanityUrl"></string>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="" caption="Preview Count" name="previewCount"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="" caption="Download Count" name="downloadCount"></integer>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="" caption="Unshared At" name="unsharedAt"></string>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Permissions" controlled="complex" required="false" caption="Permissions Reference" name="http://www.mulesoft.org/schema/mule/box/permissions"></childElement>
+  </nested>
+  <nested xmlname="target-user" abstract="false" localId="target-user" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="Target User Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was last modified." caption="Modified At" name="modifiedAt"></string>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Role" controlled="complex" required="false" supportsExpressions="true" description="This user’s enterprise role." caption="Role" name="role">
+      <option value="admin"></option>
+      <option value="coadmin"></option>
+      <option value="user"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The language of this user." caption="Language" name="language"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The email address this user uses to login." caption="Login" name="login"></string>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The user’s total available space amount in bytes." caption="Space Amount" name="spaceAmount"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The amount of space in use by the user." caption="Space Used" name="spaceUsed"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The maximum individual file size in bytes this user can have." caption="Max Upload Size" name="maxUploadSize"></integer>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this user can see other enterprise users in its contact list." caption="Can See Managed Users" name="canSeeManagedUsers"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user can use Box Sync." caption="Is Sync Enabled" name="isSyncEnabled"></boolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.UserStatus" controlled="complex" required="false" supportsExpressions="true" description="Can be active or inactive." caption="Status" name="status">
+      <option value="active"></option>
+      <option value="inactive"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s job title." caption="Job Title" name="jobTitle"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s address." caption="Address" name="address"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="URL of this user’s avatar image." caption="Avatar Url" name="avatarUrl"></string>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether to exempt this user from Enterprise device limits." caption="Is Exempt From Device Limits" name="isExemptFromDeviceLimits"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user must use two-factor authentication." caption="Is Exempt From Login Verification" name="isExemptFromLoginVerification"></boolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Entity" controlled="complex" required="false" caption="Enterprise Reference" name="http://www.mulesoft.org/schema/mule/box/enterprise"></childElement>
+  </nested>
+  <nested xmlname="user" abstract="false" localId="user" description="" caption="">
+    <radioBoolean fillLine="true" description="Provide a reference to a bean or use an expression" caption="Reference or expression" name="useReference"></radioBoolean>
+    <string controlled="useReference" description="" caption="User Reference" name="ref"></string>
+    <radioBoolean fillLine="true" description="Define this element's attributes" caption="Define attributes" name="complex"></radioBoolean>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was created." caption="Created At" name="createdAt"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The time this user was last modified." caption="Modified At" name="modifiedAt"></string>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.Role" controlled="complex" required="false" supportsExpressions="true" description="This user’s enterprise role." caption="Role" name="role">
+      <option value="admin"></option>
+      <option value="coadmin"></option>
+      <option value="user"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The language of this user." caption="Language" name="language"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The email address this user uses to login." caption="Login" name="login"></string>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The user’s total available space amount in bytes." caption="Space Amount" name="spaceAmount"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The amount of space in use by the user." caption="Space Used" name="spaceUsed"></integer>
+    <integer step="1" min="0" javaType="java.lang.Long" controlled="complex" required="false" description="The maximum individual file size in bytes this user can have." caption="Max Upload Size" name="maxUploadSize"></integer>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether this user can see other enterprise users in its contact list." caption="Can See Managed Users" name="canSeeManagedUsers"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user can use Box Sync." caption="Is Sync Enabled" name="isSyncEnabled"></boolean>
+    <enum allowsCustom="true" javaType="org.mule.modules.box.model.UserStatus" controlled="complex" required="false" supportsExpressions="true" description="Can be active or inactive." caption="Status" name="status">
+      <option value="active"></option>
+      <option value="inactive"></option>
+    </enum>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s job title." caption="Job Title" name="jobTitle"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="The user’s address." caption="Address" name="address"></string>
+    <string javaType="java.lang.String" controlled="complex" required="false" description="URL of this user’s avatar image." caption="Avatar Url" name="avatarUrl"></string>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether to exempt this user from Enterprise device limits." caption="Is Exempt From Device Limits" name="isExemptFromDeviceLimits"></boolean>
+    <boolean javaType="java.lang.Boolean" controlled="complex" required="false" supportsExpressions="true" description="Whether or not this user must use two-factor authentication." caption="Is Exempt From Login Verification" name="isExemptFromLoginVerification"></boolean>
+    <childElement allowMultiple="false" inplace="true" javaType="org.mule.modules.box.model.Entity" controlled="complex" required="false" caption="Enterprise Reference" name="http://www.mulesoft.org/schema/mule/box/enterprise"></childElement>
+  </nested>
+</namespace>
