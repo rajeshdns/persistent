@@ -2780,35 +2780,6 @@ while doing so is up to you.</xs:documentation>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="CollaborationStatusEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="accepted">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="pending">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="rejected">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
   <xs:simpleType name="AccessEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -2827,6 +2798,59 @@ while doing so is up to you.</xs:documentation>
             </xs:annotation>
           </xs:enumeration>
           <xs:enumeration value="Collaborators">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="RoleEnumType">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="admin">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="coadmin">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="user">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="UserStatusEnumType">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+    </xs:annotation>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="active">
+            <xs:annotation>
+              <xs:documentation></xs:documentation>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="inactive">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
@@ -2872,48 +2896,24 @@ while doing so is up to you.</xs:documentation>
       </xs:simpleType>
     </xs:union>
   </xs:simpleType>
-  <xs:simpleType name="UserStatusEnumType">
+  <xs:simpleType name="CollaborationStatusEnumType">
     <xs:annotation>
       <xs:documentation></xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="active">
+          <xs:enumeration value="accepted">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-          <xs:enumeration value="inactive">
+          <xs:enumeration value="pending">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>
           </xs:enumeration>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType>
-        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
-      </xs:simpleType>
-    </xs:union>
-  </xs:simpleType>
-  <xs:simpleType name="RoleEnumType">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-    </xs:annotation>
-    <xs:union>
-      <xs:simpleType>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="admin">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="coadmin">
-            <xs:annotation>
-              <xs:documentation></xs:documentation>
-            </xs:annotation>
-          </xs:enumeration>
-          <xs:enumeration value="user">
+          <xs:enumeration value="rejected">
             <xs:annotation>
               <xs:documentation></xs:documentation>
             </xs:annotation>

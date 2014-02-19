@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * A <code>BoxConnectorLifecycleAdapter</code> is a wrapper around {@link BoxConnector } that adds lifecycle methods to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:16:48-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-19T08:18:38-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class BoxConnectorLifecycleAdapter
     extends BoxConnectorMetadataAdapater
     implements Disposable, Initialisable, Startable, Stoppable

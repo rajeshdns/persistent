@@ -24,14 +24,14 @@ import org.slf4j.LoggerFactory;
  * A {@code BoxConnectorOAuthManager} is a wrapper around {@link BoxConnector } that adds access token management capabilities to the pojo.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:16:48-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-19T08:18:38-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class BoxConnectorOAuthManager
     extends BaseOAuth2Manager<OAuth2Adapter>
 {
 
     private static Logger logger = LoggerFactory.getLogger(BoxConnectorOAuthManager.class);
     private final static String MODULE_NAME = "Box";
-    private final static String MODULE_VERSION = "2.5.2-SNAPSHOT";
+    private final static String MODULE_VERSION = "2.5.3-SNAPSHOT";
     private final static String DEVKIT_VERSION = "3.5.0-cascade";
     private final static String DEVKIT_BUILD = "UNNAMED.1791.ad9d188";
 

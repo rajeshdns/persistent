@@ -13,7 +13,7 @@
 '/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-BOXCONNECT-DOC/src/main/java:/opt/j2ee/domains/bamboo.mulesource.com/corp/webapps/atlassian-bamboo/data/atlassian-bamboo-4.0.1/xml-data/build-dir/CLDCONNECT-BOXCONNECT-DOC/target/generated-sources/mule'
 -hdf project.artifactId "mule-module-box"
                         -hdf project.groupId "org.mule.modules"
-                        -hdf project.version "2.5.2-SNAPSHOT"
+                        -hdf project.version "2.5.3-SNAPSHOT"
                         -hdf project.name "Mule Box Cloud Connector"
                         -hdf project.repo.name "MuleSoft Repository"
                         -hdf project.repo.id "mulesoft-releases"

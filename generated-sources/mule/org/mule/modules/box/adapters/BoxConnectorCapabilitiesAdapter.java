@@ -11,7 +11,7 @@ import org.mule.modules.box.BoxConnector;
  * A <code>BoxConnectorCapabilitiesAdapter</code> is a wrapper around {@link BoxConnector } that implements {@link org.mule.api.Capabilities} interface.
  * 
  */
-@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-03T12:16:48-06:00", comments = "Build UNNAMED.1791.ad9d188")
+@Generated(value = "Mule DevKit Version 3.5.0-cascade", date = "2014-02-19T08:18:38-06:00", comments = "Build UNNAMED.1791.ad9d188")
 public class BoxConnectorCapabilitiesAdapter
     extends BoxConnector
     implements Capabilities
