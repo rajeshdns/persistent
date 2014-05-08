@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -211,10 +254,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/agents/package-summary.html">org.mule.modules.box.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/basic/package-summary.html">org.mule.modules.box.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/callback/package-summary.html">org.mule.modules.box.callback</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/config/package-summary.html">org.mule.modules.box.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/connection/package-summary.html">org.mule.modules.box.connection</a></li>
@@ -244,8 +283,6 @@
   <a href="../../../../../../java/org/mule/modules/box/model/transformers/package-summary.html">org.mule.modules.box.model.transformers</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/oauth/package-summary.html">org.mule.modules.box.oauth</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/process/package-summary.html">org.mule.modules.box.process</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/processors/package-summary.html">org.mule.modules.box.processors</a></li>
     <li class="api apilevel-">
@@ -260,9 +297,7 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractConnectedProcessor.html">AbstractConnectedProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractPagedConnectedProcessor.html">AbstractPagedConnectedProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/ChangePrimaryLoginMessageProcessor.html">ChangePrimaryLoginMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/CommentDiscussionMessageProcessor.html">CommentDiscussionMessageProcessor</a></li>
@@ -281,7 +316,6 @@
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/DeleteFolderMessageProcessor.html">DeleteFolderMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/DeleteUserMessageProcessor.html">DeleteUserMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/DownloadMessageProcessor.html">DownloadMessageProcessor</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/EmptyFolderByIdMessageProcessor.html">EmptyFolderByIdMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/GetCollaborationMessageProcessor.html">GetCollaborationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/processors/GetDiscussionCommentsMessageProcessor.html">GetDiscussionCommentsMessageProcessor</a></li>
@@ -375,11 +409,70 @@
   
   
   
+   
+  
   
 
   
    
   
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
+  
+  
+  
+
+  
+   
+  
+  
+   
+  
+  
+  
+
+  
+   
+  
+  
+   
+  
+  
+  
+
+  
+   
+  
+  
+   
+  
+  
+  
+
+  
+   
+  
+  
+   
   
   
   
@@ -395,19 +488,19 @@ Summary:
 
 
 
-
-  <a href="#lfields">Fields</a>
+  <a href="#inhconstants">Inherited Constants</a>
   
 
+
+
+  &#124; <a href="#inhfields">Inherited Fields</a>
+  
 
 
   &#124; <a href="#pubctors">Ctors</a>
   
 
 
-
-  &#124; <a href="#pubmethods">Methods</a>
-  
 
 
 
@@ -444,7 +537,11 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/modules/box/processors/AbstractExpressionEvaluator.html">AbstractExpressionEvaluator</a><br/>
+  
+  
+
+  
+    extends DevkitBasedMessageProcessor<br/>
   
   
   
@@ -464,7 +561,7 @@ Summary:
 
     <tr>
         
-        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
+        <td colspan="4" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -472,11 +569,23 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractExpressionEvaluator.html">org.mule.modules.box.processors.AbstractExpressionEvaluator</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell">org.mule.devkit.processor.ExpressionEvaluatorSupport</td>
     </tr>
     
 
     <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
+        
+            <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
+        
+        <td colspan="2" class="jd-inheritance-class-cell">org.mule.devkit.processor.DevkitBasedMessageProcessor</td>
+    </tr>
+    
+
+    <tr>
+        
+            <td class="jd-inheritance-space">&nbsp;</td>
         
             <td class="jd-inheritance-space">&nbsp;</td>
         
@@ -505,49 +614,6 @@ Summary:
               >
           
             
-              <a href="../../../../../../java/org/mule/modules/box/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;
-            
-          
-      </div>
-      <div id="subclasses-direct-summary"
-              style="display: none;"
-              >
-  <table class="jd-sumtable-expando">
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractMessageProcessor.html">AbstractMessageProcessor</a>&lt;O&gt;</td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
-  </table>
-      </div>
-  </div>
-</td></tr></table>
-
-
-
-<table class="jd-sumtable jd-sumtable-subclasses"><tr><td colspan="12" style="border:none;margin:0;padding:0;">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="subclasses-indirect" class="jd-expando-trigger closed"
-          ><img id="subclasses-indirect-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>Known Indirect Subclasses
-
-  <div id="subclasses-indirect">
-      <div id="subclasses-indirect-list"
-              class="jd-inheritedlinks"
-              
-              >
-          
-            
-            
-              
-                <a href="../../../../../../java/org/mule/modules/box/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;,
-              
-              
-            
-              
-                <a href="../../../../../../java/org/mule/modules/box/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a>,
-              
-              
             
               
                 <a href="../../../../../../java/org/mule/modules/box/processors/ChangePrimaryLoginMessageProcessor.html">ChangePrimaryLoginMessageProcessor</a>,
@@ -612,24 +678,26 @@ Summary:
               
                 <a href="../../../../../../java/org/mule/modules/box/processors/DeleteEmailAliasMessageProcessor.html">DeleteEmailAliasMessageProcessor</a>,
               
+              
+            
+              
+                <a href="../../../../../../java/org/mule/modules/box/processors/DeleteFileMessageProcessor.html">DeleteFileMessageProcessor</a>,
+              
+              
+            
+              
+                <a href="../../../../../../java/org/mule/modules/box/processors/DeleteFolderMessageProcessor.html">DeleteFolderMessageProcessor</a>,
+              
               and
-                <a href="#" onclick="return toggleInherited(document.getElementById('subclasses-indirect', null))">51 others.</a>
+                <a href="#" onclick="return toggleInherited(document.getElementById('subclasses-direct', null))">44 others.</a>
               
             
           
       </div>
-      <div id="subclasses-indirect-summary"
+      <div id="subclasses-direct-summary"
               style="display: none;"
               >
   <table class="jd-sumtable-expando">
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/AbstractListeningMessageProcessor.html">AbstractListeningMessageProcessor</a>&lt;O&gt;</td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/AuthorizeMessageProcessor.html">AuthorizeMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/ChangePrimaryLoginMessageProcessor.html">ChangePrimaryLoginMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">ChangePrimaryLoginMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#changePrimaryLogin(java.lang.String, java.lang.String)">changePrimaryLogin(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
@@ -699,72 +767,64 @@ Summary:
               <td class="jd-descrcol" width="100%">DownloadMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#download(java.lang.String, java.lang.String)">download(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/EmptyFolderByIdMessageProcessor.html">EmptyFolderByIdMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">EmptyFolderByIdMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#emptyFolderById(java.lang.String)">emptyFolderById(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetCollaborationMessageProcessor.html">GetCollaborationMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetCollaborationMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getCollaboration(java.lang.String)">getCollaboration(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetCommentMessageProcessor.html">GetCommentMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetCommentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getComment(java.lang.String)">getComment(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetDiscussionCommentsMessageProcessor.html">GetDiscussionCommentsMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetDiscussionCommentsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getDiscussionComments(java.lang.String)">getDiscussionComments(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetDiscussionMessageProcessor.html">GetDiscussionMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetDiscussionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getDiscussion(java.lang.String)">getDiscussion(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetEmailAliasesMessageProcessor.html">GetEmailAliasesMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetEmailAliasesMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getEmailAliases(java.lang.String)">getEmailAliases(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetEnterpriseEventsMessageProcessor.html">GetEnterpriseEventsMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetEnterpriseEventsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getEnterpriseEvents(java.lang.String, java.lang.String, java.util.List<java.lang.String>, java.lang.Long, java.lang.Long)">getEnterpriseEvents(java.lang.String, java.lang.String, java.util.List, java.lang.Long, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetEventsLongPollingServerMessageProcessor.html">GetEventsLongPollingServerMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetEventsLongPollingServerMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getEventsLongPollingServer()">getEventsLongPollingServer()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetEventsMessageProcessor.html">GetEventsMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetEventsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getEvents(java.lang.String, org.mule.modules.box.model.StreamType, java.lang.Long)">getEvents(java.lang.String, org.mule.modules.box.model.StreamType, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFileCommentsMessageProcessor.html">GetFileCommentsMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetFileCommentsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFileComments(java.lang.String)">getFileComments(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFileMetadataMessageProcessor.html">GetFileMetadataMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetFileMetadataMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String)">getFileMetadata(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFileMetadataMessageProcessor.html">GetFileMetadataMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetFileMetadataMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String, boolean)">getFileMetadata(java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFileThumbnailMessageProcessor.html">GetFileThumbnailMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetFileThumbnailMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFileThumbnail(java.lang.String, org.mule.modules.box.model.ThumbnailSize, org.mule.modules.box.model.ThumbnailSize)">getFileThumbnail(java.lang.String, org.mule.modules.box.model.ThumbnailSize, org.mule.modules.box.model.ThumbnailSize)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderByPathMessageProcessor.html">GetFolderByPathMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetFolderByPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String)">getFolderByPath(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
         <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderByPathMessageProcessor.html">GetFolderByPathMessageProcessor</a></td>
+              <td class="jd-descrcol" width="100%">GetFolderByPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String, boolean)">getFolderByPath(java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderDiscussionsMessageProcessor.html">GetFolderDiscussionsMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetFolderDiscussionsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolderDiscussions(java.lang.String)">getFolderDiscussions(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderItemMessageProcessor.html">GetFolderItemMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetFolderItemMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolderItem(java.lang.String, java.lang.String)">getFolderItem(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderItemsMessageProcessor.html">GetFolderItemsMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetFolderItemsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)">getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetFolderMessageProcessor.html">GetFolderMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String)">getFolder(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">GetFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String, boolean)">getFolder(java.lang.String, boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetItemByPathMessageProcessor.html">GetItemByPathMessageProcessor</a></td>
@@ -783,24 +843,16 @@ Summary:
               <td class="jd-descrcol" width="100%">GetTrashedFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getTrashedFolder(java.lang.String)">getTrashedFolder(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetTrashedItemsMessageProcessor.html">GetTrashedItemsMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">GetTrashedItemsMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getTrashedItems(java.lang.Long, java.lang.Long)">getTrashedItems(java.lang.Long, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
-        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetUserMessageProcessor.html">GetUserMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetUserMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getUser()">getUser()</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetUsersMessageProcessor.html">GetUsersMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetUsersMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getUsers(java.lang.String, java.lang.Long, java.lang.Long)">getUsers(java.lang.String, java.lang.Long, java.lang.Long)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/GetVersionsMetadataMessageProcessor.html">GetVersionsMetadataMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">GetVersionsMetadataMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#getVersionsMetadata(java.lang.String)">getVersionsMetadata(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/sources/ListenEventsMessageSource.html">ListenEventsMessageSource</a></td>
-              <td class="jd-descrcol" width="100%">ListenEventsMessageSource wraps <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#listenEvents(org.mule.api.callback.SourceCallback)">listenEvents(org.mule.api.callback.SourceCallback)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code> as a message source capable of generating Mule events.&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/MoveFolderToUserMessageProcessor.html">MoveFolderToUserMessageProcessor</a></td>
@@ -835,54 +887,50 @@ Summary:
               <td class="jd-descrcol" width="100%">ShareFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)">shareFolder(java.lang.String, org.mule.modules.box.model.SharedLink)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
         <tr class=" api apilevel-" >
-              <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnauthorizeMessageProcessor.html">UnauthorizeMessageProcessor</a></td>
-              <td class="jd-descrcol" width="100%">&nbsp;</td>
-          </tr>
-        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnshareFileMessageProcessor.html">UnshareFileMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UnshareFileMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#unshareFile(java.lang.String)">unshareFile(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UnshareFolderMessageProcessor.html">UnshareFolderMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UnshareFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#unshareFolder(java.lang.String)">unshareFolder(java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateCollaborationMessageProcessor.html">UpdateCollaborationMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateCollaborationMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)">updateCollaboration(org.mule.modules.box.model.Collaboration, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateCommentMessageProcessor.html">UpdateCommentMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateCommentMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateComment(java.lang.String, java.lang.String)">updateComment(java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateDiscussionMessageProcessor.html">UpdateDiscussionMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateDiscussionMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateDiscussion(org.mule.modules.box.model.Discussion, java.lang.String)">updateDiscussion(org.mule.modules.box.model.Discussion, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateFileMessageProcessor.html">UpdateFileMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateFileMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateFile(java.lang.String, org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String)">updateFile(java.lang.String, org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateFolderMessageProcessor.html">UpdateFolderMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateFolderMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateFolder(org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String, java.lang.String)">updateFolder(org.mule.modules.box.model.request.UpdateItemRequest, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UpdateUserMessageProcessor.html">UpdateUserMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UpdateUserMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#updateUser(java.lang.String, org.mule.modules.box.model.User, java.lang.Boolean)">updateUser(java.lang.String, org.mule.modules.box.model.User, java.lang.Boolean)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadNewVersionPathMessageProcessor.html">UploadNewVersionPathMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadNewVersionPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionPath(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadNewVersionStreamMessageProcessor.html">UploadNewVersionStreamMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadNewVersionStreamMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadNewVersionStream(java.io.InputStream, java.lang.String, java.lang.String, java.lang.String, java.lang.String)">uploadNewVersionStream(java.io.InputStream, java.lang.String, java.lang.String, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class="alt-color api apilevel-" >
+        <tr class=" api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadPathMessageProcessor.html">UploadPathMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadPathMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)">uploadPath(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
-        <tr class=" api apilevel-" >
+        <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/box/processors/UploadStreamMessageProcessor.html">UploadStreamMessageProcessor</a></td>
               <td class="jd-descrcol" width="100%">UploadStreamMessageProcessor invokes the <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html#uploadStream(java.lang.String, java.lang.String, java.io.InputStream, boolean, java.lang.String, java.lang.String)">uploadStream(java.lang.String, java.lang.String, java.io.InputStream, boolean, java.lang.String, java.lang.String)</a></code> method in <code><a href="../../../../../../java/org/mule/modules/box/BoxConnector.html">BoxConnector</a></code>.&nbsp;</td>
           </tr>
@@ -890,6 +938,8 @@ Summary:
       </div>
   </div>
 </td></tr></table>
+
+
 
 
 <div class="jd-descr">
@@ -936,11 +986,174 @@ Summary:
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="inhconstants" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Constants</div></th></tr>
+
+
+
+
+
+
+
+
+
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.lifecycle.Disposable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+org.mule.api.lifecycle.Disposable
+<div id="inherited-constants-org.mule.api.lifecycle.Disposable">
+  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol">PHASE_NAME</td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Initialisable" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.lifecycle.Initialisable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+org.mule.api.lifecycle.Initialisable
+<div id="inherited-constants-org.mule.api.lifecycle.Initialisable">
+  <div id="inherited-constants-org.mule.api.lifecycle.Initialisable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.api.lifecycle.Initialisable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol">PHASE_NAME</td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Startable" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.lifecycle.Startable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+org.mule.api.lifecycle.Startable
+<div id="inherited-constants-org.mule.api.lifecycle.Startable">
+  <div id="inherited-constants-org.mule.api.lifecycle.Startable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.api.lifecycle.Startable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol">PHASE_NAME</td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.lifecycle.Stoppable" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.lifecycle.Stoppable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From interface
+org.mule.api.lifecycle.Stoppable
+<div id="inherited-constants-org.mule.api.lifecycle.Stoppable">
+  <div id="inherited-constants-org.mule.api.lifecycle.Stoppable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-constants-org.mule.api.lifecycle.Stoppable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol">PHASE_NAME</td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+</table>
+
+
+
+
+
 
 
 <!-- =========== FIELD SUMMARY =========== -->
-<table id="lfields" class="jd-sumtable"><tr><th colspan="12">Fields</th></tr>
+<table id="inhfields" class="jd-sumtable"><tr><th>
+  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
+  <div style="clear:left;">Inherited Fields</div></th></tr>
 
+
+<tr class="api apilevel-" >
+<td colspan="12">
+
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>From class
+org.mule.devkit.processor.DevkitBasedMessageProcessor
+<div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor">
+  <div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-fields-org.mule.devkit.processor.DevkitBasedMessageProcessor-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
 
     
       <tr class="alt-color api apilevel-" >
@@ -949,27 +1162,78 @@ Summary:
           
           
           String</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#_accessTokenIdType">_accessTokenIdType</a></td>
+          <td class="jd-linkcol">accessTokenId</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
       <tr class=" api apilevel-" >
           <td class="jd-typecol"><nobr>
-          private
+          protected
           
           
-          Object</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#accessTokenId">accessTokenId</a></td>
+          FlowConstruct</nobr></td>
+          <td class="jd-linkcol">flowConstruct</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
       
     
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          Object</nobr></td>
+          <td class="jd-linkcol">moduleObject</td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          protected
+          
+          
+          MuleContext</nobr></td>
+          <td class="jd-linkcol">muleContext</td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          String</nobr></td>
+          <td class="jd-linkcol">operationName</td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </table>
-
-
-
 
 
 
@@ -990,7 +1254,7 @@ Summary:
             </nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#AbstractConnectedProcessor()">AbstractConnectedProcessor</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#AbstractConnectedProcessor(java.lang.String)">AbstractConnectedProcessor</a></span>(String operationName)</nobr>
         
   </td></tr>
 
@@ -1001,53 +1265,6 @@ Summary:
 
 
 
-
-
-<!-- ========== METHOD SUMMARY =========== -->
-<table id="pubmethods" class="jd-sumtable"><tr><th colspan="12">Public Methods</th></tr>
-
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Object</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#getAccessTokenId()">getAccessTokenId</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Retrieves accessTokenId
- 
-</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractConnectedProcessor.html#setAccessTokenId(java.lang.Object)">setAccessTokenId</a></span>(Object value)</nobr>
-        
-        <div class="jd-descrdiv">Sets accessTokenId</div>
-  
-  </td></tr>
-
-
-
-</table>
 
 
 
@@ -1063,19 +1280,19 @@ Summary:
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.box.processors.AbstractExpressionEvaluator" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.box.processors.AbstractExpressionEvaluator-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html">org.mule.modules.box.processors.AbstractExpressionEvaluator</a>
+  org.mule.devkit.processor.DevkitBasedMessageProcessor
 
-<div id="inherited-methods-org.mule.modules.box.processors.AbstractExpressionEvaluator">
-  <div id="inherited-methods-org.mule.modules.box.processors.AbstractExpressionEvaluator-list"
+<div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor">
+  <div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.modules.box.processors.AbstractExpressionEvaluator-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.devkit.processor.DevkitBasedMessageProcessor-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -1091,10 +1308,274 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#computeClassHierarchy(java.lang.Class, java.util.List)">computeClassHierarchy</a></span>(Class clazz, List classes)</nobr>
+        <span class="sympad">dispose</span>()</nobr>
         
-        <div class="jd-descrdiv">Get all superclasses and interfaces recursively.</div>
-  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            MuleEvent</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">doProcess</span>(MuleEvent arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">findOrCreate</span>(Class&lt;?&gt; arg0, boolean arg1, MuleEvent arg2)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getAccessTokenId</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            FlowConstruct</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getFlowConstruct</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            MuleContext</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">getMuleContext</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">initialise</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">overwritePayload</span>(MuleEvent arg0, Object arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            MuleEvent</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">process</span>(MuleEvent arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setAccessTokenId</span>(String arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setFlowConstruct</span>(FlowConstruct arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setModuleObject</span>(Object arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            final
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setMuleContext</span>(MuleContext arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">start</span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">stop</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From class
+
+  org.mule.devkit.processor.ExpressionEvaluatorSupport
+
+<div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport">
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.devkit.processor.ExpressionEvaluatorSupport-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">computeClassHierarchy</span>(Class arg0, List arg1)</nobr>
+        
   </td></tr>
 
 
@@ -1109,7 +1590,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#evaluate(org.mule.util.TemplateParser.PatternInfo, org.mule.api.expression.ExpressionManager, org.mule.api.MuleMessage, java.lang.Object)">evaluate</a></span>(TemplateParser.PatternInfo patternInfo, ExpressionManager expressionManager, MuleMessage muleMessage, Object source)</nobr>
+        <span class="sympad">evaluate</span>(TemplateParser.PatternInfo arg0, ExpressionManager arg1, MuleMessage arg2, Object arg3)</nobr>
         
   </td></tr>
 
@@ -1125,7 +1606,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleMessage muleMessage, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -1141,7 +1622,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#evaluateAndTransform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">evaluateAndTransform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">evaluateAndTransform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -1154,10 +1635,10 @@ From class
             
             
             
-            boolean</nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#isAssignableFrom(java.lang.reflect.Type, java.lang.Class)">isAssignableFrom</a></span>(Type expectedType, Class clazz)</nobr>
+        <span class="sympad">getAccessTokenId</span>(MuleEvent arg0, MessageProcessor arg1, OAuth2Manager&lt;?&gt; arg2)</nobr>
         
   </td></tr>
 
@@ -1173,7 +1654,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#isList(java.lang.reflect.Type)">isList</a></span>(Type type)</nobr>
+        <span class="sympad">isAssignableFrom</span>(Type arg0, Class arg1)</nobr>
         
   </td></tr>
 
@@ -1189,10 +1670,8 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#isListClass(java.lang.Class)">isListClass</a></span>(Class clazz)</nobr>
+        <span class="sympad">isList</span>(Type arg0)</nobr>
         
-        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of List</div>
-  
   </td></tr>
 
 
@@ -1207,7 +1686,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#isMap(java.lang.reflect.Type)">isMap</a></span>(Type type)</nobr>
+        <span class="sympad">isListClass</span>(Class arg0)</nobr>
         
   </td></tr>
 
@@ -1223,10 +1702,8 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#isMapClass(java.lang.Class)">isMapClass</a></span>(Class clazz)</nobr>
+        <span class="sympad">isMap</span>(Type arg0)</nobr>
         
-        <div class="jd-descrdiv">Checks whether the specified class parameter is an instance of Map</div>
-  
   </td></tr>
 
 
@@ -1238,10 +1715,10 @@ From class
             
             
             
-            Object</nobr>
+            boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleMessage message, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">isMapClass</span>(Class arg0)</nobr>
         
   </td></tr>
 
@@ -1257,7 +1734,7 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleContext, org.mule.api.MuleEvent, java.lang.reflect.Type, java.lang.String, java.lang.Object)">transform</a></span>(MuleContext muleContext, MuleEvent event, Type expectedType, String expectedMimeType, Object source)</nobr>
+        <span class="sympad">transform</span>(MuleMessage arg0, Type arg1, Object arg2)</nobr>
         
   </td></tr>
 
@@ -1273,7 +1750,23 @@ From class
             Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/processors/AbstractExpressionEvaluator.html#transform(org.mule.api.MuleMessage, java.lang.reflect.Type, java.lang.Object)">transform</a></span>(MuleMessage muleMessage, Type expectedType, Object source)</nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleEvent arg1, Type arg2, String arg3, Object arg4)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(MuleContext arg0, MuleMessage arg1, Type arg2, String arg3, Object arg4)</nobr>
         
   </td></tr>
 
@@ -1486,6 +1979,258 @@ From class
 </td></tr>
 
 
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.construct.FlowConstructAware" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.construct.FlowConstructAware-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.construct.FlowConstructAware
+
+<div id="inherited-methods-org.mule.api.construct.FlowConstructAware">
+  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.construct.FlowConstructAware-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setFlowConstruct</span>(FlowConstruct arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.context.MuleContextAware" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.context.MuleContextAware-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.context.MuleContextAware
+
+<div id="inherited-methods-org.mule.api.context.MuleContextAware">
+  <div id="inherited-methods-org.mule.api.context.MuleContextAware-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.context.MuleContextAware-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setMuleContext</span>(MuleContext arg0)</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Disposable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.lifecycle.Disposable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.lifecycle.Disposable
+
+<div id="inherited-methods-org.mule.api.lifecycle.Disposable">
+  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.lifecycle.Disposable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">dispose</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Initialisable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.lifecycle.Initialisable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.lifecycle.Initialisable
+
+<div id="inherited-methods-org.mule.api.lifecycle.Initialisable">
+  <div id="inherited-methods-org.mule.api.lifecycle.Initialisable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.lifecycle.Initialisable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">initialise</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Startable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.lifecycle.Startable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.lifecycle.Startable
+
+<div id="inherited-methods-org.mule.api.lifecycle.Startable">
+  <div id="inherited-methods-org.mule.api.lifecycle.Startable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.lifecycle.Startable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">start</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
+
+<tr class="api apilevel-" >
+<td colspan="12">
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.lifecycle.Stoppable" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.lifecycle.Stoppable-trigger"
+          src="../../../../../../assets/images/triangle-closed.png"
+          class="jd-expando-trigger-img" /></a>
+From interface
+
+  org.mule.api.lifecycle.Stoppable
+
+<div id="inherited-methods-org.mule.api.lifecycle.Stoppable">
+  <div id="inherited-methods-org.mule.api.lifecycle.Stoppable-list"
+        class="jd-inheritedlinks">
+  </div>
+  <div id="inherited-methods-org.mule.api.lifecycle.Stoppable-summary" style="display: none;">
+    <table class="jd-sumtable-expando">
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            abstract
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">stop</span>()</nobr>
+        
+  </td></tr>
+
+
+</table>
+  </div>
+</div>
+</td></tr>
+
+
 </table>
 
 
@@ -1512,73 +2257,6 @@ From class
 <!-- Fields -->
 
 
-<!-- ========= FIELD DETAIL ======== -->
-<h2>Fields</h2>
-
-
-
-
-<A NAME="_accessTokenIdType"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        String
-      </span>
-        _accessTokenIdType
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="accessTokenId"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        Object
-      </span>
-        accessTokenId
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-
-    
-    </div>
-</div>
-
-
-
-
 <!-- Public ctors -->
 
 
@@ -1587,7 +2265,7 @@ From class
 
 
 
-<A NAME="AbstractConnectedProcessor()"></A>
+<A NAME="AbstractConnectedProcessor(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1600,7 +2278,7 @@ From class
         
       </span>
       <span class="sympad">AbstractConnectedProcessor</span>
-      <span class="normal">()</span>
+      <span class="normal">(String operationName)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1613,6 +2291,15 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>operationName</td>
+          <td></td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
@@ -1628,85 +2315,6 @@ From class
 
 <!-- ========= METHOD DETAIL ======== -->
 <!-- Public methdos -->
-
-<h2>Public Methods</h2>
-
-
-
-<A NAME="getAccessTokenId()"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Object
-      </span>
-      <span class="sympad">getAccessTokenId</span>
-      <span class="normal">()</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Retrieves accessTokenId
- 
-</p></div>
-
-    </div>
-</div>
-
-
-<A NAME="setAccessTokenId(java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setAccessTokenId</span>
-      <span class="normal">(Object value)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Sets accessTokenId</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>value</td>
-          <td>Value to set
-</td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 
 
 

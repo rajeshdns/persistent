@@ -65,6 +65,49 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -211,10 +254,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/agents/package-summary.html">org.mule.modules.box.agents</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/basic/package-summary.html">org.mule.modules.box.basic</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/callback/package-summary.html">org.mule.modules.box.callback</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/config/package-summary.html">org.mule.modules.box.config</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/connection/package-summary.html">org.mule.modules.box.connection</a></li>
@@ -245,8 +284,6 @@
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/oauth/package-summary.html">org.mule.modules.box.oauth</a></li>
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/box/process/package-summary.html">org.mule.modules.box.process</a></li>
-    <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/processors/package-summary.html">org.mule.modules.box.processors</a></li>
     <li class="api apilevel-">
   <a href="../../../../../../java/org/mule/modules/box/sources/package-summary.html">org.mule.modules.box.sources</a></li>
@@ -260,7 +297,6 @@
     <li><h2>Classes</h2>
       <ul>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/box/adapters/BoxConnectorCapabilitiesAdapter.html">BoxConnectorCapabilitiesAdapter</a></li>
-          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/adapters/BoxConnectorHttpCallbackAdapter.html">BoxConnectorHttpCallbackAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/adapters/BoxConnectorLifecycleAdapter.html">BoxConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/adapters/BoxConnectorMetadataAdapater.html">BoxConnectorMetadataAdapater</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/box/adapters/BoxConnectorOAuth2Adapter.html">BoxConnectorOAuth2Adapter</a></li>
@@ -400,7 +436,7 @@ Summary:
   
       implements 
       
-        <a href="../../../../../../java/org/mule/modules/box/basic/Capabilities.html">Capabilities</a> 
+        Capabilities 
       
   
   
@@ -818,7 +854,7 @@ Summary:
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/adapters/BoxConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.modules.box.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/modules/box/basic/Capability.html">Capability</a> capability)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/adapters/BoxConnectorCapabilitiesAdapter.html#isCapableOf(org.mule.api.devkit.capability.ModuleCapability)">isCapableOf</a></span>(ModuleCapability capability)</nobr>
         
         <div class="jd-descrdiv">Returns true if this module implements such capability
  
@@ -1187,25 +1223,6 @@ From class
             
             
             
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#emptyFolderById(java.lang.String)">emptyFolderById</a></span>(String folderId)</nobr>
-        
-        <div class="jd-descrdiv">Delete all the items inside a folder with out actually deleting the
- folder.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1215,7 +1232,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1231,7 +1248,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1247,7 +1264,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1263,7 +1280,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1281,7 +1298,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1299,7 +1316,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1317,7 +1334,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1335,7 +1352,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1353,7 +1370,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1371,7 +1388,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1389,7 +1406,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1408,7 +1425,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1426,7 +1443,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1436,7 +1453,7 @@ From class
             <a href="../../../../../../java/org/mule/modules/box/model/File.html">File</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String)">getFileMetadata</a></span>(String fileId)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFileMetadata(java.lang.String, boolean)">getFileMetadata</a></span>(String fileId, boolean getAllAttributes)</nobr>
         
         <div class="jd-descrdiv">Used to retrieve the metadata about a file.</div>
   
@@ -1444,7 +1461,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1462,24 +1479,6 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="../../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String)">getFolder</a></span>(String folderId)</nobr>
-        
-        <div class="jd-descrdiv">Retrieves information about a given folder.</div>
-  
-  </td></tr>
-
-
-	 
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1490,7 +1489,25 @@ From class
             <a href="../../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String)">getFolderByPath</a></span>(String resourcePath)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolder(java.lang.String, boolean)">getFolder</a></span>(String folderId, boolean getAllAttributes)</nobr>
+        
+        <div class="jd-descrdiv">Retrieves information about a given folder.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="../../../../../../java/org/mule/modules/box/model/Folder.html">Folder</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderByPath(java.lang.String, boolean)">getFolderByPath</a></span>(String resourcePath, boolean getAllAttributes)</nobr>
         
         <div class="jd-descrdiv">Returns the folder information for a given path
  
@@ -1500,7 +1517,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1518,7 +1535,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1537,17 +1554,17 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="../../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></nobr>
+            PagingDelegate&lt;<a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long)">getFolderItems</a></span>(String folderId, Long limit, Long offset)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getFolderItems(java.lang.String, java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)">getFolderItems</a></span>(String folderId, Long limit, Long offset, PagingConfiguration pagingConfiguration)</nobr>
         
         <div class="jd-descrdiv">Retrieves the files and/or folders contained within this folder without
  any other metadata about the folder in the mini format is returned for
@@ -1557,7 +1574,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1571,22 +1588,6 @@ From class
         
         <div class="jd-descrdiv">Returns the item information for a given path.</div>
   
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            String</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getOAuthTokenAccessIdentifier()">getOAuthTokenAccessIdentifier</a></span>()</nobr>
-        
   </td></tr>
 
 
@@ -1654,10 +1655,10 @@ From class
             
             
             
-            <a href="../../../../../../java/org/mule/modules/box/model/GetItemsResponse.html">GetItemsResponse</a></nobr>
+            PagingDelegate&lt;<a href="../../../../../../java/org/mule/modules/box/model/Item.html">Item</a>&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getTrashedItems(java.lang.Long, java.lang.Long)">getTrashedItems</a></span>(Long limit, Long offset)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#getTrashedItems(java.lang.Long, java.lang.Long, org.mule.streaming.PagingConfiguration)">getTrashedItems</a></span>(Long limit, Long offset, PagingConfiguration pagingConfiguration)</nobr>
         
         <div class="jd-descrdiv">Get the folders in the Trash.</div>
   
@@ -1856,7 +1857,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#postAuth()">postAuth</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/box/BoxConnector.html#postAuthorize()">postAuthorize</a></span>()</nobr>
         
   </td></tr>
 
@@ -2488,19 +2489,19 @@ From class
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.box.basic.Capabilities" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.box.basic.Capabilities-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.devkit.capability.Capabilities" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.devkit.capability.Capabilities-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  <a href="../../../../../../org/mule/modules/box/basic/Capabilities.html">org.mule.modules.box.basic.Capabilities</a>
+  org.mule.api.devkit.capability.Capabilities
 
-<div id="inherited-methods-org.mule.modules.box.basic.Capabilities">
-  <div id="inherited-methods-org.mule.modules.box.basic.Capabilities-list"
+<div id="inherited-methods-org.mule.api.devkit.capability.Capabilities">
+  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.modules.box.basic.Capabilities-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.devkit.capability.Capabilities-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -2516,11 +2517,8 @@ From interface
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/box/basic/Capabilities.html#isCapableOf(org.mule.modules.box.basic.Capability)">isCapableOf</a></span>(<a href="../../../../../../java/org/mule/modules/box/basic/Capability.html">Capability</a> capability)</nobr>
+        <span class="sympad">isCapableOf</span>(ModuleCapability arg0)</nobr>
         
-        <div class="jd-descrdiv">Returns true if this module implements such
- capability</div>
-  
   </td></tr>
 
 
@@ -2610,7 +2608,7 @@ From interface
 
 
 
-<A NAME="isCapableOf(org.mule.modules.box.basic.Capability)"></A>
+<A NAME="isCapableOf(org.mule.api.devkit.capability.ModuleCapability)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -2623,7 +2621,7 @@ From interface
         boolean
       </span>
       <span class="sympad">isCapableOf</span>
-      <span class="normal">(<a href="../../../../../../java/org/mule/modules/box/basic/Capability.html">Capability</a> capability)</span>
+      <span class="normal">(ModuleCapability capability)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -2643,14 +2641,9 @@ From interface
       <table class="jd-tagtable">
         <tr>
           <th>capability</td>
-          <td>The capability to test for</td>
+          <td></td>
         </tr>
       </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>True if it does, false otherwise
-</li></ul>
   </div>
 
     </div>
