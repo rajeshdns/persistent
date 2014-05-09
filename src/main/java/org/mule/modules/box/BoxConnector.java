@@ -178,7 +178,7 @@ public class BoxConnector {
     public void postAuthorize() {
         //REMOVE THIS: this hack needs to be removed once the connector returns the remote user id
         // by itself in a right way after authorize
-        RequestContext.getEvent().setFlowVariable("OAuthAccessTokenId", this.getUser().getLogin());
+        RequestContext.getEvent().setFlowVariable("remoteUserId", this.getUser().getLogin());
 
         for (SourceCallback callback : pendingSubscriptions) {
             this.subscribe(callback);
