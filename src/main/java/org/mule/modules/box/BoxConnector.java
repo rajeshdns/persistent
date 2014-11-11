@@ -52,7 +52,7 @@ import org.mule.modules.box.model.*;
 import org.mule.modules.box.model.request.*;
 import org.mule.modules.box.model.response.*;
 import org.mule.streaming.PagingConfiguration;
-import org.mule.streaming.PagingDelegate;
+import org.mule.streaming.ProviderAwarePagingDelegate;
 
 import javax.ws.rs.core.MediaType;
 import java.io.ByteArrayInputStream;
@@ -301,7 +301,7 @@ public class BoxConnector {
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     @Paged
-    public PagingDelegate<Item> getTrashedItems(
+    public ProviderAwarePagingDelegate<Item, BoxConnector> getTrashedItems(
     		@Optional @Default("100") Long limit,
     		@Optional @Default("0") Long offset,
     		PagingConfiguration pagingConfiguration) {
@@ -460,11 +460,11 @@ public class BoxConnector {
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     @Paged
-    public PagingDelegate<Item> getFolderItems(
-    		final @Optional @Default("0") String folderId,
-    		final @Optional Long limit,
-    		final @Optional @Default("0") Long offset,
-    		final PagingConfiguration pagingConfiguration) {
+    public ProviderAwarePagingDelegate<Item, BoxConnector> getFolderItems(
+            final @Optional @Default("0") String folderId,
+            final @Optional Long limit,
+            final @Optional @Default("0") Long offset,
+            final PagingConfiguration pagingConfiguration) {
     	
     	if(limit != null && limit < 0){
     		throw new IllegalArgumentException("The limit parameter cannot be a negative number.");
@@ -480,20 +480,23 @@ public class BoxConnector {
     		throw new IllegalArgumentException("The fetchSize value of pagingConfiguration needs to be a positive number.");
     	}
     	
-    	return new PagingDelegate<Item>() {
+        return new ProviderAwarePagingDelegate<Item, BoxConnector>() {
             private Long itemsReturned = 0L;
             private Long initialOffset = offset == null ? 0L : offset;
             private String folderIdValue = StringUtils.isEmpty(folderId) ? "0" : folderId;
+
+            public BoxConnector connector;
             
             @Override
-            public List<Item> getPage() {
+            public List<Item> getPage(BoxConnector boxConnector) {
                 if (this.isLimitReached()) {
                 	return new ArrayList<Item>();
                 }
                 
-                List<Item> items = this.query().getEntries();
+                List<Item> items = this.query(boxConnector).getEntries();
                 itemsReturned += items.size();
-                
+
+                this.connector = boxConnector;
                 return items;
             }
             
@@ -501,13 +504,13 @@ public class BoxConnector {
             	return limit != null && itemsReturned >= limit;
             }
 
-            private GetItemsResponse query() {
+            private GetItemsResponse query(BoxConnector boxConnector) {
             	WebResource resource = apiResource.path("folders").path(folderIdValue).path("items");
 
                 resource = resource.queryParam("offset", this.defineQueryOffset().toString());
                 resource = resource.queryParam("limit", this.defineQueryLimit().toString());
                 
-                return jerseyUtil.get(resource, GetItemsResponse.class, 200);
+                return boxConnector.getJerseyUtil().get(resource, GetItemsResponse.class, 200);
             }
             
             private Long defineQueryOffset(){
@@ -525,12 +528,13 @@ public class BoxConnector {
             }
             
             @Override
-            public int getTotalResults() {
-            	return -1;
-            }
-            
-            @Override
             public void close() throws MuleException {
+            }
+
+            @Override
+            public int getTotalResults(BoxConnector boxConnector) throws Exception
+            {
+                return -1;
             }
         };
     	
@@ -555,17 +559,18 @@ public class BoxConnector {
     @OAuthProtected
     @OAuthInvalidateAccessTokenOn(exception = BoxTokenExpiredException.class)
     public Item getFolderItem(@Optional @Default("0") String folderId, String resourceName) throws Exception {
-        PagingDelegate<Item> delegate = this.getFolderItems(folderId, null, null, new PagingConfiguration(100));
+        ProviderAwarePagingDelegate<Item, BoxConnector> delegate = this.getFolderItems(folderId, null, null, new PagingConfiguration(100));
 
         try {
-        	List<Item> items = delegate.getPage();
+
+        	List<Item> items = delegate.getPage(this);
         	while (!CollectionUtils.isEmpty(items)) {
         		for (Item item : items) {
         			if (resourceName.equals(item.getName())) {
         				return item;
         			}
         		}
-        		items = delegate.getPage();
+        		items = delegate.getPage(this);
         	}
         } finally {
         	delegate.close();
@@ -1990,5 +1995,10 @@ public class BoxConnector {
 
     public void setUseGzip(boolean useGzip) {
         this.useGzip = useGzip;
+    }
+
+    public JerseyUtil getJerseyUtil()
+    {
+        return jerseyUtil;
     }
 }
