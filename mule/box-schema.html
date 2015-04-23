@@ -2281,7 +2281,6 @@ about the user who created the discussion is also included.&lt;/xs:documentation
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;Used to add a collaboration for a single user to a folder. Either an
 email address or a user ID can be used to create the collaboration.
-
 Transferring ownership: To transfer ownership of a folder (as the current
 owner of the folder), first create a collaboration for the new user with
 any role. Then update that collaboration with a role of ���owner���.&lt;/xs:documentation&gt;
@@ -2946,7 +2945,6 @@ as well as filters can be applied to the results.&lt;/xs:documentation&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;Requests access to a long polling server that notifies about events in
 real time.
-
 This is just a request for connection details. A subscription to such
 topic is not made&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
@@ -3008,12 +3006,10 @@ accessible in a given user���s Box account.&lt;/xs:documentation&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;Message source that subscribes to the events long polling server and will
 trigger a new message each time an event is generated.
-
 Such message will have an instance of @{link
 org.mule.modules.box.model.PollingEvent as payload and an inbound
 property called 'boxAccessTokenId' that will carry the accessTokenId of
 the user that owns the event.
-
 This source will not provide the events that are generated, it's just a
 notification that there're new events available. You'll need to use the
 get-events processor to actually get them. Managing the stream position
@@ -3031,6 +3027,35 @@ while doing so is up to you.&lt;/xs:documentation&gt;
       &lt;/xs:extension&gt;
     &lt;/xs:complexContent&gt;
   &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name=&quot;AccessEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;Open&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Company&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Collaborators&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
   &lt;xs:simpleType name=&quot;CollaborationStatusEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
@@ -3123,24 +3148,19 @@ while doing so is up to you.&lt;/xs:documentation&gt;
       &lt;/xs:simpleType&gt;
     &lt;/xs:union&gt;
   &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;AccessEnumType&quot;&gt;
+  &lt;xs:simpleType name=&quot;UserStatusEnumType&quot;&gt;
     &lt;xs:annotation&gt;
       &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
     &lt;/xs:annotation&gt;
     &lt;xs:union&gt;
       &lt;xs:simpleType&gt;
         &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;Open&quot;&gt;
+          &lt;xs:enumeration value=&quot;active&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;Company&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;Collaborators&quot;&gt;
+          &lt;xs:enumeration value=&quot;inactive&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
@@ -3172,30 +3192,6 @@ while doing so is up to you.&lt;/xs:documentation&gt;
           &lt;xs:enumeration value=&quot;sync&quot;&gt;
             &lt;xs:annotation&gt;
               &lt;xs:documentation&gt;tree changes only for sync folders&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-        &lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
-      &lt;/xs:simpleType&gt;
-    &lt;/xs:union&gt;
-  &lt;/xs:simpleType&gt;
-  &lt;xs:simpleType name=&quot;UserStatusEnumType&quot;&gt;
-    &lt;xs:annotation&gt;
-      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-    &lt;/xs:annotation&gt;
-    &lt;xs:union&gt;
-      &lt;xs:simpleType&gt;
-        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
-          &lt;xs:enumeration value=&quot;active&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
-            &lt;/xs:annotation&gt;
-          &lt;/xs:enumeration&gt;
-          &lt;xs:enumeration value=&quot;inactive&quot;&gt;
-            &lt;xs:annotation&gt;
-              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
             &lt;/xs:annotation&gt;
           &lt;/xs:enumeration&gt;
         &lt;/xs:restriction&gt;

@@ -386,7 +386,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#comment-file">&lt;box:comment-file&gt;</a></nobr>
         
         <div class="jd-descrdiv">Used to add a comment by the user to a specific file
- 
+
  </div>
         
   </td></tr>
@@ -408,7 +408,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#copy-folder">&lt;box:copy-folder&gt;</a></nobr>
         
         <div class="jd-descrdiv">Used to create a shared link for this particular folder
- 
+
  </div>
         
   </td></tr>
@@ -451,7 +451,7 @@ Summary:
         
         <div class="jd-descrdiv">Creates a new folder and returns a folder object with all its associated
  information
- 
+
  </div>
         
   </td></tr>
@@ -513,7 +513,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#delete-folder">&lt;box:delete-folder&gt;</a></nobr>
         
         <div class="jd-descrdiv">Deletes a folder
- 
+
  </div>
         
   </td></tr>
@@ -535,7 +535,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#download">&lt;box:download&gt;</a></nobr>
         
         <div class="jd-descrdiv">Downloads a file
- 
+
  </div>
         
   </td></tr>
@@ -668,7 +668,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#get-folder-by-path">&lt;box:get-folder-by-path&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns the folder information for a given path
- 
+
  </div>
         
   </td></tr>
@@ -733,7 +733,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#get-trashed-file">&lt;box:get-trashed-file&gt;</a></nobr>
         
         <div class="jd-descrdiv">Retrieves the metadata of a trashed file
- 
+
  </div>
         
   </td></tr>
@@ -775,7 +775,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#get-users">&lt;box:get-users&gt;</a></nobr>
         
         <div class="jd-descrdiv">Returns a list of all users for the Enterprise
- 
+
  </div>
         
   </td></tr>
@@ -870,7 +870,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#share-folder">&lt;box:share-folder&gt;</a></nobr>
         
         <div class="jd-descrdiv">Used to create a shared link for this particular folder
- 
+
  </div>
         
   </td></tr>
@@ -882,7 +882,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#unshare-file">&lt;box:unshare-file&gt;</a></nobr>
         
         <div class="jd-descrdiv">Deletes the shared link associated to a file
- 
+
  </div>
         
   </td></tr>
@@ -894,7 +894,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#unshare-folder">&lt;box:unshare-folder&gt;</a></nobr>
         
         <div class="jd-descrdiv">Deletes the shared link associated to a folder
- 
+
  </div>
         
   </td></tr>
@@ -967,7 +967,7 @@ Summary:
         
         <div class="jd-descrdiv">Uploads a new version of a file by reading the contents from a path in
  local storage
- 
+
  </div>
         
   </td></tr>
@@ -979,7 +979,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#upload-new-version-stream">&lt;box:upload-new-version-stream&gt;</a></nobr>
         
         <div class="jd-descrdiv">Uploads a new version of a file from an input stream
- 
+
  </div>
         
   </td></tr>
@@ -991,7 +991,7 @@ Summary:
         <span class="sympad"><a href="../mule/box-config.html#upload-path">&lt;box:upload-path&gt;</a></nobr>
         
         <div class="jd-descrdiv">Receives the path of a file in local storage and uploads its content
- 
+
  </div>
         
   </td></tr>
@@ -1372,7 +1372,7 @@ protected operation that uses that token.
       
         Used to convert one of the user’s confirmed email aliases into the user’s
  primary login.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:change-primary-login userId="#[flowVars['userId']]" login="mariano.gonzalez@mulesoft.com"/&gt;</pre></div>
       
   </p></div>
@@ -1466,7 +1466,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to add a comment to a discussion.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:comment-discussion discussionId="#[flowVars['discId']]" message="Hello mule!" /&gt;</pre></div>
       
   </p></div>
@@ -1560,7 +1560,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to add a comment by the user to a specific file
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:comment-file fileId="#[flowVars['fileID']]" message="hello mule!"/&gt;</pre></div>
       
   </p></div>
@@ -1655,7 +1655,7 @@ protected operation that uses that token.
       
         Used to create a copy of a file in another folder. The original version
  of the file will not be altered.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:copy-file fileId="#[flowVars['fileId']]" /&gt;</pre></div>
       
   </p></div>
@@ -1749,7 +1749,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to create a shared link for this particular folder
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:share-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -1845,11 +1845,11 @@ protected operation that uses that token.
       
         Used to add a collaboration for a single user to a folder. Either an
  email address or a user ID can be used to create the collaboration.
- 
+
  Transferring ownership: To transfer ownership of a folder (as the current
  owner of the folder), first create a collaboration for the new user with
  any role. Then update that collaboration with a role of ‘owner’.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:create-collaboration /&gt;</pre></div>
       
   </p></div>
@@ -1931,7 +1931,7 @@ protected operation that uses that token.
       
         Used to create the metadata for a new discussion for a particular folder.
  The parent, id and name attributes of the request object are required
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:create-discussion /&gt;</pre></div>
       
   </p></div>
@@ -2011,7 +2011,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Adds a new email alias to the given user’s account.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:create-email-alias userId="#[flowVars['userId']]" email="mariano.gonzalez@mulesoft.com"/&gt;</pre></div>
       
   </p></div>
@@ -2105,7 +2105,7 @@ protected operation that uses that token.
       
         Creates a new folder and returns a folder object with all its associated
  information
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:create-folder folderName="my new folder" /&gt;</pre></div>
       
   </p></div>
@@ -2201,7 +2201,7 @@ protected operation that uses that token.
       
         Used to provision a new user in an enterprise. This method only works for
  enterprise admins.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:create-user /&gt;</pre></div>
       
   </p></div>
@@ -2282,7 +2282,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to delete a single collaboration.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-collaboration collaborationId="#[flowVars['collabId']]" /&gt;</pre></div>
       
   </p></div>
@@ -2345,7 +2345,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Delets a comment.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-comment commentId="#[flowVars['commentID']]" /&gt;</pre></div>
       
   </p></div>
@@ -2408,7 +2408,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Removes an email alias from a user.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-email-alias userId="#[flowVars['userId']]" emailAliasId="#[flowVars['emailAliasId']]" /&gt;</pre></div>
       
   </p></div>
@@ -2488,7 +2488,7 @@ protected operation that uses that token.
  ‘If-Match’ header to prevent race conditions. Depending on the enterprise
  settings for this user, the item will either be actually deleted from Box
  or moved to the trash.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-file fileId="#[payload.id]" /&gt;</pre></div>
       
   </p></div>
@@ -2566,7 +2566,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Deletes a folder
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -2643,7 +2643,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Deletes a user in an enterprise account.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:delete-user userId="#[flowVars['userId']]" /&gt;</pre></div>
       
   </p></div>
@@ -2736,7 +2736,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Downloads a file
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:download fileId="#[flowVars['fileId']]" /&gt;</pre></div>
       
   </p></div>
@@ -2829,7 +2829,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to get information about a single collaboration.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-collaboration collaborationId="#[flowVars['collabId']]" /&gt;</pre></div>
       
   </p></div>
@@ -2909,7 +2909,7 @@ protected operation that uses that token.
       
         Used to retrieve the message and metadata about a specific comment.
  Information about the user who created the comment is also included.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-comment commentId="#[flowVars['commentID']]" /&gt;</pre></div>
       
   </p></div>
@@ -2990,7 +2990,7 @@ protected operation that uses that token.
       
         Used to retrieve the metadata about a specific discussion. Information
  about the user who created the discussion is also included.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-discussion discussionId="#[flowVars['discId']]" /&gt;</pre></div>
       
   </p></div>
@@ -3070,7 +3070,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to retrieve all comments for a given discussion.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-discussion-comments discussionId="#[flowVars['discId']]" /&gt;</pre></div>
       
   </p></div>
@@ -3151,7 +3151,7 @@ protected operation that uses that token.
       
         Retrieves all email aliases for this user. The collection of email
  aliases does not include the primary login for the user
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-email-aliases userId="#[flowVars['userId']]" /&gt;</pre></div>
       
   </p></div>
@@ -3232,7 +3232,7 @@ protected operation that uses that token.
       
         Retrieves events for all users in an enterprise. Upper and lower bounds
  as well as filters can be applied to the results.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-events streamPosition="0" /&gt;</pre></div>
       
   </p></div>
@@ -3386,7 +3386,7 @@ protected operation that uses that token.
  returned for the user based on the parameters passed in. Parameters
  indicating how many chunks are left as well as the next streamPosition
  are also returned.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-events streamPosition="0" /&gt;</pre></div>
       
   </p></div>
@@ -3497,10 +3497,10 @@ protected operation that uses that token.
       
         Requests access to a long polling server that notifies about events in
  real time.
- 
+
  This is just a request for connection details. A subscription to such
  topic is not made
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-events-long-polling-server /&gt;</pre></div>
       
   </p></div>
@@ -3566,7 +3566,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Retrieves the comments on a particular file, if any exist.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-file-comments fileId="#[flowVars['fileID']]" /&gt;</pre></div>
       
   </p></div>
@@ -3646,7 +3646,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to retrieve the metadata about a file.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-file-metadata fileId="#[flowVars['fileId']]" /&gt;</pre></div>
       
   </p></div>
@@ -3742,7 +3742,7 @@ protected operation that uses that token.
  Sizes of 32x32, 64x64, 128x128, and 256x256 can be returned. Currently
  thumbnails are only available in .png format and will only be generated
  for image file formats.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-file-thumbnail fileId="#[flowVars['fileID']]" minSize="px32x32" maxSize="px64x64"/&gt;</pre></div>
       
   </p></div>
@@ -3851,7 +3851,7 @@ protected operation that uses that token.
       
         Retrieves information about a given folder. If the folderId parameter is
  not provided or equals 0, then the root folder will be returned.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder /&gt;</pre></div>
       
   </p></div>
@@ -3944,7 +3944,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Returns the folder information for a given path
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder-by-path resourcePath="/Download" /&gt;</pre></div>
       
   </p></div>
@@ -4050,7 +4050,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Retrieves the discussions on a particular folder, if any exist.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder-discussions folderId="#[flowVars['folderId']]" /&gt;</pre></div>
       
   </p></div>
@@ -4130,7 +4130,7 @@ protected operation that uses that token.
       
         Traverses a given folder looking for a resource (file or folder) of a
  given name.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder-item resourceName="invoices" /&gt;</pre></div>
       
   </p></div>
@@ -4239,7 +4239,7 @@ protected operation that uses that token.
  any other metadata about the folder in the mini format is returned for
  each item by default. Paginated results can be retrieved using the limit
  and offset parameters.
- 
+
  
       <p>This operation can potentially return a large amount of records that might exceed memory capacity.</p>
       <p>To prevent this from being a problem, the output of this operation is automatically paginated into an iterable collection of objects. Regardless of the page-size, the iterator will be pushing out registries one at a time and fetching next pages on demand. If you wish to take advantage of the pagination, you must process the output through elements that can handle collections, such as a ForEach scope or DataMapper. In this way, Mule will execute the entire set of registries one at a time, but processing only a batch at a time and thus keeping memory usage from going over limits.</p><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-folder-items folderId="#[flowVars['folderID']]" /&gt;</pre></div>
@@ -4379,7 +4379,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Returns the item information for a given path.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-item-by-path resourcePath="/Download/newFile.jpg" /&gt;</pre></div>
       
   </p></div>
@@ -4470,7 +4470,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to retrieve all pending collaboration invites for this user.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-collaboration collaborationId="#[flowVars['collabId']]" /&gt;</pre></div>
       
   </p></div>
@@ -4536,7 +4536,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Retrieves the metadata of a trashed file
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-trashed-file fileId="#[flowVars['fileId']]" /&gt;</pre></div>
       
   </p></div>
@@ -4615,7 +4615,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Retrieves a folder that has been moved to the trash.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-trashed-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -4696,7 +4696,7 @@ protected operation that uses that token.
         Get the folders in the Trash. Retrieves the files and/or folders that
  have been moved to the trash using the mini format. Paginated results can
  be retrieved using the limit and offset parameters.
- 
+
  
       <p>This operation can potentially return a large amount of records that might exceed memory capacity.</p>
       <p>To prevent this from being a problem, the output of this operation is automatically paginated into an iterable collection of objects. Regardless of the page-size, the iterator will be pushing out registries one at a time and fetching next pages on demand. If you wish to take advantage of the pagination, you must process the output through elements that can handle collections, such as a ForEach scope or DataMapper. In this way, Mule will execute the entire set of registries one at a time, but processing only a batch at a time and thus keeping memory usage from going over limits.</p><div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-trashed-items /&gt;</pre></div>
@@ -4822,7 +4822,7 @@ protected operation that uses that token.
       
         Retrieves information about the user who is currently logged in i.e. the
  user for whom this auth token was generated.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-user /&gt;</pre></div>
       
   </p></div>
@@ -4887,7 +4887,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Returns a list of all users for the Enterprise
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-users /&gt;</pre></div>
       
   </p></div>
@@ -4998,7 +4998,7 @@ protected operation that uses that token.
         If there are previous versions of this file, this method can be used to
  retrieve metadata about the older versions. Alert: Versions are only
  tracked for Box users with premium accounts.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:get-file-metadata fileId="#[flowVars['fileId']]" /&gt;</pre></div>
       
   </p></div>
@@ -5083,7 +5083,7 @@ protected operation that uses that token.
  the you have administrative permissions. To move everything from the root
  folder, use 0 (zero) which always represents the root folder of a Box
  account
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:move-folder-to-user /&gt;</pre></div>
       
   </p></div>
@@ -5194,7 +5194,7 @@ protected operation that uses that token.
       
         Permanently deletes an item that is in the trash. The item will no longer
  exist in Box. This action cannot be undone.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:perm-delete-file fileId="#[flowVars['fileID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5258,7 +5258,7 @@ protected operation that uses that token.
       
         Permanently deletes an item that is in the trash. The item will no longer
  exist in Box. This action cannot be undone.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:perm-delete-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5325,7 +5325,7 @@ protected operation that uses that token.
  trash. If that parent folder no longer exists or if there is now an item
  with the same name in that parent folder, the new parent folder and/or
  new name will need to be included in the request.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:restore-trashed-file fileId="#[flowVars['fileID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5425,7 +5425,7 @@ protected operation that uses that token.
  trash. If that parent folder no longer exists or if there is now an item
  with the same name in that parent folder, the new parent folder and/or
  new name will need to be included in the request.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:restore-trashed-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5522,7 +5522,7 @@ protected operation that uses that token.
       
         The search endpoint provides a simple way of finding items that are
  accessible in a given user’s Box account.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:search query="football" /&gt;</pre></div>
       
   </p></div>
@@ -5632,7 +5632,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to create a shared link for this particular file.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:share-file fileId="#[flowVars['fileID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5727,7 +5727,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to create a shared link for this particular folder
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:share-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5822,7 +5822,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Deletes the shared link associated to a file
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:unshare-file fileId="#[flowVars['fileID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5902,7 +5902,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Deletes the shared link associated to a folder
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:unshare-folder folderId="#[flowVars['folderID']]" /&gt;</pre></div>
       
   </p></div>
@@ -5982,7 +5982,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to update an existing collaboration.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-collaboration collaborationId="#[flowVars['collabId']]" /&gt;</pre></div>
       
   </p></div>
@@ -6077,7 +6077,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to update the message of the comment.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-comment commentId="#[flowVars['commentID']]" newMessage="Hello Again Mule!" /&gt;</pre></div>
       
   </p></div>
@@ -6171,7 +6171,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Used to update the metadata for an existing discussion.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-discussion discussionId="#[flowVars['discId']]" /&gt;</pre></div>
       
   </p></div>
@@ -6270,7 +6270,7 @@ protected operation that uses that token.
  change the ID of its parent folder. An optional etag can be provided to
  ensure that client only updates the file if it knows about the latest
  version
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-file fileId="#[payload.id]" /&gt;</pre></div>
       
   </p></div>
@@ -6386,7 +6386,7 @@ protected operation that uses that token.
  If-Match header can be included to ensure that client only updates the
  folder if it knows about the latest version by setting the etag
  attribute.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-folder folderId="#[flowVars['folderId']]" /&gt;</pre></div>
       
   </p></div>
@@ -6500,7 +6500,7 @@ protected operation that uses that token.
  works for enterprise admins. To roll a user out of the enterprise (and
  convert them to a standalone free user), update the special enterprise
  attribute to be null
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:update-user userId="#[flowVars['userId']]" /&gt;</pre></div>
       
   </p></div>
@@ -6610,7 +6610,7 @@ protected operation that uses that token.
       
         Uploads a new version of a file by reading the contents from a path in
  local storage
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:upload-new-version-stream fileId="#[flowVars['fileId']]" filename="myFile.txt" /&gt;</pre></div>
       
   </p></div>
@@ -6748,7 +6748,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Uploads a new version of a file from an input stream
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:upload-new-version-stream fileId="#[flowVars['fileId']]" filename="myFile.txt" /&gt;</pre></div>
       
   </p></div>
@@ -6887,7 +6887,7 @@ protected operation that uses that token.
   <div class="jd-tagdata jd-tagdescr"><p>
       
         Receives the path of a file in local storage and uploads its content
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:upload-path path="hello.txt" filename="hello.txt" /&gt;</pre></div>
       
   </p></div>
@@ -7045,7 +7045,7 @@ protected operation that uses that token.
  You need to take in count that since this is a stream, using the option
  of including a verification hash will cause the contents of the input
  stream to be fully read and loaded in memory.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:upload-stream filename="hello.txt" /&gt;</pre></div>
       
   </p></div>
@@ -7216,17 +7216,17 @@ protected operation that uses that token.
       
         Message source that subscribes to the events long polling server and will
  trigger a new message each time an event is generated.
- 
+
  Such message will have an instance of @{link
  org.mule.modules.box.model.PollingEvent} as payload and an inbound
  property called 'boxAccessTokenId' that will carry the accessTokenId of
  the user that owns the event.
- 
+
  This source will not provide the events that are generated, it's just a
  notification that there're new events available. You'll need to use the
  get-events processor to actually get them. Managing the stream position
  while doing so is up to you.
- 
+
  <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;box:listen-events /&gt;</pre></div>
       
   </p></div>
