@@ -1771,7 +1771,7 @@ public class BoxConnector {
      *         that unsubscribes the long polling server when the app is
      *         stopped.
      */
-    @Source(primaryNodeOnly = true, exchangePattern = MessageExchangePattern.ONE_WAY)
+    @Source(primaryNodeOnly = true)
     public synchronized StopSourceCallback listenEvents(final SourceCallback callback) {
         if (this.accessToken == null || this.accessTokenIdentifier == null) {
             pendingSubscriptions.add(callback);
